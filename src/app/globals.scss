@@ -55,10 +55,15 @@ button {
   cursor: pointer;
 }
 
+svg {
+  cursor: pointer;
+}
+
 span {
   color: rgb(var(--span-color-rgb));
 }
 
 h1 {
   font-family: var(--alliance-mono);
+  cursor: pointer;
 }
