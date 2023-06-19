@@ -3,7 +3,7 @@ import styles from './Search.module.scss';
 const Search = () => {
   return (
     <div
-      className={`${styles.search} flex justify-between items-center mx-auto p-4`}>
+      className={`${styles.search} flex justify-between mx-auto p-4`}>
       <div className={`${styles['user-buttons']} flex flex-1 justify-start`}>
         <button type="button">Random</button>
       </div>
@@ -13,7 +13,7 @@ const Search = () => {
         action="/search"
         method="get">
         <svg
-          style={{ transform: 'translateX(-8.8em) translateY(.3em)' }}
+          style={{ transform: 'translateX(-12.5em) translateY(.3em)' }}
           className="absolute"
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
@@ -43,12 +43,17 @@ const Search = () => {
         </svg>
 
         <input
-          className={`${styles['search-bar']} w-80 h-10`}
+          className={`${styles['search-bar']} w-full h-10`}
           type="text"
           id="search"
           name="q"
-          placeholder="Search the world's creative reference library   ⌘K"
+          placeholder="Search the world's creative reference library"
         />
+        <button
+          style={{ transform: 'translateX(16.5em) translateY(.8em)' }}
+          className="absolute bg-gray-500 border-none text-white inline-block text-xs cursor-text rounded py-0.5 px-1 opacity-70">
+          ⌘K
+        </button>
       </form>
 
       <div

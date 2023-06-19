@@ -1,14 +1,17 @@
 .search {
   /* border: .1px solid; */
-  /* border-bottom: .1px solid; */
+  border-bottom: .1px solid;
   width: 95%;
+  /* height: 10em; */
 }
 
 .search-bar {
   border-radius: 0;
   border: 1px solid rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));
-  text-indent: 2.3em;
+  /* text-indent: 10%; */
+  /* text-indent: 15%; */
+  text-indent: 17%;
   cursor: text;
   box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.5);
   /* box-shadow: 1px 1px 2px 0 rgba(var(--foreground-rgb)); */
@@ -16,5 +19,6 @@
 
 .search-bar::placeholder {
   font-size: .8em;
-  opacity: .75;
+  letter-spacing: .1em;
+  opacity: .55;
 }
