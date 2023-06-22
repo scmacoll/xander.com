@@ -1,0 +1,72 @@
+.contentLayout {
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto;
+  height: auto;
+  width: 90%;
+  column-count: 3;
+  column-gap: .5em;
+  position: relative;
+  /*display: flex;*/
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /*padding-bottom: 15px;*/ 
+  /*width: 100%;*/
+}
+
+.card {
+    display: inline-block;
+    justify-content: center;
+    position: relative;
+    border: .1px solid #888;
+    margin: 0 0 1em;
+    break-inside: avoid;
+    width: clamp(47.5ch, 30%, 75ch);
+    height: auto;
+    font-family: "Zapf Humanist 601", serif;
+    box-sizing: border-box;
+    /*overflow: auto;*/
+    /* width: 416.666px; */
+    /*width: 311.666px;*/
+    /*height: 328.075px;*/
+}
+.cardContent {
+    padding: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+.card:after {
+    background: linear-gradient(
+    transparent,
+    #fff,
+    transparent
+    );
+    height: 70px;
+    width: 1px;
+    position: absolute;
+    left: -1px;
+    top: 65%;
+    opacity: 0;
+    content: '';
+    transition: top 600ms ease,
+    opacity 600ms ease;
+}
+.card:hover:after {
+    top: 25%;
+    opacity: 1;
+}
+
+
+    // <section
+    //   className={`${styles.contentLayout} grid pt-2 mx-auto h-auto grid-cols-3 gap-0.5em`}>
+    //   {tileCards.map((tile, index) => (
+    //     <article
+    //       key={index}
+    //       className={`${styles.card} inline-block justify-center relative h-auto border mb-4 mx-auto break-inside-avoid w-[clamp(47.5ch,30%,75ch)] box-border`}>
+    //       <div className={`${styles.cardContent} p-4 leading-relaxed`}>
+    //         <h3>{tile.title}</h3>
+    //         <p>{tile.text}</p>
+    //       </div>
+    //     </article>
+    //   ))}
+    // </section>

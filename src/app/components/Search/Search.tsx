@@ -61,7 +61,7 @@ const Search = () => {
         <button className="pr-10" type="button">
           Font
         </button>
-        <button type="button">Lang</button>
+        <button type="button">ENG</button>
       </div>
     </div>
   );
