@@ -1,17 +1,25 @@
+// .contentLayout {
+//   align-items: center;
+//   justify-content: center;
+//   margin: 0 auto;
+//   height: auto;
+//   width: 90%;
+//   column-count: 3;
+//   column-gap: .5em;
+//   position: relative;
+//   /*display: flex;*/
+//   justify-content: space-between;
+//   flex-wrap: wrap;
+//   /*padding-bottom: 15px;*/ 
+//   /*width: 100%;*/
+// }
+
 .contentLayout {
-  align-items: center;
-  justify-content: center;
+  width: 95%;
+  text-align: center;
   margin: 0 auto;
-  height: auto;
-  width: 90%;
-  column-count: 3;
+  columns: 3;
   column-gap: .5em;
-  position: relative;
-  /*display: flex;*/
-  justify-content: space-between;
-  flex-wrap: wrap;
-  /*padding-bottom: 15px;*/ 
-  /*width: 100%;*/
 }
 
 .card {
@@ -21,10 +29,11 @@
     border: .1px solid #888;
     margin: 0 0 1em;
     break-inside: avoid;
-    width: clamp(47.5ch, 30%, 75ch);
+    width: clamp(50.5ch, 30%, 75ch);
     height: auto;
     font-family: "Zapf Humanist 601", serif;
     box-sizing: border-box;
+    text-align: start;
     /*overflow: auto;*/
     /* width: 416.666px; */
     /*width: 311.666px;*/
