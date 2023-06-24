@@ -1,0 +1,603 @@
+ [
+    {
+        "quote": "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+        "author": "Nelson Mandela",
+        "tags": "#rebound, #adversity, #persistence"
+    },
+    {
+        "quote": "The way to get started is to quit talking and begin doing.",
+        "author": "Walt Disney",
+        "tags": "#pragmantic, #realist"
+    },
+    {
+        "quote": "Your time is limited, don't waste it living someone else's life.",
+        "author": "Steve Jobs",
+        "tags": "#individualist, #teleology"
+    },
+    {
+        "quote": "If you look at what you have in life, you'll always have more. If you look at what you don't have, you'll never have enough.",
+        "author": "Oprah Winfrey",
+        "tags": "#gratitude, #perspective"
+    },
+    {
+        "quote": "If you set your goals ridiculously high and it's a failure, you will fail above everyone else's success.",
+        "author": "James Cameron",
+        "tags": "#fail up, #ambition"
+    },
+    {
+        "quote": "Life is what happens when you're busy making other plans.",
+        "author": "John Lennon",
+        "tags": "#serendipity, #spontaneity"
+    },
+    {
+        "quote": "The future belongs to those who believe in the beauty of their dreams.",
+        "author": "Eleanor Roosevelt",
+        "tags": "#dreams, #romanticism"
+    },
+    {
+        "quote": "The only limit to the height of your achievements is the reach of your dreams and your willingness to work for them.",
+        "author": "Michelle Obama",
+        "tags": "#dreams, #persistence"
+    },
+    {
+        "quote": "It does not matter how slowly you go as long as you do not stop.",
+        "author": "Confucius",
+        "tags": "#persistence, #long-term gratification"
+    },
+    {
+        "quote": "In the end, we will remember not the words of our enemies, but the silence of our friends.",
+        "author": "Martin Luther King, Jr.",
+        "tags": "#loyalty, trust, #friendship"
+    },
+    {
+        "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+        "author": "Winston Churchill",
+        "tags": "#persistence, #courage"
+    },
+    {
+        "quote": "What you get by achieving your goals is not as important as what you become by achieving your goals.",
+        "author": "Zig Ziglar",
+        "tags": "#self-#actualisation"
+    },
+    {
+        "quote": "The purpose of our lives is to be happy.",
+        "author": "Dalai Lama",
+        "tags": "#mindfulness, #eudaimonia"
+    },
+    {
+        "quote": "The future rewards those who press on. I don't have time to feel sorry for myself. I don't have time to complain. I'm going to press on.",
+        "author": "Barack Obama",
+        "tags": "#pragmantic, #realist, #stoicism"
+    },
+    {
+        "quote": "Do not go where the path may lead, go instead where there is no path and leave a trail.",
+        "author": "Ralph Waldo Emerson",
+        "tags": "#wunderlast, #vagabond, #bohemian, #transcendentalism"
+    },
+    {
+        "quote": "The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.",
+        "author": "Helen Keller",
+        "tags": "#sentimental, #romanticism"
+    },
+    {
+        "quote": "You miss 100% of the shots you don't take.",
+        "author": "Wayne Gretzky",
+        "tags": "#opportunity cost"
+    },
+    {
+        "quote": "In order to write about life first you must live it.",
+        "author": "Ernest Hemingway",
+        "tags": "#phenomenonolgy, #existentialism"
+    },
+    {
+        "quote": "The secret of success is to do the common thing uncommonly well.",
+        "author": "John D. Rockefeller Jr.",
+        "tags": "#paradox, #pragmantic"
+    },
+    {
+        "quote": "Don't watch the clock; do what it does. Keep going.",
+        "author": "Sam Levenson",
+        "tags": "#phenomenonolgy, #mindfulness"
+    },
+    {
+        "quote": "I can't change the direction of the wind, but I can adjust my sails to always reach my destination.",
+        "author": "Jimmy Dean",
+        "tags": "#adapt, nautical, #stoicism"
+    },
+    {
+        "quote": "It's not the years in your life that count. It's the life in your years.",
+        "author": "Abraham Lincoln",
+        "tags": "#antimetabole, #vitalism"
+    },
+    {
+        "quote": "Change your thoughts and you change your world.",
+        "author": "Norman Vincent Peale",
+        "tags": "#idealism"
+    },
+    {
+        "quote": "Whether you think you can or you think you can't, you're right.",
+        "author": "Henry Ford",
+        "tags": "#idealism"
+    },
+    {
+        "quote": "The only way to do great work is to love what you do.",
+        "author": "Steve Jobs",
+        "tags": "#eudaimonia, #passion, #teleology, #virtue"
+    },
+    {
+        "quote": "You must be the change you wish to see in the world.",
+        "author": "Mahatma Gandhi",
+        "tags": "#sentimental, #ethics, #activism, #empowerment"
+    },
+    {
+        "quote": "The whole secret of a successful life is to find out what is one's destiny to do, and then do it.",
+        "author": "Henry Ford",
+        "tags": "#self-#actualisation, #teleology"
+    },
+    {
+        "quote": "If life were predictable it would cease to be life, and be without flavor.",
+        "author": "Eleanor Roosevelt",
+        "tags": "#serendipity, #spontaneity, #romanticism"
+    },
+    {
+        "quote": "The only limit to our realization of the tomorrow is our doubts of today.",
+        "author": "Franklin D. Roosevelt",
+        "tags": "#fear, #limits, #mindset"
+    },
+    {
+        "quote": "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
+        "author": "Dr. Seuss",
+        "tags": "#free will, #individualism, #anaphora"
+    },
+    {
+        "quote": "If you want to live a happy life, tie it to a goal, not to people or things.",
+        "author": "Albert Einstein",
+        "tags": "#eudaimonia, #vocation, #objectivism"
+    },
+    {
+        "quote": "A person who never made a mistake never tried anything new.",
+        "author": "Albert Einstein",
+        "tags": "#risk-taking, #anti-fragile, #fallibilism"
+    },
+    {
+        "quote": "The only thing standing between you and your goal is the story you keep telling yourself as to why you can't achieve it.",
+        "author": "Jordan Belfort",
+        "tags": "#self-limiting, #self-fulfilling prophecy, #agency, #responsiblity, #self-help"
+    },
+    {
+        "quote": "The only impossible journey is the one you never begin.",
+        "author": "Tony Robbins",
+        "tags": "#courage, inertia, #actualisation, #self-help"
+    },
+    {
+        "quote": "Life is really simple, but we insist on making it complicated.",
+        "author": "Confucius",
+        "tags": "#simplicity, #clarity, #non-attachment"
+    },
+    {
+        "quote": "What we think, we become.",
+        "author": "Buddha",
+        "tags": "#idealism, #mindfulness, #self-fulfilling prophecy"
+    },
+    {
+        "quote": "The journey of a thousand miles begins with one step.",
+        "author": "Lao Tzu",
+        "tags": "#progression, #tao, #wu wei"
+    },
+    {
+        "quote": "If you can dream it, you can do it.",
+        "author": "Walt Disney",
+        "tags": "#idealism, #imagination, #possibility"
+    },
+    {
+        "quote": "The only thing we have to fear is fear itself.",
+        "author": "Franklin D. Roosevelt",
+        "tags": "#fear, #stoicism, #antithesis"
+    },
+    {
+        "quote": "Keep your face always toward the sunshine—and shadows will fall behind you.",
+        "author": "Walt Whitman",
+        "tags": "#metaphor, #optimism, #reslience, #perspective"
+    },
+    {
+        "quote": "I never dreamed about success, I worked for it.",
+        "author": "Estée Lauder",
+        "tags": ""
+    },
+    {
+        "quote": "What lies behind us and what lies before us are tiny matters compared to what lies within us.",
+        "author": "Ralph Waldo Emerson",
+        "tags": ""
+    },
+    {
+        "quote": "The only way to achieve the impossible is to believe it is possible.",
+        "author": "Charles Kingsleigh",
+        "tags": ""
+    },
+
+    {
+        "quote": "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment.",
+        "author": "Ralph Waldo Emerson",
+        "tags": ""
+    },
+    {
+        "quote": "Do not go gentle into that good night. Rage, rage against the dying of the light.",
+        "author": "Dylan Thomas",
+        "tags": ""
+    },
+    {
+        "quote": "Liberty, when it begins to take root, is a plant of rapid growth.",
+        "author": "George Washington",
+        "tags": ""
+    },
+    {
+        "quote": "It is better to be hated for what you are than to be loved for what you are not.",
+        "author": "André Gide",
+        "tags": ""
+    },
+    {
+        "quote": "It is not in the stars to hold our destiny but in ourselves.",
+        "author": "William Shakespeare",
+        "tags": ""
+    },
+    {
+        "quote": "I have not failed. I've just found 10,000 ways that won't work.",
+        "author": "Thomas A. Edison",
+        "tags": ""
+    },
+    {
+        "quote": "We make a living by what we get, but we make a life by what we give.",
+        "author": "Winston Churchill",
+        "tags": ""
+    },
+    {
+        "quote": "Peace begins with a smile.",
+        "author": "Mother Teresa",
+        "tags": ""
+    },
+    {
+        "quote": "Genius is one percent inspiration and ninety-nine percent perspiration.",
+        "author": "Thomas A. Edison",
+        "tags": ""
+    },
+    {
+        "quote": "A room without books is like a body without a soul.",
+        "author": "Cicero",
+        "tags": ""
+    },
+    {
+        "quote": "Success is walking from failure to failure with no loss of enthusiasm.",
+        "author": "Winston Churchill",
+        "tags": ""
+    },
+    {
+        "quote": "I am the master of my fate: I am the captain of my soul.",
+        "author": "William Ernest Henley",
+        "tags": ""
+    },
+    {
+        "quote": "Happiness is not something ready made. It comes from your own actions.",
+        "author": "Dalai Lama",
+        "tags": ""
+    },
+    {
+        "quote": "If you want to know what a man's like, take a good look at how he treats his inferiors, not his equals.",
+        "author": "J.K. Rowling",
+        "tags": ""
+    },
+    {
+        "quote": "A day without laughter is a day wasted.",
+        "author": "Charlie Chaplin",
+        "tags": ""
+    },
+    {
+        "quote": "Always forgive your enemies; nothing annoys them so much.",
+        "author": "Oscar Wilde",
+        "tags": ""
+    },
+    {
+        "quote": "Education is the most powerful weapon which you can use to change the world.",
+        "author": "Nelson Mandela",
+        "tags": ""
+    },
+    {
+        "quote": "To thine own self be true.",
+        "author": "William Shakespeare",
+        "tags": ""
+    },
+    {
+        "quote": "The weak can never forgive. Forgiveness is the attribute of the strong.",
+        "author": "Mahatma Gandhi",
+        "tags": ""
+    },
+    {
+        "quote": "The only true wisdom is in knowing you know nothing.",
+        "author": "Socrates",
+        "tags": ""
+    },
+    {
+        "quote": "The biggest adventure you can take is to live the life of your dreams.",
+        "author": "Oprah Winfrey",
+        "tags": ""
+    },
+    {
+        "quote": "If you don't stand for something you will fall for anything.",
+        "author": "Malcolm X",
+        "tags": ""
+    },
+    {
+        "quote": "The greatest wealth is to live content with little.",
+        "author": "Plato",
+        "tags": ""
+    },
+    {
+        "quote": "The only thing necessary for the triumph of evil is for good men to do nothing.",
+        "author": "Edmund Burke",
+        "tags": ""
+    },
+    {
+        "quote": "The journey of a thousand miles begins with a single step.",
+        "author": "Lao Tzu",
+        "tags": ""
+    },
+    {
+        "quote": "To live is the rarest thing in the world. Most people exist, that is all.",
+        "author": "Oscar Wilde",
+        "tags": ""
+    },
+    {
+        "quote": "I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin, but by the content of their character.",
+        "author": "Martin Luther King Jr.",
+        "tags": ""
+    },
+    {
+        "quote": "There is nothing permanent except change.",
+        "author": "Heraclitus",
+        "tags": ""
+    },
+    {
+        "quote": "Success is not how high you have climbed, but how you make a positive difference to the world.",
+        "author": "Roy T. Bennett",
+        "tags": ""
+    },
+    {
+        "quote": "It is during our darkest moments that we must focus to see the light.",
+        "author": "Aristotle",
+        "tags": ""
+    },
+    {
+        "quote": "You only live once, but if you do it right, once is enough.",
+        "author": "Mae West",
+        "tags": ""
+    },
+    {
+        "quote": "The only true wisdom is in knowing you know nothing.",
+        "author": "Socrates",
+        "tags": ""
+    },
+    {
+        "quote": "In three words I can sum up everything I've learned about life: it goes on.",
+        "author": "Robert Frost",
+        "tags": ""
+    },
+    {
+        "quote": "Love all, trust a few, do wrong to none.",
+        "author": "William Shakespeare",
+        "tags": ""
+    },
+    {
+        "quote": "Don’t count the days, make the days count.",
+        "author": "Muhammad Ali",
+        "tags": ""
+    },
+    {
+        "quote": "The mind is everything. What you think you become.",
+        "author": "Buddha",
+        "tags": ""
+    },
+    {
+        "quote": "I am not a product of my circumstances. I am a product of my decisions.",
+        "author": "Stephen Covey",
+        "tags": ""
+    },
+    {
+        "quote": "Be kind whenever possible. It is always possible.",
+        "author": "Dalai Lama",
+        "tags": ""
+    },
+    {
+        "quote": "There is no greater agony than bearing an untold story inside you.",
+        "author": "Maya Angelou",
+        "tags": ""
+    },
+    {
+        "quote": "The bird is powered by its own life and by its motivation.",
+        "author": "A. P. J. Abdul Kalam",
+        "tags": ""
+    },
+    {
+        "quote": "The only thing that interferes with my learning is my education.",
+        "author": "Albert Einstein",
+        "tags": ""
+    },
+    {
+        "quote": "You can't blame gravity for falling in love.",
+        "author": "Albert Einstein",
+        "tags": ""
+    },
+    {
+        "quote": "The greatest deception men suffer is from their own opinions.",
+        "author": "Leonardo da Vinci",
+        "tags": ""
+    },
+    {
+        "quote": "The measure of intelligence is the ability to change.",
+        "author": "Albert Einstein",
+        "tags": ""
+    },
+    {
+        "quote": "Without music, life would be a mistake.",
+        "author": "Friedrich Nietzsche",
+        "tags": ""
+    },
+    {
+        "quote": "It's kind of fun to do the impossible.",
+        "author": "Walt Disney",
+        "tags": ""
+    },
+    {
+        "quote": "We must learn to live together as brothers or perish together as fools.",
+        "author": "Martin Luther King Jr.",
+        "tags": ""
+    },
+    {
+        "quote": "With self-discipline most anything is possible.",
+        "author": "Theodore Roosevelt",
+        "tags": ""
+    },
+    {
+        "quote": "Whatever you are, be a good one.",
+        "author": "Abraham Lincoln",
+        "tags": ""
+    },
+    {
+        "quote": "A life spent making mistakes is not only more honorable, but more useful than a life spent doing nothing.",
+        "author": "George Bernard Shaw",
+        "tags": ""
+    },
+    {
+        "quote": "I have never met a man so ignorant that I couldn't learn something from him.",
+        "author": "Galileo Galilei",
+        "tags": ""
+    },
+    {
+        "quote": "The difference between genius and stupidity is; genius has its #limits.",
+        "author": "Albert Einstein",
+        "tags": ""
+    },
+    {
+        "quote": "Have no fear of perfection - you'll never reach it.",
+        "author": "Salvador Dali",
+        "tags": ""
+    },
+    {
+        "quote": "The only journey is the one within.",
+        "author": "Rainer Maria Rilke",
+        "tags": ""
+    },
+    {
+        "quote": "Freedom lies in being bold.",
+        "author": "Robert Frost",
+        "tags": ""
+    },
+    {
+        "quote": "Keep your face to the sunshine and you cannot see a shadow.",
+        "author": "Helen Keller",
+        "tags": ""
+    },
+    {
+        "quote": "I have nothing to offer but blood, toil, tears and sweat.",
+        "author": "Winston Churchill",
+        "tags": ""
+    },
+    {
+        "quote": "A creative man is motivated by the desire to achieve, not by the desire to beat others.",
+        "author": "Ayn Rand",
+        "tags": ""
+    },
+    {
+        "quote": "If you want to be happy, be.",
+        "author": "Leo Tolstoy",
+        "tags": ""
+    },
+    {
+        "quote": "You have enemies? Good. That means you've stood up for something, sometime in your life.",
+        "author": "Winston Churchill",
+        "tags": ""
+    },
+    {
+        "quote": "You can, you should, and if you’re brave enough to start, you will.",
+        "author": "Stephen King",
+        "tags": ""
+    },
+    {
+        "quote": "Knowing yourself is the beginning of all wisdom.",
+        "author": "Aristotle",
+        "tags": ""
+    },
+    {
+        "quote": "Our greatest glory is not in never falling, but in rising every time we fall.",
+        "author": "Confucius",
+        "tags": ""
+    },
+    {
+        "quote": "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+        "author": "Aristotle",
+        "tags": ""
+    },
+    {
+        "quote": "The truth is rarely pure and never simple.",
+        "author": "Oscar Wilde",
+        "tags": ""
+    },
+    {
+        "quote": "The only thing we have to fear is fear itself.",
+        "author": "Franklin D. Roosevelt",
+        "tags": ""
+    },
+    {
+        "quote": "Be less curious about people and more curious about ideas.",
+        "author": "Marie Curie",
+        "tags": ""
+    },
+    {
+        "quote": "To err is human, to forgive, divine.",
+        "author": "Alexander Pope",
+        "tags": ""
+    },
+    {
+        "quote": "The first duty of a man is to think for himself.",
+        "author": "Jose Marti",
+        "tags": ""
+    },
+    {
+        "quote": "There is no charm equal to tenderness of heart.",
+        "author": "Jane Austen",
+        "tags": ""
+    },
+    {
+        "quote": "The best revenge is massive success.",
+        "author": "Frank Sinatra",
+        "tags": ""
+    },
+    {
+        "quote": "It is the mark of an educated mind to be able to entertain a thought without accepting it.",
+        "author": "Aristotle",
+        "tags": ""
+    },
+    {
+        "quote": "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful.",
+        "author": "Albert Schweitzer",
+        "tags": ""
+    },
+    {
+        "quote": "We become what we think about.",
+        "author": "Earl Nightingale",
+        "tags": ""
+    },
+    {
+        "quote": "It always seems impossible until it's done.",
+        "author": "Nelson Mandela",
+        "tags": ""
+    },
+    {
+        "quote": "You can have anything you want if you are willing to give up the belief that you can't have it.",
+        "author": "Robert Anthony",
+        "tags": ""
+    },
+    {
+        "quote": "The only true failure is when you stop trying.",
+        "author": "Anonymous",
+        "tags": ""
+    }
+]
