@@ -3,13 +3,13 @@ import os
 
 # Specify the directory paths
 input_directory = '/Users/stu/xander.com/src/app/data/quotes'
-output_directory = '/Users/stu/xander.com/src/app/data/quotes/output'  # Or specify another directory
+output_directory = '/Users/stu/xander.com/src/app/data/quotes/output2'  # Or specify another directory
 
 # Ensure the output directory exists
 os.makedirs(output_directory, exist_ok=True)
 
 # Read JSON file
-with open(os.path.join(input_directory, 'quotes.json')) as f:
+with open(os.path.join(input_directory, 'quotes2.json')) as f:
     data = json.load(f)
 
 # Create markdown files
