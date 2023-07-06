@@ -46,7 +46,7 @@ const Search = () => {
           type="text"
           id="search"
           name="q"
-          placeholder="Search the world's creative reference library"
+          placeholder="Search the world's quote reference library"
         />
         <button
           style={{ transform: 'translateX(16.5em) translateY(.8em)' }}
