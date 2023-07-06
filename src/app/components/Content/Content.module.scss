@@ -15,7 +15,7 @@
 // }
 
 .contentLayout {
-  width: 95%;
+  width: 90%;
   text-align: center;
   margin: 0 auto;
   columns: 3;
@@ -26,22 +26,37 @@
     display: inline-block;
     justify-content: center;
     position: relative;
-    border: .1px solid #888;
+    border: .1px solid rgb(var(--foreground-rgb), 0.6);
     margin: 0 0 1em;
     break-inside: avoid;
-    width: clamp(50.5ch, 30%, 75ch);
-    height: auto;
-    font-family: "Sf", sans-serif;
+    // width: clamp(42.5ch, 30%, 75ch);
+    // height: auto;
+    font-family: "inter", sans-serif;
     box-sizing: border-box;
     text-align: start;
+    border-radius: 4px;
     /*overflow: auto;*/
     /* width: 416.666px; */
     /*width: 311.666px;*/
     /*height: 328.075px;*/
+
+    width: 25vw;
+    height: 14.9vw;
+    color: rgba(210, 207, 202, 0.9);
 }
+
+.cardTitle {
+    max-height: calc(1.5em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
+    overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+    margin: 0; /* Removing default margins from paragraph */
+    padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
+}
+
+
 .cardContent {
     padding: 18px;
-    font-size: 15px;
+    font-size: 13px;
+    font-weight: 500;
     line-height: 1.5;
 }
 .card:after {

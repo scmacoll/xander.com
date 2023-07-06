@@ -6,18 +6,18 @@ const Content = () => {
   const tileCards = [
     {
       title:
-        '“Make beautiful things, make things to be used, eliminate anything that is unnecessary".',
-      text: 'Yanagi Soetsu',
+        'We are drowning in information, while starving for wisdom. The world henceforth will be run by synthesizers, people able to put together the right information at the right time, think critically about it, and make important choices wisely.',
+      text: 'Neil Postman',
     },
     {
       title:
-        '“The idiot sees the world as Good vs Evil. The cynic sees the world as Evil vs Evil. The truth that no one seems able to see is that the world is, and always has been, a battle of Good vs. Good"',
-      text: 'Norm MacDonald',
+        'What transforms this world is—knowledge... Nothing else can change anything in this world. Knowledge alone is capable of transforming the world, while at the same time leaving it exactly as it is...',
+      text: 'Mishima',
     },
     {
       title:
-        '“The reasonable man adapts himself to the world: the unreasonable one persists in trying to adapt the world to himself. Therefore all progress depends on the unreasonable man”.',
-      text: 'George Bernard Shaw',
+        "Computers, by their nature, tend to present information in isolated fragments, lacking the necessary context and meaning that are crucial for students to develop a comprehensive understanding. This decontextualization of knowledge could hinder students' ability to grasp the bigger picture and make connections between different pieces of information, thereby limiting their capacity to appreciate the broader significance of what they learn.",
+      text: 'Neil Postman',
     },
     {
       title:
@@ -25,18 +25,19 @@ const Content = () => {
       text: 'Edith Hamilton',
     },
     {
-      title: '“Show me the incentive and I’ll show you the outcome”.',
-      text: 'Charlie Munger',
+      title:
+        'I created this library as a tribute to the Library of Alexandria. My ambition is that this place will be a source of learning and innovation and that it will bring back the glories of the ancient library.',
+      text: 'Ismail Serageldinr',
     },
     {
       title:
-        '“I don’t want to be a product of my environment, I want my environment to be a product of me”.',
-      text: 'Frank Costello',
+        'We can roam the bloated stacks of the Library of Alexandria, where all imagination and knowledge are assembled; we can recognize in its destruction the warning that all we gather will be lost, but also that much of it can be collected again.',
+      text: 'Alberto Manguel',
     },
     {
       title:
-        '“When the world outside of us has denied us what we truly want, we retreat into ourselves in a type of walled-off garden to protect ourselves from the fearful ills of the world. When we want something & cannot get it, we renounce it & declare the desire for it is misguided”.',
-      text: 'Isaiah Berlin (The Inner Citadel)',
+        'Digital environments have the potential for a high degree of procedural and participatory complexity, which makes them well suited for capturing the densely layered, interconnected nature of human experience.',
+      text: 'Janet Murray',
     },
     {
       title:
@@ -45,17 +46,18 @@ const Content = () => {
     },
     {
       title:
-        '“The only way that democracy can be made bearable is by developing and cherishing a class of men sufficiently honest and disinterested to challenge the prevailing quacks. No such class has ever appeared in the United States. Thus the business of harassing the quacks devolves upon the newspapers. When they fail in their duty, which is usually, we are at the quack’s mercy”.',
-      text: 'H.L. Mencken, Minority report #172',
+        'Finding the links between people and ideas is the true magic of innovation.',
+      text: 'Steven Johnson',
     },
     {
       title:
-        '“Everything should be made as simple as possible, but no simpler”.',
-      text: 'Albert Einstein',
+        'A people without the knowledge of their past history, origin, and culture is like a tree without roots.',
+      text: 'Marcus Garvey',
     },
     {
-      title: '“A story is way more important than a recipe”.',
-      text: 'Marco Pierre White',
+      title:
+        'Relationships are all there is. Everything in the universe only exists because it is in relationship to everything else. Nothing exists in isolation.',
+      text: 'Margaret Wheatley',
     },
     {
       title:
@@ -68,7 +70,7 @@ const Content = () => {
       {tileCards.map((tile, index) => (
         <article key={index} className={`${styles.card}`}>
           <div className={`${styles.cardContent}`}>
-            <p>{tile.title}</p>
+            <p className={`${styles.cardTitle}`}>{tile.title}</p>
             <div className="flex items-center">
               <svg
                 version="1.0"
@@ -104,7 +106,7 @@ const Content = () => {
                   />
                 </g>
               </svg>
-              <h3 className="pt-1">{tile.text}</h3>
+              <h3 className="font-bold pt-1">{tile.text}</h3>
             </div>
           </div>
         </article>
