@@ -28,7 +28,7 @@ const Content = () => {
     {
       title:
         'I created this library as a tribute to the Library of Alexandria. My ambition is that this place will be a source of learning and innovation and that it will bring back the glories of the ancient library.',
-      text: 'Ismail Serageldinr',
+      text: 'Ismail Serageldin',
     },
     {
       title:
