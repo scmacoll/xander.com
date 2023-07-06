@@ -3,9 +3,8 @@ import styles from './Search.module.scss';
 const Search = () => {
   return (
     <div
-      className={`${styles.search} flex justify-between mx-auto p-4`}>
+      className={`${styles.search} flex justify-between mx-auto p-4 pb-10`}>
       <div className={`${styles['user-buttons']} flex flex-1 justify-start`}>
-        <button type="button">Random</button>
       </div>
 
       <form
@@ -58,10 +57,9 @@ const Search = () => {
 
       <div
         className={`${styles['media-config']} flex flex-1 justify-end  border-1 border-white`}>
-        <button className="pr-10" type="button">
+        <button className="" type="button">
           Font
         </button>
-        <button type="button">ENG</button>
       </div>
     </div>
   );

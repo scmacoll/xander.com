@@ -15,12 +15,44 @@
 // }
 
 .contentLayout {
-  width: 90%;
-  text-align: center;
-  margin: 0 auto;
-  columns: 3;
-  column-gap: .5em;
+    display: grid;
+    width: 90%;
+    text-align: center;
+    justify-items: center;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
 }
+
+.leftCard {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    opacity: .9;
+    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+.rightCard {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    opacity: .9;
+    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.middleCard {
+    transform: scale(1.02) translateY(-15px) translateZ(0); /* Scale up the card */
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.4);
+    z-index: 2; /* Ensure it stays above the other cards */
+    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.leftCard:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.rightCard:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+    opacity: 1;
+}
+.middleCard:hover {
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.7);
+}
+
 
 .card {
     display: inline-block;
@@ -31,7 +63,7 @@
     break-inside: avoid;
     // width: clamp(42.5ch, 30%, 75ch);
     // height: auto;
-    font-family: "inter", sans-serif;
+    font-family: "sf", sans-serif;
     box-sizing: border-box;
     text-align: start;
     border-radius: 4px;
@@ -41,44 +73,66 @@
     /*height: 328.075px;*/
 
     width: 25vw;
-    height: 14.9vw;
-    color: rgba(210, 207, 202, 0.9);
+    height: 14.5vw;
+    color: rgba(214, 214, 214, 0.8);
+    // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+
+  /* Optional: Increase the size and opacity of the shadow on hover */
+    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 
 .cardTitle {
-    max-height: calc(1.5em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
+    max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
     overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(71, 81, 108, .1) rgba(0, 0, 0, 0);
     margin: 0; /* Removing default margins from paragraph */
     padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
+}
+
+.card:hover .cardTitle{
+    scrollbar-color: rgba(71, 81, 108, .5) rgba(0, 0, 0, 0);
+}
+
+.cardTitle::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as desired */
+}
+
+.cardTitle::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the color as desired */
+}
+
+.cardTitle::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0); /* Remove the background color */
 }
 
 
 .cardContent {
     padding: 18px;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1.5;
 }
-.card:after {
-    background: linear-gradient(
-    transparent,
-    #fff,
-    transparent
-    );
-    height: 70px;
-    width: 1px;
-    position: absolute;
-    left: -1px;
-    top: 65%;
-    opacity: 0;
-    content: '';
-    transition: top 600ms ease,
-    opacity 600ms ease;
-}
-.card:hover:after {
-    top: 25%;
-    opacity: 1;
-}
+// .card:after {
+//     background: linear-gradient(
+//     transparent,
+//     #fff,
+//     transparent
+//     );
+//     height: 70px;
+//     width: 1px;
+//     position: absolute;
+//     left: -1px;
+//     top: 65%;
+//     opacity: 0;
+//     content: '';
+//     transition: top 600ms ease,
+//     opacity 600ms ease;
+// }
+// .card:hover:after {
+//     top: 25%;
+//     opacity: 1;
+// }
 
 
     // <section
