@@ -81,14 +81,7 @@
     transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 
-.cardTitle {
-    max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
-    overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
-    margin: 0; /* Removing default margins from paragraph */
-    padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
-}
+
 
 .card:hover .cardTitle{
     scrollbar-color: rgba(71, 81, 108, .5) rgba(0, 0, 0, 0);
@@ -106,13 +99,6 @@
     background-color: rgba(0, 0, 0, 0); /* Remove the background color */
 }
 
-
-.cardContent {
-    padding: 18px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.5;
-}
 // .card:after {
 //     background: linear-gradient(
 //     transparent,
@@ -134,6 +120,63 @@
 //     opacity: 1;
 // }
 
+.cardContent {
+    position: relative;
+    height: 100%;
+    // padding: 18px;
+    padding: 10px 18px 1px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.topContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+
+.cardTitle {
+    display: flex;
+    max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
+    overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+    margin: 0; /* Removing default margins from paragraph */
+    padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
+}
+
+.cardAuthor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 4px;
+    padding-bottom: 1px;
+}
+.dp {
+    width: 3em;
+    padding-left: .5em;
+    margin-right: .7em;
+}
+
+.cardIcons {
+    // position: absolute; /* Add this */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 6px; /* Add this */
+    left: 0;
+    right: 0;
+    // width: 95%;
+    // margin: 0 auto;
+    border-top: .01px solid rgb(var(--foreground-rgb), 0.5);
+}
 
     // <section
     //   className={`${styles.contentLayout} grid pt-2 mx-auto h-auto grid-cols-3 gap-0.5em`}>
