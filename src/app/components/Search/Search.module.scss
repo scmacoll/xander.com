@@ -7,7 +7,8 @@
 
 .search-bar {
   border-radius: 4px;
-  border: 1px solid rgb(var(--foreground-rgb));
+  border: 1px solid rgb(var(--foreground-rgb), 0.8);
+  
   background: rgb(var(--background-start-rgb));
   /* text-indent: 10%; */
   /* text-indent: 15%; */

@@ -24,12 +24,12 @@
 }
 
 .leftCard {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
     opacity: .7;
     transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 .rightCard {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
     opacity: .7;
     transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
@@ -85,7 +85,7 @@
     max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
     overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
     scrollbar-width: thin;
-    scrollbar-color: rgba(71, 81, 108, .1) rgba(0, 0, 0, 0);
+    scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
     margin: 0; /* Removing default margins from paragraph */
     padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
 }
