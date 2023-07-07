@@ -159,23 +159,51 @@
     padding-top: 4px;
     padding-bottom: 1px;
 }
+
 .dp {
     width: 3em;
     padding-left: .5em;
     margin-right: .7em;
 }
+.authorName {
+
+}
+.authorName:hover {
+    color: rgb(232, 230, 228);
+}
+
+.cardHeart {}
+.cardHeart:hover svg path {
+    fill: rgb(112, 45, 45);
+}
+
+.bottomContent {
+    display: flex;
+    position: relative;
+    border-top: .01px solid rgb(var(--foreground-rgb), 0.5);
+}
 
 .cardIcons {
-    // position: absolute; /* Add this */
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
     align-items: center;
-    bottom: 6px; /* Add this */
-    left: 0;
-    right: 0;
+    justify-content: center;
+    flex: 1;
+    
+    // position: absolute; /* Add this */
+    // bottom: 6px; /* Add this */
+    // left: 0;
+    // right: 0;
     // width: 95%;
     // margin: 0 auto;
-    border-top: .01px solid rgb(var(--foreground-rgb), 0.5);
+}
+
+.cardInfo {
+    position: absolute;;
+    right: 0;
+}
+
+.cardInfo:hover svg path {
+    fill: rgb(166, 142, 10);
 }
 
     // <section
