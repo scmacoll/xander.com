@@ -134,6 +134,7 @@ const Content = () => {
                 <div className={`${styles.bottomContent}`}>
                   <div className={`${styles.cardIcons}`}>
                     <svg
+                      className={`${styles.cardIcon}`}
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
                       width="3em"
@@ -143,7 +144,7 @@ const Content = () => {
                       preserveAspectRatio="xMidYMid meet">
                       <g
                         transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#d2cfca"
+                        fill="#447F9D"
                         stroke="none">
                         <path
                           d="M2091 5205 l-31 -27 0 -1014 0 -1015 25 -24 c30 -31 92 -34 126 -6
@@ -163,6 +164,7 @@ const Content = () => {
                       </g>
                     </svg>
                     <svg
+                      className={`${styles.cardIcon}`}
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
                       width="2.5em"
@@ -172,7 +174,7 @@ const Content = () => {
                       preserveAspectRatio="xMidYMid meet">
                       <g
                         transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#d2cfca"
+                        fill="#447F9D"
                         stroke="none">
                         <path
                           d="M1945 5575 l-25 -24 0 -1791 0 -1791 25 -24 24 -25 1791 0 1791 0 24
@@ -192,6 +194,7 @@ const Content = () => {
                       </g>
                     </svg>
                     <svg
+                      className={`${styles.cardIcon}`}
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
                       width="3em"
@@ -201,7 +204,7 @@ const Content = () => {
                       preserveAspectRatio="xMidYMid meet">
                       <g
                         transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#ffffff"
+                        fill="#447F9D"
                         stroke="none">
                         <path
                           d="M2985 5281 c-51 -31 -64 -54 -145 -247 -44 -103 -85 -191 -92 -195
@@ -262,6 +265,7 @@ const Content = () => {
                       </g>
                     </svg>
                     <svg
+                      className={`${styles.cardIcon}`}
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
                       width="3em"
@@ -271,7 +275,7 @@ const Content = () => {
                       preserveAspectRatio="xMidYMid meet">
                       <g
                         transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#d2cfca"
+                        fill="#447F9D"
                         stroke="none">
                         <path
                           d="M2534 5410 c-12 -5 -26 -15 -30 -22 -5 -7 -11 -661 -14 -1453 l-5
@@ -329,7 +333,7 @@ const Content = () => {
                       preserveAspectRatio="xMidYMid meet">
                       <g
                         transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#d2cfca2b"
+                        fill="#d2cfca88"
                         stroke="none">
                         <path
                           d="M3540 5643 c-104 -13 -290 -57 -395 -93 -675 -233 -1156 -817 -1261

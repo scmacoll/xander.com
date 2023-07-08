@@ -81,6 +81,10 @@
     transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 
+.card:hover {
+    // border: .1px solid rgba(121, 110, 34, 0.521);
+}
+
 
 
 .card:hover .cardTitle{
@@ -197,13 +201,21 @@
     // margin: 0 auto;
 }
 
+.cardIcon {
+
+}
+.cardIcon:hover path {
+    fill: #aa992b;
+}
+
 .cardInfo {
     position: absolute;;
     right: 0;
 }
 
 .cardInfo:hover svg path {
-    fill: rgb(166, 142, 10);
+    // fill: rgb(166, 142, 10);
+    fill: #d2cfca;
 }
 
     // <section
