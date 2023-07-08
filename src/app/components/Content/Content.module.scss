@@ -59,6 +59,7 @@
     justify-content: center;
     position: relative;
     border: .1px solid rgb(var(--foreground-rgb), 0.6);
+    // background-color: rgb(16, 57, 58);
     margin: 0 0 1em;
     break-inside: avoid;
     // width: clamp(42.5ch, 30%, 75ch);
@@ -184,7 +185,7 @@
 .bottomContent {
     display: flex;
     position: relative;
-    border-top: .01px solid rgb(var(--foreground-rgb), 0.5);
+    border-top: .01px solid rgb(var(--foreground-rgb), .7);
 }
 
 .cardIcons {
@@ -205,7 +206,7 @@
 
 }
 .cardIcon:hover path {
-    fill: #aa992b;
+    fill: #b5b19b;
 }
 
 .cardInfo {
