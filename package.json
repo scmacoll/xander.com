@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "sass": "node-sass src/scss -o src/css",
-    "postcss": "postcss src/css/*.css -o dist/css"
+    "postcss": "postcss src/css/*.css -o dist/css",
+    "server": "./node_modules/.bin/nodemon -x './node_modules/.bin/ts-node' src/server/server.ts"
   },
   "dependencies": {
     "@types/node": "20.3.1",
@@ -29,8 +30,10 @@
   },
   "devDependencies": {
     "dotenv": "^16.3.1",
+    "nodemon": "^3.0.1",
     "prettier": "^3.0.0",
-    "prettier-plugin-tailwindcss": "^0.3.0"
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "ts-node": "^10.9.1"
   },
   "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
   "main": "next.config.js",
