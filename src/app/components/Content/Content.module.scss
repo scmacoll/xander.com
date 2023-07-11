@@ -28,18 +28,21 @@
 @media (min-width: 1100px) {
     .contentLayout {
         grid-template-columns: repeat(3, 1fr);
+        width: 90%;
     }
 }
 
 @media (max-width: 1099px) and (min-width: 700px) {
     .contentLayout {
         grid-template-columns: repeat(2, 1fr);
+        width: 95%;
     }
 }
 
 @media (max-width: 699px) {
     .contentLayout {
         grid-template-columns: 1fr;
+        width: 95%;
     }
 }
 
@@ -80,7 +83,8 @@
     position: relative;
     border: .1px solid rgb(var(--foreground-rgb), 0.6);
     // background-color: rgb(16, 57, 58);
-    margin: 0 0 1em;
+    margin-bottom: 1em;
+    margin: 0 2px 1em 2px;
     break-inside: avoid;
     // width: clamp(42.5ch, 30%, 75ch);
     // height: auto;
@@ -93,7 +97,7 @@
     /*width: 311.666px;*/
     /*height: 328.075px;*/
 
-    width: 300px;
+    width: 350px;
     // height: 14.5vw;
     color: rgba(214, 214, 214, 0.8);
     // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
