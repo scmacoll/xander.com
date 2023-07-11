@@ -1,132 +1,224 @@
-// .contentLayout {
-//   align-items: center;
-//   justify-content: center;
-//   margin: 0 auto;
-//   height: auto;
-//   width: 90%;
-//   column-count: 3;
-//   column-gap: .5em;
-//   position: relative;
-//   /*display: flex;*/
-//   justify-content: space-between;
-//   flex-wrap: wrap;
-//   /*padding-bottom: 15px;*/ 
-//   /*width: 100%;*/
-// }
-
 .contentLayout {
-    display: grid;
-    grid-gap: 0.5em;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    width: 90%;
-    text-align: center;
-    justify-items: center;
-    margin: 0 auto;
-    // grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  width: 90%;
+  text-align: center;
+  justify-items: center;
+  margin: 0 auto;
+  // grid-template-columns: repeat(3, 1fr); /* 3 columns */
 }
 
 @media (min-width: 1100px) {
-    .contentLayout {
-        grid-template-columns: repeat(3, 1fr);
-        width: 90%;
-    }
+  .contentLayout {
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+  }
 }
 
 @media (max-width: 1099px) and (min-width: 700px) {
-    .contentLayout {
-        grid-template-columns: repeat(2, 1fr);
-        width: 95%;
-    }
+  .contentLayout {
+    grid-template-columns: repeat(2, 1fr);
+    width: 95%;
+  }
 }
 
 @media (max-width: 699px) {
-    .contentLayout {
-        grid-template-columns: 1fr;
-        width: 95%;
-    }
+  .contentLayout {
+    grid-template-columns: 1fr;
+    width: 95%;
+  }
 }
 
 .leftCard {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-    opacity: .7;
-    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+  transition:
+    box-shadow 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
 }
 .rightCard {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-    opacity: .7;
-    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  opacity: 0.7;
+  transition:
+    box-shadow 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
 }
 
 .middleCard {
-    transform: scale(1.02) translateY(-20px) translateZ(0); /* Scale up the card */
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
-    z-index: 2; /* Ensure it stays above the other cards */
-    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+  transform: scale(1.02) translateY(-20px) translateZ(0); /* Scale up the card */
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+  z-index: 2; /* Ensure it stays above the other cards */
+  transition:
+    box-shadow 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
 }
 
 .leftCard:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
-    opacity: 1;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+  opacity: 1;
 }
 .rightCard:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
-    opacity: 1;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
+  opacity: 1;
 }
 .middleCard:hover {
-    box-shadow: 2px 15px 20px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 2px 15px 20px 2px rgba(0, 0, 0, 0.6);
 }
 
-
 .card {
-    display: inline-block;
-    justify-content: center;
-    position: relative;
-    border: .1px solid rgb(var(--foreground-rgb), 0.6);
-    // background-color: rgb(16, 57, 58);
-    margin-bottom: 1em;
-    margin: 0 2px 1em 2px;
-    break-inside: avoid;
-    // width: clamp(42.5ch, 30%, 75ch);
-    // height: auto;
-    font-family: "sf", sans-serif;
-    box-sizing: border-box;
-    text-align: start;
-    border-radius: 4px;
-    /*overflow: auto;*/
-    /* width: 416.666px; */
-    /*width: 311.666px;*/
-    /*height: 328.075px;*/
+  display: inline-block;
+  justify-content: center;
+  position: relative;
+  border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
+  // background-color: rgb(16, 57, 58);
+  margin-bottom: 1em;
+  margin: 0 2px 1em 2px;
+  break-inside: avoid;
+  // width: clamp(42.5ch, 30%, 75ch);
+  // height: auto;
+  font-family: 'sf', sans-serif;
+  box-sizing: border-box;
+  text-align: start;
+  border-radius: 4px;
+  /*overflow: auto;*/
+  /* width: 416.666px; */
+  /*width: 311.666px;*/
+  /*height: 328.075px;*/
 
-    width: 350px;
-    // height: 14.5vw;
-    color: rgba(214, 214, 214, 0.8);
-    // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  // height: 14.5vw;
+  color: rgba(214, 214, 214, 0.8);
+  // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 
   /* Optional: Increase the size and opacity of the shadow on hover */
-    transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
+  transition:
+    box-shadow 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
 }
 
 .card:hover {
-    // border: .1px solid rgba(121, 110, 34, 0.521);
+  // border: .1px solid rgba(121, 110, 34, 0.521);
 }
 
-
-
-.card:hover .cardTitle{
-    scrollbar-color: rgba(71, 81, 108, .5) rgba(0, 0, 0, 0);
+.card:hover .cardTitle {
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
 }
 
 .cardTitle::-webkit-scrollbar {
-    width: 8px; /* Adjust the width as desired */
+  width: 8px; /* Adjust the width as desired */
 }
 
 .cardTitle::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust the color as desired */
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the color as desired */
 }
 
 .cardTitle::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0); /* Remove the background color */
+  background-color: rgba(0, 0, 0, 0); /* Remove the background color */
 }
+
+.cardContent {
+  position: relative;
+  height: 100%;
+  // padding: 18px;
+  padding: 10px 18px 1px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  display: flex;
+  max-height: calc(
+    2em * 4
+  ); /* Assuming 1.2em as line-height and showing up to 4 lines */
+  overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+  margin: 0; /* Removing default margins from paragraph */
+  padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
+}
+
+.cardAuthor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 1px;
+}
+
+.dp {
+  width: 3em;
+  padding-left: 0.5em;
+  margin-right: 0.7em;
+}
+.authorName {
+}
+.authorName:hover {
+  color: rgb(232, 230, 228);
+}
+
+.cardUserClick {
+  display: flex;
+}
+
+.cardHeart {
+  display: flex;
+}
+.cardHeart:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.bottomContent {
+  display: flex;
+  position: relative;
+  border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
+}
+
+.cardIcons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.cardIcon {
+}
+.cardIcon:hover path {
+  fill: #b5b19b;
+}
+
+.cardInfo:hover svg path {
+  // fill: rgb(166, 142, 10);
+  fill: #d2cfca;
+}
+
+// <section
+//   className={`${styles.contentLayout} grid pt-2 mx-auto h-auto grid-cols-3 gap-0.5em`}>
+//   {tileCards.map((tile, index) => (
+//     <article
+//       key={index}
+//       className={`${styles.card} inline-block justify-center relative h-auto border mb-4 mx-auto break-inside-avoid w-[clamp(47.5ch,30%,75ch)] box-border`}>
+//       <div className={`${styles.cardContent} p-4 leading-relaxed`}>
+//         <h3>{tile.title}</h3>
+//         <p>{tile.text}</p>
+//       </div>
+//     </article>
+//   ))}
+// </section>
+//
+//
 
 // .card:after {
 //     background: linear-gradient(
@@ -148,113 +240,3 @@
 //     top: 25%;
 //     opacity: 1;
 // }
-
-.cardContent {
-    position: relative;
-    height: 100%;
-    // padding: 18px;
-    padding: 10px 18px 1px 18px;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 1.5;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.topContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 1;
-}
-
-
-.cardTitle {
-    display: flex;
-    max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
-    overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
-    margin: 0; /* Removing default margins from paragraph */
-    padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
-}
-
-.cardAuthor {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-top: 4px;
-    padding-bottom: 1px;
-}
-
-.dp {
-    width: 3em;
-    padding-left: .5em;
-    margin-right: .7em;
-}
-.authorName {
-
-}
-.authorName:hover {
-    color: rgb(232, 230, 228);
-}
-
-.cardUserClick {
-    display: flex;
-}
-
-.cardHeart {
-    display: flex;
-}
-.cardHeart:hover svg path {
-    fill: rgb(112, 45, 45);
-}
-
-.bottomContent {
-    display: flex;
-    position: relative;
-    border-top: .01px solid rgb(var(--foreground-rgb), .7);
-}
-
-.cardIcons {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    
-    // position: absolute; /* Add this */
-    // bottom: 6px; /* Add this */
-    // left: 0;
-    // right: 0;
-    // width: 95%;
-    // margin: 0 auto;
-}
-
-.cardIcon {
-
-}
-.cardIcon:hover path {
-    fill: #b5b19b;
-}
-
-
-.cardInfo:hover svg path {
-    // fill: rgb(166, 142, 10);
-    fill: #d2cfca;
-}
-
-    // <section
-    //   className={`${styles.contentLayout} grid pt-2 mx-auto h-auto grid-cols-3 gap-0.5em`}>
-    //   {tileCards.map((tile, index) => (
-    //     <article
-    //       key={index}
-    //       className={`${styles.card} inline-block justify-center relative h-auto border mb-4 mx-auto break-inside-avoid w-[clamp(47.5ch,30%,75ch)] box-border`}>
-    //       <div className={`${styles.cardContent} p-4 leading-relaxed`}>
-    //         <h3>{tile.title}</h3>
-    //         <p>{tile.text}</p>
-    //       </div>
-    //     </article>
-    //   ))}
-    // </section>

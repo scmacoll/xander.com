@@ -4,15 +4,15 @@ const mongodb = require('mongodb');
 const router = expressInstance.Router();
 
 // Connection URL
-const url = 'mongodb://localhost:27017';
+const url = process.env.MONGO_URI;
 // Database Name
-const dbName = 'your_database_name';
+const dbName = 'card_database';
 
 router.get('/getCards', async (req: any, res: { json: ( arg0: any ) => void; }) => {
   const client = new mongodb.MongoClient(url);
   await client.connect();
-  const db = client.db(dbName);
-  const cards = await db.collection('your_collection_name').find({}).toArray();
+  const db = client.db();
+  const cards = await db.collection('cards').find({}).toArray();
   res.json(cards);
   client.close();
 });

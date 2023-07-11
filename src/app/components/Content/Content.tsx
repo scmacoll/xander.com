@@ -1,74 +1,35 @@
+"use client";
+
 import styles from './Content.module.scss';
 import classNames from 'classnames';
 import userIcon from '../../assets/user_icon.svg'
 import yukioMishimaImage from '../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Image from 'next/image'
 
 
 const Content = () => {
-  const tileCards = [
-    {
-      title:
-        'We are drowning in information, while starving for wisdom. The world henceforth will be run by synthesizers, people able to put together the right information at the right time, think critically about it, and make important choices wisely.',
-      text: 'Neil Postman',
-    },
-    {
-      title:
-        'What transforms this world is—knowledge... Nothing else can change anything in this world. Knowledge alone is capable of transforming the world, while at the same time leaving it exactly as it is...',
-      text: 'Mishima',
-    },
-    {
-      title:
-        "Computers, by their nature, tend to present information in isolated fragments, lacking the necessary context and meaning that are crucial for students to develop a comprehensive understanding. This decontextualization of knowledge could hinder students' ability to grasp the bigger picture and make connections between different pieces of information, thereby limiting their capacity to appreciate the broader significance of what they learn.",
-      text: 'Neil Postman',
-    },
-    {
-      title:
-        '“It has always seemed strange to me that in our endless discussions about education so little stress is laid on the pleasure of becoming an educated person, the enormous interest it adds to life. To be able to be caught up into the world of thought—that is to be educated".',
-      text: 'Edith Hamilton',
-    },
-    {
-      title:
-        'I created this library as a tribute to the Library of Alexandria. My ambition is that this place will be a source of learning and innovation and that it will bring back the glories of the ancient library.',
-      text: 'Ismail Serageldin',
-    },
-    {
-      title:
-        'We can roam the bloated stacks of the Library of Alexandria, where all imagination and knowledge are assembled; we can recognize in its destruction the warning that all we gather will be lost, but also that much of it can be collected again.',
-      text: 'Alberto Manguel',
-    },
-    {
-      title:
-        'Digital environments have the potential for a high degree of procedural and participatory complexity, which makes them well suited for capturing the densely layered, interconnected nature of human experience.',
-      text: 'Janet Murray',
-    },
-    {
-      title:
-        '“Without an allegiance to beauty, art degenerates into a caricature of itself. It is beauty that animates aesthetic experience, making it so seductive; but aesthetic experience itself degenerates into a kind of  fetish or idol if it is held up as an end in itself, untested by the rest of life”.',
-      text: 'Roger Kimball',
-    },
-    {
-      title:
-        'Finding the links between people and ideas is the true magic of innovation.',
-      text: 'Steven Johnson',
-    },
-    {
-      title:
-        'A people without the knowledge of their past history, origin, and culture is like a tree without roots.',
-      text: 'Marcus Garvey',
-    },
-    {
-      title:
-        'Relationships are all there is. Everything in the universe only exists because it is in relationship to everything else. Nothing exists in isolation.',
-      text: 'Margaret Wheatley',
-    },
-    {
-      title:
-        '“Science does not rest upon solid bedrock. The bold structure of its theories rises, as it were, above a swamp. It is like a building erected on piles. The piles are driven down from above into the swamp, but not down to any natural or ‘given’ base; and if we stop driving the piles deeper, it is not because we have reached firm ground. We simply stop when we are satisfied that the piles are firm enough to carry the structure, at least for the time being.”',
-      text: 'Karl Popper',
-    },
-  ];
+    type TileCard = {
+      cell_name: string;
+      quote: string;
+      author: string;
+    };
+  const mongoURI = process.env.MONGO_URI!;
+  const [tileCards, setTileCards] = useState<TileCard[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(mongoURI);
+        setTileCards(response.data);
+      } catch (error) {
+        console.error('Error fetching tile cards:', error);
+      }
+    };
+
+    fetchData();
+  }, [mongoURI]);
+
   return (
     <section className={styles.contentLayout}>
       {tileCards.map((tile, index) => {
@@ -87,7 +48,7 @@ const Content = () => {
               <div className={`${styles.cardContent}`}>
                 <div className={`${styles.topContent}`}>
                   <div>
-                    <p className={`${styles.cardTitle}`}>{tile.title}</p>
+                    <p className={`${styles.cardTitle}`}>{tile.quote}</p>
                   </div>
                   <div className={`${styles.cardAuthor}`}>
                     <div className={`${styles.authorName} flex items-center`}>
@@ -101,7 +62,7 @@ const Content = () => {
                         />
                       </a>
                       <h3 className="font-bold">
-                        <a href="#">{tile.text}</a>
+                        <a href="#">{tile.author}</a>
                       </h3>
                     </div>
                     <div className={`${styles.cardUserClick}`}>
@@ -433,3 +394,67 @@ export default Content;
           //     <h3 className="font-bold pt-1">{tile.text}</h3>
           //   </div>
           // </div>;
+
+
+          // const tileCards = [
+  //   {
+  //     title:
+  //       'We are drowning in information, while starving for wisdom. The world henceforth will be run by synthesizers, people able to put together the right information at the right time, think critically about it, and make important choices wisely.',
+  //     text: 'Neil Postman',
+  //   },
+  //   {
+  //     title:
+  //       'What transforms this world is—knowledge... Nothing else can change anything in this world. Knowledge alone is capable of transforming the world, while at the same time leaving it exactly as it is...',
+  //     text: 'Mishima',
+  //   },
+  //   {
+  //     title:
+  //       "Computers, by their nature, tend to present information in isolated fragments, lacking the necessary context and meaning that are crucial for students to develop a comprehensive understanding. This decontextualization of knowledge could hinder students' ability to grasp the bigger picture and make connections between different pieces of information, thereby limiting their capacity to appreciate the broader significance of what they learn.",
+  //     text: 'Neil Postman',
+  //   },
+  //   {
+  //     title:
+  //       '“It has always seemed strange to me that in our endless discussions about education so little stress is laid on the pleasure of becoming an educated person, the enormous interest it adds to life. To be able to be caught up into the world of thought—that is to be educated".',
+  //     text: 'Edith Hamilton',
+  //   },
+  //   {
+  //     title:
+  //       'I created this library as a tribute to the Library of Alexandria. My ambition is that this place will be a source of learning and innovation and that it will bring back the glories of the ancient library.',
+  //     text: 'Ismail Serageldin',
+  //   },
+  //   {
+  //     title:
+  //       'We can roam the bloated stacks of the Library of Alexandria, where all imagination and knowledge are assembled; we can recognize in its destruction the warning that all we gather will be lost, but also that much of it can be collected again.',
+  //     text: 'Alberto Manguel',
+  //   },
+  //   {
+  //     title:
+  //       'Digital environments have the potential for a high degree of procedural and participatory complexity, which makes them well suited for capturing the densely layered, interconnected nature of human experience.',
+  //     text: 'Janet Murray',
+  //   },
+  //   {
+  //     title:
+  //       '“Without an allegiance to beauty, art degenerates into a caricature of itself. It is beauty that animates aesthetic experience, making it so seductive; but aesthetic experience itself degenerates into a kind of  fetish or idol if it is held up as an end in itself, untested by the rest of life”.',
+  //     text: 'Roger Kimball',
+  //   },
+  //   {
+  //     title:
+  //       'Finding the links between people and ideas is the true magic of innovation.',
+  //     text: 'Steven Johnson',
+  //   },
+  //   {
+  //     title:
+  //       'A people without the knowledge of their past history, origin, and culture is like a tree without roots.',
+  //     text: 'Marcus Garvey',
+  //   },
+  //   {
+  //     title:
+  //       'Relationships are all there is. Everything in the universe only exists because it is in relationship to everything else. Nothing exists in isolation.',
+  //     text: 'Margaret Wheatley',
+  //   },
+  //   {
+  //     title:
+  //       '“Science does not rest upon solid bedrock. The bold structure of its theories rises, as it were, above a swamp. It is like a building erected on piles. The piles are driven down from above into the swamp, but not down to any natural or ‘given’ base; and if we stop driving the piles deeper, it is not because we have reached firm ground. We simply stop when we are satisfied that the piles are firm enough to carry the structure, at least for the time being.”',
+  //     text: 'Karl Popper',
+  //   },
+  // ];

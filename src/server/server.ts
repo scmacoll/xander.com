@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 5001;
 
 const cardsRoute = require('./routes/cards');
-app.use('/api', cardsRoute);
+app.use('/api', cardsRoute); // api endpoint
 
 const mongooseOptions = {
   useUnifiedTopology: true,
