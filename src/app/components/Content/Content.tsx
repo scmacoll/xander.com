@@ -206,7 +206,7 @@ const Content = () => {
                         />
                       </g>
                     </svg>
-                    <svg
+                    {/* <svg
                       className={`${styles.cardIcon}`}
                       version="1.0"
                       xmlns="http://www.w3.org/2000/svg"
@@ -330,7 +330,7 @@ const Content = () => {
                           -32 96 -6 l24 19 0 1170 c0 1136 -1 1171 -19 1191 -28 31 -79 28 -105 -5z"
                         />
                       </g>
-                    </svg>
+                    </svg> */}
                     <svg
                       className={`${styles.cardIcon}`}
                       version="1.0"
