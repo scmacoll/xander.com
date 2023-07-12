@@ -1,4 +1,6 @@
+// At the top of your server.ts
 require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 
