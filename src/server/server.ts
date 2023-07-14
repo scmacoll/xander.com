@@ -1,9 +1,10 @@
 //src/server/server.ts
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import mongoose, { ConnectOptions } from 'mongoose';
 
 const app = express();
 app.use(cors());
@@ -16,15 +17,15 @@ app.use(cors());
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 5001;
 
-const cardsRoute = require('./routes/cards');
+import cardsRoute from './routes/cards'
 app.use('/api', cardsRoute); // api endpoint
 
-const mongooseOptions = {
+const mongooseOptions: any = {
   useUnifiedTopology: true,
 };
 
 mongoose
-  .connect(process.env.MONGO_URI, mongooseOptions)
+  .connect(process.env.MONGO_URI as string, mongooseOptions)
   .then(() => console.log('Successfully connected to MongoDB'))
   .catch((err: Error) => console.error(`Connection error: ${err}`));
 
@@ -49,7 +50,6 @@ app.listen(port, () => {
 // app.listen(port, () => {
 //   console.log(`Server is running on port: ${port}`);
 // });
-
 
 //##################################################
 // Additionally, be aware that this setting will allow all origins. In a production setting, you'd want to configure the CORS middleware to restrict the allowed origins to just your frontend's domain to prevent other domains from making requests to your server. You can do this by passing an options object to the cors function like so:

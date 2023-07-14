@@ -1,21 +1,25 @@
-//src/server/routes>cards.ts
-const expressInstance = require('express');
-const mongodb = require('mongodb');
+import { Router, Request, Response } from 'express';
+import { MongoClient, Db } from 'mongodb';
 
-const router = expressInstance.Router();
+const router: Router = Router();
 
-// Connection URL
-const url = process.env.MONGO_URI;
-// Database Name
-const dbName = 'card_database';
+// Define your routes and handlers
+router.get('/getCards', async (req: Request, res: Response) => {
+  try {
+    const client = await MongoClient.connect(process.env.MONGO_URI as string);
+    const db: Db = client.db(); // Access the MongoDB database
 
-router.get('/getCards', async (req: any, res: { json: ( arg0: any ) => void; }) => {
-  const client = new mongodb.MongoClient(url);
-  await client.connect();
-  const db = client.db();
-  const cards = await db.collection('cards').find({}).toArray();
-  res.json(cards);
-  client.close();
+    const collection = db.collection('cards'); // Assuming 'cards' is the name of your collection
+
+    const cards = await collection.find().toArray(); // Retrieve all cards from the collection
+
+    client.close(); // Close the MongoDB connection
+
+    res.json(cards);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
 });
 
-module.exports = router;
+export default router;
