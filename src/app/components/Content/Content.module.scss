@@ -81,11 +81,13 @@
   box-sizing: border-box;
   text-align: start;
   border-radius: 4px;
-  /*overflow: auto;*/
+  // overflow: auto;
   /* width: 416.666px; */
   /*width: 311.666px;*/
   /*height: 328.075px;*/
 
+  min-width: 0;
+  min-height: 0;
   width: 350px;
   // height: 14.5vw;
   color: rgba(214, 214, 214, 0.8);

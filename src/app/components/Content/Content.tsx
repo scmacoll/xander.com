@@ -1,8 +1,8 @@
+//src/app/components/Content/Content.tsx
 "use client";
 
 import styles from './Content.module.scss';
 import classNames from 'classnames';
-import userIcon from '../../assets/user_icon.svg'
 import yukioMishimaImage from '../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -19,12 +19,34 @@ const Content = () => {
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(apiURI);
-        setTileCards(response.data);
-      } catch (error) {
-        console.error('Error fetching tile cards:', error);
-      }
+        try {
+          const response = await axios.get(apiURI);
+          const filteredData = response.data.filter((card: TileCard) => {
+            const cellNumber = parseInt(card.cell_name.slice(0, -1));
+            const cellLetter = card.cell_name.slice(-1);
+
+            return (
+              cellNumber >= 1 &&
+              cellNumber <= 8 &&
+              ['D', 'E', 'F'].includes(cellLetter)
+            );
+          });
+          // Sort the filtered data
+          filteredData.sort((a: TileCard, b: TileCard) => {
+            if (a.cell_name < b.cell_name) {
+              return -1;
+            }
+            if (a.cell_name > b.cell_name) {
+              return 1;
+            }
+            return 0;
+          });
+          console.log(tileCards);
+
+          setTileCards(filteredData);
+        } catch (error) {
+          console.error('Error fetching tile cards:', error);
+        }
     };
 
     fetchData();
@@ -33,9 +55,15 @@ const Content = () => {
   return (
     <section className={styles.contentLayout}>
       {tileCards.map((card, index) => {
-        const isFirstColumn = index % 3 === 0;
-        const isSecondColumn = index % 3 === 1;
-        const isThirdColumn = index % 3 === 2;
+          const cellNumber = parseInt(card.cell_name.slice(0, -1));
+          const cellLetter = card.cell_name.slice(-1);
+
+          const isFirstColumn =
+            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'D';
+          const isSecondColumn =
+            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'E';
+          const isThirdColumn =
+            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
         return (
           <article
             key={index}
