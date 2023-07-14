@@ -7,6 +7,13 @@ const mongoose = require('mongoose');
 
 const app = express();
 app.use(cors());
+
+//  app.use(
+//   cors({
+// ?    origin: 'http://your-frontend-domain.com',
+//   })
+// );
+
 const port = process.env.PORT ? parseInt(process.env.PORT) : 5001;
 
 const cardsRoute = require('./routes/cards');
@@ -42,3 +49,14 @@ app.listen(port, () => {
 // app.listen(port, () => {
 //   console.log(`Server is running on port: ${port}`);
 // });
+
+
+//##################################################
+// Additionally, be aware that this setting will allow all origins. In a production setting, you'd want to configure the CORS middleware to restrict the allowed origins to just your frontend's domain to prevent other domains from making requests to your server. You can do this by passing an options object to the cors function like so:
+
+// app.use(cors({
+//   origin: 'http://your-frontend-domain.com'
+// }));
+
+// One more thing, this solution is okay for development but for production you should either use a reverse proxy (like Nginx) to serve both your frontend and backend under the same domain, or use Next.js API routes as mentioned in the previous response.
+//##################################################

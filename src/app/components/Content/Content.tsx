@@ -15,14 +15,12 @@ const Content = () => {
       quote: string;
       author: string;
     };
-  const apiURI = 'http://localhost:5001/api/getCards';
-  console.log('apiURI: ', apiURI);
+  const apiURI = '/api/getCards';
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(apiURI);
-        console.log(response.data);
         setTileCards(response.data);
       } catch (error) {
         console.error('Error fetching tile cards:', error);
@@ -30,7 +28,7 @@ const Content = () => {
     };
 
     fetchData();
-  }, [apiURI]);
+  }, []);
 
   return (
     <section className={styles.contentLayout}>
