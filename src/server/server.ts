@@ -1,10 +1,12 @@
-// At the top of your server.ts
+//src/server/server.ts
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT ? parseInt(process.env.PORT) : 5001;
 
 const cardsRoute = require('./routes/cards');

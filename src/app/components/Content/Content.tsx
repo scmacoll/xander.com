@@ -15,8 +15,8 @@ const Content = () => {
       quote: string;
       author: string;
     };
-  const apiURI = '/api/getCards';
-  console.log('mongoURI: ', apiURI);
+  const apiURI = 'http://localhost:5001/api/getCards';
+  console.log('apiURI: ', apiURI);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   useEffect(() => {
     const fetchData = async () => {
