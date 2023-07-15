@@ -9,14 +9,27 @@ import axios from 'axios';
 import Image from 'next/image'
 
 
+const getNumColumns = (): number => {
+  if (window.innerWidth >= 1100) {
+    return 3;
+  } else if (window.innerWidth >= 700) {
+    return 2;
+  } else {
+    return 1;
+  }
+};
+
 const Content = () => {
-    type TileCard = {
-      cell_name: string;
-      quote: string;
-      author: string;
-    };
+  type TileCard = {
+    cell_name: string;
+    quote: string;
+    author: string;
+  };
+
   const apiURI = '/api/getCards';
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
+  const [numColumns, setNumColumns] = useState(getNumColumns());
+
   useEffect(() => {
     const fetchData = async () => {
         try {
@@ -41,7 +54,6 @@ const Content = () => {
             }
             return 0;
           });
-          console.log(tileCards);
 
           setTileCards(filteredData);
         } catch (error) {
@@ -50,20 +62,37 @@ const Content = () => {
     };
 
     fetchData();
+
+    const handleResize = () => {
+      setNumColumns(getNumColumns());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   return (
     <section className={styles.contentLayout}>
       {tileCards.map((card, index) => {
-          const cellNumber = parseInt(card.cell_name.slice(0, -1));
-          const cellLetter = card.cell_name.slice(-1);
+        const cellNumber = parseInt(card.cell_name.slice(0, -1));
+        const cellLetter = card.cell_name.slice(-1);
 
-          const isFirstColumn =
-            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'D';
-          const isSecondColumn =
-            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'E';
-          const isThirdColumn =
-            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
+        const isFirstColumn =
+          cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'D';
+        const isSecondColumn =
+          cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'E';
+        const isThirdColumn =
+          cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
+
+        // If 2 columns, render middle & last only
+        if (numColumns === 2 && isFirstColumn) {
+          return null;
+        }
+
         return (
           <article
             key={index}
