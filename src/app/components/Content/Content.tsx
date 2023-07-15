@@ -12,7 +12,7 @@ import Image from 'next/image'
 const getNumColumns = (): number => {
   if (window.innerWidth >= 1100) {
     return 3;
-  } else if (window.innerWidth >= 700) {
+  } else if (window.innerWidth >= 750) {
     return 2;
   } else {
     return 1;
@@ -88,6 +88,10 @@ const Content = () => {
         const isThirdColumn =
           cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
 
+        // If 1 column, render middle only
+        if (numColumns === 1 && !isSecondColumn) {
+          return null;
+        }
         // If 2 columns, render middle & last only
         if (numColumns === 2 && isFirstColumn) {
           return null;
