@@ -9,6 +9,10 @@ import axios from 'axios';
 import Image from 'next/image'
 
 
+interface ContentProps {
+  isCardButtonClicked: boolean;
+}
+
 const getNumColumns = (): number => {
   if (window.innerWidth >= 1100) {
     return 3;
@@ -19,46 +23,67 @@ const getNumColumns = (): number => {
   }
 };
 
-const Content = () => {
-  type TileCard = {
-    cell_name: string;
-    quote: string;
-    author: string;
-  };
+type TileCard = {
+  cell_name: string;
+  quote: string;
+  author: string;
+};
 
+const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
+    );
+
+    const toggleChangedState = () => {
+      elements.forEach((element) => {
+        element.classList.toggle(styles.changedState);
+      });
+    };
+
+    if (isCardButtonClicked) {
+      console.log('Focus Mode OFF!');
+      toggleChangedState();
+    } else {
+      toggleChangedState();
+      console.log('Focus Mode ON!');
+    }
+  }, [isCardButtonClicked]);
+  
   const apiURI = '/api/getCards';
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-          const response = await axios.get(apiURI);
-          const filteredData = response.data.filter((card: TileCard) => {
-            const cellNumber = parseInt(card.cell_name.slice(0, -1));
-            const cellLetter = card.cell_name.slice(-1);
+      try {
+        const response = await axios.get(apiURI);
+        const filteredData = response.data.filter((card: TileCard) => {
+          const cellNumber = parseInt(card.cell_name.slice(0, -1));
+          const cellLetter = card.cell_name.slice(-1);
 
-            return (
-              cellNumber >= 1 &&
-              cellNumber <= 8 &&
-              ['D', 'E', 'F'].includes(cellLetter)
-            );
-          });
-          // Sort the filtered data
-          filteredData.sort((a: TileCard, b: TileCard) => {
-            if (a.cell_name < b.cell_name) {
-              return -1;
-            }
-            if (a.cell_name > b.cell_name) {
-              return 1;
-            }
-            return 0;
-          });
+          return (
+            cellNumber >= 1 &&
+            cellNumber <= 8 &&
+            ['D', 'E', 'F'].includes(cellLetter)
+          );
+        });
+        // Sort the filtered data
+        filteredData.sort((a: TileCard, b: TileCard) => {
+          if (a.cell_name < b.cell_name) {
+            return -1;
+          }
+          if (a.cell_name > b.cell_name) {
+            return 1;
+          }
+          return 0;
+        });
 
-          setTileCards(filteredData);
-        } catch (error) {
-          console.error('Error fetching tile cards:', error);
-        }
+        setTileCards(filteredData);
+      } catch (error) {
+        console.error('Error fetching tile cards:', error);
+      }
     };
 
     fetchData();
