@@ -38,6 +38,7 @@ const Search = () => {
             id="search"
             name="q"
             placeholder="Search the world's quote reference library"
+            autoFocus
           />
 
           <button className="absolute right-2 bg-gray-500 border-none text-white inline-block text-xs cursor-text rounded py-0.5 px-1 opacity-70">

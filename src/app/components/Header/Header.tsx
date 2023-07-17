@@ -1,12 +1,24 @@
-//src/app/components/Header/Header.tsx
-import React from 'react';
+import React, { useRef } from 'react';
 import styles from './Header.module.scss';
 
 interface HeaderProps {
-  onCardButtonClick: () => void;
+  onFocusModeToggle: () => void;
+  isFocusMode: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ onCardButtonClick }) => {
+const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true }) => {
+  const handleFocusModeToggle = () => {
+    onFocusModeToggle();
+  };
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleClick = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+
   return (
     <header
       className={`${styles.header} flex justify-between items-center mx-auto p-1`}>
@@ -36,8 +48,23 @@ const Header: React.FC<HeaderProps> = ({ onCardButtonClick }) => {
             />
           </g>
         </svg>
-        <div className="pl-5 text-xs flex align-center">
-          <button onClick={onCardButtonClick}>CARD BUTTON</button>
+        <div
+          className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
+          <span
+            className="cursor-pointer text-sm pr-2"
+            onClick={handleClick}>
+            Focus
+          </span>
+          <label
+            className={`${styles.switch} ${isFocusMode ? styles.active : ''}`}>
+            <input
+              type="checkbox"
+              onClick={handleFocusModeToggle}
+              defaultChecked={true}
+              ref={inputRef}
+            />
+            <span className={styles.slider}></span>
+          </label>
         </div>
       </div>
       <div className="p-2 flex flex-1 justify-center">

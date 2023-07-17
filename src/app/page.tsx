@@ -16,7 +16,7 @@ export default function Home() {
     };
   return (
     <main>
-      <Header onCardButtonClick={handleCardButtonClick} />
+      <Header onFocusModeToggle={ handleCardButtonClick } isFocusMode={ false } />
       <Search />
       <Content isCardButtonClicked={isCardButtonClicked} />
       <Footer />
