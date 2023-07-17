@@ -14,14 +14,16 @@ interface ContentProps {
 }
 
 const getNumColumns = (): number => {
-  if (window.innerWidth >= 1100) {
-    return 3;
-  } else if (window.innerWidth >= 750) {
-    return 2;
-  } else {
-    return 1;
+  if (typeof window !== 'undefined') {
+    if (window.innerWidth >= 1100) {
+      return 3;
+    } else if (window.innerWidth >= 750) {
+      return 2;
+    }
   }
+  return 1;
 };
+
 
 type TileCard = {
   cell_name: string;

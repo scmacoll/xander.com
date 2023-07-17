@@ -18,7 +18,23 @@ const Header: React.FC<HeaderProps> = ({ onCardButtonClick }) => {
           height="2.2rem"
           viewBox="0 0 752.000000 752.000000"
           preserveAspectRatio="xMidYMid meet">
-          {/* SVG paths and other elements */}
+          <g
+            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+            fill="rgba(210, 207, 202, 0.8)"
+            stroke="none">
+            <path
+              d="M1510 5415 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
+              -175z"
+            />
+            <path
+              d="M1517 3933 c-4 -3 -7 -84 -7 -180 l0 -173 2250 0 2250 0 -2 178 -3
+              177 -2241 3 c-1232 1 -2244 -1 -2247 -5z"
+            />
+            <path
+              d="M1510 2105 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
+              -175z"
+            />
+          </g>
         </svg>
         <div className="pl-5">
           <button onClick={onCardButtonClick}>CARD BUTTON</button>
