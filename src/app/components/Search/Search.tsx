@@ -1,6 +1,9 @@
 import styles from './Search.module.scss';
+import React from 'react';
+
 
 const Search = () => {
+
   return (
     <div className={`${styles.search}`}>
       <form className={`${styles.searchForm}`} action="/search" method="get">
@@ -40,10 +43,10 @@ const Search = () => {
             placeholder="Search the world's quote reference library"
             autoFocus
           />
-
-          <button className="absolute right-2 bg-gray-500 border-none text-white inline-block text-xs cursor-text rounded py-0.5 px-1 opacity-70">
+          
+          <span className="absolute right-2 bg-gray-500 border-none text-white inline-block text-xs cursor-text rounded py-0.5 px-1 mx-1 opacity-70">
             ⌘K
-          </button>
+          </span>
         </div>
       </form>
     </div>

@@ -23,8 +23,8 @@
   margin: 0 auto;
   width: clamp(25em, 1em + 40vw, 50em);
   height: 2.5rem;
-  padding-left: 2.5rem; /* 40px */
-  padding-right: 2.5rem; /* 40px */
+  padding-left: 3rem; /* 40px */
+  padding-right: 3rem; /* 40px */
   border-radius: 4px;
   border: 1px solid rgb(var(--foreground-rgb), 0.8);
   
@@ -35,15 +35,18 @@
 }
 
 .searchInput {
+  position: relative;
   display: flex;
   flex-grow: 1;
   background: rgb(var(--background-start-rgb));
   align-items: center;
-  text-align: center;
+  text-align: left;
+  // margin-left: 1em;
   /* box-shadow: 1px 1px 2px 0 rgba(var(--foreground-rgb)); */
     // Remove border outline
   outline: none;
   border: none;
+  // border: 1px solid red;
 
   // Remove highlight
   -webkit-tap-highlight-color: transparent;
