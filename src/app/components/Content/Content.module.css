@@ -8,7 +8,6 @@
   justify-content: center;
   align-content: center;
   margin: 0 auto;
-  // grid-template-columns: repeat(3, 1fr); /* 3 columns */
 }
 
 @media (min-width: 1100px) {
@@ -17,52 +16,47 @@
     width: 90%;
   }
 }
-
 @media (max-width: 1099px) and (min-width: 750px) {
   .contentLayout {
     grid-template-columns: repeat(2, 1fr);
     width: 100%;
   }
 }
-
 @media (max-width: 749px) {
   .contentLayout {
     grid-template-columns: 1fr;
     width: 95%;
   }
 }
-
-
 .leftCard {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 0.7;
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+
 .rightCard {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 0.7;
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+
 .middleCard {
   transform: scale(1.02) translateY(-20px) translateZ(0); /* Scale up the card */
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
   z-index: 2; /* Ensure it stays above the other cards */
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+
 .leftCard:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
   opacity: 1;
 }
+
 .rightCard:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
   opacity: 1;
 }
+
 .middleCard:hover {
   box-shadow: 2px 15px 20px 2px rgba(0, 0, 0, 0.6);
 }
@@ -70,70 +64,55 @@
 .leftCard.changedState {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 1;
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+
 .rightCard.changedState {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 1;
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+
 .middleCard.changedState {
-  transform: scale(1.00) translateY(0) translateZ(0);
+  transform: scale(1) translateY(0) translateZ(0);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+
 .leftCard.changedState:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
 }
+
 .rightCard.changedState:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
 }
+
 .middleCard.changedState:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
 }
-
 
 .card {
   display: inline-block;
   justify-content: center;
   position: relative;
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
-  // background-color: rgb(16, 57, 58);
   margin-bottom: 1em;
   margin: 0 2px 1em 2px;
-  break-inside: avoid;
-  // width: clamp(42.5ch, 30%, 75ch);
-  // height: auto;
-  font-family: 'sf', sans-serif;
+  -moz-column-break-inside: avoid;
+       break-inside: avoid;
+  font-family: "sf", sans-serif;
   box-sizing: border-box;
   text-align: start;
   border-radius: 4px;
-  // overflow: auto;
   /* width: 416.666px; */
   /*width: 311.666px;*/
   /*height: 328.075px;*/
-
   min-width: 0;
   min-height: 0;
   width: 350px;
-  // height: 14.5vw;
   color: rgba(214, 214, 214, 0.8);
-  // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-
   /* Optional: Increase the size and opacity of the shadow on hover */
-  transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
-}
-
-.card:hover {
-  // border: .1px solid rgba(121, 110, 34, 0.521);
+  transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
 
 .card:hover .cardTitle {
@@ -156,7 +135,6 @@
   position: relative;
   height: 100%;
   box-sizing: border-box;
-  // padding: 18px;
   padding: 10px 18px 1px 18px;
   font-size: 14px;
   font-weight: 500;
@@ -175,9 +153,7 @@
 
 .cardTitle {
   display: flex;
-  max-height: calc(
-    2em * 4
-  ); /* Assuming 1.2em as line-height and showing up to 4 lines */
+  max-height: 8em; /* Assuming 1.2em as line-height and showing up to 4 lines */
   overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
   scrollbar-width: thin;
   scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
@@ -199,8 +175,7 @@
   padding-left: 0.5em;
   margin-right: 0.7em;
 }
-.authorName {
-}
+
 .authorName:hover {
   color: rgb(232, 230, 228);
 }
@@ -212,6 +187,7 @@
 .cardHeart {
   display: flex;
 }
+
 .cardHeart:hover svg path {
   fill: rgb(112, 45, 45);
 }
@@ -229,54 +205,14 @@
   flex: 1;
 }
 
-.cardIcon {
-}
 .cardIcon:hover path {
   fill: #b5b19b;
 }
 
 .cardInfo:hover svg path {
-  // fill: rgb(166, 142, 10);
   fill: #d2cfca;
 }
 
 .hidden {
   display: hidden;
-}
-
-// <section
-//   className={`${styles.contentLayout} grid pt-2 mx-auto h-auto grid-cols-3 gap-0.5em`}>
-//   {tileCards.map((tile, index) => (
-//     <article
-//       key={index}
-//       className={`${styles.card} inline-block justify-center relative h-auto border mb-4 mx-auto break-inside-avoid w-[clamp(47.5ch,30%,75ch)] box-border`}>
-//       <div className={`${styles.cardContent} p-4 leading-relaxed`}>
-//         <h3>{tile.title}</h3>
-//         <p>{tile.text}</p>
-//       </div>
-//     </article>
-//   ))}
-// </section>
-//
-//
-
-// .card:after {
-//     background: linear-gradient(
-//     transparent,
-//     #fff,
-//     transparent
-//     );
-//     height: 70px;
-//     width: 1px;
-//     position: absolute;
-//     left: -1px;
-//     top: 65%;
-//     opacity: 0;
-//     content: '';
-//     transition: top 600ms ease,
-//     opacity 600ms ease;
-// }
-// .card:hover:after {
-//     top: 25%;
-//     opacity: 1;
-// }
+}/*# sourceMappingURL=Content.module.css.map */

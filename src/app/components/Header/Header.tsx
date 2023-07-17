@@ -36,7 +36,7 @@ const Header: React.FC<HeaderProps> = ({ onCardButtonClick }) => {
             />
           </g>
         </svg>
-        <div className="pl-5">
+        <div className="pl-5 text-xs flex align-center">
           <button onClick={onCardButtonClick}>CARD BUTTON</button>
         </div>
       </div>

@@ -32,6 +32,11 @@ type TileCard = {
 };
 
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
+  const apiURI = '/api/getCards';
+  const [tileCards, setTileCards] = useState<TileCard[]>([]);
+  const [numColumns, setNumColumns] = useState(getNumColumns());
+  const [middleColumnChangedState, setMiddleColumnChangedState] =
+    useState(false);
 
   useEffect(() => {
     const elements = document.querySelectorAll(
@@ -39,23 +44,41 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     );
 
     const toggleChangedState = () => {
+      if (numColumns === 1) {
+        elements.forEach((element) => {
+          element.classList.add(styles.changedState);
+        });
+        setMiddleColumnChangedState(true);
+        return;
+      }
+
       elements.forEach((element) => {
         element.classList.toggle(styles.changedState);
       });
+      setMiddleColumnChangedState(!middleColumnChangedState);
     };
 
-    if (isCardButtonClicked) {
-      console.log('Focus Mode OFF!');
-      toggleChangedState();
-    } else {
-      toggleChangedState();
-      console.log('Focus Mode ON!');
+    if (middleColumnChangedState !== isCardButtonClicked) {
+      if (isCardButtonClicked) {
+        console.log('Focus Mode OFF!');
+        toggleChangedState();
+      } else {
+        toggleChangedState();
+        console.log('Focus Mode ON!');
+      }
     }
-  }, [isCardButtonClicked]);
-  
-  const apiURI = '/api/getCards';
-  const [tileCards, setTileCards] = useState<TileCard[]>([]);
-  const [numColumns, setNumColumns] = useState(getNumColumns());
+    const handleResize = () => {
+      const newNumColumns = getNumColumns();
+      if (newNumColumns !== numColumns && newNumColumns === 1) {
+        toggleChangedState();
+      }
+      setNumColumns(newNumColumns);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,17 +112,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     };
 
     fetchData();
-
-    const handleResize = () => {
-      setNumColumns(getNumColumns());
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, []);
 
   return (
@@ -131,6 +143,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
               [styles.leftCard]: isFirstColumn,
               [styles.middleCard]: isSecondColumn,
               [styles.rightCard]: isThirdColumn,
+              [styles.changedState]:
+                (isFirstColumn || isThirdColumn) && middleColumnChangedState,
             })}>
             {
               <div className={`${styles.cardContent}`}>
@@ -315,238 +329,3 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
 
 export default Content;
-
-
-          // <div className={`${styles.cardContent}`}>
-          //   <p className={`${styles.cardTitle}`}>{tile.title}</p>
-          //   <div className="flex items-center">
-          //     <svg
-          //       version="1.0"
-          //       xmlns="http://www.w3.org/2000/svg"
-          //       width="3.2em"
-          //       height="3.2em"
-          //       viewBox="0 0 752.000000 752.000000"
-          //       preserveAspectRatio="xMidYMid meet">
-          //       <g
-          //         transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-          //         fill="rgb(var(--foreground-rgb))"
-          //         stroke="none">
-          //         <path
-          //           d="M3491 5764 c-656 -89 -1232 -499 -1534 -1092 -247 -484 -285 -1065
-          //           -105 -1582 67 -192 206 -439 338 -600 794 -971 2243 -1004 3077 -71 333 373
-          //           513 843 513 1341 0 317 -65 597 -205 885 -301 620 -904 1046 -1590 1125 -124
-          //           14 -369 11 -494 -6z m499 -95 c326 -40 613 -152 893 -349 120 -84 353 -317
-          //           437 -437 135 -192 227 -381 285 -584 61 -211 70 -278 69 -544 0 -223 -2 -249
-          //           -27 -368 -70 -327 -210 -617 -419 -865 -38 -45 -72 -82 -76 -82 -4 0 -20 39
-          //           -35 88 -113 354 -379 662 -720 833 -81 41 -270 109 -303 109 -10 0 16 19 57
-          //           43 222 126 360 302 419 532 73 283 -2 570 -203 782 -335 352 -879 352 -1214 0
-          //           -343 -361 -296 -939 98 -1237 43 -32 103 -70 134 -85 l57 -28 -79 -23 c-453
-          //           -131 -819 -484 -960 -926 -15 -49 -31 -88 -35 -88 -4 0 -38 37 -76 83 -209
-          //           248 -349 537 -419 864 -25 119 -27 145 -27 368 -1 266 8 333 69 543 161 559
-          //           579 1021 1128 1247 113 46 308 99 422 115 50 6 97 13 105 15 40 8 345 4 420
-          //           -6z m-54 -699 c226 -57 423 -226 508 -436 78 -192 72 -411 -18 -599 -84 -177
-          //           -240 -317 -426 -380 -158 -54 -321 -54 -480 0 -400 136 -604 585 -444 979 84
-          //           208 281 378 504 436 103 26 252 26 356 0z m48 -1575 c270 -47 516 -175 712
-          //           -370 109 -109 210 -251 268 -376 36 -79 96 -258 96 -287 0 -10 -21 -36 -47
-          //           -57 -267 -225 -541 -360 -880 -432 -120 -25 -144 -27 -373 -27 -228 0 -254 2
-          //           -371 27 -345 73 -628 214 -899 446 l-35 30 17 63 c134 509 543 890 1056 982
-          //           106 19 348 20 456 1z"
-          //         />
-          //       </g>
-          //     </svg>
-          //     <h3 className="font-bold pt-1">{tile.text}</h3>
-          //   </div>
-          // </div>;
-
-
-          // const tileCards = [
-  //   {
-  //     title:
-  //       'We are drowning in information, while starving for wisdom. The world henceforth will be run by synthesizers, people able to put together the right information at the right time, think critically about it, and make important choices wisely.',
-  //     text: 'Neil Postman',
-  //   },
-  //   {
-  //     title:
-  //       'What transforms this world is—knowledge... Nothing else can change anything in this world. Knowledge alone is capable of transforming the world, while at the same time leaving it exactly as it is...',
-  //     text: 'Mishima',
-  //   },
-  //   {
-  //     title:
-  //       "Computers, by their nature, tend to present information in isolated fragments, lacking the necessary context and meaning that are crucial for students to develop a comprehensive understanding. This decontextualization of knowledge could hinder students' ability to grasp the bigger picture and make connections between different pieces of information, thereby limiting their capacity to appreciate the broader significance of what they learn.",
-  //     text: 'Neil Postman',
-  //   },
-  //   {
-  //     title:
-  //       '“It has always seemed strange to me that in our endless discussions about education so little stress is laid on the pleasure of becoming an educated person, the enormous interest it adds to life. To be able to be caught up into the world of thought—that is to be educated".',
-  //     text: 'Edith Hamilton',
-  //   },
-  //   {
-  //     title:
-  //       'I created this library as a tribute to the Library of Alexandria. My ambition is that this place will be a source of learning and innovation and that it will bring back the glories of the ancient library.',
-  //     text: 'Ismail Serageldin',
-  //   },
-  //   {
-  //     title:
-  //       'We can roam the bloated stacks of the Library of Alexandria, where all imagination and knowledge are assembled; we can recognize in its destruction the warning that all we gather will be lost, but also that much of it can be collected again.',
-  //     text: 'Alberto Manguel',
-  //   },
-  //   {
-  //     title:
-  //       'Digital environments have the potential for a high degree of procedural and participatory complexity, which makes them well suited for capturing the densely layered, interconnected nature of human experience.',
-  //     text: 'Janet Murray',
-  //   },
-  //   {
-  //     title:
-  //       '“Without an allegiance to beauty, art degenerates into a caricature of itself. It is beauty that animates aesthetic experience, making it so seductive; but aesthetic experience itself degenerates into a kind of  fetish or idol if it is held up as an end in itself, untested by the rest of life”.',
-  //     text: 'Roger Kimball',
-  //   },
-  //   {
-  //     title:
-  //       'Finding the links between people and ideas is the true magic of innovation.',
-  //     text: 'Steven Johnson',
-  //   },
-  //   {
-  //     title:
-  //       'A people without the knowledge of their past history, origin, and culture is like a tree without roots.',
-  //     text: 'Marcus Garvey',
-  //   },
-  //   {
-  //     title:
-  //       'Relationships are all there is. Everything in the universe only exists because it is in relationship to everything else. Nothing exists in isolation.',
-  //     text: 'Margaret Wheatley',
-  //   },
-  //   {
-  //     title:
-  //       '“Science does not rest upon solid bedrock. The bold structure of its theories rises, as it were, above a swamp. It is like a building erected on piles. The piles are driven down from above into the swamp, but not down to any natural or ‘given’ base; and if we stop driving the piles deeper, it is not because we have reached firm ground. We simply stop when we are satisfied that the piles are firm enough to carry the structure, at least for the time being.”',
-  //     text: 'Karl Popper',
-  //   },
-  // ];
-
-
-                      {
-                        /* <svg
-                      className={`${styles.cardIcon}`}
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="2.5em"
-                      height="2.5em"
-                      // transform="translate(0, -12)"
-                      viewBox="0 0 752.000000 752.000000"
-                      preserveAspectRatio="xMidYMid meet">
-                      <g
-                        transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#868478"
-                        stroke="none">
-                        <path
-                          d="M1945 5575 l-25 -24 0 -1791 0 -1791 25 -24 24 -25 1791 0 1791 0 24
-                          25 25 24 0 1791 0 1791 -25 24 -24 25 -1791 0 -1791 0 -24 -25z m585 -410 l0
-                          -265 -220 0 -220 0 0 258 c0 142 3 262 7 265 3 4 102 7 220 7 l213 0 0 -265z
-                          m2280 -525 l0 -790 -1050 0 -1050 0 0 790 0 790 1050 0 1050 0 0 -790z m618
-                          523 l2 -263 -220 0 -220 0 0 265 0 265 218 -2 217 -3 3 -262z m-2898 -703 l0
-                          -260 -220 0 -220 0 0 260 0 260 220 0 220 0 0 -260z m2900 0 l0 -260 -220 0
-                          -220 0 0 260 0 260 220 0 220 0 0 -260z m-2900 -700 l0 -260 -220 0 -220 0 0
-                          260 0 260 220 0 220 0 0 -260z m2900 0 l0 -260 -220 0 -220 0 0 260 0 260 220
-                          0 220 0 0 -260z m-620 -880 l0 -790 -1050 0 -1050 0 0 790 0 790 1050 0 1050
-                          0 0 -790z m-2280 180 l0 -260 -220 0 -220 0 0 260 0 260 220 0 220 0 0 -260z
-                          m2900 0 l0 -260 -220 0 -220 0 0 260 0 260 220 0 220 0 0 -260z m-2900 -705
-                          l0 -265 -217 2 -218 3 -3 263 -2 262 220 0 220 0 0 -265z m2898 3 l-3 -263
-                          -217 -3 -218 -2 0 265 0 265 220 0 220 0 -2 -262z"
-                        />
-                      </g>
-                    </svg>
-                    <svg
-                      className={`${styles.cardIcon}`}
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="3em"
-                      height="3em"
-                      viewBox="0 0 752.000000 752.000000"
-                      preserveAspectRatio="xMidYMid meet">
-                      <g
-                        transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#868478"
-                        stroke="none">
-                        <path
-                          d="M2140 5289 c-98 -13 -214 -74 -284 -150 -62 -66 -95 -124 -120 -208
-                          -14 -49 -16 -173 -16 -1171 0 -998 2 -1122 16 -1171 59 -198 220 -335 424
-                          -360 55 -6 638 -9 1660 -7 l1575 3 64 23 c163 59 277 178 325 341 14 49 16
-                          173 16 1171 0 998 -2 1122 -16 1171 -48 163 -162 282 -325 341 l-64 23 -1595
-                          1 c-877 1 -1624 -2 -1660 -7z m3290 -200 c74 -34 120 -76 156 -141 l29 -53 0
-                          -1135 0 -1135 -29 -53 c-36 -65 -82 -107 -156 -141 l-55 -26 -1615 0 -1615 0
-                          -55 26 c-78 36 -124 80 -160 151 l-30 61 0 1116 0 1116 24 50 c43 94 115 154
-                          215 181 36 10 398 12 1641 11 l1595 -2 55 -26z"
-                        />
-                        <path
-                          d="M4719 4781 c-20 -20 -29 -39 -29 -61 0 -22 9 -41 29 -61 29 -28 32
-                          -29 135 -29 57 0 116 4 131 10 36 14 58 68 44 109 -17 49 -52 61 -174 61 -104
-                          0 -107 -1 -136 -29z"
-                        />
-                        <path
-                          d="M3680 4519 c-194 -18 -383 -120 -511 -275 -189 -228 -225 -565 -90
-                          -832 70 -138 212 -276 351 -341 206 -97 451 -97 655 -1 269 125 436 390 436
-                          690 0 457 -381 800 -841 759z m220 -191 c156 -37 315 -165 382 -308 45 -94 61
-                          -165 61 -260 0 -161 -56 -295 -172 -411 -116 -116 -250 -172 -411 -172 -160 0
-                          -292 55 -410 172 -117 115 -174 250 -174 411 0 94 17 165 61 260 69 146 237
-                          278 393 309 30 6 64 13 75 15 28 7 141 -3 195 -16z"
-                        />
-                      </g>
-                    </svg>
-                    <svg
-                      className={`${styles.cardIcon}`}
-                      version="1.0"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="3em"
-                      height="3em"
-                      // transform="translate(0, -12)"
-                      viewBox="0 0 752.000000 752.000000"
-                      preserveAspectRatio="xMidYMid meet">
-                      <g
-                        transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                        fill="#868478"
-                        stroke="none">
-                        <path
-                          d="M2534 5410 c-12 -5 -26 -15 -30 -22 -5 -7 -11 -661 -14 -1453 l-5
-                          -1440 -28 -56 c-30 -63 -92 -125 -159 -161 -37 -20 -58 -23 -143 -23 -89 0
-                          -106 3 -150 27 -62 32 -129 103 -158 166 l-22 47 -5 1215 c-3 668 -6 1216 -8
-                          1217 -1 1 -9 9 -18 17 -21 22 -77 20 -97 -2 -16 -17 -17 -117 -17 -1228 0
-                          -1078 2 -1216 16 -1265 51 -173 206 -309 385 -339 85 -13 3310 -14 3393 0 140
-                          23 268 119 329 247 l32 68 3 1476 2 1476 -21 19 c-21 19 -60 19 -1643 21 -903
-                          1 -1631 -2 -1642 -7z m3164 -1547 l-3 -1408 -31 -55 c-34 -61 -105 -121 -164
-                          -139 -27 -8 -447 -11 -1520 -11 l-1482 0 27 31 c35 42 75 122 91 184 11 41 14
-                          309 14 1428 l0 1377 1535 0 1535 0 -2 -1407z"
-                        />
-                        <path
-                          d="M2950 4940 c-27 -27 -25 -66 5 -95 l24 -25 456 0 455 0 0 -445 0
-                          -445 -410 0 -410 0 0 335 c0 322 -1 336 -20 355 -27 27 -71 26 -98 -3 -22 -23
-                          -22 -27 -22 -404 0 -360 1 -382 19 -404 l19 -24 504 -3 c500 -3 505 -2 531 18
-                          l27 21 0 553 c0 523 -1 554 -18 569 -17 15 -68 17 -530 17 -499 0 -513 -1
-                          -532 -20z"
-                        />
-                        <path
-                          d="M4396 4938 c-23 -32 -20 -65 9 -93 l24 -25 355 0 c243 0 363 4 380
-                          11 13 7 30 25 37 41 10 25 9 33 -8 56 l-20 27 -381 3 -381 2 -15 -22z"
-                        />
-                        <path
-                          d="M4433 4443 c-28 -5 -53 -39 -53 -71 0 -12 11 -34 25 -47 l24 -25 355
-                          0 c243 0 363 4 380 11 13 7 30 24 37 40 9 24 9 33 -5 54 -10 14 -28 30 -42 35
-                          -24 10 -675 12 -721 3z"
-                        />
-                        <path
-                          d="M4420 3917 c-53 -27 -49 -106 6 -127 37 -14 706 -13 738 1 13 7 30
-                          24 37 40 9 24 9 33 -5 54 -10 14 -28 30 -42 35 -40 16 -703 13 -734 -3z"
-                        />
-                        <path
-                          d="M2970 3397 c-53 -27 -49 -106 6 -127 38 -15 2155 -13 2188 1 54 25
-                          54 103 -1 128 -37 17 -2159 15 -2193 -2z"
-                        />
-                        <path
-                          d="M2970 2877 c-53 -27 -49 -106 6 -127 34 -13 2143 -14 2178 0 14 5 32
-                        21 42 35 14 21 14 30 5 54 -7 16 -24 33 -37 40 -38 17 -2160 15 -2194 -2z"
-                        />
-                        <path
-                          d="M2101 4934 c-21 -27 -21 -28 -21 -1186 l0 -1159 25 -24 c29 -30 64
-                          -32 96 -6 l24 19 0 1170 c0 1136 -1 1171 -19 1191 -28 31 -79 28 -105 -5z"
-                        />
-                      </g>
-                    </svg> */
-                      }
