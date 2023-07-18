@@ -3,10 +3,23 @@
 @import 'tailwindcss/utilities';
 
 :root {
-  --foreground-rgb: 210, 207, 202;
+  --foreground-rgb: 210, 207, 202; // white
+  --everforest-creme: 211, 198, 170; // everforest creme fg
+  --everforest-grey-green: 157, 169, 160; // everforest alt fg
+  --everforest-gold: 185, 165, 111; // everforest gold
   --span-color-rgb: 157, 148, 135;
   --background-start-rgb: 25, 31, 38;
-  // --background-start-rgb: 25, 35, 38; //green version
+  // --background-start-rgb: 25, 33, 38; //dark green version
+  // --background-start-rgb: 25, 34, 38; //dark green version 2
+  // --background-start-rgb: 25, 35, 38; //dark green version 3
+  // --background-start-rgb: 29, 38, 42; // custom everforest green version
+  // --background-start-rgb: 30, 39, 43; // green version
+  // --background-start-rgb: 31, 40, 44; // custom everforest green version 2
+  // --background-start-rgb: 32, 41, 45; // custom everforest green version 3
+  // --background-start-rgb: 33, 42, 46; //custom everforest green version 4
+  // --background-start-rgb: 33, 42, 49; //custom cyan version
+  
+  // --background-start-rgb: 45, 54, 58; // everforest dark green
   // --background-start-rgb: 27, 36, 45; //lighter-blue
   // --background-start-rgb: 24, 26, 27;
   // --background-end-rgb: 24, 26, 27;

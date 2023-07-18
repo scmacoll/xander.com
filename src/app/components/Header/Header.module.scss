@@ -63,7 +63,7 @@
 }
 
 .switch input:checked + .slider {
-  background-color: rgb(139, 122, 22)
+  background-color: rgb(var(--everforest-gold));
 
 ;
 }
