@@ -1,0 +1,85 @@
+//Lightbox.module.scss
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  // background-color: rgb(var(--background-rgb));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.lightboxContent {
+  position: relative;
+  background-color: rgb(var(--background-start-rgb));
+  border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
+  padding: 10px 18px 1px 18px;
+  width: 500px;
+  // max-width: 50%;
+  // max-height: 50%;
+  overflow: auto;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+
+.cardContent {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  // padding: 18px;
+  padding: 10px 18px 1px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card {
+  display: inline-block;
+  justify-content: center;
+  position: relative;
+  border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
+  // background-color: rgb(16, 57, 58);
+  margin-bottom: 1em;
+  margin: 0 2px 1em 2px;
+  break-inside: avoid;
+  // width: clamp(42.5ch, 30%, 75ch);
+  // height: auto;
+  font-family: 'sf', sans-serif;
+  box-sizing: border-box;
+  text-align: start;
+  border-radius: 4px;
+  // overflow: auto;
+  /* width: 416.666px; */
+  /*width: 311.666px;*/
+  /*height: 328.075px;*/
+
+  min-width: 0;
+  min-height: 0;
+  width: 350px;
+  // height: 14.5vw;
+  color: rgba(214, 214, 214, 0.8);
+  // color: rgb(var(--everforest-grey-green));
+  // color: rgb(var(--everforest-creme));
+  // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+
+  cursor: pointer;
+
+  /* Optional: Increase the size and opacity of the shadow on hover */
+  transition:
+    box-shadow 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  padding: 1px;
+}
