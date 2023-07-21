@@ -27,14 +27,14 @@
   line-height: 1.5;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .topContent {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  flex-grow: 1;
+  justify-content: flex-end;
+  // flex-grow: 1;
+  // min-height: 161px;
 }
 
 .cardTitle {
@@ -44,6 +44,10 @@
   ); /* Assuming 1.2em as line-height and showing up to 4 lines */
   margin: 0; /* Removing default margins from paragraph */
   padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
+  min-height: 105px;
+  align-items: center;
+  border: .1px solid red;
+  // ? Line height = 21em
 }
 
 .cardTitle::-webkit-scrollbar {
@@ -63,28 +67,32 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding-top: 4px;
+  padding-top: .6em;
   padding-bottom: 1px;
 }
 
 .authorName {
+  display: flex;
+  align-items: center;
 }
 .authorName:hover {
   color: rgb(232, 230, 228);
 }
 
 .dp {
-  width: 3em;
+  width: 4em;
   padding-left: 0.5em;
   margin-right: 0.7em;
 }
 
 .cardUserClick {
   display: flex;
+  align-items: end;
 }
 
 .cardHeart {
   display: flex;
+  padding-right: 1em;
 }
 .cardHeart:hover svg path {
   fill: rgb(112, 45, 45);
@@ -96,9 +104,17 @@
 }
 
 .bottomContent {
+  // position: absolute;
+  // top: 50%;
   display: flex;
-  position: relative;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
   border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
+  // border: .1px solid red;
+  margin-top: 1em;
+  padding-top: 1em;
 }
 
 .cardIcons {
