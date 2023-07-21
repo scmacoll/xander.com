@@ -1,10 +1,35 @@
+@media (min-width: 1100px) {
+}
+
+@media (max-width: 1099px) and (min-width: 750px) {
+  .cardContent {
+    padding: 10px 18px 1px 18px;
+  }
+  .cardTitle {
+    overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+  }
+  .topContent {
+    justify-content: center;
+  }
+}
+
+// @media (max-width: 749px) {
+//   .cardTitle {
+//     overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+//     scrollbar-width: thin;
+//     scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+//   }
+// }
 
 .cardContent {
   position: relative;
   height: 100%;
   box-sizing: border-box;
   // padding: 18px;
-  padding: 10px 18px 1px 18px;
+  padding: 18px;
+  font-family: "sf", sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
@@ -16,7 +41,7 @@
 .topContent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   flex-grow: 1;
 }
 
@@ -25,9 +50,6 @@
   max-height: calc(
     2em * 4
   ); /* Assuming 1.2em as line-height and showing up to 4 lines */
-  overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
   margin: 0; /* Removing default margins from paragraph */
   padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
 }
@@ -99,4 +121,3 @@
 .cardIcon:hover path {
   fill: #b5b19b;
 }
-

@@ -18,13 +18,15 @@
   background-color: rgb(var(--background-start-rgb));
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
   padding: 10px 18px 1px 18px;
-  width: 500px;
-  // max-width: 50%;
-  // max-height: 50%;
+  aspect-ratio: 355.983 / 216.75;
+  width: 100em;
+  min-width: 355.983px;
+  min-height: 216.75;
+  max-width: 50%;
+  max-height: 50%;
   overflow: auto;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
 }
-
 
 .cardContent {
   position: relative;
