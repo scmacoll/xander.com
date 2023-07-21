@@ -27,26 +27,29 @@
   line-height: 1.5;
   display: flex;
   flex-direction: column;
+  
 }
 
 .topContent {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: end;
   // flex-grow: 1;
-  // min-height: 161px;
+  min-height: 105px;
+  align-items: center;
+  // border: .1px solid red;
 }
 
 .cardTitle {
-  display: flex;
+  display: inline-flex;
   max-height: calc(
     2em * 4
   ); /* Assuming 1.2em as line-height and showing up to 4 lines */
   margin: 0; /* Removing default margins from paragraph */
   padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
-  min-height: 105px;
-  align-items: center;
-  border: .1px solid red;
+  min-height: 63px;
+  align-items: end;
+
   // ? Line height = 21em
 }
 
@@ -112,7 +115,7 @@
   align-content: center;
   justify-items: center;
   border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
-  // border: .1px solid red;
+  // border: .1px blue solid;
   margin-top: 1em;
   padding-top: 1em;
 }
