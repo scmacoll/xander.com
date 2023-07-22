@@ -68,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true }
         </div>
       </div>
       <div className="p-2 flex flex-1 justify-center">
-        <h1 className="text-3xl">Xander</h1>
+        <h1 className="text-3xl">Xandria</h1>
       </div>
       <div className="flex flex-1 justify-end">
         <svg
