@@ -104,6 +104,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       <div className={`${styles.bottomContent}`}>
         <div className={`${styles.cardIcons}`}>
           <div className={`${styles.cardIcon}`}>
+            <p className="flex">Social Capital</p>
             <img
               className="w-20 pt-1"
               src= {social_capital_book.src}
