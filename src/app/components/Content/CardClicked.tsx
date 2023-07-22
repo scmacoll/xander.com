@@ -3,6 +3,7 @@ import Content, { TileCard } from './Content';
 import styles from './CardClicked.module.scss';
 import Image from 'next/image';
 import yukioMishimaImage from '../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
+import social_capital_book from '../../assets/social_capital_book.jpg'
 
 interface CardProps {
   card: TileCard;
@@ -103,36 +104,11 @@ const Card: React.FC<CardProps> = ({ card }) => {
       <div className={`${styles.bottomContent}`}>
         <div className={`${styles.cardIcons}`}>
           <div className={`${styles.cardIcon}`}>
-            <svg
-              // className={`${styles.cardIcon}`}
-              version="1.0"
-              xmlns="http://www.w3.org/2000/svg"
-              width="3em"
-              height="3em"
-              // transform="translate(0, -12)"
-              viewBox="0 0 752.000000 752.000000"
-              preserveAspectRatio="xMidYMid meet">
-              <g
-                transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                fill="#868478"
-                stroke="none">
-                <path
-                  d="M2091 5205 l-31 -27 0 -1014 0 -1015 25 -24 c30 -31 92 -34 126 -6
-                l24 19 5 949 5 948 480 0 c527 0 525 0 655 -62 91 -44 220 -168 263 -253 l27
-                -55 0 -988 c0 -543 -2 -987 -5 -987 -3 0 -31 21 -62 46 -74 60 -214 128 -311
-                151 -69 16 -132 18 -628 18 -538 0 -552 -1 -574 -20 -33 -30 -42 -62 -30 -101
-                22 -66 1 -64 570 -64 308 0 541 -4 579 -11 197 -32 353 -142 441 -311 34 -64
-                49 -83 76 -94 29 -12 39 -12 68 0 27 11 42 30 76 96 88 168 243 277 441 309
-                38 7 271 11 580 11 l516 0 27 26 26 27 0 1202 0 1202 -26 24 -26 24 -516 3
-                c-332 2 -542 -1 -586 -8 -97 -15 -206 -54 -288 -101 -67 -39 -207 -166 -242
-                -219 l-16 -24 -17 24 c-30 43 -113 128 -167 169 -66 51 -173 104 -267 132 -72
-                23 -86 23 -630 27 l-556 3 -32 -26z m3187 -1232 l2 -1062 -497 -3 c-471 -4
-                -502 -5 -574 -25 -98 -28 -222 -90 -293 -148 -31 -25 -58 -45 -61 -45 -3 0 -5
-                444 -5 987 l0 988 27 54 c34 66 136 178 201 220 64 41 159 79 225 90 28 5 259
-                8 512 7 l460 -1 3 -1062z"
-                />
-              </g>
-            </svg>
+            <img
+              className="w-20 pt-1"
+              src= {social_capital_book.src}
+              alt="book"
+            />
           </div>
           <div className={`${styles.itemButtons} flex`}>
             <div className={`${styles.cardHeart}`}>
