@@ -12,6 +12,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ card }) => {
   return (
     <div className={`${styles.cardContent}`}>
+
       <div className={`${styles.topContent}`}>
         <div>
           <p className={`${styles.cardTitle}`}>{'"' + card.quote + '"'}</p>
@@ -150,17 +151,11 @@ const Card: React.FC<CardProps> = ({ card }) => {
             </div>
 
             <div className={`${styles.itemToggles}`}>
-              
               <div className={`${styles.itemPrice}`}>
                 <p className="font-bold">$46.58</p>
               </div>
-              
-              <div className={`${styles.itemQty}`}>
-                
-                <div className={`${styles.itemQtyNumber}`}>
-                  <p>Qty: 1</p>
 
-                </div>
+              <div className={`${styles.itemQty}`}>
                 <div className="flex">
                   <div className={`${styles.qtyMinus}`}>
                     <svg
@@ -204,13 +199,34 @@ const Card: React.FC<CardProps> = ({ card }) => {
                     </svg>
                   </div>
 
+                  <div className={`${styles.itemQtyNumber}`}>
+                    <p>Qty: 1</p>
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
+
+    </div>
+
+      <div className={`${styles.checkoutContainer}`}>
+        <div className={`${styles.totalWrapper}`}>
+          <div className={`${styles.itemTotal}`}>
+            Total: $46.58
+          </div>
+        </div>
+        
+        <div className={`${styles.checkoutWrapper}`}>
+          <div className={`${styles.checkoutAddToCart}`}>
+            <button>Add to Cart</button>
+          </div>
+          <div className={`${styles.checkoutBuyNow}`}>
+            <button>BUY NOW</button>
+          </div>
+        </div>
       </div>
+
     </div>
   );
 };
