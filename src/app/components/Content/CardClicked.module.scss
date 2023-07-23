@@ -33,11 +33,27 @@
   // border: .1px solid yellow;
 }
 
+.middleBorder {
+  border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
+  transform: translateY(1em);
+}
+
+.contentWrapper {
+  display: block;
+  display: flex;
+  flex-direction: column;
+  // border: .1px solid green;
+  flex-grow: 1;
+  flex: 2;
+  margin-bottom: 5em;
+  justify-content: space-evenly;
+}
+
 
 .topContent {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   // border: 1px solid red;
 }
 
@@ -113,7 +129,7 @@
   // align-items: center;
   // align-content: center;
   // justify-items: center;
-  border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
+  // border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
   // border: .1px solid white;
   margin-top: 1em;
   padding-top: 1em;
@@ -127,6 +143,7 @@
   // align-items: center;
   justify-content: space-between;
   flex: 1;
+  // border: .1px solid red;
 }
 
 .cardHeart {
@@ -159,32 +176,25 @@
 }
 
 .itemQty {
-  display: flex;
+  display: inline-flex;
   margin-left: 5em;
-  // border: .1px solid green;
   // width: 25%;
-  justify-content: space-between;
   align-items: center;
 }
 
 .itemQtyNumber {
   display: inline-flex;
-  // align-items: center;
-  // align-content: center;
-  // justify-content: center;
-  // justify-items: center;
-  // text-align: center;
   border: .1px solid rgb(var(--foreground-rgb), .7);
   color: rgb(156 163 175);
   height: 50%;
   border-radius: 4px;
   padding: .5em .5em .5em .5em;
+  transform: translateY(.2em);
 }
 
 .qtyPlus {
   display: inline-flex;
   justify-content: flex-end;
-  // border: .1px solid red;
   padding-right: 1em;
 }
 .qtyPlus:hover svg path {
@@ -230,6 +240,7 @@
   display: flex;
   // border: .1px solid purple;
   align-items: center;
+  align-content: center;
   // justify-content: center;
 }
 
@@ -237,7 +248,6 @@
   position: relative;
   display: flex;
   // border: .1px solid purple;
-  flex: 1;
   align-items: center;
   // align-content: flex-end;
   // justify-content: flex-end;
@@ -247,13 +257,14 @@
 .totalWrapper {
   position: absolute;
   bottom: 0;
-  left: 0;
+  // left: 35%;
+  left: 0%;
   flex: 1;
   display: inline-flex;
   justify-content: flex-end;
   align-items: center;
   align-content: center;
-  padding: 1.3em 0 1.3em 0;
+  padding: 1.3em 0 1em 0;
   // border: .1px solid green;
 }
 
@@ -268,8 +279,6 @@
   justify-content: flex-end;
   align-items: center;
   align-content: center;
-  // bottom: 0;
-  // right: 0;
   padding: 1.3em 0 1.3em 0;
   width: 100%;
 }
