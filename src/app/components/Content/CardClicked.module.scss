@@ -94,13 +94,6 @@
   align-items: end;
 }
 
-.cardHeart {
-  display: flex;
-  padding-right: 1em;
-}
-.cardHeart:hover svg path {
-  fill: rgb(112, 45, 45);
-}
 
 .cardInfo:hover svg path {
   // fill: rgb(166, 142, 10);
@@ -120,16 +113,117 @@
   padding-top: 1em;
 }
 
-.cardIcons {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
+.cardIcon {
+  // border: 1px solid green;
 }
 
-.itemCart {
+.cardIcons {
+  display: inline-flex;
+  // align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  // border: .1px solid white;
 }
-.itemCart:hover path {
+
+.cardHeart {
+  display: flex;
+  // padding-right: 1em;
+}
+.cardHeart:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.cardHeartTwo {
+  display: flex;
+  justify-content: end;
+  flex: 1;
+  // padding-right: 1em;
+  height: 40%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.cardHeartTwo:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.itemPrice {
+  display: flex;
+  flex: 1;
+  justify-content: flex-start;
+  font-size: 1rem;
+}
+
+.itemQty {
+  display: flex;
+  margin-left: 5em;
+  // border: .1px solid green;
+  width:25%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.itemQtyNumber {
+  display: inline-flex;
+  // align-items: center;
+  // align-content: center;
+  // justify-content: center;
+  // justify-items: center;
+  // text-align: center;
+  border: .1px solid rgb(var(--foreground-rgb), .7);
+  color: rgb(156 163 175);
+  height: 50%;
+  border-radius: 4px;
+  padding: .5em .5em .5em .5em;
+}
+
+.qtyPlus {
+  display: inline-flex;
+  justify-content: flex-end;
+  // border: .1px solid red;
+}
+.qtyPlus:hover svg path {
   fill: #d2cfca;
 }
 
+.qtyMinus {
+  display: inline-flex;
+  justify-content: flex-end;
+  // border: .1px solid red;
+}
+.qtyPlus:hover svg path {
+  fill: #d2cfca;
+}
+
+.bookTitle {
+  display: block;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: .5em;
+  // border: .1px dashed purple;
+  width: 80%;
+  height: 50%;
+}
+
+.bookName {
+  font-size: 1rem; 
+}
+
+.bookAuthor {
+  // font-size: .9rem; 
+}
+
+.itemButtons {
+  display: block;
+  // border: .1px solid yellow;
+  width: 85%;
+  // align-items: center;
+  position: relative;
+}
+
+.itemToggles {
+  display: flex;
+  // border: .1px solid purple;
+  align-items: center;
+  justify-content: center;
+}
