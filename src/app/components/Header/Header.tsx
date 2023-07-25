@@ -81,7 +81,9 @@ const Header: React.FC<HeaderProps> = ({
       )}
 
       <div className={`${styles.xandria} `}>
-        <h1 className="text-3xl">Xandria</h1>
+        <a href="/">
+          <h1 className="text-3xl">Xandria</h1>
+        </a>
       </div>
       {showSearch && <SearchForm />}
       <div className={`${styles.userHeader}`}>
