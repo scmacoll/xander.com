@@ -1,13 +1,20 @@
 import React, { useRef } from 'react';
 import styles from './Header.module.scss';
+import SearchForm from '../Search/SearchForm'
 
 interface HeaderProps {
   onFocusModeToggle: () => void;
   isFocusMode: boolean;
   showFocusButton: boolean;
+  showSearch: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true, showFocusButton }) => {
+const Header: React.FC<HeaderProps> = ({
+   onFocusModeToggle, 
+   isFocusMode = true, 
+   showFocusButton, 
+   showSearch 
+  }) => {
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
   };
@@ -72,10 +79,11 @@ const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true, 
           </div>
         </div>
       )}
+
       <div className={`${styles.xandria} `}>
         <h1 className="text-3xl">Xandria</h1>
       </div>
-
+      {showSearch && <SearchForm />}
       <div className={`${styles.userHeader}`}>
         <svg
           version="1.0"
@@ -144,6 +152,7 @@ const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true, 
           </g>
         </svg>
       </div>
+
     </header>
   );
 };
