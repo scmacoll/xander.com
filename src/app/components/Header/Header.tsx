@@ -4,9 +4,10 @@ import styles from './Header.module.scss';
 interface HeaderProps {
   onFocusModeToggle: () => void;
   isFocusMode: boolean;
+  showFocusButton: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true }) => {
+const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true, showFocusButton }) => {
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
   };
@@ -22,55 +23,60 @@ const Header: React.FC<HeaderProps> = ({ onFocusModeToggle, isFocusMode = true }
   return (
     <header
       className={`${styles.header} flex justify-between items-center mx-auto p-1`}>
-      <div className="p-2 text-3xl flex flex-1 justify-start">
-        <svg
-          version="1.0"
-          xmlns="http://www.w3.org/2000/svg"
-          width="2.2rem"
-          height="2.2rem"
-          viewBox="0 0 752.000000 752.000000"
-          preserveAspectRatio="xMidYMid meet">
-          <g
-            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-            fill="rgba(210, 207, 202, 0.8)"
-            stroke="none">
-            <path
-              d="M1510 5415 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
-              -175z"
-            />
-            <path
-              d="M1517 3933 c-4 -3 -7 -84 -7 -180 l0 -173 2250 0 2250 0 -2 178 -3
-              177 -2241 3 c-1232 1 -2244 -1 -2247 -5z"
-            />
-            <path
-              d="M1510 2105 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
-              -175z"
-            />
-          </g>
-        </svg>
+      {showFocusButton && (
         <div
-          className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
-          <span
-            className="cursor-pointer text-sm pr-2"
-            onClick={handleClick}>
-            Focus
-          </span>
-          <label
-            className={`${styles.switch} ${isFocusMode ? styles.active : ''}`}>
-            <input
-              type="checkbox"
-              onClick={handleFocusModeToggle}
-              defaultChecked={true}
-              ref={inputRef}
-            />
-            <span className={styles.slider}></span>
-          </label>
+          id="focusButton"
+          className="p-2 text-3xl flex flex-1 justify-start">
+          <svg
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="2.2rem"
+            height="2.2rem"
+            viewBox="0 0 752.000000 752.000000"
+            preserveAspectRatio="xMidYMid meet">
+            <g
+              transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+              fill="rgba(210, 207, 202, 0.8)"
+              stroke="none">
+              <path
+                d="M1510 5415 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
+              -175z"
+              />
+              <path
+                d="M1517 3933 c-4 -3 -7 -84 -7 -180 l0 -173 2250 0 2250 0 -2 178 -3
+              177 -2241 3 c-1232 1 -2244 -1 -2247 -5z"
+              />
+              <path
+                d="M1510 2105 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
+              -175z"
+              />
+            </g>
+          </svg>
+          <div
+            className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
+            <span className="cursor-pointer text-sm pr-2" onClick={handleClick}>
+              Focus
+            </span>
+            <label
+              className={`${styles.switch} ${
+                isFocusMode ? styles.active : ''
+              }`}>
+              <input
+                type="checkbox"
+                onClick={handleFocusModeToggle}
+                defaultChecked={true}
+                ref={inputRef}
+              />
+              <span className={styles.slider}></span>
+            </label>
+          </div>
         </div>
-      </div>
-      <div className="p-2 flex flex-1 justify-center">
+      )}
+      <div className={`${styles.xandria} `}>
         <h1 className="text-3xl">Xandria</h1>
       </div>
-      <div className="flex flex-1 justify-end">
+
+      <div className={`${styles.userHeader}`}>
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"

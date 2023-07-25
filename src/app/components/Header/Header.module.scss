@@ -1,6 +1,10 @@
 .header {
+  position: relative;
+  display: flex;
   border-bottom: .1px solid rgb(var(--foreground-rgb));
   width: 95%;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 1100px) {
@@ -78,4 +82,18 @@
 
 .active .slider:before {
   // background-color: #333;
+}
+
+.xandria {
+  display: inline-flex;
+  justify-content: start;
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+}
+
+.userHeader {
+  display: inline-flex;
+  flex: 1;
+  justify-content: end;
 }
