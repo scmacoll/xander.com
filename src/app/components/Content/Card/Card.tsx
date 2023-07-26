@@ -1,8 +1,8 @@
 import React from 'react';
-import Content, { TileCard } from './Content';
+import Content, { TileCard } from '../Content';
 import styles from './Card.module.scss';
 import Image from 'next/image';
-import yukioMishimaImage from '../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
+import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
 
 interface CardProps {
   card: TileCard;

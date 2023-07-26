@@ -2,13 +2,11 @@
 "use client";
 
 import styles from './Content.module.scss';
-import Lightbox from './Lightbox'
-import Card from './Card';
+import Lightbox from './Lightbox/Lightbox'
+import Card from './Card/Card';
 import classNames from 'classnames';
-import yukioMishimaImage from '../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Image from 'next/image'
 
 
 interface ContentProps {

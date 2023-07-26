@@ -1,6 +1,6 @@
 import styles from './Lightbox.module.scss'
 import Card from './CardClicked';
-import { TileCard } from './Content'
+import { TileCard } from '../Content'
 import React from 'react';
 
 
