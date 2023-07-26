@@ -3,6 +3,7 @@
   justify-content: center;
   margin: 0 auto;
   width: 80%;
+  color: rgba(214, 214, 214, 0.8);
   border: .1px solid red;
   padding: 1rem 0 1rem 0;
 }
@@ -20,8 +21,35 @@
 }
 
 .mainContent {
-  display: flex;
+  display: block;
   // justify-content: center;
   width: 72%;
-  border: .1px solid green;
+  padding-left: 3em;
+}
+
+.infoContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-bottom: .1px solid rgb(var(--foreground-rgb));
+  align-items: center;
+  padding: .5em 0 .5em 0;
+}
+
+.bookInfo {
+  display: inline-flex;
+}
+
+.cardHeart {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  // display: inline-flex;
+  // justify-content: flex-end;
+  // flex: 1;
+  padding-right: 1em;
+}
+
+.cardHeart:hover svg path {
+  fill: rgb(112, 45, 45);
 }
