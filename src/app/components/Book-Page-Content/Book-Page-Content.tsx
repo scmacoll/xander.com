@@ -1,6 +1,22 @@
 import styles from './Book-Page-Content.module.scss';
 import Image from 'next/image';
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
+
+<div className={`${styles.shippingContainer}`}>
+  <div className={`${styles.stockVerify}`}>
+    <FontAwesomeIcon icon={faCheck} />
+    <div className="">IN STOCK - SHIPS NEXT DAY</div>
+  </div>
+  <div className={`${styles.deliveryDate}`}>
+    <a href="/book">
+      <span>Get estimated delivery dates</span>
+    </a>
+  </div>
+</div>
+
 
 
 
@@ -79,10 +95,13 @@ const BookPageContent: React.FC = () => {
 
         <div className={`${styles.shippingContainer}`}>
           <div className={`${styles.stockVerify}`}>
-            <button>
+            <span className={`${styles.iconBlock}`}>
+              <FontAwesomeIcon className={`${styles.iconTick}`} icon={faCheck}></FontAwesomeIcon>
+            </span>
+            <div className={`${styles.stockText}`}>
               IN STOCK - SHIPS NEXT DAY
-            </button>
             </div>
+          </div>
           <div className={`${styles.deliveryDate}`}>
             <a href="/book">
               <span>Get estimated delivery dates</span>
