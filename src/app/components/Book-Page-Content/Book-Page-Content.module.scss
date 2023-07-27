@@ -1,20 +1,21 @@
 .contentLayout {
-  display: flex;
+  display: block;
   justify-content: center;
   margin: 0 auto;
   width: 80%;
   color: rgba(214, 214, 214, 0.8);
-  // border: .1px dashed red;
   padding: 1rem 0 1rem 0;
   margin-top: 1rem;
   font-family: 'SF', sans-serif;
+  letter-spacing: .2px;
 }
 
 .imageContent {
   display: flex;
+  // justify-content: flex-start;
+  // flex: 1;
   // justify-content: center;
   width: 28%;
-  border: .1px solid blue;
 }
 
 .bookImage {
@@ -22,8 +23,28 @@
   justify-content: center;
 }
 
+.bookStars {
+  display: inline-flex;  
+  width: 50%;
+}
+
+.faStar {
+  width: 1.3em;
+  height: 1.3em;
+  padding-right: .2em;
+}
+
+.bookReview {
+  display: inline-flex;
+  color: #2466b8;
+  text-decoration: underline;
+  font-weight: 600;
+  
+}
+
 .mainContent {
-  display: block;
+  display: flex;
+  // flex: 1;
   // justify-content: center;
   width: 72%;
   padding-left: 3em;
@@ -81,6 +102,7 @@
   font-weight: 800;
   font-size: 1.5rem;
 }
+
 
 .cartButton {
   display: inline-flex;
@@ -172,4 +194,40 @@
 }
 
 .bookAbout {
+}
+
+.featureContent {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  padding-top: 1em;
+  height: 20em;
+}
+
+.featureContainer {
+  display: block;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.tabsWrapper {
+  width: 100%;
+  border-top: .1px solid rgb(var(--foreground-rgb));
+  border-bottom: .1px solid rgb(var(--foreground-rgb));
+}
+
+.featureTabs {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 90%;
+  padding: 1em 0 1em 0;
+}
+
+.featurePoints {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  padding-top: 1em;
 }
