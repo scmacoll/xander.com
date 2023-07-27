@@ -78,16 +78,18 @@ const BookPageContent: React.FC = () => {
         <div className={`${styles.bookCart}`}>
           <div className={`${styles.cartContainer}`}>
             <div className={`${styles.bookPrice}  font-extrabold`}>$34.95</div>
-            <div className={`${styles.cartButton}`}>Add To Cart</div>
+            <div className={`${styles.cartButton}`}>
+              <button>Add&nbsp; To &nbsp;Cart</button>
+            </div>
             <div className={`${styles.checkoutBuyNow}`}>
-              <button>BUY NOW</button>
+              <button>BUY&nbsp; NOW</button>
             </div>
           </div>
-          <div className={`${styles.cartContainer}`}>
+          <div className={`${styles.rewardsContainer}`}>
             <div className={`${styles.afterPay}`}>
               or 4 payments of $8.74 with afterpay .. Learn more
             </div>
-            <div className={`${styles.bookRewards} font-extrabold`}>
+            <div className={`${styles.bookRewards}`}>
               Booklovers earn $1.70 in rewards
             </div>
           </div>
@@ -96,7 +98,9 @@ const BookPageContent: React.FC = () => {
         <div className={`${styles.shippingContainer}`}>
           <div className={`${styles.stockVerify}`}>
             <span className={`${styles.iconBlock}`}>
-              <FontAwesomeIcon className={`${styles.iconTick}`} icon={faCheck}></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className={`${styles.iconTick}`}
+                icon={faCheck}></FontAwesomeIcon>
             </span>
             <div className={`${styles.stockText}`}>
               IN STOCK - SHIPS NEXT DAY
@@ -104,7 +108,7 @@ const BookPageContent: React.FC = () => {
           </div>
           <div className={`${styles.deliveryDate}`}>
             <a href="/book">
-              <span>Get estimated delivery dates</span>
+              <p>Get estimated delivery dates</p>
             </a>
           </div>
         </div>

@@ -4,8 +4,9 @@
   margin: 0 auto;
   width: 80%;
   color: rgba(214, 214, 214, 0.8);
-  border: .1px dashed red;
+  // border: .1px dashed red;
   padding: 1rem 0 1rem 0;
+  margin-top: 1rem;
 }
 
 .imageContent {
@@ -56,9 +57,15 @@
 
 .bookCart {
   display: block;
+  padding: 1.2em 0 1.2em 0;
 }
 
 .cartContainer {
+  display: flex;
+  align-content: center;
+  // align-items: center;
+}
+.rewardsContainer {
   display: flex;
   padding-top: 1em;
   align-content: center;
@@ -70,7 +77,6 @@
   justify-content: flex-start;
   align-items: flex-end;
   flex: 1;
-
   font-weight: 800;
   font-size: 1.5rem;
 }
@@ -115,13 +121,13 @@
   flex: 1;
   padding-right: 1em;
   margin-right: 2em;
+  font-weight: 800;
   color: rgb(169, 57, 57);
 }
 
 .shippingContainer {
   display: flex;
-  padding: 2em 0 1em 0;
-  margin: 1em 0 1em 0;
+  padding: 1.8em 0 1.2em 0;
   border-top: .1px solid rgb(var(--foreground-rgb));
   border-bottom: .1px solid rgb(var(--foreground-rgb));
 }
@@ -129,11 +135,11 @@
 .stockVerify {
   display: inline-flex;
   align-items: center;
-  margin-right: 5em;
+  margin-right: 2em;
   border-radius: 20px;
-  font-weight: 600;
+  // font-weight: 600;
   line-height: 20px;
-  letter-spacing: 1px;
+  letter-spacing: .7px;
   color: rgb(var(--foreground-rgb));
   border: 2.5px solid rgb(82, 148, 26);
 }
@@ -148,9 +154,6 @@
   color: rgb(232, 230, 227);
 }
 
-.iconTick {
-}
-
 .stockText {
   display: inline-flex;
   // justify-content: center;
@@ -160,4 +163,9 @@
 
 .deliveryDate {
   display: inline-flex; 
+  font-weight: 600;
+  letter-spacing: .5px;
+  color: #2466b8;
+  text-decoration: underline;
+  align-items: center;
 }
