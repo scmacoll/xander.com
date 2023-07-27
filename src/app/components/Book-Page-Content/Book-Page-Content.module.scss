@@ -4,7 +4,7 @@
   margin: 0 auto;
   width: 80%;
   color: rgba(214, 214, 214, 0.8);
-  border: .1px solid red;
+  border: .1px dashed red;
   padding: 1rem 0 1rem 0;
 }
 
@@ -53,3 +53,91 @@
 .cardHeart:hover svg path {
   fill: rgb(112, 45, 45);
 }
+
+.bookCart {
+  display: block;
+}
+
+.cartContainer {
+  display: flex;
+  padding-top: 1em;
+  align-content: center;
+  // align-items: center;
+}
+
+.bookPrice {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex: 1;
+
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+.cartButton {
+  display: inline-flex;
+  justify-content: flex-end;
+  display: inline-flex;
+  border: .1px solid rgb(var(--everforest-gold));
+  border-radius: 4px;
+  padding: .75em;
+  width: 120px;
+  height: 50px;
+  margin-right: 2em;
+  justify-content: center;
+  align-items: center;
+  color: rgb(var(--everforest-gold));
+}
+
+.checkoutBuyNow {
+  display: inline-flex;
+  border: .1px solid rgb(169, 57, 57);  
+  border-radius: 4px;
+  padding: .75em;
+  width: 120px;
+  height: 50px;
+  margin-right: 2em;
+  justify-content: center;
+  align-items: center;
+  color: rgb(169, 57, 57);
+}
+
+.afterPay {
+  display: inline-flex;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+.bookRewards {
+  display: inline-flex;
+  justify-content: flex-end;
+  flex: 1;
+  padding-right: 1em;
+  margin-right: 2em;
+  color: rgb(169, 57, 57);
+}
+
+.shippingContainer {
+  display: flex;
+  padding: 2em 0 1em 0;
+  margin: 1em 0 1em 0;
+  border-top: .1px solid rgb(var(--foreground-rgb));
+  border-bottom: .1px solid rgb(var(--foreground-rgb));
+}
+
+.stockVerify {
+  display: inline-flex;
+  margin-right: 5em;
+  padding: .2em 2em .2em 2em;
+  border: 2.5px solid green;
+  border-radius: 20px;
+  letter-spacing: 5em;
+}
+
+
+.deliveryDate {
+  display: inline-flex;
+  
+}
+

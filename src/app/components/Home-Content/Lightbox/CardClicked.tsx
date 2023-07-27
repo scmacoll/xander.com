@@ -218,7 +218,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
 
         <div className={`${styles.checkoutWrapper}`}>
           <div className={`${styles.checkoutAddToCart}`}>
-            <button>Add to Cart</button>
+            <button>Add To Cart</button>
           </div>
           <div className={`${styles.checkoutBuyNow}`}>
             <button>BUY NOW</button>

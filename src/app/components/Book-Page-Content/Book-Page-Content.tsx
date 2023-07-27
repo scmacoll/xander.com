@@ -58,6 +58,37 @@ const BookPageContent: React.FC = () => {
             </svg>
           </div>
         </div>
+
+        <div className={`${styles.bookCart}`}>
+          <div className={`${styles.cartContainer}`}>
+            <div className={`${styles.bookPrice}  font-extrabold`}>$34.95</div>
+            <div className={`${styles.cartButton}`}>Add To Cart</div>
+            <div className={`${styles.checkoutBuyNow}`}>
+              <button>BUY NOW</button>
+            </div>
+          </div>
+          <div className={`${styles.cartContainer}`}>
+            <div className={`${styles.afterPay}`}>
+              or 4 payments of $8.74 with afterpay .. Learn more
+            </div>
+            <div className={`${styles.bookRewards} font-extrabold`}>
+              Booklovers earn $1.70 in rewards
+            </div>
+          </div>
+        </div>
+
+        <div className={`${styles.shippingContainer}`}>
+          <div className={`${styles.stockVerify}`}>
+            <button>
+              IN STOCK - SHIPS NEXT DAY
+            </button>
+            </div>
+          <div className={`${styles.deliveryDate}`}>
+            <a href="/book">
+              <span>Get estimated delivery dates</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
