@@ -43,8 +43,8 @@ const BookPageContent: React.FC = () => {
         </div>
         <div className={`${styles.infoContainer}`}>
           <div className={`${styles.bookInfo}`}>
-            By Iain McGilchrist &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; Paperback
-            &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp; 1&nbsp; February 2019
+            By Iain McGilchrist &nbsp;&nbsp;|&nbsp;&nbsp; Paperback
+            &nbsp;&nbsp;|&nbsp;&nbsp; 1&nbsp; February 2019
           </div>
           <div className={`${styles.cardHeart}`}>
             <svg
@@ -79,10 +79,10 @@ const BookPageContent: React.FC = () => {
           <div className={`${styles.cartContainer}`}>
             <div className={`${styles.bookPrice}  font-extrabold`}>$34.95</div>
             <div className={`${styles.cartButton}`}>
-              <button>Add&nbsp; To &nbsp;Cart</button>
+              <button>Add To Cart</button>
             </div>
             <div className={`${styles.checkoutBuyNow}`}>
-              <button>BUY&nbsp; NOW</button>
+              <button>BUY NOW</button>
             </div>
           </div>
           <div className={`${styles.rewardsContainer}`}>
@@ -110,6 +110,31 @@ const BookPageContent: React.FC = () => {
             <a href="/book">
               <p>Get estimated delivery dates</p>
             </a>
+          </div>
+        </div>
+
+        <div className={`${styles.bookAbout}`}>
+          <div className={`${styles.aboutHeading} font-bold py-5`}>
+            <p>
+              A new edition of the bestselling classic – published with a
+              special introduction to mark its 10th anniversary
+            </p>
+          </div>
+          <div>
+            <p className="pb-5">
+              This pioneering account sets out to understand the structure of
+              the human brain – the place where mind meets matter. Until
+              recently, the left hemisphere of our brain has been seen as the
+              ‘rational’ side, the superior partner to the right. But is this
+              distinction true?
+            </p>
+            <p>
+              Drawing on a vast body of experimental research, Iain McGilchrist
+              argues while our left brain makes for a wonderful servant, it is a
+              very poor master. As he shows, it is the right side which is the
+              more reliable and insightful. Without it, our world would be
+              mechanistic – stripped of depth, colour and value.
+            </p>
           </div>
         </div>
       </div>
