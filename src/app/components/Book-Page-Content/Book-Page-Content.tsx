@@ -217,9 +217,9 @@ const BookPageContent: React.FC = () => {
                   />
                   </a>
                 </div>
-                <div>Title</div>
-                <div>Author</div>
-                <div>Price</div>
+                <div className="pt-2 pb-4 font-extrabold">Title</div>
+                <div className="pb-6">Author</div>
+                <div className="font-black">$24.99</div>
                 <div>Buttons</div>
               </div>
               <div className={`${styles.bookBlock}`}>
@@ -233,9 +233,9 @@ const BookPageContent: React.FC = () => {
                   />
                   </a>
                 </div>
-                <div>Title</div>
-                <div>Author</div>
-                <div>Price</div>
+                <div className="pt-2 pb-4 font-extrabold">Title</div>
+                <div className="pb-6">Author</div>
+                <div className="font-black">$24.99</div>
                 <div>Buttons</div>
               </div>
               <div className={`${styles.bookBlock}`}>
@@ -249,9 +249,9 @@ const BookPageContent: React.FC = () => {
                   />
                   </a>
                 </div>
-                <div>Title</div>
-                <div>Author</div>
-                <div>Price</div>
+                <div className="pt-2 pb-4 font-extrabold">Title</div>
+                <div className="pb-6">Author</div>
+                <div className="font-black">$24.99</div>
                 <div>Buttons</div>
               </div>
               <div className={`${styles.bookBlock}`}>
@@ -265,9 +265,9 @@ const BookPageContent: React.FC = () => {
                   />
                   </a>
                 </div>
-                <div>Title</div>
-                <div>Author</div>
-                <div>Price</div>
+                <div className="pt-2 pb-4 font-extrabold">Title</div>
+                <div className="pb-6">Author</div>
+                <div className="font-black">$24.99</div>
                 <div>Buttons</div>
               </div>
               <div className={`${styles.bookBlock}`}>
@@ -281,9 +281,9 @@ const BookPageContent: React.FC = () => {
                   />
                   </a>
                 </div>
-                <div>Title</div>
-                <div>Author</div>
-                <div>Price</div>
+                <div className="pt-2 pb-4 font-extrabold">Title</div>
+                <div className="pb-6">Author</div>
+                <div className="font-black">$24.99</div>
                 <div>Buttons</div>
               </div>
             </div>

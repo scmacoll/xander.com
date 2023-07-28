@@ -235,8 +235,6 @@
 
 .featureSimilar {
   display: block;
-  border: .1px dashed red;
-  height: 30rem;
 }
 
 .similarText {
@@ -246,12 +244,10 @@
 
 .similarContainer {
   display: flex;
-  height: 27rem;
-  padding-top: 2em;
-  padding-bottom: 2em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
   border-top: .1px solid rgb(var(--foreground-rgb));
   border-bottom: .1px solid rgb(var(--foreground-rgb)); 
-  border: .1px solid yellow;
 }
 
 .similarBooks {
@@ -259,10 +255,10 @@
   justify-content: space-evenly;
   margin: 0 auto;
   width: 100%;
-  border: .1px solid green;
 }
 
 .bookBlock {
   display: block;
-  border: .1px solid red;
+  text-align: center;
+
 }
