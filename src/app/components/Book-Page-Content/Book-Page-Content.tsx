@@ -4,6 +4,7 @@ import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 
 <div className={`${styles.shippingContainer}`}>
@@ -40,26 +41,25 @@ const BookPageContent: React.FC = () => {
             <div className="pt-3">
               <div className={`${styles.bookStars}`}>
                 <FontAwesomeIcon
-                className={`${styles.faStar}`}
+                  className={`${styles.faStar}`}
                   icon={faStar}></FontAwesomeIcon>
                 <FontAwesomeIcon
-                className={`${styles.faStar}`}
+                  className={`${styles.faStar}`}
                   icon={faStar}></FontAwesomeIcon>
                 <FontAwesomeIcon
-                className={`${styles.faStar}`}
+                  className={`${styles.faStar}`}
                   icon={faStar}></FontAwesomeIcon>
                 <FontAwesomeIcon
-                className={`${styles.faStar}`}
+                  className={`${styles.faStar}`}
                   icon={faStar}></FontAwesomeIcon>
                 <FontAwesomeIcon
-                className={`${styles.faStar}`}
+                  className={`${styles.faStar}`}
                   icon={faStar}></FontAwesomeIcon>
               </div>
               <div className={`${styles.bookReview}`}>
                 <a href="/book">Write a review</a>
               </div>
             </div>
-
           </div>
         </div>
         <div className={`${styles.mainContent}`}>
@@ -105,7 +105,9 @@ const BookPageContent: React.FC = () => {
 
             <div className={`${styles.bookCart}`}>
               <div className={`${styles.cartContainer}`}>
-                <div className={`${styles.bookPrice}  font-extrabold`}>$34.95</div>
+                <div className={`${styles.bookPrice}  font-extrabold`}>
+                  $34.95
+                </div>
                 <div className={`${styles.cartButton}`}>
                   <button>Add To Cart</button>
                 </div>
@@ -150,29 +152,27 @@ const BookPageContent: React.FC = () => {
               </div>
               <div>
                 <p className="pb-5">
-                  This pioneering account sets out to understand the structure of
-                  the human brain – the place where mind meets matter. Until
-                  recently, the left hemisphere of our brain has been seen as the
-                  ‘rational’ side, the superior partner to the right. But is this
-                  distinction true?
+                  This pioneering account sets out to understand the structure
+                  of the human brain – the place where mind meets matter. Until
+                  recently, the left hemisphere of our brain has been seen as
+                  the ‘rational’ side, the superior partner to the right. But is
+                  this distinction true?
                 </p>
                 <p className="pb-10">
-                  Drawing on a vast body of experimental research, Iain McGilchrist
-                  argues while our left brain makes for a wonderful servant, it is a
-                  very poor master. As he shows, it is the right side which is the
-                  more reliable and insightful. Without it, our world would be
-                  mechanistic – stripped of depth, colour and value.
+                  Drawing on a vast body of experimental research, Iain
+                  McGilchrist argues while our left brain makes for a wonderful
+                  servant, it is a very poor master. As he shows, it is the
+                  right side which is the more reliable and insightful. Without
+                  it, our world would be mechanistic – stripped of depth, colour
+                  and value.
                 </p>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
 
       <div className={`${styles.featureContent}`}>
-
         <div className={`${styles.featureContainer}`}>
           <div className={`${styles.tabsWrapper}`}>
             <div className={`${styles.featureTabs}`}>
@@ -198,7 +198,7 @@ const BookPageContent: React.FC = () => {
               <div className="pb-1">Subjects:</div>
               <div className="pb-1">Publication Date:</div>
               <div>Pages:</div>
-          </div>
+            </div>
           </div>
         </div>
 
@@ -209,12 +209,12 @@ const BookPageContent: React.FC = () => {
               <div className={`${styles.bookBlock}`}>
                 <div>
                   <a href="/book">
-                  <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="115"
-                  height="115"
-                  />
+                    <Image
+                      src={masterandemissarry.src}
+                      alt="yuko"
+                      width="115"
+                      height="115"
+                    />
                   </a>
                 </div>
                 <div className="pt-2 pb-4 font-extrabold">Title</div>
@@ -225,12 +225,12 @@ const BookPageContent: React.FC = () => {
               <div className={`${styles.bookBlock}`}>
                 <div>
                   <a href="/book">
-                  <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="115"
-                  height="115"
-                  />
+                    <Image
+                      src={masterandemissarry.src}
+                      alt="yuko"
+                      width="115"
+                      height="115"
+                    />
                   </a>
                 </div>
                 <div className="pt-2 pb-4 font-extrabold">Title</div>
@@ -241,12 +241,12 @@ const BookPageContent: React.FC = () => {
               <div className={`${styles.bookBlock}`}>
                 <div>
                   <a href="/book">
-                  <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="115"
-                  height="115"
-                  />
+                    <Image
+                      src={masterandemissarry.src}
+                      alt="yuko"
+                      width="115"
+                      height="115"
+                    />
                   </a>
                 </div>
                 <div className="pt-2 pb-4 font-extrabold">Title</div>
@@ -257,12 +257,12 @@ const BookPageContent: React.FC = () => {
               <div className={`${styles.bookBlock}`}>
                 <div>
                   <a href="/book">
-                  <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="115"
-                  height="115"
-                  />
+                    <Image
+                      src={masterandemissarry.src}
+                      alt="yuko"
+                      width="115"
+                      height="115"
+                    />
                   </a>
                 </div>
                 <div className="pt-2 pb-4 font-extrabold">Title</div>
@@ -273,12 +273,12 @@ const BookPageContent: React.FC = () => {
               <div className={`${styles.bookBlock}`}>
                 <div>
                   <a href="/book">
-                  <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="115"
-                  height="115"
-                  />
+                    <Image
+                      src={masterandemissarry.src}
+                      alt="yuko"
+                      width="115"
+                      height="115"
+                    />
                   </a>
                 </div>
                 <div className="pt-2 pb-4 font-extrabold">Title</div>
@@ -286,13 +286,16 @@ const BookPageContent: React.FC = () => {
                 <div className="font-black">$24.99</div>
                 <div>Buttons</div>
               </div>
+              <div className={`${styles.similarRarrow}`}><a href="/book">
+                <FontAwesomeIcon icon={faChevronRight} size="xl" />
+                </a></div>
+              <div className={`${styles.similarLarrow}`}><a href="/book">
+                <FontAwesomeIcon icon={faChevronLeft} size="xl" />
+                </a></div>
             </div>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
