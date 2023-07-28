@@ -197,7 +197,7 @@
 }
 
 .featureContent {
-  display: flex;
+  display: block;
   justify-content: center;
   margin: 0 auto;
   width: 100%;
@@ -209,6 +209,7 @@
   display: block;
   justify-content: space-evenly;
   width: 100%;
+  padding-bottom: 5rem;
 }
 
 .tabsWrapper {
@@ -230,4 +231,38 @@
   margin: 0 auto;
   width: 90%;
   padding-top: 1em;
+}
+
+.featureSimilar {
+  display: block;
+  border: .1px dashed red;
+  height: 30rem;
+}
+
+.similarText {
+  font-size: 1.4em;
+  padding-bottom: .5em;
+}
+
+.similarContainer {
+  display: flex;
+  height: 27rem;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  border-top: .1px solid rgb(var(--foreground-rgb));
+  border-bottom: .1px solid rgb(var(--foreground-rgb)); 
+  border: .1px solid yellow;
+}
+
+.similarBooks {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 100%;
+  border: .1px solid green;
+}
+
+.bookBlock {
+  display: block;
+  border: .1px solid red;
 }

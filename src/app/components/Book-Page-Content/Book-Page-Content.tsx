@@ -87,7 +87,7 @@ const BookPageContent: React.FC = () => {
                     fill="#d2cfca2b"
                     stroke="none">
                     <path
-                      d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
+                      d="M2496 5665 c-595 -113 -1011 -636 -982 -10035 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
                         937 489 488 909 915 934 948 368 493 334 1168 -79 1590 -237 241 -530 365
                         -868 365 -135 0 -258 -18 -370 -55 -207 -67 -332 -149 -528 -343 l-148 -146
@@ -172,6 +172,7 @@ const BookPageContent: React.FC = () => {
       </div>
 
       <div className={`${styles.featureContent}`}>
+
         <div className={`${styles.featureContainer}`}>
           <div className={`${styles.tabsWrapper}`}>
             <div className={`${styles.featureTabs}`}>
@@ -200,6 +201,96 @@ const BookPageContent: React.FC = () => {
           </div>
           </div>
         </div>
+
+        <div className={`${styles.featureSimilar}`}>
+          <div className={`${styles.similarText}`}>SIMILAR BOOKS</div>
+          <div className={`${styles.similarContainer}`}>
+            <div className={`${styles.similarBooks}`}>
+              <div className={`${styles.bookBlock}`}>
+                <div>
+                  <a href="/book">
+                  <Image
+                  src={masterandemissarry.src}
+                  alt="yuko"
+                  width="115"
+                  height="115"
+                  />
+                  </a>
+                </div>
+                <div>Title</div>
+                <div>Author</div>
+                <div>Price</div>
+                <div>Buttons</div>
+              </div>
+              <div className={`${styles.bookBlock}`}>
+                <div>
+                  <a href="/book">
+                  <Image
+                  src={masterandemissarry.src}
+                  alt="yuko"
+                  width="115"
+                  height="115"
+                  />
+                  </a>
+                </div>
+                <div>Title</div>
+                <div>Author</div>
+                <div>Price</div>
+                <div>Buttons</div>
+              </div>
+              <div className={`${styles.bookBlock}`}>
+                <div>
+                  <a href="/book">
+                  <Image
+                  src={masterandemissarry.src}
+                  alt="yuko"
+                  width="115"
+                  height="115"
+                  />
+                  </a>
+                </div>
+                <div>Title</div>
+                <div>Author</div>
+                <div>Price</div>
+                <div>Buttons</div>
+              </div>
+              <div className={`${styles.bookBlock}`}>
+                <div>
+                  <a href="/book">
+                  <Image
+                  src={masterandemissarry.src}
+                  alt="yuko"
+                  width="115"
+                  height="115"
+                  />
+                  </a>
+                </div>
+                <div>Title</div>
+                <div>Author</div>
+                <div>Price</div>
+                <div>Buttons</div>
+              </div>
+              <div className={`${styles.bookBlock}`}>
+                <div>
+                  <a href="/book">
+                  <Image
+                  src={masterandemissarry.src}
+                  alt="yuko"
+                  width="115"
+                  height="115"
+                  />
+                  </a>
+                </div>
+                <div>Title</div>
+                <div>Author</div>
+                <div>Price</div>
+                <div>Buttons</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
 
     </div>
