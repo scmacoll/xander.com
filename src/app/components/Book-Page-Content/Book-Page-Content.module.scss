@@ -256,13 +256,29 @@
   justify-content: space-evenly;
   margin: 0 auto;
   width: 100%;
-  border: .1px solid red;
 }
 
 .bookBlock {
   display: block;
   text-align: center;
 
+}
+
+.similarHeart {
+  display: inline-flex;
+  z-index: 2;
+}
+.similarHeart:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.similarBag {
+  display: inline-flex;
+  z-index: 2;
+}
+.similarBag:hover svg path {
+  fill: #d2cfca;
+  
 }
 
 .similarRarrow {
