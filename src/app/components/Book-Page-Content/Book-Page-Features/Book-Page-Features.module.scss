@@ -1,0 +1,100 @@
+.featureContent {
+  display: block;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+  padding-top: 1em;
+  height: 20em;
+}
+
+.featureContainer {
+  display: block;
+  justify-content: space-evenly;
+  width: 100%;
+  padding-bottom: 5rem;
+}
+
+.tabsWrapper {
+  width: 100%;
+  border-top: .1px solid rgb(var(--foreground-rgb));
+  border-bottom: .1px solid rgb(var(--foreground-rgb));
+}
+
+.featureTabs {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 90%;
+  padding: 1em 0 1em 0;
+}
+
+.featurePoints {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  padding-top: 1em;
+}
+
+.featureSimilar {
+  display: block;
+}
+
+.similarText {
+  font-size: 1.4em;
+  padding-bottom: .5em;
+}
+
+.similarContainer {
+  display: flex;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  border-top: .1px solid rgb(var(--foreground-rgb));
+  border-bottom: .1px solid rgb(var(--foreground-rgb)); 
+}
+
+.similarBooks {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.bookBlock {
+  display: block;
+  text-align: center;
+
+}
+
+.similarHeart {
+  display: inline-flex;
+  z-index: 2;
+}
+.similarHeart:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.similarBag {
+  display: inline-flex;
+  z-index: 2;
+}
+.similarBag:hover svg path {
+  fill: #d2cfca;
+  
+}
+
+.similarRarrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 2;
+  
+}
+
+.similarLarrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 2;
+
+}
