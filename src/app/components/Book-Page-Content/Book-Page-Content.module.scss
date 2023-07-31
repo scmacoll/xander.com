@@ -2,11 +2,31 @@
   .contentLayout {
     width: 1140px;
   }
+  .contentWrapper {
+    display: flex;
+  }
+  .imageContent {
+    width: 28%;
+  }
+  .mainContent {
+    width: 72%;
+    padding-left: 3em;
+  }
 }
 
 @media (max-width: 1199px) and (min-width: 1000px) {
   .contentLayout {
     width: 975px;
+  }
+  .contentWrapper {
+    display: flex;
+  }
+  .imageContent {
+    width: 28%;
+  }
+  .mainContent {
+    width: 72%;
+    padding-left: 3em;
   }
 }
 
@@ -14,10 +34,33 @@
   .contentLayout {
     width: 750px;
   }
+  .contentWrapper {
+    display: flex;
+  }
+  .imageContent {
+    width: 28%;
+  }
+  .mainContent {
+    width: 100%;
+    padding-left: 0;
+    padding: .5em;
+  }
+}
 
-  .imageContent  {
+@media (max-width: 749px) {
+  .contentWrapper {
     display: block;
   }
+  .imageContent {
+    width: 50vh;
+    margin: 0 auto;
+  }
+  .mainContent {
+    width: 100%;
+    padding-left: 0;
+    padding: .5em;
+  }
+  
 }
 
 .contentLayout {
@@ -31,12 +74,15 @@
   letter-spacing: .2px;
 }
 
+.contentWrapper {
+  border: .1px solid red;
+  justify-content: center;
+}
+
 .imageContent {
   display: flex;
   // justify-content: flex-start;
   // flex: 1;
-  // justify-content: center;
-  width: 28%;
 }
 
 .bookImage {
@@ -65,10 +111,8 @@
 
 .mainContent {
   display: flex;
-  // flex: 1;
-  // justify-content: center;
-  width: 72%;
-  padding-left: 3em;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .infoContainer {

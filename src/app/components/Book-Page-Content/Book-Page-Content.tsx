@@ -26,7 +26,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 const BookPageContent: React.FC = () => {
   return (
     <div className={`${styles.contentLayout}`}>
-      <div className="flex">
+      <div className={`${styles.contentWrapper}`}>
         <div className={`${styles.imageContent}`}>
           <div className="block">
             <div className={`${styles.bookImage}`}>
