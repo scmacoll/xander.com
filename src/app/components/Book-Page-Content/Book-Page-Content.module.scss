@@ -139,7 +139,6 @@
   display: flex;
   padding-top: 1em;
   align-content: center;
-  // align-items: center;
 }
 
 .bookPrice {
@@ -181,26 +180,72 @@
 }
 
 .afterPay {
-  display: inline-flex;
+  position: relative;
   justify-content: flex-start;
-  align-items: center;
-  height: 1em;
+  // align-items: center;
+  // align-content: center;
+  height: 3em;
   font-size: .9em;
+  // margin: 0 auto;
+  // white-space: nowrap;
+  
+  @media (min-width: 1200px) {
+    display: flex;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    display: flex;
+  }
+  @media (max-width: 999px) and (min-width: 725px) {
+    display: block;
+  }
+  @media (max-width: 724px) {
+    display: block;
+
+  }
+
 }
 
 .learnMore {
   color: #2466b8;
   text-decoration: underline;
+  transform: translateY(-5.5em);
+  @media (min-width: 1200px) {
+    position: relative;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    width: 975px;
+    position: relative;
+  }
+  @media (max-width: 999px) and (min-width: 725px) {
+    width: 750px;
+    position: absolute;
+  }
+  @media (max-width: 724px) {
+
+  }
 }
 
 .bookRewards {
   display: inline-flex;
   justify-content: flex-end;
   flex: 1;
-  padding-right: 1em;
-  margin-right: 2em;
+  text-align: center;
   font-weight: 800;
   color: rgb(169, 57, 57);
+  @media (min-width: 1200px) {
+    padding-right: 2.25em;
+    padding-left: 2.25em;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    padding-right: 2.25em;
+    padding-left: 2.25em;
+  }
+  @media (max-width: 999px) and (min-width: 725px) {
+    padding-right: 0;
+    padding-left: 2.25em;
+  }
+
+
 }
 
 .shippingContainer {
