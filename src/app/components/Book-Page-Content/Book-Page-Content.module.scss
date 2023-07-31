@@ -197,7 +197,14 @@
 .afterPay {
   display: inline-flex;
   justify-content: flex-start;
-  flex: 1;
+  align-items: center;
+  height: 1em;
+  font-size: .9em;
+}
+
+.learnMore {
+  color: #2466b8;
+  text-decoration: underline;
 }
 
 .bookRewards {

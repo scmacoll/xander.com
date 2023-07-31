@@ -29,7 +29,11 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <header
-      className={`${styles.header} flex justify-between items-center mx-auto p-1`}>
+      className={`
+      ${styles.header} 
+      ${showSearch ? 'pb-4' : ''} 
+      flex justify-between items-center mx-auto p-1
+      `}>
       {showFocusButton && (
         <div
           id="focusButton"
@@ -154,7 +158,6 @@ const Header: React.FC<HeaderProps> = ({
           </g>
         </svg>
       </div>
-
     </header>
   );
 };
