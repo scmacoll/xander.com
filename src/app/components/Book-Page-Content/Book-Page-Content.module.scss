@@ -1,18 +1,22 @@
-@media (min-width: 1150px) {
+@media (min-width: 1200px) {
   .contentLayout {
     width: 1140px;
   }
 }
 
-@media (max-width: 1149px) and (min-width: 750px) {
+@media (max-width: 1199px) and (min-width: 1000px) {
   .contentLayout {
-    width: 90%;
+    width: 975px;
   }
 }
 
-@media (max-width: 749px) {
+@media (max-width: 999px) and (min-width: 750px) {
   .contentLayout {
-    width: 95%;
+    width: 750px;
+  }
+
+  .imageContent  {
+    display: block;
   }
 }
 
