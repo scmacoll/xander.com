@@ -20,23 +20,62 @@ const BookPageFeatures: React.FC = () => {
           </div>
         </div>
         <div className={`${styles.featurePoints} flex justify-evenly`}>
-          <div className="block justify-start flex-1">
-            <div className="pb-1">Title:</div>
-            <div className="pb-1">Author:</div>
-            <div className="pb-1">Edition:</div>
-            <div className="pb-1">Edition Type:</div>
-            <div className="pb-1">Publisher:</div>
-            <div className="pb-1">ISBN:</div>
-            <div>Languages:</div>
-          </div>
-          <div className="block justify-center flex-1">
-            <div className="pb-1">Subtitle:</div>
-            <div className="pb-1">Format:</div>
-            <div className="pb-1">Category:</div>
-            <div className="pb-1">Subjects:</div>
-            <div className="pb-1">Publication Date:</div>
-            <div>Pages:</div>
-          </div>
+          <ul className="block justify-start flex-1">
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Title</span>
+              : The Master and His Emissary 2ED
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Author</span>
+              : Iain McGilchrist
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Edition</span>
+              : 2, New Expanded Edition
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Edition Type</span>
+              : 2 EXP NEW
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Publisher</span>
+              : Yale University Press
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>ISBN</span>
+              : 9780300245929
+            </li>
+            <li>
+              <span style={{ fontWeight: 'bold' }}>Languages</span>
+              : English
+            </li>
+          </ul>
+          <ul className="block justify-center flex-1">
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Subtitle</span>
+              : The Divided Brain and the Making of the Western World
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Format</span>
+              : PaperBack
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Category</span>
+              : Ancient & Medieval History, Psychology
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Subjects</span>
+              : Psychology, Classical History / Classical Civilisation,Psychology / Cognitive Psychology & Cognition, Psychology /Neuropsychology, History / Civilization
+            </li>
+            <li className="pb-1">
+              <span style={{ fontWeight: 'bold' }}>Publication Date</span>
+              : 01/02/2019
+            </li>
+            <li>
+              <span style={{ fontWeight: 'bold' }}>Pages</span>
+              : 616
+            </li>
+          </ul>
         </div>
       </div>
 
