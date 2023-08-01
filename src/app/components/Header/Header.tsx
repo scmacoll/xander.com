@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styles from './Header.module.scss';
-import SearchForm from '../Search/SearchForm'
+import SearchForm from '../Search/SearchForm';
 
 interface HeaderProps {
   onFocusModeToggle: () => void;
@@ -12,13 +12,13 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-   onFocusModeToggle, 
-   isFocusMode = true, 
-   showFocusButton, 
-   showSearch,
-   hideSvg,
-   shortenTitle = false,
-  }) => {
+  onFocusModeToggle,
+  isFocusMode = true,
+  showFocusButton,
+  showSearch,
+  hideSvg,
+  shortenTitle = false,
+}) => {
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
   };
@@ -29,7 +29,6 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
   const svgClass = hideSvg ? styles['hide-svg'] : '';
-
 
   return (
     <header
@@ -42,7 +41,8 @@ const Header: React.FC<HeaderProps> = ({
       {showFocusButton && (
         <div
           id="focusButton"
-          className="p-2 text-3xl flex flex-1 justify-start">
+          className="text-3xl flex flex-1 justify-start"
+          style={{ transform: 'translateX(4px)' }}>
           <svg
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
