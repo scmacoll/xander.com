@@ -11,7 +11,7 @@
   display: block;
   justify-content: space-evenly;
   width: 100%;
-  padding-bottom: 5rem;
+  padding-bottom: 2rem;
 }
 
 .tabsWrapper {
@@ -63,7 +63,25 @@
 .bookBlock {
   display: block;
   text-align: center;
+}
 
+.responsiveImage {
+  @media (min-width: 1200px) {
+    width: 115px;
+    height: auto;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    width: 115px;
+    height: auto;
+  }
+  @media (max-width: 999px) and (min-width: 725px) {
+    width: 100px;
+    height: auto;
+  }
+  @media (max-width: 724px) {
+    width: 100px;
+    height: auto;
+  }
 }
 
 .similarHeart {

@@ -87,6 +87,7 @@ const BookPageFeatures: React.FC = () => {
               <div>
                 <a href="/book">
                   <Image
+                    className={`${styles.responsiveImage}`}
                     src={masterandemissarry.src}
                     alt="yuko"
                     width="115"
@@ -161,6 +162,7 @@ const BookPageFeatures: React.FC = () => {
               <div>
                 <a href="/book">
                   <Image
+                    className={`${styles.responsiveImage}`}
                     src={masterandemissarry.src}
                     alt="yuko"
                     width="115"
@@ -235,6 +237,7 @@ const BookPageFeatures: React.FC = () => {
               <div>
                 <a href="/book">
                   <Image
+                    className={`${styles.responsiveImage}`}
                     src={masterandemissarry.src}
                     alt="yuko"
                     width="115"
@@ -309,6 +312,7 @@ const BookPageFeatures: React.FC = () => {
               <div>
                 <a href="/book">
                   <Image
+                    className={`${styles.responsiveImage}`}
                     src={masterandemissarry.src}
                     alt="yuko"
                     width="115"
@@ -383,6 +387,7 @@ const BookPageFeatures: React.FC = () => {
               <div>
                 <a href="/book">
                   <Image
+                    className={`${styles.responsiveImage}`}
                     src={masterandemissarry.src}
                     alt="yuko"
                     width="115"
