@@ -7,30 +7,35 @@ interface HeaderProps {
   isFocusMode: boolean;
   showFocusButton: boolean;
   showSearch: boolean;
+  hideSvg?: boolean;
+  shortenTitle: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
    onFocusModeToggle, 
    isFocusMode = true, 
    showFocusButton, 
-   showSearch 
+   showSearch,
+   hideSvg,
+   shortenTitle = false,
   }) => {
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
   };
-
   const inputRef = useRef<HTMLInputElement>(null);
-
   const handleClick = () => {
     if (inputRef.current) {
       inputRef.current.click();
     }
   };
+  const svgClass = hideSvg ? styles['hide-svg'] : '';
+
 
   return (
     <header
       className={`
-      ${styles.header} 
+      ${styles.header}
+      ${shortenTitle ? styles.shortenTitle : ''} 
       ${showSearch ? 'pb-4' : ''} 
       flex justify-between items-center mx-auto p-1
       `}>
@@ -86,12 +91,14 @@ const Header: React.FC<HeaderProps> = ({
 
       <div className={`${styles.xandria} `}>
         <a href="/">
-          <h1 className="text-3xl">Xandria</h1>
+          <h1>Xandria</h1>
         </a>
       </div>
       {showSearch && <SearchForm />}
       <div className={`${styles.userHeader}`}>
         <svg
+          id="checkoutBag"
+          className={svgClass}
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
           width="3.2rem"

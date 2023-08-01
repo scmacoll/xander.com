@@ -13,7 +13,14 @@ export default function Home() {
   };
   return (
     <main>
-      <Header onFocusModeToggle={ handleCardButtonClick } isFocusMode={ false } showFocusButton={ false } showSearch={ true } />
+      <Header
+        onFocusModeToggle={handleCardButtonClick}
+        isFocusMode={false}
+        showFocusButton={false}
+        showSearch={true}
+        hideSvg={true}
+        shortenTitle={true}
+      />
       <BookPageContent />
       <Footer />
     </main>
