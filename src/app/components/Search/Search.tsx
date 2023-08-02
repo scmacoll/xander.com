@@ -13,9 +13,3 @@ const Search = () => {
 
 export default Search;
 
-// <div
-//   className={`${styles['media-config']} flex flex-1 justify-end  border-1 border-white`}>
-//   <button className="" type="button">
-//     Font
-//   </button>
-// </div>;

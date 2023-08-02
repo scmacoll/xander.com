@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({
           id="focusButton"
           className="text-3xl flex flex-1 justify-start"
           style={{ transform: 'translateX(4px)' }}>
-          <svg
+          <svg id="dropdownIcon"
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
             width="2.2rem"
@@ -96,8 +96,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       {showSearch && <SearchForm />}
       <div className={`${styles.userHeader}`}>
-        <svg
-          id="checkoutBag"
+        <svg id="checkoutBag"
           className={svgClass}
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({
             />
           </g>
         </svg>
-        <svg
+        <svg id="userIcon"
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
           width="3.2rem"
