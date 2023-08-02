@@ -1,18 +1,41 @@
 import styles from './SearchForm.module.scss';
+import React, { useState, useEffect } from 'react';
 
 
 interface SearchFormProps {
   className?: string;
-  isBookPage?: boolean;
+  isBookPage: boolean;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({ className, isBookPage }) => {
-  const searchBarClass = isBookPage
-    ? styles.bookPage : styles.searchBar;
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 749);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 749);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const searchBarClass = isBookPage ? styles.bookPage : styles.searchBar;
+
+  const placeholderText =
+    isBookPage && isMobile
+      ? 'Search'
+      : "Search the world's quote reference library";
+
+
   return (
-    <form className={`${styles.searchForm} ${className}`} action="/search" method="get">
+    <form
+      className={`${styles.searchForm} ${className}`}
+      action="/search"
+      method="get">
       <div className={searchBarClass}>
         <svg
+          id="searchButton"
           className="absolute left-2 h-6 w-6"
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
@@ -44,18 +67,18 @@ const SearchForm: React.FC<SearchFormProps> = ({ className, isBookPage }) => {
           type="text"
           id="search"
           name="q"
-          placeholder="Search the world's quote reference library"
+          placeholder={placeholderText}
           autoFocus
         />
 
-        <span className="absolute right-2 bg-gray-500 border-none text-white inline-block text-xs cursor-text rounded py-0.5 px-1 mx-1 opacity-70">
+        <span
+          id="cmd+kButton"
+          className="absolute right-2 bg-gray-500 border-none text-white inline-block text-xs cursor-text rounded py-0.5 px-1 mx-1 opacity-70">
           ⌘K
         </span>
       </div>
     </form>
-
-
-);
+  );
 };
 
 

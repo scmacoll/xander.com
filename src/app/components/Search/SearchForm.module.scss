@@ -35,11 +35,9 @@
     width: clamp(25em, 1em + 40vw, 50em);
   }
 }
-
 .searchBar {
   @include searchBarStyles;
 }
-
 .bookPage {
   @include searchBarStyles;
   @media (max-width: 749px) {
