@@ -146,6 +146,16 @@
   display: inline-flex;
   flex: 1;
   justify-content: end;
+  
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+    transform: translateX(5px);
+  }
 }
 
 .hide-svg {

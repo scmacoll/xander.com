@@ -3,12 +3,15 @@ import styles from './SearchForm.module.scss';
 
 interface SearchFormProps {
   className?: string;
+  isBookPage?: boolean;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ className }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ className, isBookPage }) => {
+  const searchBarClass = isBookPage
+    ? styles.bookPage : styles.searchBar;
   return (
     <form className={`${styles.searchForm} ${className}`} action="/search" method="get">
-      <div className={`${styles.searchBar} relative`}>
+      <div className={searchBarClass}>
         <svg
           className="absolute left-2 h-6 w-6"
           version="1.0"
@@ -50,7 +53,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ className }) => {
         </span>
       </div>
     </form>
-  );
+
+
+);
 };
+
+
 
 export default SearchForm;

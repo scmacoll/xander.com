@@ -23,6 +23,7 @@ export default function Home() {
         showSearch={false}
         hideSvg={true}
         shortenTitle={false}
+        isBookPage={false}
       />
       <Search />
       <Content isCardButtonClicked={isCardButtonClicked} />

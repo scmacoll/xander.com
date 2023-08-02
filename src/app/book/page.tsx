@@ -20,6 +20,7 @@ export default function Home() {
         showSearch={true}
         hideSvg={true}
         shortenTitle={true}
+        isBookPage={true}
       />
       <BookPageContent />
       <Footer />

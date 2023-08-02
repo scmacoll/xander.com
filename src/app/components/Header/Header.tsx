@@ -9,6 +9,7 @@ interface HeaderProps {
   showSearch: boolean;
   hideSvg?: boolean;
   shortenTitle: boolean;
+  isBookPage: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -18,6 +19,7 @@ const Header: React.FC<HeaderProps> = ({
   showSearch,
   hideSvg,
   shortenTitle = false,
+  isBookPage = false,
 }) => {
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
@@ -94,7 +96,7 @@ const Header: React.FC<HeaderProps> = ({
           <h1>Xandria</h1>
         </a>
       </div>
-      {showSearch && <SearchForm />}
+      {showSearch && <SearchForm isBookPage={isBookPage} />}
       <div className={`${styles.userHeader}`}>
         <svg id="checkoutBag"
           className={svgClass}
