@@ -2,12 +2,14 @@
   display: grid;
   grid-gap: 0.5em;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  width: 90%;
+  // width: 90%;
   justify-items: center;
   justify-content: center;
   align-content: center;
   margin: 0 auto;
   // grid-template-columns: repeat(3, 1fr); /* 3 columns */
+
+
 }
 
 @media (min-width: 1100px) {
@@ -29,7 +31,7 @@
 @media (max-width: 749px) {
   .contentLayout {
     grid-template-columns: 1fr;
-    width: 95%;
+    width: 100%;
   }
 }
 

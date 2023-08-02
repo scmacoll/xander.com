@@ -8,7 +8,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 
-<div className={`${styles.shippingContainer}`}>
+{/* <div className={`${styles.shippingContainer}`}>
   <div className={`${styles.stockVerify}`}>
     <FontAwesomeIcon icon={faCheck} />
     <div className="">IN STOCK - SHIPS NEXT DAY</div>
@@ -18,7 +18,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
       <span>Get estimated delivery dates</span>
     </a>
   </div>
-</div>
+</div> */}
 
 
 
