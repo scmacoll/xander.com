@@ -61,7 +61,8 @@ const BookPageContent: React.FC = () => {
                 <div className={`${styles.bookName}`}>By Iain McGilchrist</div>
                 <div className={`${styles.bookInfo}`}>
                   <div>
-                    &nbsp;&nbsp;|&nbsp;&nbsp; Paperback &nbsp;&nbsp;|&nbsp;&nbsp;
+                    &nbsp;&nbsp;|&nbsp;&nbsp; Paperback
+                    &nbsp;&nbsp;|&nbsp;&nbsp;
                   </div>
                   <div>1&nbsp; February 2019</div>
                 </div>
@@ -94,25 +95,17 @@ const BookPageContent: React.FC = () => {
                 </svg>
               </div>
             </div>
-
+            {/*  */}
             <div className={`${styles.bookCart}`}>
-
               <div className={`${styles.cartContainer}`}>
                 <div className={`${styles.bookPrice}  font-extrabold`}>
                   $34.95
                 </div>
-                <div className={`${styles.cartButton}`}>
-                  <button>Add To Cart</button>
-                </div>
-                <div className={`${styles.checkoutBuyNow}`}>
-                  <button>BUY NOW</button>
-                </div>
-              </div>
-
-              <div className={`${styles.rewardsContainer}`}>
-                <div className={`${styles.afterPay}`}>
-                  <div className="flex align-center justify-center">
+                <div className={`${styles.paymentWrapper}`}>
+                  <div className={`${styles.cartPayments}`}>
                     or 4 payments of $8.74 with
+                  </div>
+                  <div className={`${styles.afterPay}`}>
                     <svg
                       className={`${styles.afterPaycsv}`}
                       version="1.0"
@@ -219,19 +212,32 @@ const BookPageContent: React.FC = () => {
                       </g>
                     </svg>
                   </div>
-                  <div className="inline-block">
-                    <a className={`${styles.learnMore}`} href="/book">
-                      Learn more
-                    </a>
-                  </div>
+                <div className={`${styles.learnMore}`}>
+                  <a href="/book">Learn more</a>
                 </div>
-                <div className={`${styles.bookRewards}`}>
-                  Booklovers earn $1.70 in rewards
                 </div>
               </div>
-              
-            </div>
 
+              <div className={`${styles.rewardsContainer}`}>
+                <div className={`${styles.rewardsWrapper}`}>
+                  <div className={`${styles.cartButtons}`}>
+                    <div className={`${styles.addToCart}`}>
+                      <button>Add To Cart</button>
+                    </div>
+                    <div className={`${styles.checkoutBuyNow}`}>
+                      <button>BUY NOW</button>
+                    </div>
+                  </div>
+                  <div className={`${styles.bookRewards}`}>
+                    Booklovers earn $1.70 in rewards
+                  </div>
+                </div>
+                
+
+              </div>
+
+            </div>
+            {/*  */}
             <div className={`${styles.shippingContainer}`}>
               <div className={`${styles.stockVerify}`}>
                 <span className={`${styles.iconBlock}`}>
