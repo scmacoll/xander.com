@@ -150,13 +150,12 @@
 .bookCart {
   display: flex;
   padding: 1.2em 0 1.2em 0;
-  // border: .1px solid blue;
   
   @media (min-width: 1200px) {
     height: 8em;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
-    height: 9em;
+    height: 8em;
   }
   @media (max-width: 999px) and (min-width: 750px) {
     height: 9em;
@@ -194,9 +193,11 @@
 }
 
 .paymentContainer {
-  position: relative;
-  border: .1px solid red;
+  display: flex;
+  // border: .1px solid red;
+  font-size: .95em;
   height: 3em;
+  align-items: start;
   
   @media (min-width: 1200px) {
     display: flex;
@@ -211,19 +212,32 @@
 }
 
 .paymentWrapper {
-  display: flex;
+  display: inline-flex;
   align-content: center;
 }
 
 .cartPayments {
   display: inline-flex;
+  flex: 0 0 auto;
 }
 
 .afterPay {
   display: inline-flex;
   position: relative;
   font-size: .9em;
-  transform: translateY(-1.5px);
+  // transform: translateY(-1.5px);
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    transform: translateX(-14.8em) translateY(1.6em);
+  }
+  @media (max-width: 749px) {
+    transform: translateX(-14.8em) translateY(1.6em);
+  }
+  
+  // flex: 0 0 auto;
   // white-space: nowrap;
 }
 
@@ -236,6 +250,15 @@
   display: inline-flex;
   color: #2466b8;
   text-decoration: underline;
+  height: 1.5em;
+  flex: 0 0 auto;
+
+  @media (max-width: 999px) and (min-width: 750px) {
+    transform: translateX(-5em) translateY(1.5em);
+  }
+  @media (max-width: 749px) {
+
+  }
 }
 
 .rewardsContainer {
@@ -305,7 +328,8 @@
   color: rgb(169, 57, 57);
   padding-right: .3em;
   text-align: center;
-  width: 100%;
+  width: 98%;
+  font-size: .95em;
 
   // @media (min-width: 1200px) {
   //   padding-right: 2.25em;

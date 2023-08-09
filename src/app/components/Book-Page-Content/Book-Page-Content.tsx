@@ -5,9 +5,10 @@ import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-
-
+import {
+  faChevronLeft,
+  faChevronRight,
+} from '@fortawesome/free-solid-svg-icons';
 
 const BookPageContent: React.FC = () => {
   return (
@@ -214,12 +215,11 @@ const BookPageContent: React.FC = () => {
                       </svg>
                     </div>
                   </div>
-                  
+
                   <div className={`${styles.learnMore}`}>
                     <a href="/book">Learn more</a>
                   </div>
                 </div>
-                
               </div>
               <div className={`${styles.rewardsContainer}`}>
                 <div className={`${styles.rewardsWrapper}`}>
