@@ -8,18 +8,18 @@
   font-family: 'SF', sans-serif;
   letter-spacing: .2px;
   overflow: hidden;
-
+  
   @media (min-width: 1200px) {
     width: 1140px;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
     width: 975px;
   }
-  @media (max-width: 999px) and (min-width: 725px) {
+  @media (max-width: 999px) and (min-width: 750px) {
     width: 750px;
   }
-  @media (max-width: 724px) {
-    width: 750px;
+  @media (max-width: 749px) {
+    width: 100%;
 
   }
 }
@@ -80,6 +80,8 @@
 .mainContent {
   display: flex;
   justify-content: center;
+  justify-items: center;
+  align-content: center;
   margin: 0 auto;
 
   @media (min-width: 1200px) {
@@ -109,8 +111,26 @@
   padding: .5em 0 .5em 0;
 }
 
-.bookInfo {
+.bookInfoWrapper {
   display: inline-flex;
+  
+  @media (max-width: 749px) {
+    display: block;
+    justify-content: center;
+    margin: 0 auto;
+  }
+}
+
+.bookName {
+  display: flex;
+  
+  @media (max-width: 749px) {
+    justify-content: center;
+  }
+}
+
+.bookInfo {
+  display: flex;
 }
 
 .cardHeart {
@@ -136,6 +156,10 @@
   display: flex;
   align-content: center;
   // align-items: center;
+
+  @media (max-width: 749px) {
+
+  }
 }
 .rewardsContainer {
   display: flex;
@@ -197,10 +221,10 @@
   @media (max-width: 1199px) and (min-width: 1000px) {
     display: flex;
   }
-  @media (max-width: 999px) and (min-width: 725px) {
+  @media (max-width: 999px) and (min-width: 750px) {
     display: block;
   }
-  @media (max-width: 724px) {
+  @media (max-width: 749px) {
     display: block;
 
   }
@@ -218,11 +242,11 @@
     width: 975px;
     position: relative;
   }
-  @media (max-width: 999px) and (min-width: 725px) {
+  @media (max-width: 999px) and (min-width: 750px) {
     width: 750px;
     position: absolute;
   }
-  @media (max-width: 724px) {
+  @media (max-width: 749px) {
 
   }
 }
@@ -242,7 +266,7 @@
     padding-right: 2.25em;
     padding-left: 2.25em;
   }
-  @media (max-width: 999px) and (min-width: 725px) {
+  @media (max-width: 999px) and (min-width: 750px) {
     padding-right: 0;
     padding-left: 2.25em;
   }
@@ -306,10 +330,10 @@
   @media (max-width: 1199px) and (min-width: 1000px) {
     padding-top: 0;
   }
-  @media (max-width: 999px) and (min-width: 725px) {
+  @media (max-width: 999px) and (min-width: 750px) {
     padding-top: 1em;
   }
-  @media (max-width: 724px) {
+  @media (max-width: 749px) {
     padding-top: 1em;
 
   }

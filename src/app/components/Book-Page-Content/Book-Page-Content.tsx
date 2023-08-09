@@ -8,20 +8,6 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 
-{/* <div className={`${styles.shippingContainer}`}>
-  <div className={`${styles.stockVerify}`}>
-    <FontAwesomeIcon icon={faCheck} />
-    <div className="">IN STOCK - SHIPS NEXT DAY</div>
-  </div>
-  <div className={`${styles.deliveryDate}`}>
-    <a href="/book">
-      <span>Get estimated delivery dates</span>
-    </a>
-  </div>
-</div> */}
-
-
-
 
 const BookPageContent: React.FC = () => {
   return (
@@ -65,15 +51,20 @@ const BookPageContent: React.FC = () => {
         </div>
         <div className={`${styles.mainContent}`}>
           <div className="block">
-            <div className="flex">
+            <div className={`${styles.bookName}`}>
               <h2 className="text-2xl font-bold">
                 The Master And His Emissary 2ED
               </h2>
             </div>
             <div className={`${styles.infoContainer}`}>
-              <div className={`${styles.bookInfo}`}>
-                By Iain McGilchrist &nbsp;&nbsp;|&nbsp;&nbsp; Paperback
-                &nbsp;&nbsp;|&nbsp;&nbsp; 1&nbsp; February 2019
+              <div className={`${styles.bookInfoWrapper}`}>
+                <div className={`${styles.bookName}`}>By Iain McGilchrist</div>
+                <div className={`${styles.bookInfo}`}>
+                  <div>
+                    &nbsp;&nbsp;|&nbsp;&nbsp; Paperback &nbsp;&nbsp;|&nbsp;&nbsp;
+                  </div>
+                  <div>1&nbsp; February 2019</div>
+                </div>
               </div>
               <div className={`${styles.cardHeart}`}>
                 <svg
@@ -105,6 +96,7 @@ const BookPageContent: React.FC = () => {
             </div>
 
             <div className={`${styles.bookCart}`}>
+
               <div className={`${styles.cartContainer}`}>
                 <div className={`${styles.bookPrice}  font-extrabold`}>
                   $34.95
@@ -116,6 +108,7 @@ const BookPageContent: React.FC = () => {
                   <button>BUY NOW</button>
                 </div>
               </div>
+
               <div className={`${styles.rewardsContainer}`}>
                 <div className={`${styles.afterPay}`}>
                   <div className="flex align-center justify-center">
@@ -236,6 +229,7 @@ const BookPageContent: React.FC = () => {
                   Booklovers earn $1.70 in rewards
                 </div>
               </div>
+              
             </div>
 
             <div className={`${styles.shippingContainer}`}>

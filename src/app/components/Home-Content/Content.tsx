@@ -30,8 +30,8 @@ export type TileCard = {
   quote: string;
   author: string;
 };
-
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
+
   const apiURI = '/api/getCards';
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
@@ -80,7 +80,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -111,7 +111,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         console.error('Error fetching tile cards:', error);
       }
     };
-
+            
     fetchData();
   }, []);
 
