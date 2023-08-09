@@ -100,8 +100,9 @@ const BookPageContent: React.FC = () => {
                 <div className={`${styles.bookPrice}  font-extrabold`}>
                   $34.95
                 </div>
-                <div className={`${styles.paymentWrapper}`}>
-                  <div className="flex">
+
+                <div className={`${styles.paymentContainer}`}>
+                  <div className={`${styles.paymentWrapper}`}>
                     <div className={`${styles.cartPayments}`}>
                       or 4 payments of $8.74 with
                     </div>
@@ -213,10 +214,12 @@ const BookPageContent: React.FC = () => {
                       </svg>
                     </div>
                   </div>
+                  
                   <div className={`${styles.learnMore}`}>
                     <a href="/book">Learn more</a>
                   </div>
                 </div>
+                
               </div>
               <div className={`${styles.rewardsContainer}`}>
                 <div className={`${styles.rewardsWrapper}`}>
