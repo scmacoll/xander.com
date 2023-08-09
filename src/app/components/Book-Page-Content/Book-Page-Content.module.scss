@@ -151,12 +151,25 @@
   display: flex;
   padding: 1.2em 0 1.2em 0;
   // border: .1px solid blue;
-  height: 8em;
+  
+  @media (min-width: 1200px) {
+    height: 8em;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    height: 9em;
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    height: 9em;
+  }
+  @media (max-width: 749px) {
+    height: 9em;
+  }
 }
 
 .cartContainer {
   display: block;
-  width: 50%;
+  width: 70%;
+  
   @media (max-width: 749px) {
     
   }
@@ -169,10 +182,30 @@
   font-size: 1.5rem;
   padding-top: .5em;
   padding-bottom: 1.15em;
+
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+  }
 }
 
 .paymentWrapper {
-  display: flex;
+  position: relative;
+
+  @media (min-width: 1200px) {
+    display: flex;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    display: block;
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+  }
 }
 
 .cartPayments {
@@ -195,6 +228,21 @@
 .learnMore {
   color: #2466b8;
   text-decoration: underline;
+  // display: inline-flex;
+  // height: 1.5em;
+  // border: .1px solid red;
+  
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    transform: translateY(-60px);
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    transform: translateY(-60px);
+  }
+  @media (max-width: 749px) {
+    transform: translateY(-60px);
+  }
   // transform: translateY(-5.5em);
 
   // @media (min-width: 1200px) {
@@ -217,7 +265,24 @@
   display: inline-block;
   // padding-top: 1em;
   // align-content: center;
-  width: 50%;
+  // border: .1px solid red;
+  
+  @media (min-width: 1200px) {
+    width: 50%;
+    
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    width: 50%;
+    
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    width: 40%;
+    
+  }
+  @media (max-width: 749px) {
+    width: 40%;
+
+  }
 }
 
 .rewardsWrapper {
@@ -239,10 +304,27 @@
   width: 120px;
   height: 50px;
   padding: .75em;
-  margin-right: 2em;
   color: rgb(var(--everforest-gold));
   border: .1px solid rgb(var(--everforest-gold));
   border-radius: 4px;
+  
+  @media (min-width: 1200px) {
+    margin-right: 2em;
+    
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    margin-right: 1em;
+    
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    margin-right: 1em;
+    font-size: .75em;
+    
+  }
+  @media (max-width: 749px) {
+    margin-right: 1em;
+    font-size: .7em;
+  }
 }
 
 .checkoutBuyNow {
@@ -256,6 +338,17 @@
   align-items: center;
   color: rgb(169, 57, 57);
   border: .1px solid rgb(169, 57, 57);  
+
+  @media (min-width: 1200px) { 
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    font-size: .75em;
+  }
+  @media (max-width: 749px) {
+    font-size: .75em;
+  }
 }
 
 .bookRewards {
@@ -265,6 +358,8 @@
   font-weight: 800;
   color: rgb(169, 57, 57);
   padding-right: .3em;
+  text-align: center;
+
   // @media (min-width: 1200px) {
   //   padding-right: 2.25em;
   //   padding-left: 2.25em;
@@ -277,6 +372,19 @@
   //   padding-right: 0;
   //   padding-left: 2.25em;
   // }
+
+  @media (min-width: 1200px) {
+
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+
+  }
+  @media (max-width: 749px) {
+
+  }
 }
 
 .shippingContainer {
