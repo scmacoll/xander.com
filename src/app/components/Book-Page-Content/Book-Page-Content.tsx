@@ -95,7 +95,6 @@ const BookPageContent: React.FC = () => {
                 </svg>
               </div>
             </div>
-            {/*  */}
             <div className={`${styles.bookCart}`}>
               <div className={`${styles.cartContainer}`}>
                 <div className={`${styles.bookPrice}  font-extrabold`}>
@@ -217,7 +216,6 @@ const BookPageContent: React.FC = () => {
                 </div>
                 </div>
               </div>
-
               <div className={`${styles.rewardsContainer}`}>
                 <div className={`${styles.rewardsWrapper}`}>
                   <div className={`${styles.cartButtons}`}>
@@ -232,12 +230,8 @@ const BookPageContent: React.FC = () => {
                     Booklovers earn $1.70 in rewards
                   </div>
                 </div>
-                
-
               </div>
-
             </div>
-            {/*  */}
             <div className={`${styles.shippingContainer}`}>
               <div className={`${styles.stockVerify}`}>
                 <span className={`${styles.iconBlock}`}>
