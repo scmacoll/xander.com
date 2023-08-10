@@ -148,29 +148,51 @@
 }
 
 .bookCart {
-  display: flex;
   padding: 1.2em 0 1.2em 0;
   
   @media (min-width: 1200px) {
+    display: flex;
     height: 8em;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
+    display: flex;
     height: 8em;
   }
   @media (max-width: 999px) and (min-width: 750px) {
+    display: flex;
     height: 9em;
   }
   @media (max-width: 749px) {
-    height: 9em;
+    flex-direction: column;
+    margin: 0 auto;
+
+    justify-items: center;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    // height: 9em;
   }
 }
 
 .cartContainer {
   display: block;
   width: 70%;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+
   
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
   @media (max-width: 749px) {
-    
+    margin: 0 auto;
+    text-align: center;
   }
 }
 
@@ -189,12 +211,13 @@
   @media (max-width: 999px) and (min-width: 750px) {
   }
   @media (max-width: 749px) {
+    text-align: center;
+    padding-bottom: .5em;
   }
 }
 
 .paymentContainer {
   display: flex;
-  // border: .1px solid red;
   font-size: .95em;
   height: 3em;
   align-items: start;
@@ -206,14 +229,25 @@
     display: block;
   }
   @media (max-width: 999px) and (min-width: 750px) {
+    display: flex;
   }
   @media (max-width: 749px) {
+    display: block;
+    width: max-content;
+    text-align: center;
+    margin: 0 auto;
   }
 }
 
 .paymentWrapper {
   display: inline-flex;
   align-content: center;
+  margin: 0 auto;
+  text-align: center;
+  
+  @media (max-width: 749px) {
+    justify-content: center;
+  }
 }
 
 .cartPayments {
@@ -234,10 +268,7 @@
     transform: translateX(-14.8em) translateY(1.6em);
   }
   @media (max-width: 749px) {
-    transform: translateX(-14.8em) translateY(1.6em);
   }
-  
-  // flex: 0 0 auto;
   // white-space: nowrap;
 }
 
@@ -252,19 +283,24 @@
   text-decoration: underline;
   height: 1.5em;
   flex: 0 0 auto;
-
+  
   @media (max-width: 999px) and (min-width: 750px) {
     transform: translateX(-5em) translateY(1.5em);
   }
   @media (max-width: 749px) {
-
+    flex: 1 0 auto;
   }
 }
 
 .rewardsContainer {
   display: inline-block;
+  justify-content: center;
   // padding-top: 1em;
   // align-content: center;
+  
+  @media (max-width: 749px) {
+    display: flex;
+  }
 }
 
 .rewardsWrapper {
@@ -277,6 +313,10 @@
   display: flex;
   justify-content: flex-end;
   padding-bottom: 1em;
+  @media (max-width: 749px) {
+    justify-content: center;
+    margin: 0 auto;
+  }
   
 }
 
@@ -303,7 +343,7 @@
     
   }
   @media (max-width: 749px) {
-    margin-right: 1em;
+    margin-right: 2em;
   }
 }
 
@@ -330,12 +370,12 @@
   text-align: center;
   width: 98%;
   font-size: .95em;
-
+  
   // @media (min-width: 1200px) {
-  //   padding-right: 2.25em;
-  //   padding-left: 2.25em;
-  // }
-  // @media (max-width: 1199px) and (min-width: 1000px) {
+    //   padding-right: 2.25em;
+    //   padding-left: 2.25em;
+    // }
+    // @media (max-width: 1199px) and (min-width: 1000px) {
   //   padding-right: 2.25em;
   //   padding-left: 2.25em;
   // }

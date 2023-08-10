@@ -219,6 +219,7 @@ const BookPageContent: React.FC = () => {
                   <div className={`${styles.learnMore}`}>
                     <a href="/book">Learn more</a>
                   </div>
+                  
                 </div>
               </div>
               <div className={`${styles.rewardsContainer}`}>
