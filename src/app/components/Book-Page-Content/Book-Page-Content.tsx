@@ -62,10 +62,9 @@ const BookPageContent: React.FC = () => {
                 <div className={`${styles.bookName}`}>By Iain McGilchrist</div>
                 <div className={`${styles.bookInfo}`}>
                   <div>
-                    &nbsp;&nbsp;|&nbsp;&nbsp; Paperback
-                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                    Paperback
                   </div>
-                  <div>1&nbsp; February 2019</div>
+                  <div>1 February 2019</div>
                 </div>
               </div>
               <div className={`${styles.cardHeart}`}>
