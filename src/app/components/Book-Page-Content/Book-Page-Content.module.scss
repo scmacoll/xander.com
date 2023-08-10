@@ -177,12 +177,9 @@
 
 .cartContainer {
   display: block;
-  width: 70%;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  justify-items: center;
-
+  flex: 1;
+  height: fit-content;
+  border: .1px solid green;
   
   @media (min-width: 1200px) {
   }
@@ -221,12 +218,14 @@
   font-size: .95em;
   height: 3.5em;
   align-items: start;
+  justify-content: flex-start;
+  border: .1px solid red;
   
   @media (min-width: 1200px) {
     display: flex;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
-    display: block;
+    display: flex;
   }
   @media (max-width: 999px) and (min-width: 750px) {
     display: flex;
@@ -239,16 +238,7 @@
   }
 }
 
-.paymentWrapper {
-  display: inline-flex;
-  align-content: center;
-  margin: 0 auto;
-  text-align: center;
-  
-  @media (max-width: 749px) {
-    justify-content: center;
-  }
-}
+
 
 .cartPayments {
   display: inline-flex;
@@ -256,16 +246,18 @@
 }
 
 .afterPay {
-  display: inline-flex;
   position: relative;
   font-size: .9em;
-  // transform: translateY(-1.5px);
+
   @media (min-width: 1200px) {
+    display: inline-flex;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
+    display: inline-flex;
   }
   @media (max-width: 999px) and (min-width: 750px) {
-    transform: translateX(-14.8em) translateY(1.6em);
+    display: flex;
+    // transform: translateX(-14.8em) translateY(1.6em);
   }
   @media (max-width: 749px) {
   }
@@ -294,22 +286,12 @@
 }
 
 .rewardsContainer {
-  display: inline-block;
-  justify-content: center;
-  // padding-top: 1em;
-  // align-content: center;
-  margin: 0 auto;
+  display: block;
+  justify-content: end;
   
   @media (max-width: 749px) {
     display: flex;
   }
-}
-
-.rewardsWrapper {
-  display: flex;
-  margin: 0 auto;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 .cartButtons {
@@ -366,11 +348,11 @@
 
 .bookRewards {
   display: inline-flex;
-  justify-content: flex-end;
+  justify-content: center;
   text-align: center;
   font-weight: 800;
   color: rgb(169, 57, 57);
-  padding-right: .3em;
+  // padding-right: .3em;
   text-align: center;
   width: 98%;
   font-size: .95em;
