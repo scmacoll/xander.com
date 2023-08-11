@@ -148,6 +148,7 @@
 }
 
 .bookCart {
+  display: flex;
   padding: 1.2em 0 1.2em 0;
   
   @media (min-width: 1200px) {
@@ -175,10 +176,19 @@
   }
 }
 
+.cartWrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: space-evenly;
+  // margin: 0 auto;
+}
+
 .cartContainer {
-  display: block;
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  height: fit-content;
+  justify-content: space-between;
   
   @media (min-width: 1200px) {
   }
@@ -193,12 +203,13 @@
 }
 
 .bookPrice {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  align-items: space-evenly;
+  // flex: 1;
   font-weight: 800;
   font-size: 1.5rem;
   padding-top: .5em;
-  padding-bottom: 1.15em;
+  // padding-bottom: 1.15em;
   
   @media (min-width: 1200px) {
   }
@@ -215,25 +226,21 @@
 .paymentContainer {
   display: flex;
   font-size: .95em;
-  height: 3.5em;
-  align-items: start;
-  justify-content: flex-start;
+  height: fit-content;
+
   
   @media (min-width: 1200px) {
-    display: flex;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
-    display: flex;
   }
   @media (max-width: 999px) and (min-width: 750px) {
-    display: flex;
     flex-direction: column;
   }
   @media (max-width: 749px) {
-    display: block;
-    width: max-content;
-    text-align: center;
-    margin: 0 auto;
+    justify-content: center;
+    // width: max-content;
+    // text-align: center;
+    // margin: 0 auto;
   }
 }
 
@@ -285,6 +292,7 @@
     // transform: translateX(-14.8em) translateY(1.6em);
   }
   @media (max-width: 749px) {
+    display: inline-flex;
   }
   // white-space: nowrap;
 }
@@ -294,6 +302,7 @@
 }
 
 .learnMore {
+  display: inline-flex;
   height: 1.5em;
   flex: 0 0 auto;
   color: #2466b8;
@@ -301,39 +310,29 @@
 
 
   @media (min-width: 1200px) {
-    display: inline-flex;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
-    display: inline-flex;
   }
   @media (max-width: 999px) and (min-width: 750px) {
     // transform: translateX(-5em) translateY(1.5em);
-    display: inline-flex;
     text-align: center;
   }
   @media (max-width: 749px) {
-    display: block;
-    transform: translateY(-4em);
   }
 }
 
 .rewardsContainer {
-  display: block;
-  justify-content: end;
-  
-  @media (max-width: 749px) {
-    display: flex;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .cartButtons {
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 1em;
   
   @media (max-width: 749px) {
     justify-content: center;
-    margin: 0 auto;
   }
   
 }
@@ -381,15 +380,13 @@
 .bookRewards {
   display: flex;
   justify-content: center;
-  text-align: center;
   font-weight: 800;
-  color: rgb(169, 57, 57);
-  // padding-right: .3em;
-  text-align: center;
   width: 96%;
   font-size: .95em;
   margin: 0 auto;
-
+  text-align: center;
+  
+  color: rgb(169, 57, 57);;
   
   // @media (min-width: 1200px) {
     //   padding-right: 2.25em;
