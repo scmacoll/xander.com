@@ -15,38 +15,41 @@ const BookPageContent: React.FC = () => {
     <div className={`${styles.contentLayout}`}>
       <div className={`${styles.contentWrapper}`}>
         <div className={`${styles.imageContent}`}>
-          <div className="block">
-            <div className={`${styles.bookImage}`}>
-              <a href="/book">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="10000"
-                  height="10000"
-                />
-              </a>
+          <div className={`${styles.bookImage}`}>
+            <a href="/book">
+              <Image
+                src={masterandemissarry.src}
+                alt="yuko"
+                width="10000"
+                height="10000"
+              />
+            </a>
+          </div>
+          <div className="pt-3">
+            <div className={`${styles.bookStars}`}>
+              <FontAwesomeIcon
+                className={`${styles.faStar}`}
+                icon={faStar}
+              ></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className={`${styles.faStar}`}
+                icon={faStar}
+              ></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className={`${styles.faStar}`}
+                icon={faStar}
+              ></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className={`${styles.faStar}`}
+                icon={faStar}
+              ></FontAwesomeIcon>
+              <FontAwesomeIcon
+                className={`${styles.faStar}`}
+                icon={faStar}
+              ></FontAwesomeIcon>
             </div>
-            <div className="pt-3">
-              <div className={`${styles.bookStars}`}>
-                <FontAwesomeIcon
-                  className={`${styles.faStar}`}
-                  icon={faStar}></FontAwesomeIcon>
-                <FontAwesomeIcon
-                  className={`${styles.faStar}`}
-                  icon={faStar}></FontAwesomeIcon>
-                <FontAwesomeIcon
-                  className={`${styles.faStar}`}
-                  icon={faStar}></FontAwesomeIcon>
-                <FontAwesomeIcon
-                  className={`${styles.faStar}`}
-                  icon={faStar}></FontAwesomeIcon>
-                <FontAwesomeIcon
-                  className={`${styles.faStar}`}
-                  icon={faStar}></FontAwesomeIcon>
-              </div>
-              <div className={`${styles.bookReview}`}>
-                <a href="/book">Write a review</a>
-              </div>
+            <div className={`${styles.bookReview}`}>
+              <a href="/book">Write a review</a>
             </div>
           </div>
         </div>
@@ -72,11 +75,13 @@ const BookPageContent: React.FC = () => {
                   width="3em"
                   height="3em"
                   viewBox="0 0 752.000000 752.000000"
-                  preserveAspectRatio="xMidYMid meet">
+                  preserveAspectRatio="xMidYMid meet"
+                >
                   <g
                     transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
                     fill="#d2cfca2b"
-                    stroke="none">
+                    stroke="none"
+                  >
                     <path
                       d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
@@ -99,12 +104,12 @@ const BookPageContent: React.FC = () => {
                   <div className={`${styles.bookPrice}  font-extrabold`}>
                     $34.95
                   </div>
-                  
+
                   <div className={`${styles.paymentContainer}`}>
                     <div className={`${styles.cartPayments}`}>
                       or 4 payments of $8.74 with
                     </div>
-                    
+
                     <div className={`${styles.afterPayWrapper}`}>
                       <div className={`${styles.afterPay}`}>
                         <svg
@@ -114,11 +119,13 @@ const BookPageContent: React.FC = () => {
                           width="6em"
                           height="6em"
                           viewBox="0 0 6328.000000 2204.000000"
-                          preserveAspectRatio="xMidYMid meet">
+                          preserveAspectRatio="xMidYMid meet"
+                        >
                           <g
                             transform="translate(0.000000,0.000000) scale(0.100000,-0.100000)"
                             fill="#fff"
-                            stroke="none">
+                            stroke="none"
+                          >
                             <path
                               d="M50315 15440 c-329 -35 -625 -176 -861 -410 -204 -203 -330 -439
                             -385 -722 -18 -92 -23 -150 -23 -308 -1 -183 0 -198 22 -246 13 -28 40 -67 60
@@ -219,7 +226,7 @@ const BookPageContent: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className={`${styles.rewardsContainer}`}>
                   <div className={`${styles.cartButtons}`}>
                     <div className={`${styles.addToCart}`}>
@@ -229,33 +236,31 @@ const BookPageContent: React.FC = () => {
                       <button>BUY NOW</button>
                     </div>
                   </div>
-                  
+
                   <div className={`${styles.bookRewards}`}>
                     Booklovers earn $1.70 in rewards
                   </div>
                 </div>
-                
               </div>
             </div>
             <div className={`${styles.shippingContainer}`}>
-              
               <div className={`${styles.stockVerify}`}>
                 <span className={`${styles.iconBlock}`}>
                   <FontAwesomeIcon
                     className={`${styles.iconTick}`}
-                    icon={faCheck}></FontAwesomeIcon>
+                    icon={faCheck}
+                  ></FontAwesomeIcon>
                 </span>
                 <div className={`${styles.stockText}`}>
                   IN STOCK - SHIPS NEXT DAY
                 </div>
               </div>
-              
+
               <div className={`${styles.deliveryDate}`}>
                 <a href="/book">
                   <p>Get estimated delivery dates</p>
                 </a>
               </div>
-              
             </div>
 
             <div className={`${styles.bookAbout}`}>
@@ -270,17 +275,44 @@ const BookPageContent: React.FC = () => {
                   This pioneering account sets out to understand the structure
                   of the human brain – the place where mind meets matter. Until
                   recently, the left hemisphere of our brain has been seen as
-                  the ‘rational’ side, the superior partner to the right. But 
-                  is this distinction true?
+                  the ‘rational’ side, the superior partner to the right. But is
+                  this distinction true?
                 </p>
                 <p className="pb-10">
                   Drawing on a vast body of experimental research, Iain
                   McGilchrist argues while our left brain makes for a wonderful
                   servant, it is a very poor master. As he shows, it is the
                   right side which is the more reliable and insightful. Without
-                  it, our world would be mechanistic – stripped of depth, 
-                  colour and value.
+                  it, our world would be mechanistic – stripped of depth, colour
+                  and value.
                 </p>
+              </div>
+              <div>
+                <div className={`${styles.bookStars}`}>
+                  <FontAwesomeIcon
+                    className={`${styles.faStar}`}
+                    icon={faStar}
+                  ></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    className={`${styles.faStar}`}
+                    icon={faStar}
+                  ></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    className={`${styles.faStar}`}
+                    icon={faStar}
+                  ></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    className={`${styles.faStar}`}
+                    icon={faStar}
+                  ></FontAwesomeIcon>
+                  <FontAwesomeIcon
+                    className={`${styles.faStar}`}
+                    icon={faStar}
+                  ></FontAwesomeIcon>
+                </div>
+                <div className={`${styles.bookReview} pb-3`}>
+                  <a href="/book">Write a review</a>
+                </div>
               </div>
             </div>
           </div>

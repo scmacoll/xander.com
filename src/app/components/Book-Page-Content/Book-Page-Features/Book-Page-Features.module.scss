@@ -14,18 +14,28 @@
   padding-bottom: 2rem;
 }
 
-.tabsWrapper {
+.tabsContainer {
   width: 100%;
   border-top: .1px solid rgb(var(--foreground-rgb));
   border-bottom: .1px solid rgb(var(--foreground-rgb));
 }
 
-.featureTabs {
+.tabsWrapper {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
   width: 90%;
   padding: 1.5em 0 1.5em 0;
+}
+
+.featureTabs {
+  display: inline-flex;
+  text-align: center;
+  
+  @media (max-width: 749px) {
+    height: auto;
+    max-width: 7em;
+  }
 }
 
 .featurePoints {

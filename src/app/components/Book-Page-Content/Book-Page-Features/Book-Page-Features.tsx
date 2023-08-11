@@ -12,11 +12,14 @@ const BookPageFeatures: React.FC = () => {
   return (
     <div className={`${styles.featureContent}`}>
       <div className={`${styles.featureContainer}`}>
-        <div className={`${styles.tabsWrapper}`}>
-          <div className={`${styles.featureTabs}`}>
-            <div className="inline-flex">PRODUCT DETAILS</div>
-            <div className="inline-flex">RATINGS & REVIEW</div>
-            <div className="inline-flex">SHIPPING AND RETURNS</div>
+        <div className={`${styles.tabsContainer}`}>
+          <div className={`${styles.tabsWrapper}`}>
+            <div className={`${styles.featureTabs}
+            font-bold border-b border-solid border-foreground`}>
+              PRODUCT DETAILS
+            </div>
+            <div className={`${styles.featureTabs}`}>RATINGS & REVIEW</div>
+            <div className={`${styles.featureTabs}`}>SHIPPING & RETURNS</div>
           </div>
         </div>
         <div className={`${styles.featurePoints} flex justify-evenly`}>
