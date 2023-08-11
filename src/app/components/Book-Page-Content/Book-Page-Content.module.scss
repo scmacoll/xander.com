@@ -179,7 +179,6 @@
   display: block;
   flex: 1;
   height: fit-content;
-  border: .1px solid green;
   
   @media (min-width: 1200px) {
   }
@@ -219,7 +218,6 @@
   height: 3.5em;
   align-items: start;
   justify-content: flex-start;
-  border: .1px solid red;
   
   @media (min-width: 1200px) {
     display: flex;
@@ -229,6 +227,7 @@
   }
   @media (max-width: 999px) and (min-width: 750px) {
     display: flex;
+    flex-direction: column;
   }
   @media (max-width: 749px) {
     display: block;
@@ -243,11 +242,37 @@
 .cartPayments {
   display: inline-flex;
   flex: 0 0 auto;
+
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    width: 100%;
+  }
+  @media (max-width: 749px) {
+  }
+}
+
+.afterPayWrapper {
+  display: flex;
+  
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    transform: translateX(-.7em);
+  }
+  @media (max-width: 749px) {
+  }
 }
 
 .afterPay {
   position: relative;
   font-size: .9em;
+  height: 1.5em;
+
 
   @media (min-width: 1200px) {
     display: inline-flex;
@@ -256,7 +281,7 @@
     display: inline-flex;
   }
   @media (max-width: 999px) and (min-width: 750px) {
-    display: flex;
+    display: inline-flex;
     // transform: translateX(-14.8em) translateY(1.6em);
   }
   @media (max-width: 749px) {
@@ -265,19 +290,26 @@
 }
 
 .afterPaysvg {
-  display: inline-flex;
-  // position: absolute;
+
 }
 
 .learnMore {
-  display: flex;
-  color: #2466b8;
-  text-decoration: underline;
   height: 1.5em;
   flex: 0 0 auto;
-  
+  color: #2466b8;
+  text-decoration: underline;
+
+
+  @media (min-width: 1200px) {
+    display: inline-flex;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    display: inline-flex;
+  }
   @media (max-width: 999px) and (min-width: 750px) {
-    transform: translateX(-5em) translateY(1.5em);
+    // transform: translateX(-5em) translateY(1.5em);
+    display: inline-flex;
+    text-align: center;
   }
   @media (max-width: 749px) {
     display: block;
@@ -347,16 +379,17 @@
 }
 
 .bookRewards {
-  display: inline-flex;
+  display: flex;
   justify-content: center;
   text-align: center;
   font-weight: 800;
   color: rgb(169, 57, 57);
   // padding-right: .3em;
   text-align: center;
-  width: 98%;
+  width: 96%;
   font-size: .95em;
   margin: 0 auto;
+
   
   // @media (min-width: 1200px) {
     //   padding-right: 2.25em;
