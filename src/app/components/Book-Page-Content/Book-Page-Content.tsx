@@ -238,6 +238,7 @@ const BookPageContent: React.FC = () => {
               </div>
             </div>
             <div className={`${styles.shippingContainer}`}>
+              
               <div className={`${styles.stockVerify}`}>
                 <span className={`${styles.iconBlock}`}>
                   <FontAwesomeIcon
@@ -248,11 +249,13 @@ const BookPageContent: React.FC = () => {
                   IN STOCK - SHIPS NEXT DAY
                 </div>
               </div>
+              
               <div className={`${styles.deliveryDate}`}>
                 <a href="/book">
                   <p>Get estimated delivery dates</p>
                 </a>
               </div>
+              
             </div>
 
             <div className={`${styles.bookAbout}`}>

@@ -166,12 +166,6 @@
   @media (max-width: 749px) {
     flex-direction: column;
     margin: 0 auto;
-
-    justify-items: center;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
     // height: 9em;
   }
 }
@@ -182,6 +176,15 @@
   height: 100%;
   align-items: space-evenly;
   // margin: 0 auto;
+  @media (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+    flex-direction: column;
+  }
 }
 
 .cartContainer {
@@ -204,8 +207,7 @@
 
 .bookPrice {
   display: flex;
-  align-items: space-evenly;
-  // flex: 1;
+  // align-items: space-evenly;
   font-weight: 800;
   font-size: 1.5rem;
   padding-top: .5em;
@@ -219,7 +221,10 @@
   }
   @media (max-width: 749px) {
     text-align: center;
+    justify-content: center;
     padding-bottom: .5em;
+    // border: .1px solid green;
+    padding-top: 0;
   }
 }
 
@@ -227,6 +232,7 @@
   display: flex;
   font-size: .95em;
   height: fit-content;
+  
 
   
   @media (min-width: 1200px) {
@@ -238,6 +244,7 @@
   }
   @media (max-width: 749px) {
     justify-content: center;
+    padding-bottom: 1em;
     // width: max-content;
     // text-align: center;
     // margin: 0 auto;
@@ -333,6 +340,7 @@
   
   @media (max-width: 749px) {
     justify-content: center;
+    padding-bottom: 1em;
   }
   
 }
@@ -412,7 +420,9 @@
     display: flex;
   }
   @media (max-width: 750px) {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -420,12 +430,18 @@
   display: inline-flex;
   align-items: center;
   margin-right: 2em;
+  width: fit-content;
   border-radius: 20px;
   // font-weight: 600;
   line-height: 20px;
   letter-spacing: .7px;
   color: rgb(var(--foreground-rgb));
   border: 2.5px solid rgb(82, 148, 26);
+  
+  @media (max-width: 750px) {
+    display: flex;
+    margin: 0 auto;
+  }
 }
 
 .iconBlock {
@@ -463,6 +479,7 @@
     padding-top: 1em;
   }
   @media (max-width: 749px) {
+    display: flex;
     padding-top: 1em;
 
   }
