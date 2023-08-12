@@ -43,6 +43,14 @@
   margin: 0 auto;
   width: 90%;
   padding-top: 1em;
+  
+  @media (max-width: 750px) {
+    display: block;
+  }
+}
+
+.comma {
+  color: rgb(var(--foreground-rgb));
 }
 
 .featureSimilar {

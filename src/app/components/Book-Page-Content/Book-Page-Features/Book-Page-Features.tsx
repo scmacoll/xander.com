@@ -14,69 +14,84 @@ const BookPageFeatures: React.FC = () => {
       <div className={`${styles.featureContainer}`}>
         <div className={`${styles.tabsContainer}`}>
           <div className={`${styles.tabsWrapper}`}>
-            <div className={`${styles.featureTabs}
-            font-bold border-b border-solid border-foreground`}>
+            <div
+              className={`${styles.featureTabs}
+            font-bold border-b border-solid border-foreground`}
+            >
               PRODUCT DETAILS
             </div>
             <div className={`${styles.featureTabs}`}>RATINGS & REVIEW</div>
             <div className={`${styles.featureTabs}`}>SHIPPING & RETURNS</div>
           </div>
         </div>
-        <div className={`${styles.featurePoints} flex justify-evenly`}>
-          <ul className="block justify-start flex-1">
+        <div className={`${styles.featurePoints}`}>
+          <ul className="block justify-start flex-1 pt-1">
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Title</span>
-              : The Master and His Emissary 2ED
+              <span style={{ fontWeight: 'bold' }}>Title</span>: The Master and
+              His Emissary 2ED
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Author</span>
-              : Iain McGilchrist
+              <span style={{ fontWeight: 'bold' }}>Author</span>:{' '}
+              <span style={{ color: '#2466b8' }}>
+                <a href="">Iain McGilchrist</a>
+              </span>
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Edition</span>
-              : 2, New Expanded Edition
+              <span style={{ fontWeight: 'bold' }}>Edition</span>: 2, New
+              Expanded Edition
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Edition Type</span>
-              : 2 EXP NEW
+              <span style={{ fontWeight: 'bold' }}>Edition Type</span>: 2 EXP
+              NEW
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Publisher</span>
-              : Yale University Press
+              <span style={{ fontWeight: 'bold' }}>Publisher</span>: Yale
+              University Press
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>ISBN</span>
-              : 9780300245929
+              <span style={{ fontWeight: 'bold' }}>ISBN</span>: 9780300245929
             </li>
             <li>
-              <span style={{ fontWeight: 'bold' }}>Languages</span>
-              : English
+              <span style={{ fontWeight: 'bold' }}>Languages</span>: English
             </li>
           </ul>
-          <ul className="block justify-center flex-1">
+          <ul className="block justify-center flex-1 pt-1">
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Subtitle</span>
-              : The Divided Brain and the Making of the Western World
+              <span style={{ fontWeight: 'bold' }}>Subtitle</span>: The Divided
+              Brain and the Making of the Western World
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Format</span>
-              : PaperBack
+              <span style={{ fontWeight: 'bold' }}>Format</span>: PaperBack
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Category</span>
-              : Ancient & Medieval History, Psychology
+              <span style={{ fontWeight: 'bold' }}>Category:</span>
+              <span style={{ color: '#2466b8' }}>
+                {' '}
+                <a href="">Ancient & Medieval History</a>
+                <span className={`${styles.comma}`}>,</span>{' '}
+                <a href="">Psychology</a>
+              </span>
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Subjects</span>
-              : Psychology, Classical History / Classical Civilisation,Psychology / Cognitive Psychology & Cognition, Psychology /Neuropsychology, History / Civilization
+              <span style={{ fontWeight: 'bold' }}>Subjects: </span>
+              <span style={{ color: '#2466b8' }}>
+                <a href="">Psychology</a>
+                <span className={`${styles.comma}`}>,</span>{' '}
+                <a href="">Classical History / Classical Civilisation</a>
+                <span className={`${styles.comma}`}>,</span>{' '}
+                <a href="">Psychology / Cognitive Psychology & Cognition</a>
+                <span className={`${styles.comma}`}>,</span>{' '}
+                <a href="">Psychology / Neuropsychology</a>
+                <span className={`${styles.comma}`}>,</span>{' '}
+                <a href="">History / Civilization</a>
+              </span>
             </li>
             <li className="pb-1">
-              <span style={{ fontWeight: 'bold' }}>Publication Date</span>
-              : 01/02/2019
+              <span style={{ fontWeight: 'bold' }}>Publication Date</span>:
+              01/02/2019
             </li>
             <li>
-              <span style={{ fontWeight: 'bold' }}>Pages</span>
-              : 616
+              <span style={{ fontWeight: 'bold' }}>Pages</span>: 616
             </li>
           </ul>
         </div>
@@ -109,11 +124,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
@@ -136,11 +153,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                       l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
@@ -184,11 +203,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
@@ -211,11 +232,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                       l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
@@ -259,11 +282,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
@@ -286,11 +311,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                       l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
@@ -334,11 +361,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
@@ -361,11 +390,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                       l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
@@ -409,11 +440,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
@@ -436,11 +469,13 @@ const BookPageFeatures: React.FC = () => {
                     width="2em"
                     height="2em"
                     viewBox="0 0 752.000000 752.000000"
-                    preserveAspectRatio="xMidYMid meet">
+                    preserveAspectRatio="xMidYMid meet"
+                  >
                     <g
                       transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
                       fill="#d2cfca2b"
-                      stroke="none">
+                      stroke="none"
+                    >
                       <path
                         d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                       l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
