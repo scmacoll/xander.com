@@ -81,6 +81,9 @@
 .bookBlock {
   display: block;
   text-align: center;
+  
+  padding: 1em;
+  border: .1px solid purple;
 }
 
 .responsiveImage {
@@ -122,7 +125,7 @@
 .similarRarrow {
   position: absolute;
   top: 50%;
-  right: 0;
+  // right: 0;
   z-index: 2;
   
 }
