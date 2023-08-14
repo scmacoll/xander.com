@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import styles from './Book-Page-Features.module.scss';
 import Image from 'next/image';
 import masterandemissarry from '../../../assets/masterandemissarry.jpg';
@@ -8,6 +9,38 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const BookPageFeatures: React.FC = () => {
+    
+  const [numItems, setNumItems] = useState(5);
+  
+  useEffect(() => {
+    const updateNumItems = () => {
+      const width = window.innerWidth;
+
+      if (width >= 1200 && width <= 700) {
+        setNumItems(5);
+      } else if (width >= 1000 && width <= 1199) {
+        setNumItems(5);
+      } else if (width >= 750 && width <= 999) {
+        setNumItems(5);
+      } else if (width >= 700 && width <= 749) {
+        setNumItems(5);
+      } else if (width >= 575 && width <= 699) {
+        setNumItems(4);
+      } else if (width <= 574) {
+        setNumItems(3);
+      }
+    };
+    
+    // Initial call
+    updateNumItems();
+    
+    // Add event listener
+    window.addEventListener('resize', updateNumItems);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', updateNumItems);
+  }, []);
+  
   return (
     <div className={`${styles.featureContent}`}>
       <div className={`${styles.featureContainer}`}>
@@ -15,8 +48,7 @@ const BookPageFeatures: React.FC = () => {
           <div className={`${styles.tabsWrapper}`}>
             <div
               className={`${styles.featureTabs}
-            font-bold border-b border-solid border-foreground`}
-            >
+              font-bold border-b border-solid border-foreground`}>
               PRODUCT DETAILS
             </div>
             <div className={`${styles.featureTabs}`}>RATINGS & REVIEW</div>
@@ -100,7 +132,7 @@ const BookPageFeatures: React.FC = () => {
         <div className={`${styles.similarText}`}>SIMILAR BOOKS</div>
         <div className={`${styles.similarContainer}`}>
           <div className={`${styles.similarBooks}`}>
-            {Array(5)
+            {Array(numItems)
               .fill(null)
               .map((_, index) => (
                 <div key={index} className={`${styles.bookBlock}`}>
