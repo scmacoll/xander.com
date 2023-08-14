@@ -15,7 +15,7 @@ const BookPageFeatures: React.FC = () => {
   useEffect(() => {
     const updateNumItems = () => {
       const width = window.innerWidth;
-
+      
       if (width >= 1200 && width <= 700) {
         setNumItems(5);
       } else if (width >= 1000 && width <= 1199) {

@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import styles from './Book-Page-Content.module.scss';
 import BookPageFeatures from './Book-Page-Features/Book-Page-Features';
 import Image from 'next/image';
@@ -11,11 +12,27 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const BookPageContent: React.FC = () => {
+    const [width, setWidth] = useState(window.innerWidth);
+    
+    useEffect(() => {
+      const handleResize = () => {
+        setWidth(window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+  
+  
+  
   return (
     <div className={`${styles.contentLayout}`}>
       <div className={`${styles.contentWrapper}`}>
         <div className={`${styles.imageContent}`}>
-          <div className={`${styles.bookImage}`}>
+          <div className={`${styles.bookImage} pb-3`}>
             <a href="/book">
               <Image
                 src={masterandemissarry.src}
@@ -25,7 +42,8 @@ const BookPageContent: React.FC = () => {
               />
             </a>
           </div>
-          <div className="pt-3">
+          <div className={`${styles.firstReviewContainer} 
+          ${width >= 750 ? styles.enabled : styles.disabled}`}>
             <div className={`${styles.bookStars}`}>
               <FontAwesomeIcon
                 className={`${styles.faStar}`}
@@ -104,12 +122,12 @@ const BookPageContent: React.FC = () => {
                   <div className={`${styles.bookPrice}  font-extrabold`}>
                     $34.95
                   </div>
-                  
+
                   <div className={`${styles.paymentContainer}`}>
                     <div className={`${styles.cartPayments}`}>
                       or 4 payments of $8.74 with
                     </div>
-                      
+
                     <div className={`${styles.afterPayWrapper}`}>
                       <div className={`${styles.afterPay}`}>
                         <svg
@@ -226,7 +244,7 @@ const BookPageContent: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className={`${styles.rewardsContainer}`}>
                   <div className={`${styles.cartButtons}`}>
                     <div className={`${styles.addToCart}`}>
@@ -236,7 +254,7 @@ const BookPageContent: React.FC = () => {
                       <button>BUY NOW</button>
                     </div>
                   </div>
-                  
+
                   <div className={`${styles.bookRewards}`}>
                     Booklovers earn $1.70 in rewards
                   </div>
@@ -255,14 +273,14 @@ const BookPageContent: React.FC = () => {
                   IN STOCK - SHIPS NEXT DAY
                 </div>
               </div>
-              
+
               <div className={`${styles.deliveryDate}`}>
                 <a href="/book">
                   <p>Get estimated delivery dates</p>
                 </a>
               </div>
             </div>
-            
+
             <div className={`${styles.bookAbout}`}>
               <div className={`${styles.aboutHeading} font-bold py-5`}>
                 <p>
@@ -275,19 +293,20 @@ const BookPageContent: React.FC = () => {
                   This pioneering account sets out to understand the structure
                   of the human brain – the place where mind meets matter. Until
                   recently, the left hemisphere of our brain has been seen as
-                  the ‘rational’ side, the superior partner to the right. But
-                  is this distinction true?
+                  the ‘rational’ side, the superior partner to the right. But is
+                  this distinction true?
                 </p>
                 <p className="pb-10">
                   Drawing on a vast body of experimental research, Iain
                   McGilchrist argues while our left brain makes for a wonderful
                   servant, it is a very poor master. As he shows, it is the
                   right side which is the more reliable and insightful. Without
-                  it, our world would be mechanistic – stripped of depth
-                  colour and value.
+                  it, our world would be mechanistic – stripped of depth colour
+                  and value.
                 </p>
               </div>
-              <div>
+              <div className={`${styles.secondReviewContainer}
+              ${width <= 749 ? styles.enabled : styles.disabled}`}>
                 <div className={`${styles.bookStars}`}>
                   <FontAwesomeIcon
                     className={`${styles.faStar}`}

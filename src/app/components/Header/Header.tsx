@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({
     }
   };
   const svgClass = hideSvg ? styles['hide-svg'] : '';
-
+  
   return (
     <header
       className={`
@@ -90,7 +90,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       )}
-
+      
       <div className={`${styles.xandria} `}>
         <a href="/">
           <h1>Xandria</h1>
