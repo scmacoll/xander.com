@@ -122,62 +122,78 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   }, []);
   
   return (
-    <section className={styles.contentLayout}>
-      <div className={`${styles.similarRarrow}`}>
-        <a href="/">
-          <FontAwesomeIcon icon={faChevronRight} size="xl" />
-        </a>
-      </div>
-      <div className={`${styles.similarLarrow}`}>
-        <a href="/">
-          <FontAwesomeIcon icon={faChevronLeft} size="xl" />
-        </a>
-      </div>
-      <div className={`${styles.similarDarrow}`}>
-        <a href="/">
-          <FontAwesomeIcon icon={faChevronDown} size="xl" />
-        </a>
-      </div>
+    <div>  
+      <section className={styles.contentLayout}>
+        <div className={`${styles.similarRarrow}`}>
+          <a href="/">
+            <FontAwesomeIcon icon={faChevronRight} size="xl" />
+          </a>
+        </div>
+        <div className={`${styles.similarLarrow}`}>
+          <a href="/">
+            <FontAwesomeIcon icon={faChevronLeft} size="xl" />
+          </a>
+        </div>
+        <div className={`${styles.similarDarrow}`}>
+          <a href="/">
+            <FontAwesomeIcon icon={faChevronDown} size="xl" />
+          </a>
+        </div>
 
-      {selectedCard && (
-        <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
-      )}
-
-      {tileCards.map((card, index) => {
-        const cellNumber = parseInt(card.cell_name.slice(0, -1));
-        const cellLetter = card.cell_name.slice(-1);
-
-        const isFirstColumn =
-          cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'D';
-        const isSecondColumn =
-          cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'E';
-        const isThirdColumn =
-          cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
-
-        if (
-          (numColumns === 1 && !isSecondColumn) ||
-          (numColumns === 2 && isFirstColumn)
-        ) {
-          return null;
-        }
-
-        return (
-          <article
+        {selectedCard && (
+          <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
+        )}
+        
+        {tileCards.map((card, index) => {
+          const cellNumber = parseInt(card.cell_name.slice(0, -1));
+          const cellLetter = card.cell_name.slice(-1);
+          
+          const isFirstColumn =
+            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'D';
+          const isSecondColumn =
+            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'E';
+          const isThirdColumn =
+            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
+          
+          if (
+            (numColumns === 1 && !isSecondColumn) ||
+            (numColumns === 2 && isFirstColumn)
+          ) {
+            return null;
+          }
+          
+          return (
+            <article
+              key={index}
+              onClick={() => setSelectedCard(card)}
+              className={classNames(styles.card, {
+                [styles.leftCard]: isFirstColumn,
+                [styles.middleCard]: isSecondColumn,
+                [styles.rightCard]: isThirdColumn,
+                [styles.changedState]:
+                  (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+              })}
+            >
+              <Card card={card} />
+            </article>
+          );
+        })}
+      
+      </section>
+      
+      <div className={styles.pagination}>
+        {Array.from({ length: 5 }, (_, index) => (
+          <a
             key={index}
-            onClick={() => setSelectedCard(card)}
-            className={classNames(styles.card, {
-              [styles.leftCard]: isFirstColumn,
-              [styles.middleCard]: isSecondColumn,
-              [styles.rightCard]: isThirdColumn,
-              [styles.changedState]:
-                (isFirstColumn || isThirdColumn) && middleColumnChangedState,
-            })}
+            href={`#page-${index + 1}`}
+            className={styles.pageNumber}
           >
-            <Card card={card} />
-          </article>
-        );
-      })}
-    </section>
+            {index + 1}
+          </a>
+        ))}
+      </div>
+      
+    </div>
   );
 };
 

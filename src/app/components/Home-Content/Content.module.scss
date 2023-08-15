@@ -173,7 +173,7 @@
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateY(50px);
+  transform: translateX(-50%) translateY(120px);
   z-index: 2;
   color: rgb(var(--foreground-rgb), 0.6);
 }
@@ -189,4 +189,25 @@
 .similarLarrow a:hover,
 .similarDarrow a:hover {
   color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding-top: 1em;
+}
+
+.pageNumber {
+  padding: 0.5em 1em;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+  color: rgb(var(--foreground-rgb), 0.6);
+}
+
+.pageNumber:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
