@@ -1,8 +1,8 @@
 .contentLayout {
+  position: relative;
   display: grid;
   grid-gap: 0.5em;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  // width: 90%;
   justify-items: center;
   justify-content: center;
   align-content: center;
@@ -151,39 +151,42 @@
   display: hidden;
 }
 
-// <section
-//   className={`${styles.contentLayout} grid pt-2 mx-auto h-auto grid-cols-3 gap-0.5em`}>
-//   {tileCards.map((tile, index) => (
-//     <article
-//       key={index}
-//       className={`${styles.card} inline-block justify-center relative h-auto border mb-4 mx-auto break-inside-avoid w-[clamp(47.5ch,30%,75ch)] box-border`}>
-//       <div className={`${styles.cardContent} p-4 leading-relaxed`}>
-//         <h3>{tile.title}</h3>
-//         <p>{tile.text}</p>
-//       </div>
-//     </article>
-//   ))}
-// </section>
-//
-//
+.similarRarrow {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  padding-right: 2em;
+  z-index: 2;
+  color: rgb(var(--foreground-rgb), 0.6);
+}
 
-// .card:after {
-//     background: linear-gradient(
-//     transparent,
-//     #fff,
-//     transparent
-//     );
-//     height: 70px;
-//     width: 1px;
-//     position: absolute;
-//     left: -1px;
-//     top: 65%;
-//     opacity: 0;
-//     content: '';
-//     transition: top 600ms ease,
-//     opacity 600ms ease;
-// }
-// .card:hover:after {
-//     top: 25%;
-//     opacity: 1;
-// }
+.similarLarrow {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  padding-left: 2em;
+  z-index: 2;
+  color: rgb(var(--foreground-rgb), 0.6);
+}
+
+.similarDarrow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateY(50px);
+  z-index: 2;
+  color: rgb(var(--foreground-rgb), 0.6);
+}
+
+.similarRarrow a,
+.similarLarrow a,
+.similarDarrow a {
+  transition: color 0.1s ease;
+  /* smooth transition for color changes */
+}
+
+.similarRarrow a:hover,
+.similarLarrow a:hover,
+.similarDarrow a:hover {
+  color: white;
+}

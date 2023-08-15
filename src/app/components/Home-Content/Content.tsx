@@ -7,6 +7,12 @@ import Card from './Card/Card';
 import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronLeft,
+  faChevronRight,
+  faChevronDown,
+} from '@fortawesome/free-solid-svg-icons';
 
 
 interface ContentProps {
@@ -31,19 +37,19 @@ export type TileCard = {
   author: string;
 };
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
-
+  
   const apiURI = '/api/getCards';
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
   const [middleColumnChangedState, setMiddleColumnChangedState] =
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
-
+  
   useEffect(() => {
     const elements = document.querySelectorAll(
       `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
     );
-
+    
     const toggleChangedState = () => {
       if (numColumns === 1) {
         elements.forEach((element) => {
@@ -52,13 +58,12 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         setMiddleColumnChangedState(true);
         return;
       }
-
       elements.forEach((element) => {
         element.classList.toggle(styles.changedState);
       });
       setMiddleColumnChangedState(!middleColumnChangedState);
     };
-
+    
     if (middleColumnChangedState !== isCardButtonClicked) {
       if (isCardButtonClicked) {
         console.log('Focus Mode OFF!');
@@ -68,6 +73,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         console.log('Focus Mode ON!');
       }
     }
+    
     const handleResize = () => {
       const newNumColumns = getNumColumns();
       if (newNumColumns !== numColumns && newNumColumns === 1) {
@@ -88,7 +94,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         const filteredData = response.data.filter((card: TileCard) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
-
+          
           return (
             cellNumber >= 1 &&
             cellNumber <= 8 &&
@@ -105,7 +111,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           }
           return 0;
         });
-
+        
         setTileCards(filteredData);
       } catch (error) {
         console.error('Error fetching tile cards:', error);
@@ -114,12 +120,27 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             
     fetchData();
   }, []);
-
+  
   return (
     <section className={styles.contentLayout}>
+      <div className={`${styles.similarRarrow}`}>
+        <a href="/">
+          <FontAwesomeIcon icon={faChevronRight} size="xl" />
+        </a>
+      </div>
+      <div className={`${styles.similarLarrow}`}>
+        <a href="/">
+          <FontAwesomeIcon icon={faChevronLeft} size="xl" />
+        </a>
+      </div>
+      <div className={`${styles.similarDarrow}`}>
+        <a href="/">
+          <FontAwesomeIcon icon={faChevronDown} size="xl" />
+        </a>
+      </div>
 
       {selectedCard && (
-        <Lightbox card={selectedCard} onClose ={() => setSelectedCard(null)} />
+        <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
       )}
 
       {tileCards.map((card, index) => {
@@ -133,8 +154,10 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         const isThirdColumn =
           cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
 
-        if ((numColumns === 1 && !isSecondColumn)
-        || (numColumns === 2 && isFirstColumn)) {
+        if (
+          (numColumns === 1 && !isSecondColumn) ||
+          (numColumns === 2 && isFirstColumn)
+        ) {
           return null;
         }
 
@@ -148,7 +171,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
               [styles.rightCard]: isThirdColumn,
               [styles.changedState]:
                 (isFirstColumn || isThirdColumn) && middleColumnChangedState,
-            })}>
+            })}
+          >
             <Card card={card} />
           </article>
         );

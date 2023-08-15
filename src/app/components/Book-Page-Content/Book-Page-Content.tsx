@@ -46,7 +46,7 @@ const BookPageContent: React.FC = () => {
           ${width >= 750 ? styles.enabled : styles.disabled}`}>
             <div className={`${styles.bookStars}`}>
               <FontAwesomeIcon
-                className={`${styles.faStar}`}
+                className={`${styles.faStar}`} 
                 icon={faStar}
               ></FontAwesomeIcon>
               <FontAwesomeIcon
