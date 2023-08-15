@@ -30,12 +30,12 @@ const getNumColumns = (): number => {
   return 1;
 };
 
-
 export type TileCard = {
   cell_name: string;
   quote: string;
   author: string;
 };
+
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   
   const apiURI = '/api/getCards';
@@ -122,8 +122,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   }, []);
   
   return (
-    <div>  
+    <div id="sectionWrapper">  
       <section className={styles.contentLayout}>
+        
         <div className={`${styles.similarRarrow}`}>
           <a href="/">
             <FontAwesomeIcon icon={faChevronRight} size="xl" />
