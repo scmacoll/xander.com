@@ -44,6 +44,18 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [middleColumnChangedState, setMiddleColumnChangedState] =
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
+  const [displayedColumn, setDisplayedColumn] = useState('D');
+  
+  const shiftColumn = (direction: 'left' | 'right') => {
+    const columns = ['C', 'D', 'E', 'F', 'G'];
+    const currentIndex = columns.indexOf(displayedColumn);
+    
+    if (direction === 'right' && currentIndex > 0) {
+        setDisplayedColumn(columns[currentIndex - 1]);
+    } else if (direction === 'left' && currentIndex < columns.length -3) {
+        setDisplayedColumn(columns[currentIndex + 1]);
+    }
+  };
   
   useEffect(() => {
     const elements = document.querySelectorAll(
@@ -93,13 +105,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         const response = await axios.get(apiURI);
         const filteredData = response.data.filter((card: TileCard) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
-          const cellLetter = card.cell_name.slice(-1);
+          return cellNumber >= 1 && cellNumber <= 8;
           
-          return (
-            cellNumber >= 1 &&
-            cellNumber <= 8 &&
-            ['D', 'E', 'F'].includes(cellLetter)
-          );
         });
         // Sort the filtered data
         filteredData.sort((a: TileCard, b: TileCard) => {
@@ -122,25 +129,26 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   }, []);
   
   return (
-    <div id="sectionWrapper">  
+    <div id="sectionWrapper">
       <section className={styles.contentLayout}>
-        
-        <div className={`${styles.similarRarrow}`}>
-          <a href="/">
-            <FontAwesomeIcon icon={faChevronRight} size="xl" />
-          </a>
+        <div
+          className={`${styles.similarRarrow}`}
+          onClick={() => shiftColumn('left')}
+        >
+          <FontAwesomeIcon icon={faChevronRight} size="xl" />
         </div>
-        <div className={`${styles.similarLarrow}`}>
-          <a href="/">
-            <FontAwesomeIcon icon={faChevronLeft} size="xl" />
-          </a>
+        <div
+          className={`${styles.similarLarrow}`}
+          onClick={() => shiftColumn('right')}
+        >
+          <FontAwesomeIcon icon={faChevronLeft} size="xl" />
         </div>
         <div className={`${styles.similarDarrow}`}>
           <a href="/">
             <FontAwesomeIcon icon={faChevronDown} size="xl" />
           </a>
         </div>
-
+        
         {selectedCard && (
           <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
         )}
@@ -149,17 +157,14 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
           
-          const isFirstColumn =
-            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'D';
-          const isSecondColumn =
-            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'E';
-          const isThirdColumn =
-            cellNumber >= 1 && cellNumber <= 8 && cellLetter === 'F';
+          const columns = ['C', 'D', 'E', 'F', 'G'];
+          const currentIndex = columns.indexOf(displayedColumn);
           
-          if (
-            (numColumns === 1 && !isSecondColumn) ||
-            (numColumns === 2 && isFirstColumn)
-          ) {
+          const isFirstColumn = cellLetter === displayedColumn;
+          const isSecondColumn = cellLetter === (columns[currentIndex + 1] || '');
+          const isThirdColumn = cellLetter === (columns[currentIndex + 2] || '');
+          
+          if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
             return null;
           }
           
@@ -179,7 +184,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             </article>
           );
         })}
-      
       </section>
       
       <div className={styles.pagination}>
@@ -193,7 +197,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           </a>
         ))}
       </div>
-      
     </div>
   );
 };
