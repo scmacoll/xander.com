@@ -46,8 +46,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('D');
   
+  
   const shiftColumn = (direction: 'left' | 'right') => {
-    const columns = ['C', 'D', 'E', 'F', 'G'];
+    const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
     const currentIndex = columns.indexOf(displayedColumn);
     
     if (direction === 'right' && currentIndex > 0) {
@@ -157,7 +158,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
           
-          const columns = ['C', 'D', 'E', 'F', 'G'];
+          const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
           const currentIndex = columns.indexOf(displayedColumn);
           
           const isFirstColumn = cellLetter === displayedColumn;
