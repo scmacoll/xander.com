@@ -55,6 +55,12 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         setDisplayedColumn(columns[currentIndex - 1]);
     } else if (direction === 'left' && currentIndex < columns.length -3) {
         setDisplayedColumn(columns[currentIndex + 1]);
+    } else {
+      return;
+    }
+    
+    if (middleColumnChangedState == true) {
+      setMiddleColumnChangedState(!middleColumnChangedState);
     }
   };
   
