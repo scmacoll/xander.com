@@ -6,7 +6,7 @@ import BookPageContent from '../components/Book-Page-Content/Book-Page-Content';
 
 export default function Home() {
   const [isCardButtonClicked, setCardButtonClicked] = useState(false);
-
+  
   const handleCardButtonClick = () => {
     setCardButtonClicked((prevState) => !prevState);
   };
