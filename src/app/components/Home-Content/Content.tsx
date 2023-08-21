@@ -96,10 +96,12 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     
     const handleResize = () => {
       const newNumColumns = getNumColumns();
+      
       if (newNumColumns !== numColumns && newNumColumns === 1) {
         toggleChangedState();
       } 
       setNumColumns(newNumColumns);
+      
     };
     
     window.addEventListener('resize', handleResize);
@@ -166,7 +168,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         {tileCards.map((card, index) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
-          
+
           const currentIndex = columns.indexOf(displayedColumn);
           
           let firstColumn, secondColumn, thirdColumn;
@@ -183,7 +185,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             secondColumn = displayedColumn;
             thirdColumn = '';
           }
-          
+
           const isFirstColumn = cellLetter === firstColumn;
           const isSecondColumn = cellLetter === secondColumn;
           const isThirdColumn = cellLetter === thirdColumn;
