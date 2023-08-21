@@ -36,6 +36,8 @@ export type TileCard = {
   author: string;
 };
 
+const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   
   const apiURI = '/api/getCards';
@@ -44,16 +46,15 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [middleColumnChangedState, setMiddleColumnChangedState] =
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
-  const [displayedColumn, setDisplayedColumn] = useState('D');
+  const [displayedColumn, setDisplayedColumn] = useState('E');
   
   
   const shiftColumn = (direction: 'left' | 'right') => {
-    const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
     const currentIndex = columns.indexOf(displayedColumn);
     
-    if (direction === 'right' && currentIndex > 0) {
+    if (direction === 'right' && currentIndex > 1) {
         setDisplayedColumn(columns[currentIndex - 1]);
-    } else if (direction === 'left' && currentIndex < columns.length -3) {
+    } else if (direction === 'left' && currentIndex < 7) {
         setDisplayedColumn(columns[currentIndex + 1]);
     } else {
       return;
@@ -97,12 +98,14 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       const newNumColumns = getNumColumns();
       if (newNumColumns !== numColumns && newNumColumns === 1) {
         toggleChangedState();
-      }
+      } 
       setNumColumns(newNumColumns);
     };
+    
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
+      
     };
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
   
@@ -164,17 +167,31 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
           
-          const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
           const currentIndex = columns.indexOf(displayedColumn);
           
-          const isFirstColumn = cellLetter === displayedColumn;
-          const isSecondColumn = cellLetter === (columns[currentIndex + 1] || '');
-          const isThirdColumn = cellLetter === (columns[currentIndex + 2] || '');
+          let firstColumn, secondColumn, thirdColumn;
+          if (numColumns === 3) {
+            firstColumn = columns[currentIndex - 1] || '';
+            secondColumn = displayedColumn;
+            thirdColumn = columns[currentIndex + 1] || '';
+          } else if (numColumns === 2) {
+            firstColumn = '';
+            secondColumn = displayedColumn;
+            thirdColumn = columns[currentIndex + 1] || '';
+          } else {
+            firstColumn = '';
+            secondColumn = displayedColumn;
+            thirdColumn = '';
+          }
           
+          const isFirstColumn = cellLetter === firstColumn;
+          const isSecondColumn = cellLetter === secondColumn;
+          const isThirdColumn = cellLetter === thirdColumn;
+
           if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
             return null;
           }
-          
+
           return (
             <article
               key={index}
@@ -191,6 +208,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             </article>
           );
         })}
+        
+        
       </section>
       
       <div className={styles.pagination}>
