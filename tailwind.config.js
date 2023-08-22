@@ -10,6 +10,14 @@ module.exports = {
       color: {
         foreground: `rgb(var(--foreground-rgb))`,
       },
+      backgroundColor: {
+        'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
+        'shopify-blue': 'rgb(var(--scroll-blue))',
+      },
+      borderColor: {
+        'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
+        'shopify-blue': 'rgb(var(--scroll-blue))',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
