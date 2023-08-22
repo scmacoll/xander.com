@@ -7,14 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
-      color: {
+      colors: {
         foreground: `rgb(var(--foreground-rgb))`,
+        background: `rgb(var(--background-start-rgb))`,
       },
-      backgroundColor: {
+      backgroundColor: { // bg-...
+        background: `rgb(var(--background-start-rgb))`,
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
       },
-      borderColor: {
+      borderColor: { // border-...
+        foreground: `rgb(var(--foreground-rgb), .3)`,
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
       },
