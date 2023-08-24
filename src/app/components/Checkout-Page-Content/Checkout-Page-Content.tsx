@@ -11,12 +11,16 @@ const CheckoutPageContent: React.FC = () => {
       className="flex justify-between w-78% h-screen pt-12 mx-auto border-d-white"
     >
       <div id="paymentDetailsWrapper" className="flex flex-col w-51.5%">
-        <div id="checkoutTitle" className="block pt-1 pb-5">
+        <div id="checkoutTitle" className="block pt-1 pb-3">
           <div className="flex pb-1">
-            <h1>Xandria</h1>
+            <h1 className="text-3xl p-3">Xandria</h1>
           </div>
-          <div className="flex">
-            <h4>Shipping ≥ Payment</h4>
+          <div className="flex px-3 text-sm">
+            <h4>
+              <span>Shipping</span>
+              <span className="px-2">></span>
+              <span>Payment</span>
+            </h4>
           </div>
         </div>
         <div id="checkoutExpressContainer" className="flex flex-col py-5 px-2">
@@ -24,8 +28,10 @@ const CheckoutPageContent: React.FC = () => {
             id="checkoutExpressButtonsWrapper"
             className="relative flex flex-col justify-center pb-4 border-solid border border-foreground rounded"
           >
-            <div className="absolute flex justify-center top-0 left-0 right-0 transform -translate-y-1/2 px-3 z-10 bg-background mx-auto w-fit">Express checkout</div>
-            
+            <div className="absolute flex justify-center top-0 left-0 right-0 transform -translate-y-1/2 px-3 z-10 bg-background mx-auto w-fit font-bold">
+              Express checkout
+            </div>
+
             <div
               id="checkoutExpressButtons"
               className="flex justify-around p-1 px-4 gap-3 mt-5"
@@ -231,8 +237,10 @@ const CheckoutPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-center pt-10">
-            OR CONTINUE BELOW TO PAY WITH A CREDIT CARD
+          <div className="relative flex justify-center pt-10 border-solid border-b border-foreground">
+            <div className="absolute flex justify-center transform -translate-y-1/2 bg-background z-10 px-3 text-xs">
+              OR CONTINUE BELOW TO PAY WITH A CREDIT CARD
+            </div>
           </div>
         </div>
         <div className="flex justify-center mt-20">
