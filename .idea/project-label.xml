@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectLabel">
+    <option name="backgroundColor" value="#2b2d30" />
+    <option name="textColor" value="#606060" />
+    <option name="fontSize" value="8" />
+    <option name="fontName" value="Andale Mono" />
+    <option name="backgroundImageInherited" value="false" />
+  </component>
+</project>

@@ -39,7 +39,7 @@ export type TileCard = {
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
-  
+
   const apiURI = '/api/getCards';
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
@@ -47,11 +47,11 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
-  
-  
+
+
   const shiftColumn = (direction: 'left' | 'right') => {
     const currentIndex = columns.indexOf(displayedColumn);
-    
+
     if (direction === 'right' && currentIndex > 1) {
         setDisplayedColumn(columns[currentIndex - 1]);
     } else if (direction === 'left' && currentIndex < 7) {
@@ -59,17 +59,17 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     } else {
       return;
     }
-    
-    if (middleColumnChangedState == true) {
+
+    if (middleColumnChangedState) {
       setMiddleColumnChangedState(!middleColumnChangedState);
     }
   };
-  
+
   useEffect(() => {
     const elements = document.querySelectorAll(
       `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
     );
-    
+
     const toggleChangedState = () => {
       if (numColumns === 1) {
         elements.forEach((element) => {
@@ -83,7 +83,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       });
       setMiddleColumnChangedState(!middleColumnChangedState);
     };
-    
+
     if (middleColumnChangedState !== isCardButtonClicked) {
       if (isCardButtonClicked) {
         console.log('Focus Mode OFF!');
@@ -93,24 +93,24 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         console.log('Focus Mode ON!');
       }
     }
-    
+
     const handleResize = () => {
       const newNumColumns = getNumColumns();
-      
+
       if (newNumColumns !== numColumns && newNumColumns === 1) {
         toggleChangedState();
-      } 
+      }
       setNumColumns(newNumColumns);
-      
+
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      
+
     };
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -118,7 +118,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         const filteredData = response.data.filter((card: TileCard) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           return cellNumber >= 1 && cellNumber <= 8;
-          
+
         });
         // Sort the filtered data
         filteredData.sort((a: TileCard, b: TileCard) => {
@@ -130,16 +130,16 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           }
           return 0;
         });
-        
+
         setTileCards(filteredData);
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
     };
-            
+
     fetchData();
   }, []);
-  
+
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
@@ -160,17 +160,17 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             <FontAwesomeIcon icon={faChevronDown} size="xl" />
           </a>
         </div>
-        
+
         {selectedCard && (
           <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
         )}
-        
+
         {tileCards.map((card, index) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
 
           const currentIndex = columns.indexOf(displayedColumn);
-          
+
           let firstColumn, secondColumn, thirdColumn;
           if (numColumns === 3) {
             firstColumn = columns[currentIndex - 1] || '';
@@ -210,10 +210,10 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             </article>
           );
         })}
-        
-        
+
+
       </section>
-      
+
       <div className={styles.pagination}>
         {Array.from({ length: 5 }, (_, index) => (
           <a

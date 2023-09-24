@@ -8,35 +8,39 @@ const CheckoutPageContent: React.FC = () => {
   return (
     <div
       id="pageContainer"
-      className="flex justify-between w-78% h-screen pt-12 mx-auto border-d-white"
+      className="mx-auto flex h-screen justify-between pt-12 w-78% border-d-white"
     >
-      <div id="paymentDetailsWrapper" className="flex flex-col w-51.5%">
-        <div id="checkoutTitle" className="block pt-1 pb-3">
+      {/*left side content*/}
+      <div id="paymentDetailsWrapper"
+           className="flex flex-col w-51.5%">
+        <div id="checkoutTitle"
+             className="block pt-1 pb-3">
           <div className="flex pb-1">
-            <h1 className="text-3xl p-3">Xandria</h1>
+            <h1 className="p-3 text-3xl">Xandria</h1>
           </div>
           <div className="flex px-3 text-sm">
             <h4>
               <span>Shipping</span>
-              <span className="px-2">></span>
+              <span className="px-2"></span>
               <span>Payment</span>
             </h4>
           </div>
         </div>
-        <div id="checkoutExpressContainer" className="flex flex-col py-5 px-2">
+        <div id="checkoutExpressContainer"
+             className="flex flex-col px-2 py-5">
           <div
             id="checkoutExpressButtonsWrapper"
-            className="relative flex flex-col justify-center pb-4 border-solid border border-foreground rounded"
+            className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
           >
-            <div className="absolute flex justify-center top-0 left-0 right-0 transform -translate-y-1/2 px-3 z-10 bg-background mx-auto w-fit font-bold">
+            <div className="absolute top-0 right-0 left-0 z-10 mx-auto flex w-fit -translate-y-1/2 transform justify-center px-3 font-bold bg-background">
               Express checkout
             </div>
-
+            
             <div
               id="checkoutExpressButtons"
-              className="flex justify-around p-1 px-4 gap-3 mt-5"
+              className="mt-5 flex justify-around gap-3 p-1 px-4"
             >
-              <div className="inline-flex justify-center items-center rounded w-full h-10 cursor-pointer bg-shopify-blue border-solid border-2 border-shopify-blue">
+              <div className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue">
                 <svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +120,7 @@ const CheckoutPageContent: React.FC = () => {
                   </g>
                 </svg>
               </div>
-              <div className="inline-flex justify-center items-center border-solid border-2 rounded w-full h-10 cursor-pointer bg-amazon-yellow border-amazon-yellow">
+              <div className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 176.515 33.863"
@@ -188,7 +192,7 @@ const CheckoutPageContent: React.FC = () => {
                   </g>
                 </svg>
               </div>
-              <div className="inline-flex justify-center items-center rounded w-full h-10 cursor-pointer border-solid border-2 bg-amazon-yellow border-amazon-yellow">
+              <div className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="5.5em"
@@ -237,18 +241,30 @@ const CheckoutPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative flex justify-center pt-10 border-solid border-b border-foreground">
-            <div className="absolute flex justify-center transform -translate-y-1/2 bg-background z-10 px-3 text-xs">
+          <div className="relative flex justify-center border-b border-solid pt-10 border-foreground">
+            <div className="absolute z-10 flex -translate-y-1/2 transform justify-center px-3 text-xs bg-background">
               OR CONTINUE BELOW TO PAY WITH A CREDIT CARD
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-20">
+        <div className="mt-20 flex justify-center">
           contact details container
         </div>
       </div>
-      <div id="cartDetailsWrapper" className="flex flex-col w-39% border-green">
-        <div>Content</div>
+      {/*right side content*/}
+      <div id="cartDetailsWrapper"
+           className="flex flex-col pt-1 w-39% border-green">
+        <div className="mx-auto items-center flex w-full p-3 pt-6 border-blue">
+          <div className="inline-flex flex-start border-red">left</div>
+          <div className="inline-flex text-xs flex-col w-1/2 justify-center border-yellow">
+            <div className="flex">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
+            <div className="flex">13</div>
+          </div>
+          <div className="inline-flex flex-end border-pink">right</div>
+        </div>
+        <div className="flex p-3 border-blue">Gift Card Row</div>
+        <div className="flex p-3 border-blue">Subtotal Shipping Row</div>
+        <div className="flex p-3 border-blue">Total Row</div>
       </div>
     </div>
   );
