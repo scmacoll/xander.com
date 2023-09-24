@@ -23,7 +23,7 @@ const CheckoutPageContent: React.FC = () => {
           <div className="flex px-3 text-sm">
             <h4>
               <span>Shipping</span>
-              <span className="px-2"></span>
+              <span className="px-2">&#x2C3;</span>
               <span>Payment</span>
             </h4>
           </div>
@@ -256,7 +256,8 @@ const CheckoutPageContent: React.FC = () => {
       {/*right side content*/}
       <div id="cartDetailsWrapper"
            className="flex flex-col pt-1 w-39% border-green">
-        <div className="mx-auto flex w-full items-center justify-between p-3 pt-6 border-blue">
+        {/*!TODO:*/}
+        <div className="mx-auto flex w-full items-center justify-between border-b border-solid p-3 pt-6 border-foreground">
           <div className="inline-flex flex-start">
             <Image
                 src={masterandemissarry.src}
@@ -265,13 +266,13 @@ const CheckoutPageContent: React.FC = () => {
                 height="50"
             />
           </div>
-          <div className="inline-flex w-2/3 flex-col justify-center text-xs border-yellow">
-            <div className="flex">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
-            <div className="flex">13</div>
+          <div className="inline-flex w-1/2 w-2/3 flex-col justify-center pr-10 text-sm">
+            <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
+            <div className="flex font-light">13</div>
           </div>
-          <div className="inline-flex flex-end border-pink">$135.00</div>
+          <div className="inline-flex text-sm flex-end">$135.00</div>
         </div>
-        <div className="flex p-3 border-blue">Gift Card Row</div>
+        <div className="flex border-b-gray-50 p-3">Gift Card Row</div>
         <div className="flex p-3 border-blue">Subtotal Shipping Row</div>
         <div className="flex p-3 border-blue">Total Row</div>
       </div>
