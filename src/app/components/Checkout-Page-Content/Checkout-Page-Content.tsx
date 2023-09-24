@@ -1,6 +1,8 @@
 import styles from './Checkout-Page-Content.module.scss';
 import React from 'react';
 import classNames from 'classnames';
+import Image from "next/image";
+import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 
 
@@ -254,13 +256,20 @@ const CheckoutPageContent: React.FC = () => {
       {/*right side content*/}
       <div id="cartDetailsWrapper"
            className="flex flex-col pt-1 w-39% border-green">
-        <div className="mx-auto items-center flex w-full p-3 pt-6 border-blue">
-          <div className="inline-flex flex-start border-red">left</div>
-          <div className="inline-flex text-xs flex-col w-1/2 justify-center border-yellow">
+        <div className="mx-auto flex w-full items-center justify-between p-3 pt-6 border-blue">
+          <div className="inline-flex flex-start">
+            <Image
+                src={masterandemissarry.src}
+                alt="yuko"
+                width="50"
+                height="50"
+            />
+          </div>
+          <div className="inline-flex w-2/3 flex-col justify-center text-xs border-yellow">
             <div className="flex">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
             <div className="flex">13</div>
           </div>
-          <div className="inline-flex flex-end border-pink">right</div>
+          <div className="inline-flex flex-end border-pink">$135.00</div>
         </div>
         <div className="flex p-3 border-blue">Gift Card Row</div>
         <div className="flex p-3 border-blue">Subtotal Shipping Row</div>
