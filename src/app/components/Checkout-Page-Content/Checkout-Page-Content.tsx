@@ -255,9 +255,9 @@ const CheckoutPageContent: React.FC = () => {
       </div>
       {/*right side content*/}
       <div id="cartDetailsWrapper"
-           className="flex flex-col pt-1 w-39% border-green">
+           className="flex flex-col pt-1 w-39%">
         {/*!TODO:*/}
-        <div className="mx-auto flex w-full items-center justify-between border-b border-solid p-3 pt-6 border-foreground">
+        <div className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
           <div className="inline-flex flex-start">
             <Image
                 src={masterandemissarry.src}
@@ -272,7 +272,16 @@ const CheckoutPageContent: React.FC = () => {
           </div>
           <div className="inline-flex text-sm flex-end">$135.00</div>
         </div>
-        <div className="flex border-b-gray-50 p-3">Gift Card Row</div>
+        <div className="flex justify-between border-b-gray-50 py-5">
+          <input
+              type="text"
+              placeholder="Gift card or discount code"
+              className="inline-flex items-center border border-solid bg-transparent p-3 text-sm placeholder:font-bold outline-none w-70% border-foreground placeholder-greyed-out"
+          />
+          <div className="inline-flex items-center border-2 border-solid p-3 px-6 font-bold border-foreground bg-greyed-out rounded-sm">
+            <button>APPLY</button>
+          </div>
+        </div>
         <div className="flex p-3 border-blue">Subtotal Shipping Row</div>
         <div className="flex p-3 border-blue">Total Row</div>
       </div>

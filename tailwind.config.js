@@ -10,6 +10,13 @@ module.exports = {
       colors: {
         foreground: `rgb(var(--foreground-rgb))`,
         background: `rgb(var(--background-start-rgb))`,
+        'greyed-out': '#d2cfca2b',
+      },
+      textColor: {
+        'greyed-out': '#d2cfca2b',
+      },
+      placeholderColor: {
+        'greyed-out': '#d2cfca2b',
       },
       backgroundColor: { // bg-...
         background: `rgb(var(--background-start-rgb))`,
@@ -32,12 +39,19 @@ module.exports = {
         '4/10': '40%', 
         '51%': '51%', 
         '51.5%': '51.5%', 
-        '52%': '52%', 
-        '8/10': '80%', 
+        '52%': '52%',
+        '70%': '70%',
         '77%': '77%',
-        '78%': '78%', 
+        '78%': '78%',
+        '8/10': '80%',
       },
     },
+  },
+  variants: {
+    extend: {
+      borderColor: ['focus'],
+      backgroundColor: ['focus'],
+    }
   },
   plugins: [
     function ({ addUtilities }) {

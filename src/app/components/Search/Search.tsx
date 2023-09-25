@@ -6,7 +6,7 @@ const Search = () => {
 
   return (
     <div className={`${styles.search}`}>
-      <SearchForm className={`${styles.relative}`}/>
+      <SearchForm className={`${styles.relative}`} isBookPage/>
     </div>
   );
 };
