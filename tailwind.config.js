@@ -14,6 +14,7 @@ module.exports = {
       },
       textColor: {
         'greyed-out': '#d2cfca2b',
+        'gold': 'rgb(var(--everforest-gold))',
       },
       placeholderColor: {
         'greyed-out': '#d2cfca2b',

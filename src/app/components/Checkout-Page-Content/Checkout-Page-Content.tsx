@@ -278,12 +278,21 @@ const CheckoutPageContent: React.FC = () => {
               placeholder="Gift card or discount code"
               className="inline-flex items-center border border-solid bg-transparent p-3 text-sm placeholder:font-bold outline-none w-70% border-foreground placeholder-greyed-out"
           />
-          <div className="inline-flex items-center border-2 border-solid p-3 px-6 font-bold border-foreground bg-greyed-out rounded-sm">
+          <div className="inline-flex items-center rounded-sm border-2 border-solid p-3 px-6 font-bold border-foreground bg-greyed-out">
             <button>APPLY</button>
           </div>
         </div>
-        <div className="flex p-3 border-blue">Subtotal Shipping Row</div>
-        <div className="flex p-3 border-blue">Total Row</div>
+        <div className="flex flex-col border-y border-solid py-6 border-foreground">
+          <div className="flex justify-between pb-4">
+            <div className="inline-flex flex-start text-sm font-bold">Subtotal</div>
+            <div className="inline-flex flex-end text-sm font-bold">$135.00</div>
+          </div>
+          <div className="flex justify-between">
+            <div className="inline-flex flex-start text-sm font-bold">Shipping</div>
+            <div className="inline-flex flex-end text-xs font-medium">Free</div>
+          </div>
+        </div>
+        <div className="flex p-3">Total Row</div>
       </div>
     </div>
   );
