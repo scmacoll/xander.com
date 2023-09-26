@@ -48,6 +48,12 @@ module.exports = {
         '8/10': '80%',
       },
     },
+    screens: {
+      'custom-xs': '749px',
+      'custom-sm': '750px',
+      'custom-md': '1099px',
+      'custom-lg': '1100px',
+    },
   },
   variants: {
     extend: {

@@ -10,17 +10,17 @@ const CheckoutPageContent: React.FC = () => {
   return (
     <div
       id="pageContainer"
-      className="mx-auto flex h-screen justify-between pt-12 w-78%"
+      className="relative mx-auto flex custom-sm:w-3/5 custom-md:flex-row custom-sm:flex-col-reverse custom-sm:justify-center custom-md:justify-between pt-12 s-screen custom-md:w-78%"
     >
       {/*left side content*/}
       <div id="paymentDetailsWrapper"
-           className="flex flex-col w-51.5%">
+           className="flex custom-sm:w-full flex-col custom-md:w-51.5%">
         <div id="checkoutTitle"
-             className="block pt-1 pb-3">
+             className="custom-md:block custom-sm:hidden pt-1 pb-3">
           <div className="flex pb-1">
-            <h1 className="p-3 text-3xl">Xandria</h1>
+            <h1 className="py-3 text-3xl">Xandria</h1>
           </div>
-          <div className="flex px-3 text-sm">
+          <div className="flex text-sm">
             <h4>
               <span>Shipping</span>
               <span className="px-2">&#x2C3;</span>
@@ -29,7 +29,7 @@ const CheckoutPageContent: React.FC = () => {
           </div>
         </div>
         <div id="checkoutExpressContainer"
-             className="flex flex-col px-2 py-6">
+             className="flex flex-col py-6">
           <div
             id="checkoutExpressButtonsWrapper"
             className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
@@ -37,7 +37,7 @@ const CheckoutPageContent: React.FC = () => {
             <div className="absolute top-0 right-0 left-0 z-10 mx-auto flex w-fit -translate-y-1/2 transform justify-center px-3 font-bold bg-background">
               Express checkout
             </div>
-            
+
             <div
               id="checkoutExpressButtons"
               className="mt-5 flex justify-around gap-3 p-1 px-4"
@@ -255,7 +255,20 @@ const CheckoutPageContent: React.FC = () => {
       </div>
       {/*right side content*/}
       <div id="cartDetailsWrapper"
-           className="flex flex-col pt-1 w-39%">
+           className="flex custom-sm:w-full flex-col pt-1 custom-md:w-39%">
+        <div id="checkoutTitle"
+             className="block custom-md:hidden pt-1 pb-3">
+          <div className="flex pb-1">
+            <h1 className="py-3 text-3xl">Xandria</h1>
+          </div>
+          <div className="flex text-sm">
+            <h4>
+              <span>Shipping</span>
+              <span className="px-2">&#x2C3;</span>
+              <span>Payment</span>
+            </h4>
+          </div>
+        </div>
         {/*!TODO:*/}
         <div className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
           <div className="inline-flex flex-start">
@@ -266,7 +279,7 @@ const CheckoutPageContent: React.FC = () => {
                 height="50"
             />
           </div>
-          <div className="inline-flex w-1/2 w-2/3 flex-col justify-center pr-10 text-sm">
+          <div className="inline-flex w-1/2 w-2/3 flex-col justify-center pr-12 text-sm">
             <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
             <div className="flex font-light">13</div>
           </div>
@@ -276,7 +289,7 @@ const CheckoutPageContent: React.FC = () => {
           <input
               type="text"
               placeholder="Gift card or discount code"
-              className="inline-flex items-center border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none w-9/12 border-foreground placeholder-greyed-out"
+              className="inline-flex w-9/12 items-center border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
           />
           <div className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
             <button>APPLY</button>
@@ -284,21 +297,21 @@ const CheckoutPageContent: React.FC = () => {
         </div>
         <div className="flex flex-col border-y border-solid py-6 border-foreground">
           <div className="flex justify-between pb-4">
-            <div className="inline-flex flex-start text-sm font-bold">Subtotal</div>
-            <div className="inline-flex flex-end text-sm font-bold">$135.00</div>
+            <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+            <div className="inline-flex text-sm font-bold flex-end">$135.00</div>
           </div>
           <div className="flex justify-between">
-            <div className="inline-flex flex-start text-sm font-bold">Shipping</div>
-            <div className="inline-flex flex-end text-xs font-medium">Free</div>
+            <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+            <div className="inline-flex text-xs font-medium flex-end">Free</div>
           </div>
         </div>
         <div className="flex justify-between py-6">
           <div className="flex">
-            <div className="font-medium text-lg">Total</div>
+            <div className="text-lg font-medium">Total</div>
           </div>
           <div className="flex items-center">
             <div className="inline-flex pr-3 text-xs">AUD</div>
-            <div className="inline-flex font-bold text-2xl">$135.00</div>
+            <div className="inline-flex text-2xl font-bold">$135.00</div>
           </div>
         </div>
       </div>
