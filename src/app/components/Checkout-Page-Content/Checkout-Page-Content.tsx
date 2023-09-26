@@ -29,7 +29,7 @@ const CheckoutPageContent: React.FC = () => {
           </div>
         </div>
         <div id="checkoutExpressContainer"
-             className="flex flex-col px-2 py-5">
+             className="flex flex-col px-2 py-6">
           <div
             id="checkoutExpressButtonsWrapper"
             className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
@@ -272,13 +272,13 @@ const CheckoutPageContent: React.FC = () => {
           </div>
           <div className="inline-flex text-sm flex-end">$135.00</div>
         </div>
-        <div className="flex justify-between border-b-gray-50 py-5">
+        <div className="flex justify-between border-b-gray-50 py-6">
           <input
               type="text"
               placeholder="Gift card or discount code"
-              className="inline-flex items-center border border-solid bg-transparent p-3 text-sm placeholder:font-bold outline-none w-70% border-foreground placeholder-greyed-out"
+              className="inline-flex items-center border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none w-9/12 border-foreground placeholder-greyed-out"
           />
-          <div className="inline-flex items-center rounded-sm border-2 border-solid p-3 px-6 font-bold border-foreground bg-greyed-out">
+          <div className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
             <button>APPLY</button>
           </div>
         </div>
