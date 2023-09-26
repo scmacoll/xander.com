@@ -52,7 +52,11 @@ module.exports = {
       'custom-xs': '749px',
       'custom-sm': '750px',
       'custom-md': '1099px',
-      'custom-lg': '1100px',
+      'custom-lg': '1099px',
+      'lg': '1200px', // For min-width: 1200px
+      'md': {'min': '1000px', 'max': '1199px'}, // For 1000px ≤ width ≤ 1199px
+      'sm': {'min': '750px', 'max': '999px'},   // For 750px ≤ width ≤ 999px
+      'xs': {'max': '749px'},
     },
   },
   variants: {
