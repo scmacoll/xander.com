@@ -10,7 +10,7 @@ const CheckoutPageContent: React.FC = () => {
   return (
     <div
       id="pageContainer"
-      className="mx-auto flex h-screen justify-between pt-12 w-78% border-d-white"
+      className="mx-auto flex h-screen justify-between pt-12 w-78%"
     >
       {/*left side content*/}
       <div id="paymentDetailsWrapper"
@@ -292,7 +292,15 @@ const CheckoutPageContent: React.FC = () => {
             <div className="inline-flex flex-end text-xs font-medium">Free</div>
           </div>
         </div>
-        <div className="flex p-3">Total Row</div>
+        <div className="flex justify-between py-6">
+          <div className="flex">
+            <div className="font-medium text-lg">Total</div>
+          </div>
+          <div className="flex items-center">
+            <div className="inline-flex pr-3 text-xs">AUD</div>
+            <div className="inline-flex font-bold text-2xl">$135.00</div>
+          </div>
+        </div>
       </div>
     </div>
   );
