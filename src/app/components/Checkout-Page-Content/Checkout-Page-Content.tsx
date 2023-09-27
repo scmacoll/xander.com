@@ -5,13 +5,12 @@ import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 
-
 const CheckoutPageContent: React.FC = () => {
   return (
-      <div className="flex xs:px-0 sm:px-8">
+      <div className="mx-auto flex w-full xs:px-0 sm:px-8 md:px-0 lg:px-0">
         <div
             id="pageContainer"
-            className="mx-auto flex pt-12 s-screen xs:w-11/12 xs:flex-col-reverse sm:w-750px sm:flex-col-reverse md:w-78% md:flex-row md:justify-between lg:w-78% lg:flex-row lg:justify-between"
+            className={`${styles.pageContainer} mx-auto flex lg:w-1120 pt-12 xs:w-11/12 xs:flex-col-reverse sm:w-750px sm:flex-col-reverse md:w-78% md:flex-row md:justify-between lg:flex-row lg:justify-between`}
         >
           {/*left side content*/}
           <div id="paymentDetailsWrapper"
@@ -278,8 +277,8 @@ const CheckoutPageContent: React.FC = () => {
             {/*!TODO:*/}
             <div
                 className="mx-auto flex w-full items-center border-b border-solid py-6 border-foreground">
-              <div className="flex items-center flex-start h-full">
-                <div className="inline-flex border-solid border-blue h-full pr-3">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full border-solid pr-3 border-blue">
                   <Image
                       src={masterandemissarry.src}
                       alt="yuko"
@@ -287,12 +286,12 @@ const CheckoutPageContent: React.FC = () => {
                       height="60"
                   />
                 </div>
-                <div className="inline-flex w-7/12 h-full flex-col justify-center text-sm border border-solid">
+                <div className="inline-flex h-full w-7/12 flex-col justify-center border border-solid text-sm">
                   <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
                   <div className="flex font-light">13</div>
               </div>
               </div>
-              <div className="inline-flex text-sm flex-end border-solid border-pink">$135.00</div>
+              <div className="inline-flex border-solid text-sm flex-end border-pink">$135.00</div>
             </div>
             <div className="flex justify-between border-b-gray-50 py-6">
               <input
