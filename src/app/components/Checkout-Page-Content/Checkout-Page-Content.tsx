@@ -277,20 +277,22 @@ const CheckoutPageContent: React.FC = () => {
             </div>
             {/*!TODO:*/}
             <div
-                className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-              <div className="inline-flex flex-start">
-                <Image
-                    src={masterandemissarry.src}
-                    alt="yuko"
-                    width="50"
-                    height="50"
-                />
+                className="mx-auto flex w-full items-center border-b border-solid py-6 border-foreground">
+              <div className="flex items-center flex-start h-full">
+                <div className="inline-flex border-solid border-blue h-full pr-3">
+                  <Image
+                      src={masterandemissarry.src}
+                      alt="yuko"
+                      width="60"
+                      height="60"
+                  />
+                </div>
+                <div className="inline-flex w-7/12 h-full flex-col justify-center text-sm border border-solid">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
+                  <div className="flex font-light">13</div>
               </div>
-              <div className="inline-flex w-1/2 w-2/3 flex-col justify-center pr-12 text-sm">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
-                <div className="flex font-light">13</div>
               </div>
-              <div className="inline-flex text-sm flex-end">$135.00</div>
+              <div className="inline-flex text-sm flex-end border-solid border-pink">$135.00</div>
             </div>
             <div className="flex justify-between border-b-gray-50 py-6">
               <input
