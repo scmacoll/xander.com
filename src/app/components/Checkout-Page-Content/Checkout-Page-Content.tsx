@@ -10,13 +10,13 @@ const CheckoutPageContent: React.FC = () => {
   return (
       <div
           id="pageContainer"
-          className="relative mx-auto flex xs:w-11/12 md:w-3/5 lg:flex-row md:flex-col-reverse xs:flex-col-reverse lg:justify-between pt-12 s-screen lg:w-78%"
+          className="relative mx-auto flex border border-dashed pt-12 s-screen border-foreground xs:w-11/12 xs:flex-col-reverse sm:w-3/5 sm:flex-col-reverse md:w-78% md:flex-row md:justify-between lg:w-78% lg:flex-row lg:justify-between"
       >
         {/*left side content*/}
         <div id="paymentDetailsWrapper"
-             className="flex md:w-full flex-col lg:w-51.5%">
+             className="flex flex-col sm:w-full md:w-51.5% lg:w-51.5%">
           <div id="checkoutTitle"
-               className="lg:block md:hidden pt-1 pb-3">
+               className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
             <div className="flex pb-1">
               <h1 className="py-3 text-3xl">Xandria</h1>
             </div>
@@ -255,9 +255,9 @@ const CheckoutPageContent: React.FC = () => {
         </div>
         {/*right side content*/}
         <div id="cartDetailsWrapper"
-             className="flex md:w-full flex-col pt-1 lg:w-39%">
+             className="flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
-               className="block lg:hidden pt-1 pb-3">
+               className="pt-1 pb-3 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
               <h1 className="py-3 text-3xl">Xandria</h1>
             </div>
