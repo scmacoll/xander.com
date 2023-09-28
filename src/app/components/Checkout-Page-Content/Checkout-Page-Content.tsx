@@ -10,7 +10,7 @@ const CheckoutPageContent: React.FC = () => {
       <div className="mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0">
         <div
             id="pageContainer"
-            className={`${styles.pageContainer} mx-auto flex pt-12 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
+            className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
         >
           {/*left side content*/}
           <div id="paymentDetailsWrapper"
@@ -269,7 +269,7 @@ const CheckoutPageContent: React.FC = () => {
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">Xandria</h1>
               </div>
-              <div className="flex text-sm">
+              <div className="flex text-sm sm:hidden xs:hidden">
                 <h4>
                   <span>Shipping</span>
                   <span className="px-2">&#x2C3;</span>
@@ -289,7 +289,7 @@ const CheckoutPageContent: React.FC = () => {
                       height="60"
                   />
                 </div>
-                <div className="inline-flex h-full flex-col justify-center border border-solid text-sm md:w-64% lg:w-64%">
+                <div className="inline-flex h-full flex-col justify-center border border-solid text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
                   <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
                   <div className="flex font-light">13</div>
                 </div>
