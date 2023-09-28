@@ -269,7 +269,7 @@ const CheckoutPageContent: React.FC = () => {
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">Xandria</h1>
               </div>
-              <div className="flex text-sm sm:hidden xs:hidden">
+              <div className="flex text-sm xs:hidden sm:hidden">
                 <h4>
                   <span>Shipping</span>
                   <span className="px-2">&#x2C3;</span>
@@ -279,9 +279,9 @@ const CheckoutPageContent: React.FC = () => {
             </div>
             {/*!TODO:*/}
             <div
-                className="mx-auto flex w-full justify-between items-center border-b border-solid py-6 border-foreground">
+                className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
               <div className="flex h-full items-center flex-start">
-                <div className="inline-flex h-full border-solid pr-3 border-blue">
+                <div className="inline-flex h-full pr-3">
                   <Image
                       src={masterandemissarry.src}
                       alt="yuko"
@@ -289,19 +289,21 @@ const CheckoutPageContent: React.FC = () => {
                       height="60"
                   />
                 </div>
-                <div className="inline-flex h-full flex-col justify-center border border-solid text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                <div className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
                   <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange Sole)</div>
                   <div className="flex font-light">13</div>
                 </div>
               </div>
-              <div className="inline-flex border-solid text-sm flex-end border-pink">$135.00</div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
             </div>
-            <div className="flex justify-between border-b-gray-50 py-6">
-              <input
+            <div className="flex lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 justify-between border-b-gray-50 py-6">
+              <div className="inline-flex flex-grow">
+                <input
                   type="text"
                   placeholder="Gift card or discount code"
-                  className="inline-flex w-9/12 items-center border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-              />
+                  className="items-center w-full border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                />
+              </div>
               <div
                   className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
                 <button>APPLY</button>
