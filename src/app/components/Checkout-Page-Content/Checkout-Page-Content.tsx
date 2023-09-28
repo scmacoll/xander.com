@@ -46,6 +46,7 @@ const CheckoutPageContent: React.FC = () => {
                   <div
                       className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue">
                     <svg
+                        className="w-11/12"
                         version="1.0"
                         xmlns="http://www.w3.org/2000/svg"
                         width="10em"
@@ -127,10 +128,11 @@ const CheckoutPageContent: React.FC = () => {
                   <div
                       className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
                     <svg
+                        className="w-55%"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 176.515 33.863"
-                        width="5.5em"
-                        height="5.5em"
+                        width="10em"
+                        height="10em"
                         transform="translate(0, 2)"
                     >
                       <defs>
@@ -200,9 +202,10 @@ const CheckoutPageContent: React.FC = () => {
                   <div
                       className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
                     <svg
+                        className="w-55%"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="5.5em"
-                        height="5.5em"
+                        width="10em"
+                        height="10em"
                         viewBox="0 0 338.667 89.785"
                     >
                       <g transform="translate(936.898 -21.779)">
