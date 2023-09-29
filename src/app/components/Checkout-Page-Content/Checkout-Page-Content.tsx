@@ -44,13 +44,13 @@ const CheckoutPageContent: React.FC = () => {
                     className="mt-5 flex justify-around gap-3 p-1 px-4"
                 >
                   <div
-                      className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue">
+                      className="inline-flex h-10 w-1/3 cursor-pointer items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue">
                     <svg
-                        className="w-11/12"
                         version="1.0"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="10em"
-                        height="10em"
+                        width="85px"
+                        height="16px"
+                        transform="scale(3.5)"
                         viewBox="0 0 2030.000000 738.000000"
                         preserveAspectRatio="xMidYMid meet"
                     >
@@ -126,14 +126,13 @@ const CheckoutPageContent: React.FC = () => {
                     </svg>
                   </div>
                   <div
-                      className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
+                      className="inline-flex h-10 w-1/3 cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
                     <svg
-                        className="w-55%"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 176.515 33.863"
-                        width="10em"
-                        height="10em"
-                        transform="translate(0, 2)"
+                        width="85px"
+                        height="16px"
+                        transform="translate(0, 2), scale(1.1)"
                     >
                       <defs>
                         <clipPath id="_clipPath_YQXZfDyPH8PDg72bLQM3P9CWVeOJZUa0">
@@ -200,13 +199,13 @@ const CheckoutPageContent: React.FC = () => {
                     </svg>
                   </div>
                   <div
-                      className="inline-flex h-10 w-full cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
+                      className="inline-flex h-10 w-1/3 cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow">
                     <svg
-                        className="w-55%"
                         xmlns="http://www.w3.org/2000/svg"
-                        width="10em"
-                        height="10em"
+                        width="85px"
+                        height="16px"
                         viewBox="0 0 338.667 89.785"
+                        transform="scale(1.4)"
                     >
                       <g transform="translate(936.898 -21.779)">
                         <path
@@ -299,9 +298,9 @@ const CheckoutPageContent: React.FC = () => {
             <div className="flex lg:gap-4 md:gap-4 sm:gap-2 xs:gap-2 justify-between border-b-gray-50 py-6">
               <div className="inline-flex flex-grow">
                 <input
-                  type="text"
-                  placeholder="Gift card or discount code"
-                  className="items-center w-full border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                    type="text"
+                    placeholder="Gift card or discount code"
+                    className="items-center w-full border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                 />
               </div>
               <div
