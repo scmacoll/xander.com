@@ -1,2 +1,18 @@
-.pageContainer {
+.summaryBanner {
+  position: relative;
+}
+
+.summaryBanner::before, .summaryBanner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 1px; /* adjust as per your border width */
+  background-color: rgb(var(--foreground-rgb), .3); /* adjust as per your border color */
+  left: calc(100% - 100vw);
+  right: calc(100% - 100vw);
+}
+
+.summaryBanner::after {
+  top: auto;
+  bottom: 0;
 }
