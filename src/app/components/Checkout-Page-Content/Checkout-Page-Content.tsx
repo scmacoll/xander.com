@@ -7,7 +7,7 @@ import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 const CheckoutPageContent: React.FC = () => {
   return (
-      <div className="mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0">
+      <div className="mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0 border-foreground border-dashed border">
         <div
             id="pageContainer"
             className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
@@ -256,9 +256,23 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-20 flex justify-center">
-              contact details container
+
+            {/*!TODO:*/}
+            <div id="contactContainer"
+                 className="mx-auto pt-16 flex w-full h-full flex-col py-2 border-red">
+              <div id="contactWrapper"
+                   className="border-purple-700 border-solid border">
+                <div id="contactHeader"
+                     className="flex flex-row justify-between items-center border-green">
+                  <div className="flex font-bold text-xl">Contact</div>
+                  <div className="flex text-sm">
+                    <div>Have an account?</div>
+                    <div className="font-bold pl-1 cursor-pointer">Log in</div>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
           {/*right side content*/}
           <div id="cartDetailsWrapper"
@@ -282,7 +296,7 @@ const CheckoutPageContent: React.FC = () => {
                 </h4>
               </div>
             </div>
-            {/*!TODO:*/}
+
             <div
                 className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
               <div className="flex h-full items-center flex-start">
