@@ -1,20 +1,19 @@
 .summaryBanner {
   position: relative;
+  z-index: 1; /* This ensures content is on top of the pseudo-element */
 }
 
-.summaryBanner::before, .summaryBanner::after {
+.summaryBanner::before {
   content: "";
   position: absolute;
   top: 0;
-  height: 1px; /* adjust as per your border width */
-  background-color: rgb(var(--foreground-rgb), 0.3); /* adjust as per your border color */
-  left: calc(100% - 100vw);
-  right: calc(100% - 100vw);
-}
-
-.summaryBanner::after {
-  top: auto;
-  bottom: 0;
+  bottom: 0; /* This ensures it covers the entire height of the div */
+  background-color: rgb(var(--background-translucent-rgb));
+  border-top: 1px solid rgb(var(--foreground-rgb), 0.3); /* Top border */
+  border-bottom: 1px solid rgb(var(--foreground-rgb), 0.3); /* Bottom border */
+  left: calc(50% - 50vw); /* Start it to the left */
+  right: calc(50% - 50vw); /* End it to the right */
+  z-index: -1; /* Place it behind the content */
 }
 
 /*# sourceMappingURL=Checkout-Page-Content.module.css.map */
