@@ -259,15 +259,26 @@ const CheckoutPageContent: React.FC = () => {
 
             {/*!TODO:*/}
             <div id="contactContainer"
-                 className="mx-auto pt-16 flex w-full h-full flex-col py-2 border-red">
+                 className="mx-auto pt-16 flex w-full h-full flex-col py-2">
               <div id="contactWrapper"
-                   className="border-purple-700 border-solid border">
+                   className="">
                 <div id="contactHeader"
-                     className="flex flex-row justify-between items-center border-green">
-                  <div className="flex font-bold text-xl">Contact</div>
-                  <div className="flex text-sm">
-                    <div>Have an account?</div>
-                    <div className="font-bold pl-1 cursor-pointer">Log in</div>
+                     className="pb-4">
+                  <div className="flex flex-row justify-between items-center">
+                    <div className="flex font-bold text-xl">Contact</div>
+                    <div className="flex text-sm">
+                      <div>Have an account?</div>
+                      <div className="font-bold pl-1 cursor-pointer">Log in</div>
+                    </div>
+                  </div>
+                </div>
+                <div id="contactEmail"
+                     className="pb-4">
+                  <div className="flex">
+                    <input type="text"
+                           placeholder="Email"
+                           className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                    />
                   </div>
                 </div>
               </div>
