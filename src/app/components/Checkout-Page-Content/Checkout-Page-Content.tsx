@@ -269,7 +269,7 @@ const CheckoutPageContent: React.FC = () => {
                 <h1 className="py-3 text-3xl">Xandria</h1>
               </div>
 
-              <div className={`${styles.summaryBanner} flex py-4 text-sm font-medium justify-between`}>
+              <div className="relative z-10 flex py-4 text-sm font-medium justify-between before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
                 <div>Hide Order Summary</div>
                 <div>$135.00</div>
               </div>

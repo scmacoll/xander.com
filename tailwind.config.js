@@ -21,6 +21,7 @@ module.exports = {
       },
       backgroundColor: { // bg-...
         background: `rgb(var(--background-start-rgb))`,
+        'translucent': `rgb(var(--background-translucent-rgb))`,
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
       },
