@@ -257,41 +257,57 @@ const CheckoutPageContent: React.FC = () => {
               </div>
             </div>
 
-            {/*!TODO:*/}
             <div id="contactContainer"
                  className="mx-auto flex h-full w-full flex-col py-2 pt-16">
               <div id="contactWrapper"
                    className="">
-                <div id="contactHeader"
-                     className="pb-4">
-                  <div className="flex flex-row items-center justify-between">
-                    <div className="flex text-xl font-bold">Contact</div>
-                    <div className="flex text-sm">
-                      <div>Have an account?</div>
-                      <div className="cursor-pointer pl-1 font-bold">Log in</div>
+                <div id="contactTopSection">
+                  <div id="contactHeader"
+                       className="pb-4">
+                    <div className="flex flex-row items-center justify-between">
+                      <div className="flex text-xl font-bold">Contact</div>
+                      <div className="flex text-sm">
+                        <div>Have an account?</div>
+                        <div className="cursor-pointer pl-1 font-bold">Log in</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div id="contactEmail"
-                     className="pb-3">
-                  <div className="flex">
-                    <input type="text"
-                           placeholder="Email"
-                           className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-                    />
-                  </div>
-                </div>
-                <div id="emailOffersCheckbox"
-                     className="pb-4">
-                  <div className="flex items-center align-center">
-                    <div className="inline-flex">
-                      <input type="checkbox"
-                             value="1"
-                             checked="checked"
-                             className="accent-gray-500"/>
+                  <div id="contactEmail"
+                       className="pb-3">
+                    <div className="flex">
+                      <input type="text"
+                             placeholder="Email"
+                             className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                      />
                     </div>
-                    <div className="inline-flex pl-2">
-                      Email me with news and offers
+                  </div>
+                  <div id="emailOffersCheckbox"
+                       className="pb-12">
+                    <div className="flex items-center align-center">
+                      <div className="inline-flex">
+                        <input type="checkbox"
+                               value="1"
+                               checked="checked"
+                               className="accent-gray-500"/>
+                      </div>
+                      <div className="inline-flex pl-2">
+                        Email me with news and offers
+                      </div>
+                    </div>
+                  </div>
+                  {/*!TODO:*/}
+                  <div id="contactBottomSection"
+                       className="border-red">
+                    <div id="contactShippingHeader">
+                      <div className="flex pb-2">Shipping Address</div>
+                    </div>
+                    <div id="contactShippingDetails">
+                      <div className="flex pb-2">Shipping Details</div>
+                    </div>
+                    <div id="contactShippingButton">
+                      <div className="flex justify-end">
+                        <button className="border border-solid border-foreground">CONTINUE TO SHIPPING</button>
+                      </div>
                     </div>
                   </div>
                 </div>
