@@ -29,6 +29,7 @@ module.exports = {
         foreground: `rgb(var(--foreground-rgb), .3)`,
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
+        'greyed-out': '#d2cfca2b',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

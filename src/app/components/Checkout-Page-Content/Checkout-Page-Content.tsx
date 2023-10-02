@@ -7,7 +7,7 @@ import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 const CheckoutPageContent: React.FC = () => {
   return (
-      <div className="mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0 border-foreground border-dashed border">
+      <div className="mx-auto flex w-full border border-dashed border-foreground xs:px-4 sm:px-8 md:px-8 lg:px-0">
         <div
             id="pageContainer"
             className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
@@ -259,26 +259,40 @@ const CheckoutPageContent: React.FC = () => {
 
             {/*!TODO:*/}
             <div id="contactContainer"
-                 className="mx-auto pt-16 flex w-full h-full flex-col py-2">
+                 className="mx-auto flex h-full w-full flex-col py-2 pt-16">
               <div id="contactWrapper"
                    className="">
                 <div id="contactHeader"
                      className="pb-4">
-                  <div className="flex flex-row justify-between items-center">
-                    <div className="flex font-bold text-xl">Contact</div>
+                  <div className="flex flex-row items-center justify-between">
+                    <div className="flex text-xl font-bold">Contact</div>
                     <div className="flex text-sm">
                       <div>Have an account?</div>
-                      <div className="font-bold pl-1 cursor-pointer">Log in</div>
+                      <div className="cursor-pointer pl-1 font-bold">Log in</div>
                     </div>
                   </div>
                 </div>
                 <div id="contactEmail"
-                     className="pb-4">
+                     className="pb-3">
                   <div className="flex">
                     <input type="text"
                            placeholder="Email"
                            className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                     />
+                  </div>
+                </div>
+                <div id="emailOffersCheckbox"
+                     className="pb-4">
+                  <div className="flex items-center align-center">
+                    <div className="inline-flex">
+                      <input type="checkbox"
+                             value="1"
+                             checked="checked"
+                             className="accent-gray-500"/>
+                    </div>
+                    <div className="inline-flex pl-2">
+                      Email me with news and offers
+                    </div>
                   </div>
                 </div>
               </div>
