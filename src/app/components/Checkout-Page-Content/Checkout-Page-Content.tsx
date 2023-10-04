@@ -295,15 +295,39 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  {/*!TODO:*/}
-                  <div id="contactBottomSection"
-                       className="border-red">
+                  <div id="contactBottomSection">
                     <div id="contactShippingHeader">
-                      <div className="flex pb-2">Shipping Address</div>
+                      <div className="flex pb-2 text-xl font-bold">Shipping Address</div>
                     </div>
-                    <div id="contactShippingDetails">
-                      <div className="flex pb-2">Shipping Details</div>
+                  {/*!TODO:*/}
+                    <div id="shippingDetails">
+                      <div id="countrySelect"
+                           className="relative w-full border border-solid border-foreground">
+                        <label htmlFor="country" className="absolute top-2 left-3 text-sm">Country/region</label>
+                        <div id="selectArrow"
+                             className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                  d="M19 9l-7 7-7-7"></path>
+                          </svg>
+                        </div>
+                        <select id="country"
+                                className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none">
+                          <option value="Australia">Australia</option>
+                        </select>
+                      </div>
+                      <div id="shippingNames"
+                           className="flex w-full justify-between pt-4">
+                        <input type="text" placeholder="First Name" className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
+                        <input type="text" placeholder="Last Name"
+                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"
+/>
+
+
+                      </div>
                     </div>
+
                     <div id="contactShippingButton">
                       <div className="flex justify-end">
                         <button className="border border-solid border-foreground">CONTINUE TO SHIPPING</button>
