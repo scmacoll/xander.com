@@ -300,7 +300,7 @@ const CheckoutPageContent: React.FC = () => {
                       <div className="flex pb-2 text-xl font-bold">Shipping Address</div>
                     </div>
                   {/*!TODO:*/}
-                    <div id="shippingDetails">
+                    <div id="contactDetails">
                       <div id="countrySelect"
                            className="relative w-full border border-solid border-foreground">
                         <label htmlFor="country" className="absolute top-2 left-3 text-sm">Country/region</label>
@@ -317,18 +317,24 @@ const CheckoutPageContent: React.FC = () => {
                           <option value="Australia">Australia</option>
                         </select>
                       </div>
-                      <div id="shippingNames"
+                      <div id="contactNames"
                            className="flex w-full justify-between pt-4">
                         <input type="text" placeholder="First Name" className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
                         <input type="text" placeholder="Last Name"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"
-/>
-
-
+                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
                       </div>
+                      <div id="contactCompany"
+                         className="flex w-full justify-between pt-4">
+                          <input type="text" placeholder="Company (required for business addresses)" className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full border-foreground placeholder-greyed-out"/>
+                      </div>
+                      <div id="contactAddress"
+                         className="flex w-full justify-between pt-4">
+                          <input type="text" placeholder="Address" className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full border-foreground placeholder-greyed-out"/>
+                     </div>
+
                     </div>
 
-                    <div id="contactShippingButton">
+                    <div id="shippingButton">
                       <div className="flex justify-end">
                         <button className="border border-solid border-foreground">CONTINUE TO SHIPPING</button>
                       </div>
@@ -385,7 +391,7 @@ const CheckoutPageContent: React.FC = () => {
                 <input
                     type="text"
                     placeholder="Gift card or discount code"
-                    className="w-full items-center border border-solid bg-transparent p-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                    className="w-full items-center border border-solid bg-transparent py-4 px-2 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                 />
               </div>
               <div
