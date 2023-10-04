@@ -13,6 +13,7 @@ module.exports = {
         'greyed-out': '#d2cfca2b',
       },
       textColor: {
+        'foreground': `rgb(var(--foreground-rgb))`,
         'greyed-out': '#d2cfca2b',
         'gold': 'rgb(var(--everforest-gold))',
       },
@@ -37,7 +38,8 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       width: {
-        '38%': '38%', 
+        '32%': '32%',
+        '38%': '38%',
         '39%': '39%',
         '45%': '45%',
         '49%': '49%',
