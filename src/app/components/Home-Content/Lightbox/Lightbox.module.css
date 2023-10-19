@@ -15,7 +15,31 @@
   display: flex;
   flex: 1;
   justify-content: center;
-  transform: translateY(18%);
+}
+@media (max-width: 2000px) and (min-width: 1424px) {
+  .lightboxWrapper {
+    transform: translateY(-35%);
+  }
+}
+@media (max-width: 1425px) and (min-width: 1200px) {
+  .lightboxWrapper {
+    transform: translateY(-10.6vw);
+  }
+}
+@media (max-width: 1199px) and (min-width: 1000px) {
+  .lightboxWrapper {
+    transform: translateY(-10.6vw);
+  }
+}
+@media (max-width: 999px) and (min-width: 750px) {
+  .lightboxWrapper {
+    transform: translateY(-10.6vw);
+  }
+}
+@media (max-width: 749px) {
+  .lightboxWrapper {
+    transform: translateY(-10.55vw);
+  }
 }
 
 .lightboxContent {
