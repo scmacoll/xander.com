@@ -112,7 +112,8 @@ const Card: React.FC<CardProps> = ({ card }) => {
                 alt="book"
               />
             </div>
-            <div className={`${styles.itemButtons} flex`}>
+            <div className={`${styles.itemButtons}`}>
+
               <div className={`${styles.bookTitle}`}>
                 <p className={`${styles.bookName} font-bold`}>
                   Social Capital: A Multifaceted Perspective
@@ -121,6 +122,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
                   <p>By: Ismail Serageldin | Paperback | 25 September 1999</p>
                 </div>
               </div>
+
               <div className={`${styles.cardHeartTwo}`}>
                 <svg
                   version="1.0"
@@ -148,6 +150,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
                   </g>
                 </svg>
               </div>
+
               <div className={`${styles.itemToggles}`}>
                 <div className={`${styles.itemPrice}`}>
                   <p className="font-bold">$46.58</p>
@@ -201,6 +204,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>

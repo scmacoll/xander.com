@@ -28,7 +28,6 @@
   font-weight: 500;
   font-family: "sf", sans-serif;
    //! 676 x 422.13
-   //border: .1px solid yellow;
 }
 
 .middleBorder {
@@ -39,10 +38,10 @@
 .contentWrapper {
   display: flex;
   flex-direction: column;
-  // border: .1px solid green;
   flex: 2;
-  padding-bottom: 5em;
+  //padding-bottom: 5em;
   justify-content: space-evenly;
+
   //! 640 x 341.133
 }
 
@@ -51,7 +50,6 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  // border: 1px solid red;
 }
 
 .cardTitle {
@@ -127,9 +125,8 @@
   // align-content: center;
   // justify-items: center;
   // border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
-  // border: .1px solid white;
-  margin-top: 1em;
-  padding-top: 1em;
+  //margin-top: 1em;
+  padding-top: 2em;
 }
 
 .cardIcon {
@@ -140,7 +137,6 @@
   // align-items: center;
   justify-content: space-between;
   flex: 1;
-  // border: .1px solid red;
 }
 
 .cardHeart {
@@ -201,7 +197,6 @@
 .qtyMinus {
   display: inline-flex;
   justify-content: flex-end;
-  // border: .1px solid red;
 }
 .qtyPlus:hover svg path {
   fill: #d2cfca;
@@ -214,7 +209,6 @@
   padding-top: .5em;
   // border: .1px dashed purple;
   width: 80%;
-  height: 50%;
 }
 
 .bookName {
@@ -222,12 +216,12 @@
 }
 
 .bookAuthor {
-  // font-size: .9rem; 
+  display: flex;
+  // font-size: .9rem;
 }
 
 .itemButtons {
   display: block;
-  // border: .1px solid yellow;
   width: 85%;
   // align-items: center;
   position: relative;
@@ -235,16 +229,14 @@
 
 .itemToggles {
   display: flex;
-  // border: .1px solid purple;
   align-items: center;
   align-content: center;
-  // justify-content: center;
+  padding-top: .5em;
 }
 
 .checkoutContainer {
   position: relative;
   display: flex;
-  // border: .1px solid purple;
   align-items: center;
   // align-content: flex-end;
   // justify-content: flex-end;
@@ -252,17 +244,17 @@
 }
 
 .totalWrapper {
-  position: absolute;
+  //position: absolute;
   bottom: 0;
   // left: 35%;
-  left: 0%;
+  left: 0;
   flex: 1;
   display: inline-flex;
   justify-content: flex-end;
   align-items: center;
   align-content: center;
-  padding: 1.3em 0 1em 0;
-  // border: .1px solid green;
+  //padding: 1.3em 0 1em 0;
+  padding-bottom: 1em;
 }
 
 .checkoutWrapper {
@@ -270,19 +262,17 @@
   bottom: 0;
   right: 0;
   flex: 1;
-  // border: .1px solid blue;
   display: inline-flex;
-  // position: absolute;
   justify-content: flex-end;
   align-items: center;
   align-content: center;
-  padding: 1.3em 0 1.3em 0;
+  //padding: 1.3em 0 1.3em 0;
+  padding-bottom: 1.3em;
   width: 100%;
 }
 
 .itemTotal {
   display: inline-flex;
-  // border: .1px solid red;
   justify-content: flex-start;
   align-items: center;
   flex: 1;
@@ -294,7 +284,7 @@
   font-weight: 600;
   font-size: 1.2rem;
 
-  // color: rgb(169, 57, 57);
+   //color: rgb(169, 57, 57);
   color: rgba(156, 163, 175, 0.731);
 }
 
