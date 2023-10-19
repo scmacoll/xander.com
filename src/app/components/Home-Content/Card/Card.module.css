@@ -1,0 +1,99 @@
+.cardContent {
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10px 18px 1px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  display: flex;
+  max-height: 8em; /* Assuming 1.2em as line-height and showing up to 4 lines */
+  overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+  margin: 0; /* Removing default margins from paragraph */
+  padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
+}
+
+.cardTitle::-webkit-scrollbar {
+  width: 8px; /* Adjust the width as desired */
+}
+
+.cardTitle::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the color as desired */
+}
+
+.cardTitle::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0); /* Remove the background color */
+}
+
+.cardAuthor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 1px;
+}
+
+.authorName:hover {
+  color: rgb(232, 230, 228);
+}
+
+.dp {
+  width: 3em;
+  padding-left: 0.5em;
+  margin-right: 0.7em;
+}
+
+.cardUserClick {
+  display: flex;
+}
+
+.cardHeart {
+  display: flex;
+}
+
+.cardHeart:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.cardInfo:hover svg path {
+  fill: #d2cfca;
+}
+
+.bottomContent {
+  display: flex;
+  position: relative;
+  border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
+}
+
+.cardIcons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.cardIcon:hover path {
+  fill: #b5b19b;
+}
+
+.cardTitle:hover {
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
+}
+
+/*# sourceMappingURL=Card.module.css.map */

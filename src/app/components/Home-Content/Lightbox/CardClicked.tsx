@@ -112,7 +112,6 @@ const Card: React.FC<CardProps> = ({ card }) => {
                 alt="book"
               />
             </div>
-
             <div className={`${styles.itemButtons} flex`}>
               <div className={`${styles.bookTitle}`}>
                 <p className={`${styles.bookName} font-bold`}>
@@ -122,7 +121,6 @@ const Card: React.FC<CardProps> = ({ card }) => {
                   <p>By: Ismail Serageldin | Paperback | 25 September 1999</p>
                 </div>
               </div>
-
               <div className={`${styles.cardHeartTwo}`}>
                 <svg
                   version="1.0"
@@ -150,12 +148,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
                   </g>
                 </svg>
               </div>
-
               <div className={`${styles.itemToggles}`}>
                 <div className={`${styles.itemPrice}`}>
                   <p className="font-bold">$46.58</p>
                 </div>
-
                 <div className={`${styles.itemQty}`}>
                   <div className="flex">
                     <div className={`${styles.qtyMinus}`}>
@@ -199,7 +195,6 @@ const Card: React.FC<CardProps> = ({ card }) => {
                         </g>
                       </svg>
                     </div>
-
                     <div className={`${styles.itemQtyNumber}`}>
                       <p>Qty: 1</p>
                     </div>
@@ -210,12 +205,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
           </div>
         </div>
       </div>
-
       <div className={`${styles.checkoutContainer}`}>
         <div className={`${styles.totalWrapper}`}>
           <div className={`${styles.itemTotal}`}>Total: $46.58</div>
         </div>
-
         <div className={`${styles.checkoutWrapper}`}>
           <div className={`${styles.checkoutAddToCart}`}>
             <button>Add To Cart</button>
