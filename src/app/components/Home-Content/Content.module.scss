@@ -157,6 +157,9 @@
   padding-right: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
+  @media (max-width: 749px) {
+    padding-right: .8em;
+    }
 }
 
 .similarLarrow {
@@ -166,6 +169,9 @@
   padding-left: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
+  @media (max-width: 749px) {
+    padding-left: .8em;
+  }
 }
 
 .similarDarrow {
