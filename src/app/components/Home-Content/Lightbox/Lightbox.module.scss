@@ -35,6 +35,14 @@
 // padding: 10 18 1 18
 // border: .5px
 
+.lightboxWrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  transform: translateY(18%);
+  //overflow: auto;
+}
+
 .lightboxContent {
   position: relative;
   background-color: rgb(var(--background-start-rgb));

@@ -11,6 +11,13 @@
   z-index: 1000;
 }
 
+.lightboxWrapper {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  transform: translateY(18%);
+}
+
 .lightboxContent {
   position: relative;
   background-color: rgb(var(--background-start-rgb));
