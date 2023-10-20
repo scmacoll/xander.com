@@ -5,7 +5,7 @@ import styles from './Content.module.scss';
 import Lightbox from './Lightbox/Lightbox'
 import Card from './Card/Card';
 import classNames from 'classnames';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -41,17 +41,17 @@ const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
   const apiURI = '/api/getCards';
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
   const [middleColumnChangedState, setMiddleColumnChangedState] =
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
-
+  const [showArrows, setShowArrows] = useState(true);
 
   const shiftColumn = (direction: 'left' | 'right') => {
     const currentIndex = columns.indexOf(displayedColumn);
-
     if (direction === 'right' && currentIndex > 1) {
         setDisplayedColumn(columns[currentIndex - 1]);
     } else if (direction === 'left' && currentIndex < 7) {
@@ -94,23 +94,39 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       }
     }
 
+    const handleVisibility = () => {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+      debounceTimeout.current = setTimeout(() => {
+        setShowArrows(true);
+      }, 300);
+    };
+    const handleScroll = () => {
+     setShowArrows(false);
+     handleVisibility();
+    };
     const handleResize = () => {
       const newNumColumns = getNumColumns();
-
       if (newNumColumns !== numColumns && newNumColumns === 1) {
         toggleChangedState();
       }
       setNumColumns(newNumColumns);
-
+      setShowArrows(false);
+      handleVisibility();
     };
 
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
     return () => {
+      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
 
     };
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
 
+  // fetch data from mongodb via axios API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -143,17 +159,21 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
-        <div
-          className={`${styles.similarRarrow}`}
-          onClick={() => shiftColumn('left')}
-        >
-          <FontAwesomeIcon icon={faChevronRight} size="xl" />
+        <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}>
+          <div
+            className={styles.circleButton}
+            onClick={() => shiftColumn('left')}
+          >
+          </div>
+          <FontAwesomeIcon icon={faChevronRight} size="xl"/>
         </div>
-        <div
-          className={`${styles.similarLarrow}`}
-          onClick={() => shiftColumn('right')}
-        >
-          <FontAwesomeIcon icon={faChevronLeft} size="xl" />
+        <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}>
+          <div
+            className={styles.circleButton}
+            onClick={() => shiftColumn('right')}
+          >
+          </div>
+          <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
         </div>
         <div className={`${styles.similarDarrow}`}>
           <a href="/">

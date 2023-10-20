@@ -130,6 +130,7 @@
   padding-right: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
+  pointer-events: none;
 }
 @media (max-width: 749px) {
   .similarRarrow {
@@ -144,11 +145,39 @@
   padding-left: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
+  pointer-events: none;
 }
 @media (max-width: 749px) {
   .similarLarrow {
     padding-left: 0.8em;
   }
+}
+
+.hiddenArrow {
+  opacity: 0;
+  pointer-events: none; /* Extra insurance to prevent clicks */
+}
+
+.visibleArrow {
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity 0.75s ease-in-out; /* Transition effect applies only here */
+}
+
+.circleButton {
+  position: absolute;
+  width: 35px; /* Adjust size as needed */
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 4; /* higher than the arrow icons */
+  top: 50%;
+  transform: translateY(-50%) translateX(-9px);
+}
+
+.circleButton:hover {
+  background-color: rgba(85, 85, 85, 0.29);
 }
 
 .similarDarrow {
