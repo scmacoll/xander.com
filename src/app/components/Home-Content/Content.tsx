@@ -13,6 +13,7 @@ import {
   faChevronRight,
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
+// import {clearTimeout} from "timers";
 
 
 interface ContentProps {
@@ -49,6 +50,20 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [showArrows, setShowArrows] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  console.log("current index:", columns.indexOf(displayedColumn))
+
+  const handleScroll = () => {
+    setHasScrolled(true);
+    setShowArrows(false);
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+    debounceTimeout.current = setTimeout(() => {
+      setShowArrows(true);
+    }, 100);
+  }
 
   const shiftColumn = (direction: 'left' | 'right') => {
     const currentIndex = columns.indexOf(displayedColumn);
@@ -59,10 +74,16 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     } else {
       return;
     }
-
     if (middleColumnChangedState) {
       setMiddleColumnChangedState(!middleColumnChangedState);
     }
+    if (hasScrolled) {
+      setHasScrolled(false);
+    }
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+    setShowArrows(true);
   };
 
   useEffect(() => {
@@ -84,6 +105,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       setMiddleColumnChangedState(!middleColumnChangedState);
     };
 
+    // Focus Toggle
     if (middleColumnChangedState !== isCardButtonClicked) {
       if (isCardButtonClicked) {
         console.log('Focus Mode OFF!');
@@ -98,11 +120,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
       debounceTimeout.current = setTimeout(() => {
         setShowArrows(true);
-      }, 300);
-    };
-    const handleScroll = () => {
-     setShowArrows(false);
-     handleVisibility();
+      }, 100);
     };
     const handleResize = () => {
       const newNumColumns = getNumColumns();
@@ -122,7 +140,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       if (debounceTimeout.current) {
         clearTimeout(debounceTimeout.current);
       }
-
     };
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
 
@@ -134,7 +151,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         const filteredData = response.data.filter((card: TileCard) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           return cellNumber >= 1 && cellNumber <= 8;
-
         });
         // Sort the filtered data
         filteredData.sort((a: TileCard, b: TileCard) => {
@@ -146,13 +162,11 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           }
           return 0;
         });
-
         setTileCards(filteredData);
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
     };
-
     fetchData();
   }, []);
 
