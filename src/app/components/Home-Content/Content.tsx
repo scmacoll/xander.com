@@ -55,22 +55,22 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   console.log("current index:", columns.indexOf(displayedColumn))
 
   const handleScroll = () => {
-    setHasScrolled(true);
-    setShowArrows(false);
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
-    }
-    debounceTimeout.current = setTimeout(() => {
-      setShowArrows(true);
-    }, 100);
+    // setHasScrolled(true);
+    // setShowArrows(false);
+    // if (debounceTimeout.current) {
+    //   clearTimeout(debounceTimeout.current);
+    // }
+    // debounceTimeout.current = setTimeout(() => {
+    //   setShowArrows(true);
+    // }, 100);
   }
 
   const shiftColumn = (direction: 'left' | 'right') => {
     const currentIndex = columns.indexOf(displayedColumn);
     if (direction === 'right' && currentIndex > 1) {
-        setDisplayedColumn(columns[currentIndex - 1]);
+      setDisplayedColumn(columns[currentIndex - 1]);
     } else if (direction === 'left' && currentIndex < 7) {
-        setDisplayedColumn(columns[currentIndex + 1]);
+      setDisplayedColumn(columns[currentIndex + 1]);
     } else {
       return;
     }
@@ -237,7 +237,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
                 [styles.middleCard]: isSecondColumn,
                 [styles.rightCard]: isThirdColumn,
                 [styles.changedState]:
-                  (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+                (isFirstColumn || isThirdColumn) && middleColumnChangedState,
               })}
             >
               <Card card={card} />

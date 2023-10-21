@@ -125,14 +125,99 @@
 
 .similarRarrow {
   position: fixed;
+  padding-right: 1.4em;
   top: 50%;
   right: 0;
-  padding-right: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
   pointer-events: none;
 }
-@media (max-width: 749px) {
+@media (min-width: 1190px) {
+  .similarRarrow {
+    padding-right: 1.4em;
+  }
+}
+@media (max-width: 1189px) and (min-width: 1180px) {
+  .similarRarrow {
+    padding-right: 0.9em;
+  }
+}
+@media (max-width: 1179px) and (min-width: 1170px) {
+  .similarRarrow {
+    padding-right: 0.8em;
+  }
+}
+@media (max-width: 1169px) and (min-width: 1160px) {
+  .similarRarrow {
+    padding-right: 0.7em;
+  }
+}
+@media (max-width: 1159px) and (min-width: 1150px) {
+  .similarRarrow {
+    padding-right: 0.6em;
+  }
+}
+@media (max-width: 1149px) and (min-width: 1140px) {
+  .similarRarrow {
+    padding-right: 0.5em;
+  }
+}
+@media (max-width: 1139px) and (min-width: 1130px) {
+  .similarRarrow {
+    padding-right: 0.4em;
+  }
+}
+@media (max-width: 1129px) and (min-width: 1120px) {
+  .similarRarrow {
+    padding-right: 0.3em;
+  }
+}
+@media (max-width: 1119px) and (min-width: 1110px) {
+  .similarRarrow {
+    padding-right: 0.2em;
+  }
+}
+@media (max-width: 1109px) and (min-width: 1100px) {
+  .similarRarrow {
+    padding-right: 0.1em;
+  }
+}
+@media (max-width: 1099px) and (min-width: 795px) {
+  .similarRarrow {
+    padding-right: 1em;
+  }
+}
+@media (max-width: 794px) and (min-width: 785px) {
+  .similarRarrow {
+    padding-right: 0.9em;
+  }
+}
+@media (max-width: 784px) and (min-width: 775px) {
+  .similarRarrow {
+    padding-right: 0.8em;
+  }
+}
+@media (max-width: 774px) and (min-width: 765px) {
+  .similarRarrow {
+    padding-right: 0.7em;
+  }
+}
+@media (max-width: 764px) and (min-width: 755px) {
+  .similarRarrow {
+    padding-right: 0.6em;
+  }
+}
+@media (max-width: 754px) and (min-width: 745px) {
+  .similarRarrow {
+    padding-right: 0.5em;
+  }
+}
+@media (max-width: 744px) and (min-width: 725px) {
+  .similarRarrow {
+    padding-right: 0.4em;
+  }
+}
+@media (max-width: 724px) {
   .similarRarrow {
     padding-right: 0.8em;
   }
@@ -140,14 +225,99 @@
 
 .similarLarrow {
   position: fixed;
+  padding-left: 1.4em;
   top: 50%;
   left: 0;
-  padding-left: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
   pointer-events: none;
 }
-@media (max-width: 749px) {
+@media (min-width: 1190px) {
+  .similarLarrow {
+    padding-left: 1.4em;
+  }
+}
+@media (max-width: 1189px) and (min-width: 1180px) {
+  .similarLarrow {
+    padding-left: 0.9em;
+  }
+}
+@media (max-width: 1179px) and (min-width: 1170px) {
+  .similarLarrow {
+    padding-left: 0.8em;
+  }
+}
+@media (max-width: 1169px) and (min-width: 1160px) {
+  .similarLarrow {
+    padding-left: 0.7em;
+  }
+}
+@media (max-width: 1159px) and (min-width: 1150px) {
+  .similarLarrow {
+    padding-left: 0.6em;
+  }
+}
+@media (max-width: 1149px) and (min-width: 1140px) {
+  .similarLarrow {
+    padding-left: 0.5em;
+  }
+}
+@media (max-width: 1139px) and (min-width: 1130px) {
+  .similarLarrow {
+    padding-left: 0.4em;
+  }
+}
+@media (max-width: 1129px) and (min-width: 1120px) {
+  .similarLarrow {
+    padding-left: 0.3em;
+  }
+}
+@media (max-width: 1119px) and (min-width: 1110px) {
+  .similarLarrow {
+    padding-left: 0.2em;
+  }
+}
+@media (max-width: 1109px) and (min-width: 1100px) {
+  .similarLarrow {
+    padding-left: 0.1em;
+  }
+}
+@media (max-width: 1099px) and (min-width: 795px) {
+  .similarLarrow {
+    padding-left: 1em;
+  }
+}
+@media (max-width: 794px) and (min-width: 785px) {
+  .similarLarrow {
+    padding-left: 0.9em;
+  }
+}
+@media (max-width: 784px) and (min-width: 775px) {
+  .similarLarrow {
+    padding-left: 0.8em;
+  }
+}
+@media (max-width: 774px) and (min-width: 765px) {
+  .similarLarrow {
+    padding-left: 0.7em;
+  }
+}
+@media (max-width: 764px) and (min-width: 755px) {
+  .similarLarrow {
+    padding-left: 0.6em;
+  }
+}
+@media (max-width: 754px) and (min-width: 745px) {
+  .similarLarrow {
+    padding-left: 0.5em;
+  }
+}
+@media (max-width: 744px) and (min-width: 725px) {
+  .similarLarrow {
+    padding-left: 0.4em;
+  }
+}
+@media (max-width: 724px) {
   .similarLarrow {
     padding-left: 0.8em;
   }
@@ -155,13 +325,17 @@
 
 .hiddenArrow {
   opacity: 0;
-  pointer-events: none; /* Extra insurance to prevent clicks */
+}
+
+.transArrow {
+  opacity: 0;
+  transition: opacity 0.1ms ease-in-out; /* Transition effect applies only here */
 }
 
 .visibleArrow {
   opacity: 1;
   pointer-events: all;
-  transition: opacity 2s ease-in-out; /* Transition effect applies only here */
+  transition: opacity 1s ease-in-out; /* Transition effect applies only here */
 }
 
 .circleButton {

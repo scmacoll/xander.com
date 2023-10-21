@@ -152,41 +152,148 @@
 
 .similarRarrow {
   position: fixed;
+  padding-right: 1.4em;
   top: 50%;
   right: 0;
-  padding-right: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
   pointer-events: none;
 
-  @media (max-width: 749px) {
+  @media (min-width: 1190px) {
+    padding-right: 1.4em;
+  }
+  @media (max-width: 1189px) and (min-width: 1180px) {
+    padding-right: .9em;
+  }
+  @media (max-width: 1179px) and (min-width: 1170px) {
     padding-right: .8em;
-    }
+  }
+  @media (max-width: 1169px) and (min-width: 1160px) {
+    padding-right: .7em;
+  }
+  @media (max-width: 1159px) and (min-width: 1150px) {
+    padding-right: .6em;
+  }
+  @media (max-width: 1149px) and (min-width: 1140px) {
+    padding-right: .5em;
+  }
+  @media (max-width: 1139px) and (min-width: 1130px) {
+    padding-right: .4em;
+  }
+  @media (max-width: 1129px) and (min-width: 1120px) {
+    padding-right: .3em;
+  }
+  @media (max-width: 1119px) and (min-width: 1110px) {
+    padding-right: .2em;
+  }
+  @media (max-width: 1109px) and (min-width: 1100px) {
+    padding-right: .1em;
+  }
+  @media (max-width: 1099px) and (min-width: 795px) {
+    padding-right: 1em;
+  }
+  @media (max-width: 794px) and (min-width: 785px) {
+    padding-right: .9em;
+  }
+  @media (max-width: 784px) and (min-width: 775px) {
+    padding-right: .8em;
+  }
+  @media (max-width: 774px) and (min-width: 765px) {
+    padding-right: .7em;
+  }
+  @media (max-width: 764px) and (min-width: 755px) {
+    padding-right: .6em;
+  }
+  @media (max-width: 754px) and (min-width: 745px) {
+    padding-right: .5em;
+  }
+  @media (max-width: 744px) and (min-width: 725px) {
+    padding-right: .4em;
+  }
+  @media (max-width: 724px) {
+    padding-right: .8em;
+  }
 }
 
 .similarLarrow {
   position: fixed;
+  padding-left: 1.4em;
   top: 50%;
   left: 0;
-  padding-left: 1.4em;
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
   pointer-events: none;
 
-  @media (max-width: 749px) {
+  @media (min-width: 1190px) {
+    padding-left: 1.4em;
+  }
+  @media (max-width: 1189px) and (min-width: 1180px) {
+    padding-left: .9em;
+  }
+  @media (max-width: 1179px) and (min-width: 1170px) {
+    padding-left: .8em;
+  }
+  @media (max-width: 1169px) and (min-width: 1160px) {
+    padding-left: .7em;
+  }
+  @media (max-width: 1159px) and (min-width: 1150px) {
+    padding-left: .6em;
+  }
+  @media (max-width: 1149px) and (min-width: 1140px) {
+    padding-left: .5em;
+  }
+  @media (max-width: 1139px) and (min-width: 1130px) {
+    padding-left: .4em;
+  }
+  @media (max-width: 1129px) and (min-width: 1120px) {
+    padding-left: .3em;
+  }
+  @media (max-width: 1119px) and (min-width: 1110px) {
+    padding-left: .2em;
+  }
+  @media (max-width: 1109px) and (min-width: 1100px) {
+    padding-left: .1em;
+  }
+  @media (max-width: 1099px) and (min-width: 795px) {
+    padding-left: 1em;
+  }
+  @media (max-width: 794px) and (min-width: 785px) {
+    padding-left: .9em;
+  }
+  @media (max-width: 784px) and (min-width: 775px) {
+    padding-left: .8em;
+  }
+  @media (max-width: 774px) and (min-width: 765px) {
+    padding-left: .7em;
+  }
+  @media (max-width: 764px) and (min-width: 755px) {
+    padding-left: .6em;
+  }
+  @media (max-width: 754px) and (min-width: 745px) {
+    padding-left: .5em;
+  }
+  @media (max-width: 744px) and (min-width: 725px) {
+    padding-left: .4em;
+  }
+  @media (max-width: 724px) {
     padding-left: .8em;
   }
 }
 
 .hiddenArrow {
   opacity: 0;
-  pointer-events: none; /* Extra insurance to prevent clicks */
+  //pointer-events: none; /* Extra insurance to prevent clicks */
+}
+
+.transArrow {
+  opacity: 0;
+  transition: opacity .100ms ease-in-out; /* Transition effect applies only here */
 }
 
 .visibleArrow {
   opacity: 1;
   pointer-events: all;
-  transition: opacity 2s ease-in-out; /* Transition effect applies only here */
+  transition: opacity 1s ease-in-out; /* Transition effect applies only here */
 }
 
 
@@ -214,6 +321,20 @@
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
 }
+
+//.similarRarrow:hover,
+//.similarLarrow:hover {
+//  .visibleArrow {
+//    opacity: 1;
+//    pointer-events: all;
+//    transition: opacity 0.5s ease-in-out; /* Transition effect applies only here */
+//  }
+//  .hiddenArrow {
+//    opacity: 1;
+//    pointer-events: all;
+//    transition: opacity 0.5s ease-in-out; /* Transition effect applies only here */
+//  }
+//}
 
 .similarRarrow a,
 .similarLarrow a,
