@@ -52,8 +52,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
-  console.log("current index:", columns.indexOf(displayedColumn))
-
   const handleScroll = () => {
     setShowArrows(false);
     if (debounceTimeout.current) {
@@ -66,10 +64,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
   const shiftColumn = (direction: 'left' | 'right') => {
     handleScroll();
-    // Use a function to ensure we have the most recent state.
+
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
-      console.log("current index", currentIndex)
 
       let newIndex = currentIndex;
       if (direction === 'right' && currentIndex > 1) {
@@ -78,10 +75,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         newIndex = currentIndex + 1;
       }
 
-      // Update the indexNumber here within the same state update cycle.
       setIndexNumber(newIndex);
 
-      // Return the new column value to update.
+      // displayedColumn value index #
       return columns[newIndex];
     });
     if (middleColumnChangedState) {
@@ -131,6 +127,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         toggleChangedState();
       }
       setNumColumns(newNumColumns);
+
       setShowArrows(false);
       handleVisibility();
     };
