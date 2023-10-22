@@ -50,22 +50,21 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [showArrows, setShowArrows] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   console.log("current index:", columns.indexOf(displayedColumn))
 
   const handleScroll = () => {
-    // setHasScrolled(true);
-    // setShowArrows(false);
-    // if (debounceTimeout.current) {
-    //   clearTimeout(debounceTimeout.current);
-    // }
-    // debounceTimeout.current = setTimeout(() => {
-    //   setShowArrows(true);
-    // }, 100);
+    setShowArrows(false);
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+    debounceTimeout.current = setTimeout(() => {
+      setShowArrows(true);
+    }, 100);
   }
 
   const shiftColumn = (direction: 'left' | 'right') => {
+    handleScroll();
     const currentIndex = columns.indexOf(displayedColumn);
     if (direction === 'right' && currentIndex > 1) {
       setDisplayedColumn(columns[currentIndex - 1]);
@@ -77,13 +76,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     if (middleColumnChangedState) {
       setMiddleColumnChangedState(!middleColumnChangedState);
     }
-    if (hasScrolled) {
-      setHasScrolled(false);
-    }
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
-    }
-    setShowArrows(true);
   };
 
   useEffect(() => {

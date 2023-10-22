@@ -7,6 +7,7 @@
   justify-content: center;
   align-content: center;
   margin: 0 auto;
+  overrflow: hidden;
 }
 
 @media (min-width: 1100px) {
@@ -120,7 +121,7 @@
 }
 
 .hidden {
-  display: hidden;
+  display: none;
 }
 
 .similarRarrow {
@@ -325,6 +326,7 @@
 
 .hiddenArrow {
   opacity: 0;
+  pointer-events: none; /* Extra insurance to prevent clicks */
 }
 
 .transArrow {

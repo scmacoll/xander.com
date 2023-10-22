@@ -7,6 +7,7 @@
   justify-content: center;
   align-content: center;
   margin: 0 auto;
+  overrflow: hidden;
 }
 
 
@@ -100,7 +101,6 @@
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
 }
 
-
 .card {
   display: inline-block;
   justify-content: center;
@@ -147,7 +147,7 @@
 }
 
 .hidden {
-  display: hidden;
+  display: none;
 }
 
 .similarRarrow {
@@ -282,7 +282,7 @@
 
 .hiddenArrow {
   opacity: 0;
-  //pointer-events: none; /* Extra insurance to prevent clicks */
+  pointer-events: none; /* Extra insurance to prevent clicks */
 }
 
 .transArrow {
