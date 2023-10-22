@@ -50,6 +50,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [showArrows, setShowArrows] = useState(true);
+  const [indexNumber, setIndexNumber] = useState(4);
 
   console.log("current index:", columns.indexOf(displayedColumn))
 
@@ -65,16 +66,26 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
   const shiftColumn = (direction: 'left' | 'right') => {
     handleScroll();
-    const currentIndex = columns.indexOf(displayedColumn);
-    if (direction === 'right' && currentIndex > 1) {
-      setDisplayedColumn(columns[currentIndex - 1]);
-    } else if (direction === 'left' && currentIndex < 7) {
-      setDisplayedColumn(columns[currentIndex + 1]);
-    } else {
-      return;
-    }
+    // Use a function to ensure we have the most recent state.
+    setDisplayedColumn((prevDisplayedColumn) => {
+      const currentIndex = columns.indexOf(prevDisplayedColumn);
+      console.log("current index", currentIndex)
+
+      let newIndex = currentIndex;
+      if (direction === 'right' && currentIndex > 1) {
+        newIndex = currentIndex - 1;
+      } else if (direction === 'left' && currentIndex < 7) {
+        newIndex = currentIndex + 1;
+      }
+
+      // Update the indexNumber here within the same state update cycle.
+      setIndexNumber(newIndex);
+
+      // Return the new column value to update.
+      return columns[newIndex];
+    });
     if (middleColumnChangedState) {
-      setMiddleColumnChangedState(!middleColumnChangedState);
+      setMiddleColumnChangedState((prevState) => !prevState);
     }
   };
 
@@ -165,7 +176,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
-        <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}>
+        <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
+             style={{ display: indexNumber === 7 ? 'none' : 'block'}}
+        >
           <div
             className={styles.circleButton}
             onClick={() => shiftColumn('left')}
@@ -173,7 +186,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           </div>
           <FontAwesomeIcon icon={faChevronRight} size="xl"/>
         </div>
-        <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}>
+        <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
+             style={{ display: indexNumber === 1 ? 'none' : 'block'}}
+        >
           <div
             className={styles.circleButton}
             onClick={() => shiftColumn('right')}
