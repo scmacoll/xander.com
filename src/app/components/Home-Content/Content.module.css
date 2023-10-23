@@ -399,4 +399,8 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.currentPage {
+  border: white;
+}
+
 /*# sourceMappingURL=Content.module.css.map */

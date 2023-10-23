@@ -38,6 +38,7 @@ export type TileCard = {
 };
 
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+const pageNumber = [-5, -4, -3, -2, 1, 2, 3, 4, 5];
 
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
@@ -49,6 +50,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
+  const [displayedNumber, setDisplayedNumber] = useState<number>(1);
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
@@ -76,9 +78,21 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       }
 
       setIndexNumber(newIndex);
-
       // displayedColumn value index #
       return columns[newIndex];
+    });
+
+    setDisplayedNumber((prevSetPage) => {
+      const currentIndex = columns.indexOf(prevSetPage);
+
+      let newIndex = currentIndex;
+      if (direction === 'right' && currentIndex) {
+        newIndex = currentIndex - 1;
+      } else if (direction === 'left' && currentIndex) {
+        newIndex = currentIndex + 2;
+      }
+
+      return pageNumber[newIndex];
     });
     if (middleColumnChangedState) {
       setMiddleColumnChangedState((prevState) => !prevState);
@@ -204,7 +218,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         )}
 
         {tileCards.map((card, index) => {
-          const cellNumber = parseInt(card.cell_name.slice(0, -1));
           const cellLetter = card.cell_name.slice(-1);
 
           const currentIndex = columns.indexOf(displayedColumn);
@@ -253,16 +266,34 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       </section>
 
       <div className={styles.pagination}>
-        {Array.from({ length: 5 }, (_, index) => (
-          <a
-            key={index}
-            href={`#page-${index + 1}`}
-            className={styles.pageNumber}
-          >
-            {index + 1}
-          </a>
-        ))}
+
+        {pageNumber.map((num, index) => {
+          // const currentPage = pageNumber.indexOf(displayedNumber);
+          return (
+            <a
+              key={index}
+              href={`#page-${index + 1}`}
+              className={styles.pageNumber}
+            >
+              {index + 2}
+            </a>
+          );
+        })}
+
+        {/*{Array.from({length: 5}, (_, index) => {*/}
+        {/*  const currentPage = pageNumber.indexOf(displayedNumber);*/}
+        {/*  return (*/}
+        {/*    <a*/}
+        {/*      key={index}*/}
+        {/*      href={`#page-${index + 1}`}*/}
+        {/*      className={styles.pageNumber}*/}
+        {/*    >*/}
+        {/*      {index + 2}*/}
+        {/*    </a>*/}
+        {/*  );*/}
+        {/*})}*/}
       </div>
+
     </div>
   );
 };
