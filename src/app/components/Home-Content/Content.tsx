@@ -13,6 +13,7 @@ import {
   faChevronRight,
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
+import { indexOf } from "lodash";
 // import {clearTimeout} from "timers";
 
 
@@ -50,7 +51,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
-  const [displayedNumber, setDisplayedNumber] = useState('1');
+  const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
@@ -68,24 +69,49 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         newIndex = currentIndex + 1;
       }
 
+      const newColumn = columns[newIndex];
       setIndexNumber(newIndex);
-      setDisplayedNumber(pageNumber[newIndex]); // Corrected here
+      setDisplayedPageNumber(pageNumber[newIndex]); // Corrected here
       // displayedColumn value index #
-      return columns[newIndex];
+      return newColumn;
     });
   };
   const getPageNumbersSubset = () => {
     // Step 1: Find the current index based on the displayedColumn.
     const currentIndex = columns.indexOf(displayedColumn);
-
-    // Step 2: Calculate the start and end indices for slicing pageNumber array.
+    // Define default start and end indexes for slicing.
+    let start = currentIndex - 2;
+    let end = currentIndex + 3; // We use +3 because slice does not include the end index.
+    // Adjust if we're at the start of the array.
+    if (currentIndex < 2) {
+      start = Math.max(currentIndex - 1, 0);
+      end = start + 3; // Trying to get a subset of 3 elements.
+    }
+    // Adjust if we're at the end of the array.
+    else if (currentIndex >= columns.length - 2) {
+      end = Math.min(currentIndex + 2, pageNumber.length);
+      start = end - 3; // Trying to get a subset of 3 elements, going backward.
+    }
     // Ensure that we do not go beyond the array bounds.
-    const start = Math.max(currentIndex - 2, 0);
-    const end = Math.min(currentIndex + 3, pageNumber.length); // We use +3 because slice does not include the end index.
-
+    start = Math.max(start, 0);
+    end = Math.min(end, pageNumber.length);
     // Step 3: Slice the pageNumber array and return the new subset.
     return pageNumber.slice(start, end);
   };
+
+  const togglePageNumber = (clickedNumber: string) => {
+    const currentNumber = pageNumber.indexOf(displayedPageNumber);
+    const newNumber = pageNumber.indexOf(clickedNumber);
+
+   if (newNumber === currentNumber - 1) {
+     shiftColumn('right');
+   } else if (newNumber === currentNumber + 1) {
+     shiftColumn('left');
+   } else {
+     return;
+   }
+   return true;
+  }
 
   const handleScroll = () => {
     setShowArrows(false);
@@ -240,7 +266,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const isThirdColumn = cellLetter === thirdColumn;
 
           console.log("displayed Column: ", displayedColumn);
-          console.log("displayed Number: ", displayedNumber);
+          console.log("displayed Number: ", displayedPageNumber);
 
           if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
             return null;
@@ -273,10 +299,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           return currentPageNumbers.map((num, index) => (
             <a
               key={index}
-              href={`#page-${num}`}
-              className={`${styles.pageNumber} ${num === displayedNumber ? styles.active : ''}`}
+              className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
               onClick={() => {
-                setDisplayedNumber(num);
+                togglePageNumber(num);
               }}
             >
               {num}
@@ -284,49 +309,49 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           ));
         })()}
 
-        {/*{pageNumber.map((num, index) => {*/}
-        {/*  // const currentPage = pageNumber.indexOf(displayedNumber);*/}
-        {/*  return (*/}
-        {/*    <a*/}
-        {/*      key={index}*/}
-        {/*      href={`#page-${index + 1}`}*/}
-        {/*      className={styles.pageNumber}*/}
-        {/*    >*/}
-        {/*      {num}*/}
-        {/*    </a>*/}
-        {/*  );*/}
-        {/*})}*/}
+          {/*{pageNumber.map((num, index) => {*/}
+          {/*  // const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
+          {/*  return (*/}
+          {/*    <a*/}
+          {/*      key={index}*/}
+          {/*      href={`#page-${index + 1}`}*/}
+          {/*      className={styles.pageNumber}*/}
+          {/*    >*/}
+          {/*      {num}*/}
+          {/*    </a>*/}
+          {/*  );*/}
+          {/*})}*/}
 
-        {/*{(() => {*/}
-        {/*  const currentPageWindow = calculatePaginationWindow(displayedNumber);*/}
+          {/*{(() => {*/}
+          {/*  const currentPageWindow = calculatePaginationWindow(displayedPageNumber);*/}
 
-        {/*  // Render the page numbers*/}
-        {/*  return currentPageWindow.map((num, index) => (*/}
-        {/*    <a*/}
-        {/*      key={index}*/}
-        {/*      href={`#page-${num}`}*/}
-        {/*      className={`${styles.pageNumber} ${num === displayedNumber ? styles.active : ''}`}*/}
-        {/*      onClick={() => {*/}
-        {/*        setDisplayedNumber(num);*/}
-        {/*      }}*/}
-        {/*    >*/}
-        {/*      {num}*/}
-        {/*    </a>*/}
-        {/*  ));*/}
-        {/*})()}*/}
+          {/*  // Render the page numbers*/}
+          {/*  return currentPageWindow.map((num, index) => (*/}
+          {/*    <a*/}
+          {/*      key={index}*/}
+          {/*      href={`#page-${num}`}*/}
+          {/*      className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.active : ''}`}*/}
+          {/*      onClick={() => {*/}
+          {/*        setDisplayedPageNumber(num);*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      {num}*/}
+          {/*    </a>*/}
+          {/*  ));*/}
+          {/*})()}*/}
 
-        {/*{Array.from({length: 5}, (_, index) => {*/}
-        {/*  const currentPage = pageNumber.indexOf(displayedNumber);*/}
-        {/*  return (*/}
-        {/*    <a*/}
-        {/*      key={index}*/}
-        {/*      href={`#page-${index + 1}`}*/}
-        {/*      className={styles.pageNumber}*/}
-        {/*    >*/}
-        {/*      {index + 2}*/}
-        {/*    </a>*/}
-        {/*  );*/}
-        {/*})}*/}
+          {/*{Array.from({length: 5}, (_, index) => {*/}
+          {/*  const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
+          {/*  return (*/}
+          {/*    <a*/}
+          {/*      key={index}*/}
+          {/*      href={`#page-${index + 1}`}*/}
+          {/*      className={styles.pageNumber}*/}
+          {/*    >*/}
+          {/*      {index + 2}*/}
+          {/*    </a>*/}
+          {/*  );*/}
+          {/*})}*/}
 
       </div>
 
