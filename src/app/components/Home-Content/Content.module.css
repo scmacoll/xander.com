@@ -400,7 +400,7 @@
 }
 
 .currentPage {
-  border: white;
+  border: 2px solid white; /* just an example if you want a border */
 }
 
 /*# sourceMappingURL=Content.module.css.map */

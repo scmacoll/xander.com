@@ -38,7 +38,7 @@ export type TileCard = {
 };
 
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-const pageNumber = [-5, -4, -3, -2, 1, 2, 3, 4, 5];
+const pageNumber = ['-5', '-4', '-3', '-2', '1', '2', '3', '4', '5'];
 
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
@@ -50,19 +50,10 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
-  const [displayedNumber, setDisplayedNumber] = useState<number>(1);
+  const [displayedNumber, setDisplayedNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
-  const handleScroll = () => {
-    setShowArrows(false);
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
-    }
-    debounceTimeout.current = setTimeout(() => {
-      setShowArrows(true);
-    }, 100);
-  }
 
   const shiftColumn = (direction: 'left' | 'right') => {
     handleScroll();
@@ -78,25 +69,32 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       }
 
       setIndexNumber(newIndex);
+      setDisplayedNumber(pageNumber[newIndex]); // Corrected here
       // displayedColumn value index #
       return columns[newIndex];
     });
+  };
+  const getPageNumbersSubset = () => {
+    // Step 1: Find the current index based on the displayedColumn.
+    const currentIndex = columns.indexOf(displayedColumn);
 
-    setDisplayedNumber((prevSetPage) => {
-      const currentIndex = columns.indexOf(prevSetPage);
+    // Step 2: Calculate the start and end indices for slicing pageNumber array.
+    // Ensure that we do not go beyond the array bounds.
+    const start = Math.max(currentIndex - 2, 0);
+    const end = Math.min(currentIndex + 3, pageNumber.length); // We use +3 because slice does not include the end index.
 
-      let newIndex = currentIndex;
-      if (direction === 'right' && currentIndex) {
-        newIndex = currentIndex - 1;
-      } else if (direction === 'left' && currentIndex) {
-        newIndex = currentIndex + 2;
-      }
+    // Step 3: Slice the pageNumber array and return the new subset.
+    return pageNumber.slice(start, end);
+  };
 
-      return pageNumber[newIndex];
-    });
-    if (middleColumnChangedState) {
-      setMiddleColumnChangedState((prevState) => !prevState);
+  const handleScroll = () => {
+    setShowArrows(false);
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
     }
+    debounceTimeout.current = setTimeout(() => {
+      setShowArrows(true);
+    }, 100);
   };
 
   useEffect(() => {
@@ -241,6 +239,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const isSecondColumn = cellLetter === secondColumn;
           const isThirdColumn = cellLetter === thirdColumn;
 
+          console.log("displayed Column: ", displayedColumn);
+          console.log("displayed Number: ", displayedNumber);
+
           if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
             return null;
           }
@@ -266,19 +267,53 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       </section>
 
       <div className={styles.pagination}>
-
-        {pageNumber.map((num, index) => {
-          // const currentPage = pageNumber.indexOf(displayedNumber);
-          return (
+        {(() => {
+          const currentPageNumbers = getPageNumbersSubset();
+          // Render the page numbers
+          return currentPageNumbers.map((num, index) => (
             <a
               key={index}
-              href={`#page-${index + 1}`}
-              className={styles.pageNumber}
+              href={`#page-${num}`}
+              className={`${styles.pageNumber} ${num === displayedNumber ? styles.active : ''}`}
+              onClick={() => {
+                setDisplayedNumber(num);
+              }}
             >
-              {index + 2}
+              {num}
             </a>
-          );
-        })}
+          ));
+        })()}
+
+        {/*{pageNumber.map((num, index) => {*/}
+        {/*  // const currentPage = pageNumber.indexOf(displayedNumber);*/}
+        {/*  return (*/}
+        {/*    <a*/}
+        {/*      key={index}*/}
+        {/*      href={`#page-${index + 1}`}*/}
+        {/*      className={styles.pageNumber}*/}
+        {/*    >*/}
+        {/*      {num}*/}
+        {/*    </a>*/}
+        {/*  );*/}
+        {/*})}*/}
+
+        {/*{(() => {*/}
+        {/*  const currentPageWindow = calculatePaginationWindow(displayedNumber);*/}
+
+        {/*  // Render the page numbers*/}
+        {/*  return currentPageWindow.map((num, index) => (*/}
+        {/*    <a*/}
+        {/*      key={index}*/}
+        {/*      href={`#page-${num}`}*/}
+        {/*      className={`${styles.pageNumber} ${num === displayedNumber ? styles.active : ''}`}*/}
+        {/*      onClick={() => {*/}
+        {/*        setDisplayedNumber(num);*/}
+        {/*      }}*/}
+        {/*    >*/}
+        {/*      {num}*/}
+        {/*    </a>*/}
+        {/*  ));*/}
+        {/*})()}*/}
 
         {/*{Array.from({length: 5}, (_, index) => {*/}
         {/*  const currentPage = pageNumber.indexOf(displayedNumber);*/}
@@ -292,6 +327,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
         {/*    </a>*/}
         {/*  );*/}
         {/*})}*/}
+
       </div>
 
     </div>
