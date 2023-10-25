@@ -13,8 +13,6 @@ import {
   faChevronRight,
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
-import { indexOf } from "lodash";
-// import {clearTimeout} from "timers";
 
 
 interface ContentProps {
@@ -57,7 +55,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
 
   const shiftColumn = (direction: 'left' | 'right') => {
-    handleScroll();
 
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
@@ -75,6 +72,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       // displayedColumn value index #
       return newColumn;
     });
+    if (middleColumnChangedState) {
+      setMiddleColumnChangedState((prevState) => !prevState);
+    }
   };
   const getPageNumbersSubset = () => {
     // Step 1: Find the current index based on the displayedColumn.
@@ -103,25 +103,25 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     const currentNumber = pageNumber.indexOf(displayedPageNumber);
     const newNumber = pageNumber.indexOf(clickedNumber);
 
-   if (newNumber === currentNumber - 1) {
-     shiftColumn('right');
-   } else if (newNumber === currentNumber + 1) {
-     shiftColumn('left');
-   } else {
-     return;
-   }
-   return true;
+    if (newNumber === currentNumber - 1) {
+      shiftColumn('right');
+    } else if (newNumber === currentNumber + 1) {
+      shiftColumn('left');
+    } else {
+      return;
+    }
+    return true;
   }
 
-  const handleScroll = () => {
-    setShowArrows(false);
-    if (debounceTimeout.current) {
-      clearTimeout(debounceTimeout.current);
-    }
-    debounceTimeout.current = setTimeout(() => {
-      setShowArrows(true);
-    }, 100);
-  };
+  // const handleScroll = () => {
+  //   setShowArrows(false);
+  //   if (debounceTimeout.current) {
+  //     clearTimeout(debounceTimeout.current);
+  //   }
+  //   debounceTimeout.current = setTimeout(() => {
+  //     setShowArrows(true);
+  //   }, 100);
+  // };
 
   useEffect(() => {
     const elements = document.querySelectorAll(
@@ -170,10 +170,10 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       handleVisibility();
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      // window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
       if (debounceTimeout.current) {
         clearTimeout(debounceTimeout.current);
@@ -309,49 +309,49 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           ));
         })()}
 
-          {/*{pageNumber.map((num, index) => {*/}
-          {/*  // const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
-          {/*  return (*/}
-          {/*    <a*/}
-          {/*      key={index}*/}
-          {/*      href={`#page-${index + 1}`}*/}
-          {/*      className={styles.pageNumber}*/}
-          {/*    >*/}
-          {/*      {num}*/}
-          {/*    </a>*/}
-          {/*  );*/}
-          {/*})}*/}
+        {/*{pageNumber.map((num, index) => {*/}
+        {/*  // const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
+        {/*  return (*/}
+        {/*    <a*/}
+        {/*      key={index}*/}
+        {/*      href={`#page-${index + 1}`}*/}
+        {/*      className={styles.pageNumber}*/}
+        {/*    >*/}
+        {/*      {num}*/}
+        {/*    </a>*/}
+        {/*  );*/}
+        {/*})}*/}
 
-          {/*{(() => {*/}
-          {/*  const currentPageWindow = calculatePaginationWindow(displayedPageNumber);*/}
+        {/*{(() => {*/}
+        {/*  const currentPageWindow = calculatePaginationWindow(displayedPageNumber);*/}
 
-          {/*  // Render the page numbers*/}
-          {/*  return currentPageWindow.map((num, index) => (*/}
-          {/*    <a*/}
-          {/*      key={index}*/}
-          {/*      href={`#page-${num}`}*/}
-          {/*      className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.active : ''}`}*/}
-          {/*      onClick={() => {*/}
-          {/*        setDisplayedPageNumber(num);*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      {num}*/}
-          {/*    </a>*/}
-          {/*  ));*/}
-          {/*})()}*/}
+        {/*  // Render the page numbers*/}
+        {/*  return currentPageWindow.map((num, index) => (*/}
+        {/*    <a*/}
+        {/*      key={index}*/}
+        {/*      href={`#page-${num}`}*/}
+        {/*      className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.active : ''}`}*/}
+        {/*      onClick={() => {*/}
+        {/*        setDisplayedPageNumber(num);*/}
+        {/*      }}*/}
+        {/*    >*/}
+        {/*      {num}*/}
+        {/*    </a>*/}
+        {/*  ));*/}
+        {/*})()}*/}
 
-          {/*{Array.from({length: 5}, (_, index) => {*/}
-          {/*  const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
-          {/*  return (*/}
-          {/*    <a*/}
-          {/*      key={index}*/}
-          {/*      href={`#page-${index + 1}`}*/}
-          {/*      className={styles.pageNumber}*/}
-          {/*    >*/}
-          {/*      {index + 2}*/}
-          {/*    </a>*/}
-          {/*  );*/}
-          {/*})}*/}
+        {/*{Array.from({length: 5}, (_, index) => {*/}
+        {/*  const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
+        {/*  return (*/}
+        {/*    <a*/}
+        {/*      key={index}*/}
+        {/*      href={`#page-${index + 1}`}*/}
+        {/*      className={styles.pageNumber}*/}
+        {/*    >*/}
+        {/*      {index + 2}*/}
+        {/*    </a>*/}
+        {/*  );*/}
+        {/*})}*/}
 
       </div>
 

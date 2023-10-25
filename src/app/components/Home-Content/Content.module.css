@@ -393,6 +393,7 @@
   transition: background-color 0.2s ease;
   text-decoration: none;
   color: rgb(var(--foreground-rgb), 0.6);
+  cursor: pointer;
 }
 
 .pageNumber:hover {

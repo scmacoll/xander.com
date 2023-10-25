@@ -28,7 +28,8 @@
       ]
     },
     "noEmit": true,
-    "incremental": true
+    "incremental": true,
+    "sourceMap": true,
   },
   "include": [
     "next-env.d.ts",
