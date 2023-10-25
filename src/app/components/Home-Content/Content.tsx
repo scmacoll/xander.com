@@ -37,7 +37,7 @@ export type TileCard = {
 };
 
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-const pageNumber = ['-5', '-4', '-3', '-2', '1', '2', '3', '4', '5'];
+const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
 
 const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
@@ -77,26 +77,47 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     }
   };
   const getPageNumbersSubset = () => {
-    // Step 1: Find the current index based on the displayedColumn.
     const currentIndex = columns.indexOf(displayedColumn);
-    // Define default start and end indexes for slicing.
-    let start = currentIndex - 2;
-    let end = currentIndex + 3; // We use +3 because slice does not include the end index.
-    // Adjust if we're at the start of the array.
-    if (currentIndex < 2) {
-      start = Math.max(currentIndex - 1, 0);
-      end = start + 3; // Trying to get a subset of 3 elements.
+    if (numColumns === 3) {
+      let start = currentIndex - 4;
+      let end = currentIndex + 5; // We use +3 because slice does not include the end index.
+      // Adjust if we're at the start of the array.
+      if (currentIndex < 2) {
+        start = Math.max(currentIndex - 1, 0);
+        end = start + 3; // Trying to get a subset of 3 elements.
+      }
+      // Adjust if we're at the end of the array.
+      else if (currentIndex >= columns.length - 2) {
+        end = Math.min(currentIndex + 2, pageNumber.length);
+        start = end - 3; // Trying to get a subset of 3 elements, going backward.
+      }
+      // Ensure that we do not go beyond the array bounds.
+      start = Math.max(start, 0);
+      end = Math.min(end, pageNumber.length);
+      // Step 3: Slice the pageNumber array and return the new subset.
+      return pageNumber.slice(start, end);
+
+    } else {
+      // Step 1: Find the current index based on the displayedColumn.
+      // Define default start and end indexes for slicing.
+      let start = currentIndex - 2;
+      let end = currentIndex + 3; // We use +3 because slice does not include the end index.
+      // Adjust if we're at the start of the array.
+      if (currentIndex < 2) {
+        start = Math.max(currentIndex - 1, 0);
+        end = start + 3; // Trying to get a subset of 3 elements.
+      }
+      // Adjust if we're at the end of the array.
+      else if (currentIndex >= columns.length - 2) {
+        end = Math.min(currentIndex + 2, pageNumber.length);
+        start = end - 3; // Trying to get a subset of 3 elements, going backward.
+      }
+      // Ensure that we do not go beyond the array bounds.
+      start = Math.max(start, 0);
+      end = Math.min(end, pageNumber.length);
+      // Step 3: Slice the pageNumber array and return the new subset.
+      return pageNumber.slice(start, end);
     }
-    // Adjust if we're at the end of the array.
-    else if (currentIndex >= columns.length - 2) {
-      end = Math.min(currentIndex + 2, pageNumber.length);
-      start = end - 3; // Trying to get a subset of 3 elements, going backward.
-    }
-    // Ensure that we do not go beyond the array bounds.
-    start = Math.max(start, 0);
-    end = Math.min(end, pageNumber.length);
-    // Step 3: Slice the pageNumber array and return the new subset.
-    return pageNumber.slice(start, end);
   };
 
   const togglePageNumber = (clickedNumber: string) => {
@@ -106,6 +127,12 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     if (newNumber === currentNumber - 1) {
       shiftColumn('right');
     } else if (newNumber === currentNumber + 1) {
+      shiftColumn('left');
+    } else if (newNumber === currentNumber - 2) {
+      shiftColumn('right');
+      shiftColumn('right');
+    } else if (newNumber === currentNumber + 2) {
+      shiftColumn('left');
       shiftColumn('left');
     } else {
       return;
