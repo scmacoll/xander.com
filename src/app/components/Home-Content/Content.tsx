@@ -158,6 +158,54 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   //   }, 100);
   // };
 
+  // Function to get the data for the columns based on the current index
+  const getColumnData = (currentIndex) => {
+    // Default column data positions
+    let leftDataIndex = (currentIndex - 1 + columns.length) % columns.length;
+    let middleDataIndex = currentIndex;
+    let rightDataIndex = (currentIndex + 1) % columns.length;
+
+    // Adjustments for specific cases at the boundaries
+    if (currentIndex === 0) {
+      leftDataIndex = columns.length - 1; // Last item for the left column
+      middleDataIndex = 0; // First item for the middle column
+      rightDataIndex = 1; // Second item for the right column
+    } else if (currentIndex === columns.length - 1) {
+      leftDataIndex = columns.length - 2; // Second last item for the left column
+      middleDataIndex = columns.length - 1; // Last item for the middle column
+      rightDataIndex = 0; // First item for the right column
+    }
+
+    // Fetch the data based on the calculated indices
+    const leftData = tileCards.find(card => card.cell_name.endsWith(columns[leftDataIndex]));
+    const middleData = tileCards.find(card => card.cell_name.endsWith(columns[middleDataIndex]));
+    const rightData = tileCards.find(card => card.cell_name.endsWith(columns[rightDataIndex]));
+
+    return { leftData, middleData, rightData };
+  };
+// ... inside your component, before the return statement ...
+
+// Function to organize cards into rows for rendering
+  const prepareRows = (cards) => {
+    const numberOfRows = 8; // Based on your setup
+    const rows = [];
+
+    for (let i = 0; i < numberOfRows; i++) {
+      // Extract the cards for the current row
+      const row = cards.filter((card) => {
+        const cellNumber = parseInt(card.cell_name.slice(0, -1));
+        return cellNumber === i + 1; // because your rows seem to be 1-indexed
+      });
+
+      rows.push(row);
+    }
+
+    return rows;
+  };
+
+  const cardRows = prepareRows(tileCards); // This organizes your cards into rows for rendering
+
+
   useEffect(() => {
     const elements = document.querySelectorAll(
       `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
@@ -241,6 +289,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       }
     };
     fetchData();
+
   }, []);
 
   // useEffect(() => {
@@ -286,6 +335,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   //   fetchData();
   // }, []);
 
+ const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
@@ -317,81 +367,53 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
         )}
 
-        {tileCards.map((card, index) => {
-          const cellLetter = card.cell_name.slice(-1);
-// Current index within the columns array.
-          const currentIndex = columns.indexOf(displayedColumn);
-// Calculate the indices for the first, second, and third columns with circular consideration.
-          let firstColumnIndex = (currentIndex - 1 + columns.length) % columns.length; // Circularly get the previous item.
-          let secondColumnIndex = currentIndex; // Current item, no change needed.
-          let thirdColumnIndex = (currentIndex + 1) % columns.length; // Circularly get the next item.
-// Special reordering at specific points (i.e., at the start and end of your array).
-          if (currentIndex === 0) {
-            // For the first index [0] (i.e., page # 5R / card letter "A").
-            [firstColumnIndex, secondColumnIndex, thirdColumnIndex] = [secondColumnIndex, thirdColumnIndex, firstColumnIndex];
-          } else if (currentIndex === columns.length - 1) {
-            // For the last index [8] (i.e., page # 5L / card letter "I").
-            [firstColumnIndex, secondColumnIndex, thirdColumnIndex] = [thirdColumnIndex, firstColumnIndex, secondColumnIndex];
-          }
-// Now, get the actual column values based on the calculated indices.
-          const firstColumn = columns[firstColumnIndex];
-          const secondColumn = columns[secondColumnIndex];
-          const thirdColumn = columns[thirdColumnIndex];
+        {/*{cardRows.map((row, rowIndex) => {*/}
+        {/*  const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.*/}
+        {/*  return (*/}
+        {/*    <div key={rowIndex} className={styles.rowContainer}>*/}
+        {/*      /!*left column*!/*/}
+        {/*      {leftData && (*/}
+        {/*        <article onClick={() => setSelectedCard(leftData)} className={classNames(styles.card, styles.leftCard)}>*/}
+        {/*          <Card card={leftData} />*/}
+        {/*        </article>*/}
+        {/*      )}*/}
+        {/*      /!*middle column*!/*/}
+        {/*      {middleData && (*/}
+        {/*        <article onClick={() => setSelectedCard(middleData)} className={classNames(styles.card, styles.middleCard)}>*/}
+        {/*          <Card card={middleData} />*/}
+        {/*        </article>*/}
+        {/*      )}*/}
+        {/*      /!*right column*!/*/}
+        {/*      {rightData && (*/}
+        {/*        <article onClick={() => setSelectedCard(rightData)} className={classNames(styles.card, styles.rightCard)}>*/}
+        {/*          <Card card={rightData} />*/}
+        {/*        </article>*/}
+        {/*      )}*/}
+        {/*    </div>*/}
+        {/*  );*/}
+        {/*})}*/}
 
-          // if (numColumns === 3) {
-          //   if (currentIndex === 0) {
-          //     // At the start of the array
-          //     firstColumn = columns[columns.length - 1]; // Last item (looping back)
-          //     secondColumn = columns[0]; // Current item
-          //     thirdColumn = columns[1]; // Next item
-          //   } else if (currentIndex === columns.length - 1) {
-          //     // At the end of the array
-          //     firstColumn = columns[currentIndex - 1]; // Previous item
-          //     secondColumn = columns[currentIndex]; // Current item
-          //     thirdColumn = columns[0]; // First item (looping forward)
-          //   } else {
-          //     // Anywhere else in the array
-          //     firstColumn = columns[currentIndex - 1];
-          //     secondColumn = columns[currentIndex];
-          //     thirdColumn = columns[currentIndex + 1];
-          //   }
-          // } else if (numColumns === 2) {
-          //   firstColumn = '';
-          //   secondColumn = displayedColumn;
-          //   thirdColumn = columns[currentIndex + 1] || '';
-          // } else {
-          //   firstColumn = '';
-          //   secondColumn = displayedColumn;
-          //   thirdColumn = '';
-          // }
 
-          const isFirstColumn = cellLetter === firstColumn;
-          const isSecondColumn = cellLetter === secondColumn;
-          const isThirdColumn = cellLetter === thirdColumn;
+        {/* Left column */}
+        {leftData && (
+          <article onClick={() => setSelectedCard(leftData)} className={classNames(styles.card, styles.leftCard)}>
+            <Card card={leftData} />
+          </article>
+        )}
 
-          // console.log("displayed Column: ", displayedColumn);
-          // console.log("displayed Number: ", displayedPageNumber);
+        {/* Middle column */}
+        {middleData && (
+          <article onClick={() => setSelectedCard(middleData)} className={classNames(styles.card, styles.middleCard)}>
+            <Card card={middleData} />
+          </article>
+        )}
 
-          if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
-            return null;
-          }
-
-          return (
-            <article
-              key={index}
-              onClick={() => setSelectedCard(card)}
-              className={classNames(styles.card, {
-                [styles.leftCard]: isFirstColumn,
-                [styles.middleCard]: isSecondColumn,
-                [styles.rightCard]: isThirdColumn,
-                [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
-              })}
-            >
-              <Card card={card} />
-            </article>
-          );
-        })}
-
+        {/* Right column */}
+        {rightData && (
+          <article onClick={() => setSelectedCard(rightData)} className={classNames(styles.card, styles.rightCard)}>
+            <Card card={rightData} />
+          </article>
+        )}
 
       </section>
 
