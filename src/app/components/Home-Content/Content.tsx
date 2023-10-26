@@ -53,7 +53,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
-
   const shiftColumn = (direction: 'left' | 'right') => {
 
     setDisplayedColumn((prevDisplayedColumn) => {
@@ -295,8 +294,11 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             thirdColumn = columns[currentIndex + 1] || '';
           //   start of array
           } else if (numColumns === 3 && currentIndex === 0) {
+            // is [0] instead of [8]
             firstColumn = columns[8] || '';
+            // is [1] instead of [0]
             secondColumn = columns[0];
+            // is [8] instead of [1]
             thirdColumn = columns[1] || '';
           //   end of array
           } else if (numColumns === 3 && currentIndex === 8) {
@@ -332,8 +334,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
                 [styles.leftCard]: isFirstColumn,
                 [styles.middleCard]: isSecondColumn,
                 [styles.rightCard]: isThirdColumn,
-                [styles.changedState]:
-                (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+                [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
               })}
             >
               <Card card={card} />
