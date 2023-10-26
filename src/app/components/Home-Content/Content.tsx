@@ -224,29 +224,71 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
 
   // fetch data from mongodb via axios API
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(apiURI);
+  //       const filteredData = response.data.filter((card: TileCard) => {
+  //         const cellNumber = parseInt(card.cell_name.slice(0, -1));
+  //         return cellNumber >= 1 && cellNumber <= 8;
+  //       });
+  //       // Sort the filtered data
+  //       filteredData.sort((a: TileCard, b: TileCard) => {
+  //         if (a.cell_name < b.cell_name) {
+  //           return -1;
+  //         }
+  //         if (a.cell_name > b.cell_name) {
+  //           return 1;
+  //         }
+  //         return 0;
+  //       });
+  //       setTileCards(filteredData);
+  //     } catch (error) {
+  //       console.error('Error fetching tile cards:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(apiURI);
-        const filteredData = response.data.filter((card: TileCard) => {
+        const filteredData = response.data.filter((card: any) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           return cellNumber >= 1 && cellNumber <= 8;
         });
-        // Sort the filtered data
+
+        // Define the custom order for the letters
+        const letterOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+
+        // Custom sort function
         filteredData.sort((a: TileCard, b: TileCard) => {
-          if (a.cell_name < b.cell_name) {
+          const numA = parseInt(a.cell_name.slice(0, -1));
+          const numB = parseInt(b.cell_name.slice(0, -1));
+
+          const letterA = a.cell_name.slice(-1);
+          const letterB = b.cell_name.slice(-1);
+
+          // First, compare the numeric part
+          if (numA < numB) return -1;
+          if (numA > numB) return 1;
+
+          // If numeric part is the same, compare the alphabetic part based on custom order
+          if (letterOrder.indexOf(letterA) < letterOrder.indexOf(letterB)) {
             return -1;
-          }
-          if (a.cell_name > b.cell_name) {
+          } else if (letterOrder.indexOf(letterA) > letterOrder.indexOf(letterB)) {
             return 1;
           }
-          return 0;
+
+          return 0; // if both numeric and alphabetic parts are the same
         });
+
         setTileCards(filteredData);
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
     };
+
     fetchData();
   }, []);
 
