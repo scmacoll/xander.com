@@ -45,8 +45,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
-  const [middleColumnChangedState, setMiddleColumnChangedState] =
-    useState(false);
+  const [middleColumnChangedState, setMiddleColumnChangedState] = useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
@@ -54,27 +53,21 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [indexNumber, setIndexNumber] = useState(4);
 
   const shiftColumn = (direction: 'left' | 'right') => {
-
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
 
-      let newIndex = currentIndex;
-      // left button
-      if (direction === 'right' && currentIndex > 0) {
-        newIndex = currentIndex - 1;
-      } else if (direction === 'right' && currentIndex === 0) {
-        newIndex = currentIndex + 8;
-      //   right button
-      } else if (direction === 'left' && currentIndex < 8) {
-        newIndex = currentIndex + 1;
-      } else if (direction === 'left' && currentIndex === 8) {
-        newIndex = currentIndex - 8;
+      // Calculate the new index based on the direction. The modulo operation creates the circular effect.
+      let newIndex;
+      if (direction === 'left') {
+        newIndex = (currentIndex + 1) % columns.length; // Move forward
+      } else {
+        // Move backward and handle looping from the first item to the last
+        newIndex = (currentIndex - 1 + columns.length) % columns.length;
       }
 
       const newColumn = columns[newIndex];
-      setIndexNumber(newIndex);
-      setDisplayedPageNumber(pageNumber[newIndex]); // Corrected here
-      // displayedColumn value index #
+      setIndexNumber(newIndex); // Assuming you need to keep track of the index number separately
+      setDisplayedPageNumber(pageNumber[newIndex]);
       return newColumn;
     });
     if (middleColumnChangedState) {
@@ -224,73 +217,74 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
 
   // fetch data from mongodb via axios API
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(apiURI);
-  //       const filteredData = response.data.filter((card: TileCard) => {
-  //         const cellNumber = parseInt(card.cell_name.slice(0, -1));
-  //         return cellNumber >= 1 && cellNumber <= 8;
-  //       });
-  //       // Sort the filtered data
-  //       filteredData.sort((a: TileCard, b: TileCard) => {
-  //         if (a.cell_name < b.cell_name) {
-  //           return -1;
-  //         }
-  //         if (a.cell_name > b.cell_name) {
-  //           return 1;
-  //         }
-  //         return 0;
-  //       });
-  //       setTileCards(filteredData);
-  //     } catch (error) {
-  //       console.error('Error fetching tile cards:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(apiURI);
-        const filteredData = response.data.filter((card: any) => {
+        const filteredData = response.data.filter((card: TileCard) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           return cellNumber >= 1 && cellNumber <= 8;
         });
 
-        // Define the custom order for the letters
-        const letterOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-
-        // Custom sort function
         filteredData.sort((a: TileCard, b: TileCard) => {
-          const numA = parseInt(a.cell_name.slice(0, -1));
-          const numB = parseInt(b.cell_name.slice(0, -1));
-
-          const letterA = a.cell_name.slice(-1);
-          const letterB = b.cell_name.slice(-1);
-
-          // First, compare the numeric part
-          if (numA < numB) return -1;
-          if (numA > numB) return 1;
-
-          // If numeric part is the same, compare the alphabetic part based on custom order
-          if (letterOrder.indexOf(letterA) < letterOrder.indexOf(letterB)) {
+          if (a.cell_name < b.cell_name) {
             return -1;
-          } else if (letterOrder.indexOf(letterA) > letterOrder.indexOf(letterB)) {
+          }
+          if (a.cell_name > b.cell_name) {
             return 1;
           }
-
-          return 0; // if both numeric and alphabetic parts are the same
+          return 0;
         });
-
         setTileCards(filteredData);
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
     };
-
     fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(apiURI);
+  //       const filteredData = response.data.filter((card: any) => {
+  //         const cellNumber = parseInt(card.cell_name.slice(0, -1));
+  //         return cellNumber >= 1 && cellNumber <= 8;
+  //       });
+  //
+  //       // Define the custom order for the letters
+  //       const letterOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
+  //
+  //       // Custom sort function
+  //       filteredData.sort((a: TileCard, b: TileCard) => {
+  //         const numA = parseInt(a.cell_name.slice(0, -1));
+  //         const numB = parseInt(b.cell_name.slice(0, -1));
+  //
+  //         const letterA = a.cell_name.slice(-1);
+  //         const letterB = b.cell_name.slice(-1);
+  //
+  //         // First, compare the numeric part
+  //         if (numA < numB) return -1;
+  //         if (numA > numB) return 1;
+  //
+  //         // If numeric part is the same, compare the alphabetic part based on custom order
+  //         if (letterOrder.indexOf(letterA) < letterOrder.indexOf(letterB)) {
+  //           return -1;
+  //         } else if (letterOrder.indexOf(letterA) > letterOrder.indexOf(letterB)) {
+  //           return 1;
+  //         }
+  //
+  //         return 0; // if both numeric and alphabetic parts are the same
+  //       });
+  //
+  //       setTileCards(filteredData);
+  //     } catch (error) {
+  //       console.error('Error fetching tile cards:', error);
+  //     }
+  //   };
+  //
+  //   fetchData();
+  // }, []);
 
   return (
     <div id="sectionWrapper">
@@ -325,37 +319,51 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
         {tileCards.map((card, index) => {
           const cellLetter = card.cell_name.slice(-1);
-
+// Current index within the columns array.
           const currentIndex = columns.indexOf(displayedColumn);
-
-          let firstColumn, secondColumn, thirdColumn;
-          // middle of array
-          if (numColumns === 3 && currentIndex > 0 && currentIndex < 8) {
-            firstColumn = columns[currentIndex - 1] || '';
-            secondColumn = displayedColumn;
-            thirdColumn = columns[currentIndex + 1] || '';
-          //   start of array
-          } else if (numColumns === 3 && currentIndex === 0) {
-            // is [0] instead of [8]
-            firstColumn = columns[8] || '';
-            // is [1] instead of [0]
-            secondColumn = columns[0];
-            // is [8] instead of [1]
-            thirdColumn = columns[1] || '';
-          //   end of array
-          } else if (numColumns === 3 && currentIndex === 8) {
-            firstColumn = columns[7] || '';
-            secondColumn = columns[8];
-            thirdColumn = columns[1] || '';
-          } else if (numColumns === 2) {
-            firstColumn = '';
-            secondColumn = displayedColumn;
-            thirdColumn = columns[currentIndex + 1] || '';
-          } else {
-            firstColumn = '';
-            secondColumn = displayedColumn;
-            thirdColumn = '';
+// Calculate the indices for the first, second, and third columns with circular consideration.
+          let firstColumnIndex = (currentIndex - 1 + columns.length) % columns.length; // Circularly get the previous item.
+          let secondColumnIndex = currentIndex; // Current item, no change needed.
+          let thirdColumnIndex = (currentIndex + 1) % columns.length; // Circularly get the next item.
+// Special reordering at specific points (i.e., at the start and end of your array).
+          if (currentIndex === 0) {
+            // For the first index [0] (i.e., page # 5R / card letter "A").
+            [firstColumnIndex, secondColumnIndex, thirdColumnIndex] = [secondColumnIndex, thirdColumnIndex, firstColumnIndex];
+          } else if (currentIndex === columns.length - 1) {
+            // For the last index [8] (i.e., page # 5L / card letter "I").
+            [firstColumnIndex, secondColumnIndex, thirdColumnIndex] = [thirdColumnIndex, firstColumnIndex, secondColumnIndex];
           }
+// Now, get the actual column values based on the calculated indices.
+          const firstColumn = columns[firstColumnIndex];
+          const secondColumn = columns[secondColumnIndex];
+          const thirdColumn = columns[thirdColumnIndex];
+
+          // if (numColumns === 3) {
+          //   if (currentIndex === 0) {
+          //     // At the start of the array
+          //     firstColumn = columns[columns.length - 1]; // Last item (looping back)
+          //     secondColumn = columns[0]; // Current item
+          //     thirdColumn = columns[1]; // Next item
+          //   } else if (currentIndex === columns.length - 1) {
+          //     // At the end of the array
+          //     firstColumn = columns[currentIndex - 1]; // Previous item
+          //     secondColumn = columns[currentIndex]; // Current item
+          //     thirdColumn = columns[0]; // First item (looping forward)
+          //   } else {
+          //     // Anywhere else in the array
+          //     firstColumn = columns[currentIndex - 1];
+          //     secondColumn = columns[currentIndex];
+          //     thirdColumn = columns[currentIndex + 1];
+          //   }
+          // } else if (numColumns === 2) {
+          //   firstColumn = '';
+          //   secondColumn = displayedColumn;
+          //   thirdColumn = columns[currentIndex + 1] || '';
+          // } else {
+          //   firstColumn = '';
+          //   secondColumn = displayedColumn;
+          //   thirdColumn = '';
+          // }
 
           const isFirstColumn = cellLetter === firstColumn;
           const isSecondColumn = cellLetter === secondColumn;
