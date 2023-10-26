@@ -83,50 +83,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     }
   };
 
-  // const getPageNumbersSubset = () => {
-  //   const currentIndex = columns.indexOf(displayedColumn);
-  //   // if (numColumns === 3) {
-  //   //
-  //   //   let start = currentIndex - 4;
-  //   //   let end = currentIndex + 5;
-  //   //
-  //   //   if (currentIndex < 2) {
-  //   //     start = Math.max(currentIndex - 1, 0);
-  //   //     end = start + 3;
-  //   //   }
-  //   //   else if (currentIndex >= columns.length - 2) {
-  //   //     end = Math.min(currentIndex + 2, pageNumber.length);
-  //   //     start = end - 3;
-  //   //   }
-  //   //   start = Math.max(start, 0);
-  //   //   end = Math.min(end, pageNumber.length);
-  //   //   return pageNumber.slice(start, end);
-  //   // } else {
-  //
-  //   //TODO: const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
-  //     // Step 1: Find the current index based on the displayedColumn.
-  //     // Define default start and end indexes for slicing.
-  //     let start = currentIndex - 2;
-  //     let end = currentIndex + 3; // We use +3 because slice does not include the end index.
-  //     // Adjust if we're at the start of the array.
-  //
-  //     if (currentIndex < 2) {
-  //       start = Math.max(currentIndex - 1, 0);
-  //       end = start + 3; // Trying to get a subset of 3 elements.
-  //     }
-  //     // Adjust if we're at the end of the array.
-  //     else if (currentIndex >= columns.length - 2) {
-  //       end = Math.min(currentIndex + 2, pageNumber.length);
-  //       start = end - 3; // Trying to get a subset of 3 elements, going backward.
-  //     }
-  //
-  //     // Ensure that we do not go beyond the array bounds.
-  //     start = Math.max(start, 0);
-  //     end = Math.min(end, pageNumber.length);
-  //     // Step 3: Slice the pageNumber array and return the new subset.
-  //     return pageNumber.slice(start, end);
-  //   // }
-  // };
   const getPageNumbersSubset = () => {
     const currentIndex = columns.indexOf(displayedColumn);
 
@@ -332,10 +288,21 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const currentIndex = columns.indexOf(displayedColumn);
 
           let firstColumn, secondColumn, thirdColumn;
-          if (numColumns === 3) {
+          // middle of array
+          if (numColumns === 3 && currentIndex > 0 && currentIndex < 8) {
             firstColumn = columns[currentIndex - 1] || '';
             secondColumn = displayedColumn;
             thirdColumn = columns[currentIndex + 1] || '';
+          //   start of array
+          } else if (numColumns === 3 && currentIndex === 0) {
+            firstColumn = columns[8] || '';
+            secondColumn = columns[0];
+            thirdColumn = columns[1] || '';
+          //   end of array
+          } else if (numColumns === 3 && currentIndex === 8) {
+            firstColumn = columns[7] || '';
+            secondColumn = columns[8];
+            thirdColumn = columns[1] || '';
           } else if (numColumns === 2) {
             firstColumn = '';
             secondColumn = displayedColumn;
@@ -350,8 +317,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const isSecondColumn = cellLetter === secondColumn;
           const isThirdColumn = cellLetter === thirdColumn;
 
-          console.log("displayed Column: ", displayedColumn);
-          console.log("displayed Number: ", displayedPageNumber);
+          // console.log("displayed Column: ", displayedColumn);
+          // console.log("displayed Number: ", displayedPageNumber);
 
           if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
             return null;
