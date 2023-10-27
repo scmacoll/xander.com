@@ -45,7 +45,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
-  const [middleColumnChangedState, setMiddleColumnChangedState] = useState(false);
+  const [middleColumnChangedState, setMiddleColumnChangedState] =
+    useState(false);
   const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
@@ -53,20 +54,18 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [indexNumber, setIndexNumber] = useState(4);
 
   const shiftColumn = (direction: 'left' | 'right') => {
+
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
 
-      // Calculate the new index based on the direction. The modulo operation creates the circular effect.
       let newIndex;
       if (direction === 'left') {
-        newIndex = (currentIndex + 1) % columns.length; // Move forward
+        newIndex = (currentIndex + 1) % columns.length;
       } else {
-        // Move backward and handle looping from the first item to the last
         newIndex = (currentIndex - 1 + columns.length) % columns.length;
       }
-
       const newColumn = columns[newIndex];
-      setIndexNumber(newIndex); // Assuming you need to keep track of the index number separately
+      setIndexNumber(newIndex);
       setDisplayedPageNumber(pageNumber[newIndex]);
       return newColumn;
     });
@@ -77,11 +76,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
   const getPageNumbersSubset = () => {
     const currentIndex = columns.indexOf(displayedColumn);
-
     // Calculate the start and end indexes for slicing the array. These calculations ensure the carousel effect.
     let start = currentIndex - 2;
     let end = currentIndex + 3; // Because the 'slice' method doesn't include the element at the ending index.
-
     // The following conditions create the carousel effect, cycling through the start or end of the array when necessary.
     if (start < 0) {
       const absStart = Math.abs(start);
@@ -98,54 +95,22 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     const currentNumber = pageNumber.indexOf(displayedPageNumber);
     const newNumber = pageNumber.indexOf(clickedNumber);
 
-    if (newNumber === currentNumber - 1) {
-      shiftColumn('right');
-    } else if (newNumber === currentNumber + 1) {
-      shiftColumn('left');
-    } else if (newNumber === currentNumber - 2) {
-      shiftColumn('right');
-      shiftColumn('right');
-    } else if (newNumber === currentNumber + 2) {
-      shiftColumn('left');
-      shiftColumn('left');
-    } else if (newNumber === currentNumber + 7) {
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-    } else if (newNumber === currentNumber - 7) {
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-    } else if (newNumber === currentNumber + 8) {
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-      shiftColumn('left');
-    } else if (newNumber === currentNumber - 8) {
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-      shiftColumn('right');
-    } else {
-      return;
+    const difference = newNumber - currentNumber;
+    const direction = difference > 0 ? 'left' : 'right';
+    const shifts = Math.abs(difference);
+
+    switch (shifts) {
+      case 1:
+      case 2:
+      case 7:
+      case 8:
+        for (let i = 0; i < shifts; i++) {
+          shiftColumn(direction);
+        }
+        return true; // A shift occurred
+      default:
+        return; // No action needed
     }
-    return true;
   }
 
   // const handleScroll = () => {
@@ -157,21 +122,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   //     setShowArrows(true);
   //   }, 100);
   // };
-
-  // Function to get the data for the columns based on the current index
-  const getColumnData = (currentIndex) => {
-    // Default column data positions
-    let leftDataIndex = (currentIndex - 1 + columns.length) % columns.length;
-    let middleDataIndex = currentIndex;
-    let rightDataIndex = (currentIndex + 1) % columns.length;
-
-    // Fetch the data based on the calculated indices
-    const leftData = tileCards.find(card => card.cell_name.endsWith(columns[leftDataIndex]));
-    const middleData = tileCards.find(card => card.cell_name.endsWith(columns[middleDataIndex]));
-    const rightData = tileCards.find(card => card.cell_name.endsWith(columns[rightDataIndex]));
-
-    return { leftData, middleData, rightData };
-  };
 
   useEffect(() => {
     const elements = document.querySelectorAll(
@@ -240,15 +190,16 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           const cellNumber = parseInt(card.cell_name.slice(0, -1));
           return cellNumber >= 1 && cellNumber <= 8;
         });
-
+        // Sort the filtered data
         filteredData.sort((a: TileCard, b: TileCard) => {
-          if (a.cell_name < b.cell_name) {
-            return -1;
-          }
-          if (a.cell_name > b.cell_name) {
-            return 1;
-          }
-          return 0;
+          // if (a.cell_name < b.cell_name) {
+          //   return -1;
+          // }
+          // if (a.cell_name > b.cell_name) {
+          //   return 1;
+          // }
+          // return 0;
+          return a.cell_name.localeCompare(b.cell_name);
         });
         setTileCards(filteredData);
       } catch (error) {
@@ -256,53 +207,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       }
     };
     fetchData();
-
   }, []);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(apiURI);
-  //       const filteredData = response.data.filter((card: any) => {
-  //         const cellNumber = parseInt(card.cell_name.slice(0, -1));
-  //         return cellNumber >= 1 && cellNumber <= 8;
-  //       });
-  //
-  //       // Define the custom order for the letters
-  //       const letterOrder = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
-  //
-  //       // Custom sort function
-  //       filteredData.sort((a: TileCard, b: TileCard) => {
-  //         const numA = parseInt(a.cell_name.slice(0, -1));
-  //         const numB = parseInt(b.cell_name.slice(0, -1));
-  //
-  //         const letterA = a.cell_name.slice(-1);
-  //         const letterB = b.cell_name.slice(-1);
-  //
-  //         // First, compare the numeric part
-  //         if (numA < numB) return -1;
-  //         if (numA > numB) return 1;
-  //
-  //         // If numeric part is the same, compare the alphabetic part based on custom order
-  //         if (letterOrder.indexOf(letterA) < letterOrder.indexOf(letterB)) {
-  //           return -1;
-  //         } else if (letterOrder.indexOf(letterA) > letterOrder.indexOf(letterB)) {
-  //           return 1;
-  //         }
-  //
-  //         return 0; // if both numeric and alphabetic parts are the same
-  //       });
-  //
-  //       setTileCards(filteredData);
-  //     } catch (error) {
-  //       console.error('Error fetching tile cards:', error);
-  //     }
-  //   };
-  //
-  //   fetchData();
-  // }, []);
-
-  const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
@@ -334,24 +240,39 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
         )}
 
-        {/* Left column */}
-        {leftData && (
-          <article onClick={() => setSelectedCard(leftData)} className={classNames(styles.card, styles.leftCard)}>
-            <Card card={leftData} />
-          </article>
-        )}
-        {/* Middle column */}
-        {middleData && (
-          <article onClick={() => setSelectedCard(middleData)} className={classNames(styles.card, styles.middleCard)}>
-            <Card card={middleData} />
-          </article>
-        )}
-        {/* Right column */}
-        {rightData && (
-          <article onClick={() => setSelectedCard(rightData)} className={classNames(styles.card, styles.rightCard)}>
-            <Card card={rightData} />
-          </article>
-        )}
+        {tileCards.map((card, index) => {
+          const cellLetter = card.cell_name.slice(-1);
+          const currentIndex = columns.indexOf(displayedColumn);
+          const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
+          const nextIndex = (currentIndex + 1) % columns.length;
+
+          const firstColumn = columns[prevIndex];
+          const secondColumn = columns[currentIndex];
+          const thirdColumn = columns[nextIndex];
+          const isFirstColumn = cellLetter === firstColumn;
+          const isSecondColumn = cellLetter === secondColumn;
+          const isThirdColumn = cellLetter === thirdColumn;
+
+          if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
+            return null;
+          }
+
+          return (
+            <article
+              key={index}
+              onClick={() => setSelectedCard(card)}
+              className={classNames(styles.card, {
+                [styles.leftCard]: isFirstColumn,
+                [styles.middleCard]: isSecondColumn,
+                [styles.rightCard]: isThirdColumn,
+                [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+              })}
+            >
+              <Card card={card} />
+            </article>
+          );
+        })}
+
 
       </section>
 

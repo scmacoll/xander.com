@@ -7,15 +7,13 @@
   justify-content: center;
   align-content: center;
   margin: 0 auto;
-  overrflow: hidden;
 }
 
-
 @media (min-width: 1100px) {
-.contentLayout {
+  .contentLayout {
     grid-template-columns: repeat(3, 1fr);
     //width: 90%;
-//  ? Figure out how to decrease column-gap for media query
+    //  ? Figure out how to decrease column-gap for media query
   }
 }
 
@@ -40,23 +38,23 @@
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 0.7;
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 .rightCard {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 0.7;
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 .middleCard {
   transform: scale(1.02) translateY(-20px) translateZ(0); /* Scale up the card */
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
   z-index: 2; /* Ensure it stays above the other cards */
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 .leftCard:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
@@ -74,22 +72,22 @@
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 1;
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 .rightCard.changedState {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   opacity: 1;
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 .middleCard.changedState {
   transform: scale(1.00) translateY(0) translateZ(0);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 .leftCard.changedState:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
@@ -135,11 +133,11 @@
   // box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 
   cursor: pointer;
-  
+
   /* Optional: Increase the size and opacity of the shadow on hover */
   transition:
-    box-shadow 0.1s ease-in-out,
-    transform 0.1s ease-in-out;
+          box-shadow 0.1s ease-in-out,
+          transform 0.1s ease-in-out;
 }
 
 .card:hover {
@@ -312,7 +310,7 @@
   z-index: 4; /* higher than the arrow icons */
   top: 50%;
   transform: translateY(-50%) translateX(-9px);
- }
+}
 .circleButton:hover {
   background-color: rgba(85, 85, 85, 0.29);
 }
@@ -378,12 +376,3 @@
 .currentPage {
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
 }
-
-
-//
-//index = 0 1 2 3 4
-//+1    = 1 2 3 4 5
-//+2    = 2 3 4 5 6   'home'
-//+3    = 3 4 5 6 7
-//+4    = 4 5 6 7 8
-//+5    = 5 6 7 8 9
