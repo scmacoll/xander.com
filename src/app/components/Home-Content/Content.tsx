@@ -165,17 +165,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     let middleDataIndex = currentIndex;
     let rightDataIndex = (currentIndex + 1) % columns.length;
 
-    // Adjustments for specific cases at the boundaries
-    if (currentIndex === 0) {
-      leftDataIndex = columns.length - 1; // Last item for the left column
-      middleDataIndex = 0; // First item for the middle column
-      rightDataIndex = 1; // Second item for the right column
-    } else if (currentIndex === columns.length - 1) {
-      leftDataIndex = columns.length - 2; // Second last item for the left column
-      middleDataIndex = columns.length - 1; // Last item for the middle column
-      rightDataIndex = 0; // First item for the right column
-    }
-
     // Fetch the data based on the calculated indices
     const leftData = tileCards.find(card => card.cell_name.endsWith(columns[leftDataIndex]));
     const middleData = tileCards.find(card => card.cell_name.endsWith(columns[middleDataIndex]));
@@ -183,28 +172,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
     return { leftData, middleData, rightData };
   };
-// ... inside your component, before the return statement ...
-
-// Function to organize cards into rows for rendering
-  const prepareRows = (cards) => {
-    const numberOfRows = 8; // Based on your setup
-    const rows = [];
-
-    for (let i = 0; i < numberOfRows; i++) {
-      // Extract the cards for the current row
-      const row = cards.filter((card) => {
-        const cellNumber = parseInt(card.cell_name.slice(0, -1));
-        return cellNumber === i + 1; // because your rows seem to be 1-indexed
-      });
-
-      rows.push(row);
-    }
-
-    return rows;
-  };
-
-  const cardRows = prepareRows(tileCards); // This organizes your cards into rows for rendering
-
 
   useEffect(() => {
     const elements = document.querySelectorAll(
@@ -335,7 +302,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   //   fetchData();
   // }, []);
 
- const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
+  const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
@@ -367,47 +334,18 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
         )}
 
-        {/*{cardRows.map((row, rowIndex) => {*/}
-        {/*  const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.*/}
-        {/*  return (*/}
-        {/*    <div key={rowIndex} className={styles.rowContainer}>*/}
-        {/*      /!*left column*!/*/}
-        {/*      {leftData && (*/}
-        {/*        <article onClick={() => setSelectedCard(leftData)} className={classNames(styles.card, styles.leftCard)}>*/}
-        {/*          <Card card={leftData} />*/}
-        {/*        </article>*/}
-        {/*      )}*/}
-        {/*      /!*middle column*!/*/}
-        {/*      {middleData && (*/}
-        {/*        <article onClick={() => setSelectedCard(middleData)} className={classNames(styles.card, styles.middleCard)}>*/}
-        {/*          <Card card={middleData} />*/}
-        {/*        </article>*/}
-        {/*      )}*/}
-        {/*      /!*right column*!/*/}
-        {/*      {rightData && (*/}
-        {/*        <article onClick={() => setSelectedCard(rightData)} className={classNames(styles.card, styles.rightCard)}>*/}
-        {/*          <Card card={rightData} />*/}
-        {/*        </article>*/}
-        {/*      )}*/}
-        {/*    </div>*/}
-        {/*  );*/}
-        {/*})}*/}
-
-
         {/* Left column */}
         {leftData && (
           <article onClick={() => setSelectedCard(leftData)} className={classNames(styles.card, styles.leftCard)}>
             <Card card={leftData} />
           </article>
         )}
-
         {/* Middle column */}
         {middleData && (
           <article onClick={() => setSelectedCard(middleData)} className={classNames(styles.card, styles.middleCard)}>
             <Card card={middleData} />
           </article>
         )}
-
         {/* Right column */}
         {rightData && (
           <article onClick={() => setSelectedCard(rightData)} className={classNames(styles.card, styles.rightCard)}>
