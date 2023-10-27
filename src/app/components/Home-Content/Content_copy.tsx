@@ -44,13 +44,17 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
+  const [numColumns, setNumColumns] = useState(getNumColumns());
+  const [middleColumnChangedState, setMiddleColumnChangedState] =
+    useState(false);
+  const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
   const shiftColumn = (direction: 'left' | 'right') => {
-    // TODO: (prevDisplayedColumn)
+
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
 
@@ -65,6 +69,9 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
       setDisplayedPageNumber(pageNumber[newIndex]);
       return newColumn;
     });
+    if (middleColumnChangedState) {
+      setMiddleColumnChangedState((prevState) => !prevState);
+    }
   };
 
   const getPageNumbersSubset = () => {
@@ -115,19 +122,64 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   //     setShowArrows(true);
   //   }, 100);
   // };
-  const getColumnData = (currentIndex) => {
-    // Default column data positions
-    let leftDataIndex = (currentIndex - 1 + columns.length) % columns.length;
-    let middleDataIndex = currentIndex;
-    let rightDataIndex = (currentIndex + 1) % columns.length;
 
-    // Fetch the data based on the calculated indices
-    const leftData = tileCards.filter(card => card.cell_name.endsWith(columns[leftDataIndex]));
-    const middleData = tileCards.filter(card => card.cell_name.endsWith(columns[middleDataIndex]));
-    const rightData = tileCards.filter(card => card.cell_name.endsWith(columns[rightDataIndex]));
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
+    );
 
-    return { leftData, middleData, rightData };
-  };
+    const toggleChangedState = () => {
+      if (numColumns === 1) {
+        elements.forEach((element) => {
+          element.classList.add(styles.changedState);
+        });
+        setMiddleColumnChangedState(true);
+        return;
+      }
+      elements.forEach((element) => {
+        element.classList.toggle(styles.changedState);
+      });
+      setMiddleColumnChangedState(!middleColumnChangedState);
+    };
+
+    // Focus Toggle
+    if (middleColumnChangedState !== isCardButtonClicked) {
+      if (isCardButtonClicked) {
+        console.log('Focus Mode OFF!');
+        toggleChangedState();
+      } else {
+        toggleChangedState();
+        console.log('Focus Mode ON!');
+      }
+    }
+
+    const handleVisibility = () => {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+      debounceTimeout.current = setTimeout(() => {
+        setShowArrows(true);
+      }, 100);
+    };
+    const handleResize = () => {
+      const newNumColumns = getNumColumns();
+      if (newNumColumns !== numColumns && newNumColumns === 1) {
+        toggleChangedState();
+      }
+      setNumColumns(newNumColumns);
+
+      setShowArrows(false);
+      handleVisibility();
+    };
+
+    // window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
+    return () => {
+      // window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+    };
+  }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
 
   // fetch data from mongodb via axios API
   useEffect(() => {
@@ -157,62 +209,71 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     fetchData();
   }, []);
 
-  const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
-        {/* Left column */}
-          <div className={styles.cardLayout}>
-            {leftData.map((card, index) => (
-              <article className={classNames(styles.card, styles.leftCard)} key={index}>
-                <Card card={card}/>
-              </article>
-            ))}
-          </div>
-
-          {/* Middle column */}
-          <div className={styles.cardLayout}>
-            {middleData.map((card, index) => (
-              <article className={classNames(styles.card, styles.middleCard)} key={index}>
-                <Card card={card}/>
-              </article>
-            ))}
-          </div>
-
-          {/* Right column */}
-          <div className={styles.cardLayout}>
-            {rightData.map((card, index) => (
-              <article className={classNames(styles.card, styles.rightCard)} key={index}>
-                <Card card={card}/>
-              </article>
-            ))}
-          </div>
-
-        <div className="absolute">
-          <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
+        <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
+        >
+          <div
+            className={styles.circleButton}
+            onClick={() => shiftColumn('left')}
           >
-            <div
-              className={styles.circleButton}
-              onClick={() => shiftColumn('left')}
-            >
-            </div>
-            <FontAwesomeIcon icon={faChevronRight} size="xl"/>
           </div>
-          <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
-          >
-            <div
-              className={styles.circleButton}
-              onClick={() => shiftColumn('right')}
-            >
-            </div>
-            <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
-          </div>
-          {/*<div className={`${styles.similarDarrow}`}>*/}
-          {/*  <a href="/">*/}
-          {/*    <FontAwesomeIcon icon={faChevronDown} size="xl"/>*/}
-          {/*  </a>*/}
-          {/*</div>*/}
+          <FontAwesomeIcon icon={faChevronRight} size="xl"/>
         </div>
+        <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
+        >
+          <div
+            className={styles.circleButton}
+            onClick={() => shiftColumn('right')}
+          >
+          </div>
+          <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
+        </div>
+        <div className={`${styles.similarDarrow}`}>
+          <a href="/">
+            <FontAwesomeIcon icon={faChevronDown} size="xl" />
+          </a>
+        </div>
+
+        {selectedCard && (
+          <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
+        )}
+
+        {tileCards.map((card, index) => {
+          const cellLetter = card.cell_name.slice(-1);
+          const currentIndex = columns.indexOf(displayedColumn);
+          const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
+          const nextIndex = (currentIndex + 1) % columns.length;
+
+          const firstColumn = columns[prevIndex];
+          const secondColumn = columns[currentIndex];
+          const thirdColumn = columns[nextIndex];
+          const isFirstColumn = cellLetter === firstColumn;
+          const isSecondColumn = cellLetter === secondColumn;
+          const isThirdColumn = cellLetter === thirdColumn;
+
+          if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
+            return null;
+          }
+
+          return (
+            <article
+              key={index}
+              onClick={() => setSelectedCard(card)}
+              className={classNames(styles.card, {
+                [styles.leftCard]: isFirstColumn,
+                [styles.middleCard]: isSecondColumn,
+                [styles.rightCard]: isThirdColumn,
+                [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+              })}
+            >
+              <Card card={card} />
+            </article>
+          );
+        })}
+
+
       </section>
 
       <div className={styles.pagination}>
