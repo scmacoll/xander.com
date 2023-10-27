@@ -3,19 +3,16 @@
   display: grid;
   grid-gap: 0.5em;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  margin: 0 auto;
-}
-
-.cardLayout {
-  position: relative;
-  display: inline-grid;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
   margin: 0 auto;
 }
 
 @media (min-width: 1100px) {
   .contentLayout {
     grid-template-columns: repeat(3, 1fr);
-    width: 90%;
+    //width: 90%;
     //  ? Figure out how to decrease column-gap for media query
   }
 }
@@ -53,7 +50,7 @@
 }
 .middleCard {
   //transform: scale(1.02) translateY(-20px) translateZ(0); /* Scale up the card */
-  //box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
   z-index: 2; /* Ensure it stays above the other cards */
   transition:
           box-shadow 0.1s ease-in-out,
@@ -107,21 +104,21 @@
 // 3rd: in age of information, ignorance
 
 .card {
-  position: relative;
   display: inline-block;
   justify-content: center;
+  position: relative;
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
   // background-color: rgb(16, 57, 58);
   margin-bottom: 1em;
   margin: 0 2px 1em 2px;
   break-inside: avoid;
   // width: clamp(42.5ch, 30%, 75ch);
-  //height: auto;
+  // height: auto;
   font-family: 'sf', sans-serif;
   box-sizing: border-box;
   text-align: start;
   border-radius: 4px;
-  overflow: hidden;
+  // overflow: auto;
   /* width: 416.666px; */
   /*width: 311.666px;*/
   /*height: 328.075px;*/
@@ -129,7 +126,7 @@
   min-width: 0;
   min-height: 0;
   width: 350px;
-   //height: 14.5vw;
+  // height: 14.5vw;
   color: rgba(214, 214, 214, 0.8);
   // color: rgb(var(--everforest-grey-green));
   // color: rgb(var(--everforest-creme));

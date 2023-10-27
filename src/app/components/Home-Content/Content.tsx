@@ -156,37 +156,33 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     };
     fetchData();
   }, []);
+  function mergeData(leftData, middleData, rightData) {
+    const mergedData = [];
+
+    // Assuming all columns have the same number of cards
+    const numberOfCards = leftData.length;
+
+    for (let i = 0; i < numberOfCards; i++) {
+      // Add the cards from each column in the correct order
+      if (leftData[i]) {
+        mergedData.push({ ...leftData[i], column: 'left' });
+      }
+      if (middleData[i]) {
+        mergedData.push({ ...middleData[i], column: 'middle' });
+      }
+      if (rightData[i]) {
+        mergedData.push({ ...rightData[i], column: 'right' });
+      }
+    }
+
+    return mergedData;
+  }
 
   const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
+  const combinedData = mergeData(leftData, middleData, rightData);
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
-        {/* Left column */}
-          <div className={styles.cardLayout}>
-            {leftData.map((card, index) => (
-              <article className={classNames(styles.card, styles.leftCard)} key={index}>
-                <Card card={card}/>
-              </article>
-            ))}
-          </div>
-
-          {/* Middle column */}
-          <div className={styles.cardLayout}>
-            {middleData.map((card, index) => (
-              <article className={classNames(styles.card, styles.middleCard)} key={index}>
-                <Card card={card}/>
-              </article>
-            ))}
-          </div>
-
-          {/* Right column */}
-          <div className={styles.cardLayout}>
-            {rightData.map((card, index) => (
-              <article className={classNames(styles.card, styles.rightCard)} key={index}>
-                <Card card={card}/>
-              </article>
-            ))}
-          </div>
 
         <div className="absolute">
           <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
@@ -213,6 +209,69 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           {/*  </a>*/}
           {/*</div>*/}
         </div>
+        {/*{combinedData.map((card, index) => (*/}
+        {/*  <div key={index}*/}
+        {/*       className={styles.card}*/}
+        {/*  >*/}
+        {/*    <Card card={card}/>*/}
+        {/*  </div>*/}
+        {/*))}*/}
+
+        {combinedData.map((card, index) => {
+          const cellLetter = card.cell_name.slice(-1);
+          const currentIndex = columns.indexOf(displayedColumn);
+          const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
+          const nextIndex = (currentIndex + 1) % columns.length;
+
+          const firstColumn = columns[prevIndex];
+          const secondColumn = columns[currentIndex];
+          const thirdColumn = columns[nextIndex];
+          const isFirstColumn = cellLetter === firstColumn;
+          const isSecondColumn = cellLetter === secondColumn;
+          const isThirdColumn = cellLetter === thirdColumn;
+
+          if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
+            return null;
+          }
+
+        {/*/!* Left column *!/*/}
+        {/*  <div className={styles.cardLayout}>*/}
+        {/*    {leftData.map((card, index) => (*/}
+        {/*      <article className={classNames(styles.card, styles.leftCard)} key={index}>*/}
+        {/*        <Card card={card}/>*/}
+        {/*      </article>*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+
+        {/*  /!* Middle column *!/*/}
+        {/*  <div className={styles.cardLayout}>*/}
+        {/*    {middleData.map((card, index) => (*/}
+        {/*      <article className={classNames(styles.card, styles.middleCard)} key={index}>*/}
+        {/*        <Card card={card}/>*/}
+        {/*      </article>*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+
+        {/*  /!* Right column *!/*/}
+        {/*  <div className={styles.cardLayout}>*/}
+        {/*    {rightData.map((card, index) => (*/}
+        {/*      <article className={classNames(styles.card, styles.rightCard)} key={index}>*/}
+        {/*        <Card card={card}/>*/}
+        {/*      </article>*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+
+          return (
+            <div key={index}
+                 className={classNames(styles.card, {
+                   [styles.leftCard]: isFirstColumn,
+                   [styles.middleCard]: isSecondColumn,
+                   [styles.rightCard]: isThirdColumn,
+            })}>
+              <Card card={card} />
+            </div>
+          );
+        })}
       </section>
 
       <div className={styles.pagination}>
