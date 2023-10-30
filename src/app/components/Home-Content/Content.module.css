@@ -41,6 +41,7 @@
 }
 
 .middleCard {
+  transform: scale(1.02) translateY(-20px) translateZ(0); /* Scale up the card */
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
   z-index: 2; /* Ensure it stays above the other cards */
   transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;

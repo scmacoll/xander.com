@@ -44,13 +44,16 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
+  const [numColumns, setNumColumns] = useState(getNumColumns());
+  const [middleColumnChangedState, setMiddleColumnChangedState] =
+    useState(false);
+  const [selectedCard, setSelectedCard] = useState<null | TileCard>(null);
   const [displayedColumn, setDisplayedColumn] = useState('E');
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
   const shiftColumn = (direction: 'left' | 'right') => {
-    // TODO: (prevDisplayedColumn)
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
 
@@ -115,20 +118,101 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   //     setShowArrows(true);
   //   }, 100);
   // };
-  const getColumnData = (currentIndex) => {
+  const getColumnData = (indexNumber: any) => {
     // Default column data positions
-    let leftDataIndex = (currentIndex - 1 + columns.length) % columns.length;
-    let middleDataIndex = currentIndex;
-    let rightDataIndex = (currentIndex + 1) % columns.length;
+    let leftDataIndex = (indexNumber - 1 + columns.length) % columns.length;
+    let middleDataIndex = indexNumber;
+    let rightDataIndex = (indexNumber + 1) % columns.length;
 
     // Fetch the data based on the calculated indices
     const leftData = tileCards.filter(card => card.cell_name.endsWith(columns[leftDataIndex]));
     const middleData = tileCards.filter(card => card.cell_name.endsWith(columns[middleDataIndex]));
     const rightData = tileCards.filter(card => card.cell_name.endsWith(columns[rightDataIndex]));
+    console.log("leftDataIndex: ", leftDataIndex);
+    console.log("left Data: ", leftData);
+    console.log("middleDataIndex: ", middleDataIndex);
+    console.log("middle Data: ", middleData);
+    console.log("rightDataIndex: ", rightDataIndex);
+    console.log("right Data: ", rightData);
 
     return { leftData, middleData, rightData };
   };
 
+  const mergeData = (leftData: any, middleData: any, rightData: any) => {
+    const mergedData = [];
+    // Assuming all columns have the same number of cards
+    const numberOfCards = leftData.length;
+
+    for (let i = 0; i < numberOfCards; i++) {
+      // Add the cards from each column in the correct order
+      if (leftData[i]) {
+        mergedData.push({ ...leftData[i], column: 'left' });
+      }
+      if (middleData[i]) {
+        mergedData.push({ ...middleData[i], column: 'middle' });
+      }
+      if (rightData[i]) {
+        mergedData.push({ ...rightData[i], column: 'right' });
+      }
+    }
+    return mergedData;
+  }
+
+  const { leftData, middleData, rightData } = getColumnData(indexNumber);
+  const combinedData = mergeData(leftData, middleData, rightData);
+
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
+    );
+    const toggleChangedState = () => {
+      if (numColumns === 1) {
+        elements.forEach((element) => {
+          element.classList.add(styles.changedState);
+        });
+        setMiddleColumnChangedState(true);
+        return;
+      }
+      elements.forEach((element) => {
+        element.classList.toggle(styles.changedState);
+      });
+      setMiddleColumnChangedState(!middleColumnChangedState);
+    };
+    // Focus Toggle
+    if (middleColumnChangedState !== isCardButtonClicked) {
+      if (isCardButtonClicked) {
+        console.log('Focus Mode OFF!');
+        toggleChangedState();
+      } else {
+        toggleChangedState();
+        console.log('Focus Mode ON!');
+      }
+    }
+    const handleVisibility = () => {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+      debounceTimeout.current = setTimeout(() => {
+        setShowArrows(true);
+      }, 100);
+    };
+    const handleResize = () => {
+      const newNumColumns = getNumColumns();
+      if (newNumColumns !== numColumns && newNumColumns === 1) {
+        toggleChangedState();
+      }
+      setNumColumns(newNumColumns);
+      setShowArrows(false);
+      handleVisibility();
+    };
+    // window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize);
+    return () => {
+      // window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      if (debounceTimeout.current) {
+        clearTimeout(debounceTimeout.current);
+      }
+    };
+  }, [isCardButtonClicked, middleColumnChangedState, numColumns]);
   // fetch data from mongodb via axios API
   useEffect(() => {
     const fetchData = async () => {
@@ -156,35 +240,11 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     };
     fetchData();
   }, []);
-  function mergeData(leftData, middleData, rightData) {
-    const mergedData = [];
 
-    // Assuming all columns have the same number of cards
-    const numberOfCards = leftData.length;
-
-    for (let i = 0; i < numberOfCards; i++) {
-      // Add the cards from each column in the correct order
-      if (leftData[i]) {
-        mergedData.push({ ...leftData[i], column: 'left' });
-      }
-      if (middleData[i]) {
-        mergedData.push({ ...middleData[i], column: 'middle' });
-      }
-      if (rightData[i]) {
-        mergedData.push({ ...rightData[i], column: 'right' });
-      }
-    }
-
-    return mergedData;
-  }
-
-  const { leftData, middleData, rightData } = getColumnData(indexNumber); // This was your original logic.
-  const combinedData = mergeData(leftData, middleData, rightData);
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
-
-        <div className="absolute">
+        <div id="arrowButtons" className="absolute">
           <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
           >
             <div
@@ -209,23 +269,31 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           {/*  </a>*/}
           {/*</div>*/}
         </div>
-        {/*{combinedData.map((card, index) => (*/}
-        {/*  <div key={index}*/}
-        {/*       className={styles.card}*/}
-        {/*  >*/}
-        {/*    <Card card={card}/>*/}
-        {/*  </div>*/}
-        {/*))}*/}
+        {selectedCard && (
+          <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
+        )}
 
         {combinedData.map((card, index) => {
           const cellLetter = card.cell_name.slice(-1);
           const currentIndex = columns.indexOf(displayedColumn);
           const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
           const nextIndex = (currentIndex + 1) % columns.length;
+          let firstColumn, secondColumn, thirdColumn;
 
-          const firstColumn = columns[prevIndex];
-          const secondColumn = columns[currentIndex];
-          const thirdColumn = columns[nextIndex];
+          if (numColumns === 3) {
+            firstColumn = columns[prevIndex];
+            secondColumn = columns[currentIndex];
+            thirdColumn = columns[nextIndex];
+          } else if (numColumns === 2) {
+            firstColumn = '';
+            secondColumn = columns[currentIndex];
+            thirdColumn = columns[nextIndex];
+          } else {
+            firstColumn = '';
+            secondColumn = columns[currentIndex];
+            thirdColumn = '';
+          }
+
           const isFirstColumn = cellLetter === firstColumn;
           const isSecondColumn = cellLetter === secondColumn;
           const isThirdColumn = cellLetter === thirdColumn;
@@ -234,40 +302,15 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             return null;
           }
 
-        {/*/!* Left column *!/*/}
-        {/*  <div className={styles.cardLayout}>*/}
-        {/*    {leftData.map((card, index) => (*/}
-        {/*      <article className={classNames(styles.card, styles.leftCard)} key={index}>*/}
-        {/*        <Card card={card}/>*/}
-        {/*      </article>*/}
-        {/*    ))}*/}
-        {/*  </div>*/}
-
-        {/*  /!* Middle column *!/*/}
-        {/*  <div className={styles.cardLayout}>*/}
-        {/*    {middleData.map((card, index) => (*/}
-        {/*      <article className={classNames(styles.card, styles.middleCard)} key={index}>*/}
-        {/*        <Card card={card}/>*/}
-        {/*      </article>*/}
-        {/*    ))}*/}
-        {/*  </div>*/}
-
-        {/*  /!* Right column *!/*/}
-        {/*  <div className={styles.cardLayout}>*/}
-        {/*    {rightData.map((card, index) => (*/}
-        {/*      <article className={classNames(styles.card, styles.rightCard)} key={index}>*/}
-        {/*        <Card card={card}/>*/}
-        {/*      </article>*/}
-        {/*    ))}*/}
-        {/*  </div>*/}
-
           return (
             <div key={index}
+                 onClick={() => setSelectedCard(card)}
                  className={classNames(styles.card, {
                    [styles.leftCard]: isFirstColumn,
                    [styles.middleCard]: isSecondColumn,
                    [styles.rightCard]: isThirdColumn,
-            })}>
+                   [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+                 })}>
               <Card card={card} />
             </div>
           );
