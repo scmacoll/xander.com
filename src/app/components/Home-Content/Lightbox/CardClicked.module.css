@@ -123,6 +123,7 @@
 .cardIcons {
   display: flex;
   position: relative;
+  align-items: center;
   justify-content: space-between;
   flex: 1;
 }
@@ -197,13 +198,26 @@
   fill: #d2cfca;
 }
 
-.bookTitle {
+.bookTitleOne {
   display: block;
   align-items: center;
   justify-content: flex-start;
   padding-top: 0.5em;
-  border: 0.1px dashed purple;
+  padding-left: 1em;
+  width: 50%;
+}
+
+.bookTitleTwo {
+  display: block;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0.5em;
   width: 80%;
+}
+@media (max-width: 749px) {
+  .bookTitleTwo {
+    width: 100%;
+  }
 }
 
 .bookName {
@@ -214,10 +228,21 @@
   display: flex;
 }
 
+@media (max-width: 600px) {
+  .bookAuthor span {
+    display: block;
+  }
+}
+
 .itemButtons {
   display: block;
   width: 85%;
   position: relative;
+}
+@media (max-width: 749px) {
+  .itemButtons {
+    width: 100%;
+  }
 }
 
 .itemToggles {

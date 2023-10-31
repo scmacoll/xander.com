@@ -133,10 +133,10 @@
   // position: absolute;
   // top: 50%;
   display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // align-content: center;
-  // justify-items: center;
+  //justify-content: center;
+  //align-items: center;
+  //align-content: center;
+  //justify-items: center;
   // border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
   //margin-top: 1em;
   padding-top: 2em;
@@ -159,7 +159,7 @@
 .cardIcons {
   display: flex;
   position: relative;
-  // align-items: center;
+   align-items: center;
   justify-content: space-between;
   flex: 1;
   //border: .1px solid red;
@@ -242,13 +242,25 @@
   fill: #d2cfca;
 }
 
-.bookTitle {
+.bookTitleOne {
   display: block;
   align-items: center;
   justify-content: flex-start;
   padding-top: .5em;
-  border: .1px dashed purple;
+  padding-left: 1em;
+  width: 50%;
+}
+
+.bookTitleTwo {
+  display: block;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: .5em;
   width: 80%;
+
+  @media (max-width: 749px) {
+    width: 100%;
+  }
 }
 
 .bookName {
@@ -259,13 +271,21 @@
   display: flex;
   // font-size: .9rem;
 }
+.bookAuthor span {
+  @media (max-width: 600px) {
+    display: block;
+  }
+}
 
 .itemButtons {
   display: block;
   width: 85%;
   // align-items: center;
   position: relative;
-  //border: .1px solid green;
+
+  @media (max-width: 749px) {
+    width: 100%;
+  }
 }
 
 .itemToggles {
