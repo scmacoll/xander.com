@@ -28,11 +28,26 @@
   font-weight: 500;
   font-family: "sf", sans-serif;
    //! 676 x 422.13
+  @media (max-width: 749px) {
+    //height: 80vw;
+    height: calc(722px - 42vw);
+  }
 }
 
 .middleBorder {
   border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
   transform: translateY(1em);
+  @media (max-width: 2000px) and (min-width: 1424px) {
+  }
+  @media (max-width: 1425px) and (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+    transform: translateY(0em);
+  }
 }
 
 .contentWrapper {
@@ -54,9 +69,7 @@
 
 .cardTitle {
   display: flex;
-  max-height: calc(
-    2em * 4
-  ); /* Assuming 1.2em as line-height and showing up to 4 lines */
+  max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
   overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
   scrollbar-width: thin;
   scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
@@ -127,16 +140,42 @@
   // border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
   //margin-top: 1em;
   padding-top: 2em;
+  @media (max-width: 2000px) and (min-width: 1424px) {
+  }
+  @media (max-width: 1425px) and (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+    padding-top: 0;
+  }
 }
 
 .cardIcon {
 }
 
 .cardIcons {
-  display: inline-flex;
+  display: flex;
+  position: relative;
   // align-items: center;
   justify-content: space-between;
   flex: 1;
+  //border: .1px solid red;
+  @media (max-width: 2000px) and (min-width: 1424px) {
+  }
+  @media (max-width: 1425px) and (min-width: 1200px) {
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+  }
+  @media (max-width: 749px) {
+    flex-direction: column;
+    width: 85%;
+    margin: 0 auto;
+  }
 }
 
 .cardHeart {
@@ -148,11 +187,12 @@
 }
 
 .cardHeartTwo {
+  //border: .1px solid blue;
   display: flex;
   justify-content: end;
   flex: 1;
   // padding-right: 1em;
-  height: 40%;
+  //height: 40%;
   position: absolute;
   top: 0;
   right: 0;
@@ -207,7 +247,7 @@
   align-items: center;
   justify-content: flex-start;
   padding-top: .5em;
-  // border: .1px dashed purple;
+  border: .1px dashed purple;
   width: 80%;
 }
 
@@ -225,6 +265,7 @@
   width: 85%;
   // align-items: center;
   position: relative;
+  //border: .1px solid green;
 }
 
 .itemToggles {
