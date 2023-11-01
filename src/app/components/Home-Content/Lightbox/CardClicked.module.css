@@ -16,7 +16,7 @@
   box-sizing: border-box;
   min-height: 422.13px;
   height: fit-content;
-  max-height: 80vh;
+  max-height: 90vh;
   overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
   scrollbar-width: thin;
   scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
@@ -334,6 +334,11 @@
   justify-content: flex-end;
   align-items: center;
   align-content: center;
+}
+@media (max-width: 2000px) {
+  .totalWrapper {
+    padding: 1.3em 0 1em 0;
+  }
 }
 @media (max-width: 749px) and (min-width: 480px) {
   .totalWrapper {

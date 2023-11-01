@@ -35,10 +35,17 @@
     max-width: 80vw;
   }
 }
-@media (max-width: 749px) {
+@media (max-width: 749px) and (min-width: 480px) {
   .lightboxContent {
     width: 70vw;
     transform: translateY(60px);
+  }
+}
+@media (max-width: 479px) {
+  .lightboxContent {
+    width: 70vw;
+    transform: translateY(60px);
+    padding-right: 2px;
   }
 }
 
@@ -60,7 +67,6 @@
   justify-content: center;
   position: relative;
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
-  margin-bottom: 1em;
   margin: 0 2px 1em 2px;
   break-inside: avoid;
   font-family: "sf", sans-serif;
@@ -81,9 +87,14 @@
 
 .closeButton {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: 1px;
+  right: 1px;
   padding: 1px;
+}
+@media (max-width: 479px) {
+  .closeButton {
+    right: 2px;
+  }
 }
 
 /*# sourceMappingURL=Lightbox.module.css.map */

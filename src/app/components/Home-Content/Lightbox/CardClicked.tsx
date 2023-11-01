@@ -114,13 +114,13 @@ const Card: React.FC<CardProps> = ({card}) => {
                   alt="book"
                 />
               </div>
-              <div className={`${styles.bookTitleOne}`}>
-                <div id="bookName1">
-                  <p className={`${styles.bookName} font-bold`}>
-                    Social Capital: A Multifaceted Perspective
-                  </p>
-                </div>
-              </div>
+              {/*<div className={`${styles.bookTitleOne}`}>*/}
+              {/*  <div id="bookName1">*/}
+              {/*    <p className={`${styles.bookName} font-bold`}>*/}
+              {/*      Social Capital: A Multifaceted Perspective*/}
+              {/*    </p>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               <div className={`${styles.cardHeartTwo}`}>
                 <svg
                   version="1.0"
@@ -151,13 +151,13 @@ const Card: React.FC<CardProps> = ({card}) => {
             </div>
             <div className={`${styles.itemButtons}`}>
 
-              {/*<div className={`${styles.bookTitleTwo}`}>*/}
-              {/*  <div id="bookName2">*/}
-              {/*    <p className={`${styles.bookName} font-bold`}>*/}
-              {/*      Social Capital: A Multifaceted Perspective*/}
-              {/*    </p>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
+              <div className={`${styles.bookTitleTwo}`}>
+                <div id="bookName2">
+                  <p className={`${styles.bookName} font-bold`}>
+                    Social Capital: A Multifaceted Perspective
+                  </p>
+                </div>
+              </div>
               <div className={`${styles.bookAuthor} text-gray-400`}>
                 <p>By: Ismail Serageldin | Paperback | <span>25 September 1999</span></p>
               </div>
