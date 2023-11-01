@@ -281,6 +281,14 @@
   padding-bottom: 1.3em;
   width: 100%;
 }
+@media (max-width: 749px) {
+  .checkoutWrapper {
+    padding-bottom: 0;
+    bottom: revert;
+    top: 60%;
+    justify-content: space-between;
+  }
+}
 
 .itemTotal {
   display: inline-flex;
@@ -291,6 +299,13 @@
   font-weight: 600;
   font-size: 1.2rem;
   color: rgba(156, 163, 175, 0.731);
+}
+@media (max-width: 749px) {
+  .itemTotal {
+    padding-top: 0;
+    padding-bottom: 1em;
+    justify-content: space-between;
+  }
 }
 
 .checkoutAddToCart {

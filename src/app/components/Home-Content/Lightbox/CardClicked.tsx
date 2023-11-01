@@ -224,7 +224,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       </div>
       <div className={`${styles.checkoutContainer}`}>
         <div className={`${styles.totalWrapper}`}>
-          <div className={`${styles.itemTotal}`}>Total: $46.58</div>
+          <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>$46.58</span></div>
         </div>
         <div className={`${styles.checkoutWrapper}`}>
           <div className={`${styles.checkoutAddToCart}`}>

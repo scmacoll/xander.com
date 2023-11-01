@@ -302,6 +302,7 @@
   // align-content: flex-end;
   // justify-content: flex-end;
   // justify-items: flex-end;
+  //border: .1px solid blue;
 }
 
 .totalWrapper {
@@ -316,6 +317,7 @@
   align-content: center;
   //padding: 1.3em 0 1em 0;
   padding-bottom: 1em;
+
 }
 
 .checkoutWrapper {
@@ -330,6 +332,13 @@
   //padding: 1.3em 0 1.3em 0;
   padding-bottom: 1.3em;
   width: 100%;
+
+  @media (max-width: 749px) {
+    padding-bottom: 0;
+    bottom: revert;
+    top: 60%;
+    justify-content: space-between;
+  }
 }
 
 .itemTotal {
@@ -347,6 +356,11 @@
 
    //color: rgb(169, 57, 57);
   color: rgba(156, 163, 175, 0.731);
+  @media (max-width: 749px) {
+    padding-top: 0;
+    padding-bottom: 1em;
+    justify-content: space-between;
+  }
 }
 
 .checkoutAddToCart {
