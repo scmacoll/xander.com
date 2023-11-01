@@ -3,7 +3,7 @@
 
 @media (max-width: 1099px) {
   .cardContent {
-    padding: 10px 18px 1px 18px;
+    //padding: 10px 18px 1px 18px;
   }
   .cardTitle {
     overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
@@ -29,7 +29,6 @@
   font-family: "sf", sans-serif;
    //! 676 x 422.13
   @media (max-width: 749px) and (min-width: 480px) {
-    //height: 80vw;
     height: calc(722px - 28vw);
   }
   @media (max-width: 479px) {
@@ -65,7 +64,6 @@
   flex: 2;
   //padding-bottom: 5em;
   justify-content: space-evenly;
-
   //! 640 x 341.133
 }
 
@@ -175,7 +173,6 @@
   align-items: center;
   justify-content: space-between;
   flex: 1;
-  //border: .1px solid red;
   @media (max-width: 749px) {
     flex-direction: column;
     width: 85%;
@@ -193,7 +190,6 @@
 }
 
 .cardHeartTwo {
-  //border: .1px solid blue;
   display: flex;
   justify-content: end;
   flex: 1;
@@ -323,6 +319,10 @@
 .bookAuthor {
   display: flex;
   // font-size: .9rem;
+
+  @media (max-width: 749px) {
+    padding-top: 1em;
+  }
 }
 .bookAuthor span {
   @media (max-width: 600px) {
@@ -351,12 +351,9 @@
 
 .checkoutContainer {
   position: relative;
-  display: flex;
   align-items: center;
   // align-content: flex-end;
-  // justify-content: flex-end;
   // justify-items: flex-end;
-  //border: .1px solid blue;
 
   @media (max-width: 749px) and (min-width: 480px) {
     flex-direction: column;
@@ -378,13 +375,36 @@
   align-items: center;
   align-content: center;
   //padding: 1.3em 0 1em 0;
-  padding-bottom: 1em;
+
+  @media (max-width: 749px) and (min-width: 480px) {
+    width: 100%;
+    padding-bottom: 1em;
+    padding-top: 0.5em;
+  }
+  @media (max-width: 479px) {
+    width: 100%;
+    padding-bottom: 1em;
+  }
+}
+
+.itemTotal {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+  padding: .75em 0 .75em 0;
+  // width: 50%;
+  // height: 50px;
+  font-weight: 600;
+  font-size: 1.2rem;
+   //color: rgb(169, 57, 57);
+  color: rgba(156, 163, 175, 0.731);
 
   @media (max-width: 749px) {
-    width: 100%;
-    margin: 0 auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    justify-content: space-between;
   }
-
 }
 
 .checkoutWrapper {
@@ -408,26 +428,6 @@
     position: relative;
     //top: 60%;
     justify-content: center;
-  }
-}
-
-.itemTotal {
-  display: inline-flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1;
-  padding: .75em 0 .75em 0;
-  // width: 50%;
-  // height: 50px;
-  font-weight: 600;
-  font-size: 1.2rem;
-
-   //color: rgb(169, 57, 57);
-  color: rgba(156, 163, 175, 0.731);
-  @media (max-width: 749px) {
-    padding-top: 0;
-    padding-bottom: 0;
-    justify-content: space-between;
   }
 }
 

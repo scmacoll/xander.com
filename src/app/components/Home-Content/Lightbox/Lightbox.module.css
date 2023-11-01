@@ -21,7 +21,7 @@
   background-color: rgb(var(--background-start-rgb));
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
   border-radius: 4px;
-  padding: 10px 18px 1px 18px;
+  padding: 10px 18px 10px 18px;
   min-width: 350px;
   width: 675.5px;
   overflow: auto;
@@ -43,7 +43,6 @@
     height: fit-content;
     width: 70vw;
     transform: translateY(60px);
-    padding: 0px 18px 10px 18px;
   }
 }
 
@@ -51,7 +50,7 @@
   position: relative;
   height: 100%;
   box-sizing: border-box;
-  padding: 10px 18px 1px 18px;
+  padding: 10px 18px 10px 18px;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;

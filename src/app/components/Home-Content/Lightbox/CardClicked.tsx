@@ -152,77 +152,42 @@ const Card: React.FC<CardProps> = ({card}) => {
             <div className={`${styles.itemButtons}`}>
 
               {/*<div className={`${styles.bookTitleTwo}`}>*/}
-                {/*<div id="bookName2">*/}
-                {/*  <p className={`${styles.bookName} font-bold`}>*/}
-                {/*    Social Capital: A Multifaceted Perspective*/}
-                {/*  </p>*/}
-                {/*</div>*/}
+              {/*  <div id="bookName2">*/}
+              {/*    <p className={`${styles.bookName} font-bold`}>*/}
+              {/*      Social Capital: A Multifaceted Perspective*/}
+              {/*    </p>*/}
+              {/*  </div>*/}
               {/*</div>*/}
               <div className={`${styles.bookAuthor} text-gray-400`}>
                 <p>By: Ismail Serageldin | Paperback | <span>25 September 1999</span></p>
               </div>
 
-              {/*<div className={`${styles.itemToggles}`}>*/}
-              {/*  <div className={`${styles.itemPrice}`}>*/}
-              {/*    <p className="font-bold">$46.58</p>*/}
-              {/*  </div>*/}
-              {/*  <div className={`${styles.itemQty}`}>*/}
-              {/*    <div className="flex">*/}
-              {/*      <div className={`${styles.qtyMinus}`}>*/}
-              {/*        <svg*/}
-              {/*          version="1.0"*/}
-              {/*          xmlns="http://www.w3.org/2000/svg"*/}
-              {/*          width="2.25em"*/}
-              {/*          height="3em"*/}
-              {/*          viewBox="0 0 752.000000 752.000000"*/}
-              {/*          preserveAspectRatio="xMidYMid meet">*/}
-              {/*          <g*/}
-              {/*            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"*/}
-              {/*            fill="#d2cfca"*/}
-              {/*            stroke="none">*/}
-              {/*            <path*/}
-              {/*              d="M2016 3809 c-17 -13 -26 -30 -26 -49 0 -19 9 -36 26 -49 l27 -21*/}
-              {/*              1717 0 1717 0 27 21 c35 28 35 70 0 98 l-27 21 -1717 0 -1717 0 -27 -21z"*/}
-              {/*            />*/}
-              {/*          </g>*/}
-              {/*        </svg>*/}
-              {/*      </div>*/}
-              {/*      <div className={`${styles.qtyPlus}`}>*/}
-              {/*        <svg*/}
-              {/*          version="1.0"*/}
-              {/*          xmlns="http://www.w3.org/2000/svg"*/}
-              {/*          width="2.25em"*/}
-              {/*          height="3em"*/}
-              {/*          viewBox="0 0 752.000000 752.000000"*/}
-              {/*          preserveAspectRatio="xMidYMid meet">*/}
-              {/*          <g*/}
-              {/*            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"*/}
-              {/*            fill="#d2cfcaba"*/}
-              {/*            stroke="none">*/}
-              {/*            <path*/}
-              {/*              d="M3701 5584 l-31 -26 -2 -851 -3 -852 -852 -5 c-787 -5 -854 -6 -872*/}
-              {/*              -22 -39 -33 -39 -103 0 -136 18 -16 85 -17 872 -22 l852 -5 3 -851 2 -851 26*/}
-              {/*              -24 c35 -32 93 -32 128 0 l26 24 2 851 3 851 851 3 851 2 24 26 c32 35 32 93*/}
-              {/*              0 128 l-24 26 -851 2 -851 3 -3 852 -2 851 -31 26 c-17 15 -43 26 -59 26 -16*/}
-              {/*              0 -42 -11 -59 -26z"*/}
-              {/*            />*/}
-              {/*          </g>*/}
-              {/*        </svg>*/}
-              {/*      </div>*/}
-              {/*      <div className={`${styles.itemQtyNumber}`}>*/}
-              {/*        <p>Qty: 1</p>*/}
-              {/*      </div>*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-              {/*</div>*/}
-
               <div className={`${styles.itemToggles}`}>
-                <div className={`${styles.itemQtyXs}`}>
+                <div className={`${styles.itemPrice}`}>
+                  <p className="font-bold">$46.58</p>
+                </div>
+                <div className={`${styles.itemQty}`}>
                   <div className="flex">
-                    <div className={`${styles.itemQtyNumberXs}`}>
-                      <p>Qty: 1</p>
+                    <div className={`${styles.qtyMinus}`}>
+                      <svg
+                        version="1.0"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="2.25em"
+                        height="3em"
+                        viewBox="0 0 752.000000 752.000000"
+                        preserveAspectRatio="xMidYMid meet">
+                        <g
+                          transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                          fill="#d2cfca"
+                          stroke="none">
+                          <path
+                            d="M2016 3809 c-17 -13 -26 -30 -26 -49 0 -19 9 -36 26 -49 l27 -21
+                            1717 0 1717 0 27 21 c35 28 35 70 0 98 l-27 21 -1717 0 -1717 0 -27 -21z"
+                          />
+                        </g>
+                      </svg>
                     </div>
-                    <div className={`${styles.qtyPlusXs}`}>
+                    <div className={`${styles.qtyPlus}`}>
                       <svg
                         version="1.0"
                         xmlns="http://www.w3.org/2000/svg"
@@ -244,31 +209,66 @@ const Card: React.FC<CardProps> = ({card}) => {
                         </g>
                       </svg>
                     </div>
-                    <div className={`${styles.qtyMinusXs}`}>
-                      <svg
-                        version="1.0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="2.25em"
-                        height="3em"
-                        viewBox="0 0 752.000000 752.000000"
-                        preserveAspectRatio="xMidYMid meet">
-                        <g
-                          transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                          fill="#d2cfca"
-                          stroke="none">
-                          <path
-                            d="M2016 3809 c-17 -13 -26 -30 -26 -49 0 -19 9 -36 26 -49 l27 -21
-                            1717 0 1717 0 27 21 c35 28 35 70 0 98 l-27 21 -1717 0 -1717 0 -27 -21z"
-                          />
-                        </g>
-                      </svg>
+                    <div className={`${styles.itemQtyNumber}`}>
+                      <p>Qty: 1</p>
                     </div>
                   </div>
                 </div>
-                <div className={`${styles.itemPriceXs}`}>
-                  <p className="font-bold">$46.58</p>
-                </div>
               </div>
+
+              {/*<div className={`${styles.itemToggles}`}>*/}
+              {/*  <div className={`${styles.itemQtyXs}`}>*/}
+              {/*    <div className="flex">*/}
+              {/*      <div className={`${styles.itemQtyNumberXs}`}>*/}
+              {/*        <p>Qty: 1</p>*/}
+              {/*      </div>*/}
+              {/*      <div className={`${styles.qtyPlusXs}`}>*/}
+              {/*        <svg*/}
+              {/*          version="1.0"*/}
+              {/*          xmlns="http://www.w3.org/2000/svg"*/}
+              {/*          width="2.25em"*/}
+              {/*          height="3em"*/}
+              {/*          viewBox="0 0 752.000000 752.000000"*/}
+              {/*          preserveAspectRatio="xMidYMid meet">*/}
+              {/*          <g*/}
+              {/*            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"*/}
+              {/*            fill="#d2cfcaba"*/}
+              {/*            stroke="none">*/}
+              {/*            <path*/}
+              {/*              d="M3701 5584 l-31 -26 -2 -851 -3 -852 -852 -5 c-787 -5 -854 -6 -872*/}
+              {/*              -22 -39 -33 -39 -103 0 -136 18 -16 85 -17 872 -22 l852 -5 3 -851 2 -851 26*/}
+              {/*              -24 c35 -32 93 -32 128 0 l26 24 2 851 3 851 851 3 851 2 24 26 c32 35 32 93*/}
+              {/*              0 128 l-24 26 -851 2 -851 3 -3 852 -2 851 -31 26 c-17 15 -43 26 -59 26 -16*/}
+              {/*              0 -42 -11 -59 -26z"*/}
+              {/*            />*/}
+              {/*          </g>*/}
+              {/*        </svg>*/}
+              {/*      </div>*/}
+              {/*      <div className={`${styles.qtyMinusXs}`}>*/}
+              {/*        <svg*/}
+              {/*          version="1.0"*/}
+              {/*          xmlns="http://www.w3.org/2000/svg"*/}
+              {/*          width="2.25em"*/}
+              {/*          height="3em"*/}
+              {/*          viewBox="0 0 752.000000 752.000000"*/}
+              {/*          preserveAspectRatio="xMidYMid meet">*/}
+              {/*          <g*/}
+              {/*            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"*/}
+              {/*            fill="#d2cfca"*/}
+              {/*            stroke="none">*/}
+              {/*            <path*/}
+              {/*              d="M2016 3809 c-17 -13 -26 -30 -26 -49 0 -19 9 -36 26 -49 l27 -21*/}
+              {/*              1717 0 1717 0 27 21 c35 28 35 70 0 98 l-27 21 -1717 0 -1717 0 -27 -21z"*/}
+              {/*            />*/}
+              {/*          </g>*/}
+              {/*        </svg>*/}
+              {/*      </div>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*  <div className={`${styles.itemPriceXs}`}>*/}
+              {/*    <p className="font-bold">$46.58</p>*/}
+              {/*  </div>*/}
+              {/*</div>*/}
 
             </div>
           </div>
