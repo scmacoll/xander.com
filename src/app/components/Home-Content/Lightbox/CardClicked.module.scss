@@ -167,6 +167,7 @@
 }
 
 .cardIcon {
+  padding-right: 1em;
 }
 
 .cardIcons {
@@ -185,6 +186,7 @@
 
 .cardHeart {
   display: flex;
+  z-index: 500;
   // padding-right: 1em;
 }
 .cardHeart:hover svg path {
@@ -200,6 +202,7 @@
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 500;
 }
 .cardHeartTwo:hover svg path {
   fill: rgb(112, 45, 45);
@@ -298,7 +301,7 @@
   align-items: center;
   justify-content: flex-start;
   padding-top: .5em;
-  padding-left: 1em;
+  //padding-left: 1em;
   width: 50%;
 }
 
@@ -448,6 +451,10 @@
   align-items: center;
   color: rgb(var(--everforest-gold));
 }
+.checkoutAddToCart:hover {
+  border: .1px solid #d2cfca;
+  color: #d2cfca;
+}
 
 .checkoutBuyNow {
   display: inline-flex;
@@ -459,4 +466,8 @@
   justify-content: center;
   align-items: center;
   color: rgb(169, 57, 57);
+}
+.checkoutBuyNow:hover {
+  border: .1px solid #d2cfca;
+  color: #d2cfca;
 }

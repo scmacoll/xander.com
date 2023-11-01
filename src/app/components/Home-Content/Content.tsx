@@ -5,6 +5,7 @@ import styles from './Content.module.scss';
 import Lightbox from './Lightbox/Lightbox'
 import Card from './Card/Card';
 import classNames from 'classnames';
+import CardClicked from './Lightbox/CardClicked';
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +18,7 @@ import {
 
 interface ContentProps {
   isCardButtonClicked: boolean;
+  numColumns: number;
 }
 
 const getNumColumns = (): number => {
@@ -270,7 +272,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           {/*</div>*/}
         </div>
         {selectedCard && (
-          <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} />
+          <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} numColumns={numColumns} />
         )}
 
         {combinedData.map((card, index) => {

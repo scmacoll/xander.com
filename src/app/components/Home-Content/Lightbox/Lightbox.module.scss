@@ -86,7 +86,7 @@
   @media (max-width: 479px) {
     width: 70vw;
     transform: translateY(60px);
-    padding-right: 2px;
+    padding-right: 6px;
   }
 
 }
@@ -143,12 +143,15 @@
 
 .closeButton {
   position: absolute;
-    top: 1px;
-    right: 1px;
-    padding: 1px;
+  top: 1px;
+  right: 1px;
+  padding: 1px;
 
   @media (max-width: 479px) {
     //top: -5px;
-    right: 2px;
+    right: 4px;
   }
+}
+.closeButton:hover svg path {
+  fill: #d2cfca;
 }

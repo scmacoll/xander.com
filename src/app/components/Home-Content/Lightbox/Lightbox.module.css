@@ -45,7 +45,7 @@
   .lightboxContent {
     width: 70vw;
     transform: translateY(60px);
-    padding-right: 2px;
+    padding-right: 6px;
   }
 }
 
@@ -93,8 +93,12 @@
 }
 @media (max-width: 479px) {
   .closeButton {
-    right: 2px;
+    right: 4px;
   }
+}
+
+.closeButton:hover svg path {
+  fill: #d2cfca;
 }
 
 /*# sourceMappingURL=Lightbox.module.css.map */

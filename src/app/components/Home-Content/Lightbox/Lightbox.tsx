@@ -5,16 +5,20 @@ import React from 'react';
 
 
 interface LightboxProps {
-  card: TileCard;
+  card: TileCard,
   onClose: () => void;
+  numColumns: number;
 }
 
-const Lightbox: React.FC<LightboxProps> = ({ card, onClose }) => {
+const Lightbox: React.FC<LightboxProps> = ({ card, onClose, numColumns }) => {
   return (
     <div className={styles.lightbox}>
       <div className={styles.lightboxWrapper}>
         <div className={styles.lightboxContent}>
-          <Card card={card}/>
+          <Card
+            card={card}
+            numColumns={numColumns}
+          />
           <button className={`${styles.closeButton}`} onClick={onClose}>
             <svg
               version="1.0"
