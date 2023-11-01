@@ -45,8 +45,13 @@
   }
   @media (max-width: 999px) and (min-width: 750px) {
   }
-  @media (max-width: 749px) {
+  @media (max-width: 749px) and (min-width: 480px) {
     transform: translateY(0em);
+    padding-bottom: 1.5em;
+  }
+  @media (max-width: 479px) {
+    transform: translateY(0.5em);
+    padding-bottom: .75em;
   }
 }
 
@@ -102,6 +107,10 @@
   width: 100%;
   padding-top: 4px;
   padding-bottom: 1px;
+
+  @media (max-width: 749px) and (min-width: 480px){
+    padding-bottom: 1.5em;
+  }
 }
 
 .authorName {
@@ -159,22 +168,15 @@
 .cardIcons {
   display: flex;
   position: relative;
-   align-items: center;
+  align-items: center;
   justify-content: space-between;
   flex: 1;
   //border: .1px solid red;
-  @media (max-width: 2000px) and (min-width: 1424px) {
-  }
-  @media (max-width: 1425px) and (min-width: 1200px) {
-  }
-  @media (max-width: 1199px) and (min-width: 1000px) {
-  }
-  @media (max-width: 999px) and (min-width: 750px) {
-  }
   @media (max-width: 749px) {
     flex-direction: column;
     width: 85%;
     margin: 0 auto;
+    align-items: revert;
   }
 }
 
@@ -238,9 +240,56 @@
   display: inline-flex;
   justify-content: flex-end;
 }
-.qtyPlus:hover svg path {
+.qtyMinus:hover svg path {
+  fill: #ffffff;
+}
+
+////////////////////////////////////////////// XS
+.itemPriceXs {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  font-size: 1rem;
+}
+
+.itemQtyXs {
+  display: inline-flex;
+  //margin-left: 5em;
+  // width: 25%;
+  align-items: center;
+
+  @media (max-width: 749px) and (min-width: 480px) {
+    padding-bottom: .5em;
+  }
+}
+
+.itemQtyNumberXs {
+  display: inline-flex;
+  border: .1px solid rgb(var(--foreground-rgb), .7);
+  color: rgb(156 163 175);
+  height: 50%;
+  border-radius: 4px;
+  padding: .5em .5em .5em .5em;
+  transform: translateY(.2em);
+}
+
+.qtyPlusXs {
+  display: inline-flex;
+  //justify-content: flex-end;
+  padding-left: 1em;
+}
+.qtyPlusXs:hover svg path {
   fill: #d2cfca;
 }
+
+.qtyMinusXs {
+  display: inline-flex;
+  //justify-content: flex-end;
+}
+.qtyMinusXs:hover svg path {
+  fill: #ffffff;
+}
+/////////////////////////////////////////////////
 
 .bookTitleOne {
   display: block;
@@ -337,7 +386,7 @@
     padding-bottom: 0;
     bottom: revert;
     top: 60%;
-    justify-content: space-between;
+    justify-content: center;
   }
 }
 
