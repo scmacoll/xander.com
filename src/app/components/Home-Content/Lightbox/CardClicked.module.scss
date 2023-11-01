@@ -22,24 +22,25 @@
   justify-content: space-between;
   box-sizing: border-box;
   min-height: 422.13px;
-  padding: 10px 18px 1px 18px;
+  height: fit-content;
+  max-height: 80vh;
+  overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+  padding: 10px 18px 10px 18px;
   line-height: 1.5;
   font-size: 14px;
   font-weight: 500;
   font-family: "sf", sans-serif;
-   //! 676 x 422.13
-  @media (max-width: 749px) and (min-width: 480px) {
-    height: calc(722px - 28vw);
-  }
-  @media (max-width: 479px) {
-    height: calc(722px - 28vw);
-    //padding: 0 18px 12px 18px;
-  }
+}
+.cardContent:hover {
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
 }
 
 .middleBorder {
   border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
   transform: translateY(1em);
+
   @media (max-width: 2000px) and (min-width: 1424px) {
   }
   @media (max-width: 1425px) and (min-width: 1200px) {
@@ -48,14 +49,14 @@
   }
   @media (max-width: 999px) and (min-width: 750px) {
   }
-  @media (max-width: 749px) and (min-width: 480px) {
+  @media (max-width: 749px){
     transform: translateY(0em);
     padding-bottom: 1.5em;
   }
-  @media (max-width: 479px) {
-    transform: translateY(0.5em);
-    padding-bottom: .75em;
-  }
+  //@media (max-width: 479px) {
+  //  transform: translateY(0.5em);
+  //  padding-bottom: .75em;
+  //}
 }
 
 .contentWrapper {
@@ -76,7 +77,8 @@
 
 .cardTitle {
   display: flex;
-  max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
+  //max-height: calc(2em * 4); /* Assuming 1.2em as line-height and showing up to 4 lines */
+  max-height: fit-content;
   overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
   scrollbar-width: thin;
   scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
@@ -110,7 +112,7 @@
   padding-top: 4px;
   padding-bottom: 1px;
 
-  @media (max-width: 749px) and (min-width: 480px){
+  @media (max-width: 749px) {
     padding-bottom: 1.5em;
   }
 }
@@ -383,6 +385,7 @@
   }
   @media (max-width: 479px) {
     width: 100%;
+    padding-top: 0.5em;
     padding-bottom: 1em;
   }
 }

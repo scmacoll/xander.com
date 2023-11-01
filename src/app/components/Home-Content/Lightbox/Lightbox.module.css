@@ -27,11 +27,8 @@
   overflow: auto;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   text-align: start;
-}
-@media (max-width: 2000px) and (min-width: 1424px) {
-  .lightboxContent {
-    height: fit-content;
-  }
+  height: fit-content;
+  overflow-x: hidden;
 }
 @media (max-width: 999px) and (min-width: 750px) {
   .lightboxContent {
@@ -40,7 +37,6 @@
 }
 @media (max-width: 749px) {
   .lightboxContent {
-    height: fit-content;
     width: 70vw;
     transform: translateY(60px);
   }
@@ -85,8 +81,8 @@
 
 .closeButton {
   position: absolute;
-  top: 1px;
-  right: 1px;
+  top: -6px;
+  right: -6px;
   padding: 1px;
 }
 

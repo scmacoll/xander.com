@@ -65,9 +65,10 @@
   overflow: auto;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   text-align: start;
+  height: fit-content;
+  overflow-x: hidden;
 
   @media (max-width: 2000px) and (min-width: 1424px) {
-    height: fit-content;
   }
   @media (max-width: 1425px) and (min-width: 1200px) {
   }
@@ -77,8 +78,6 @@
     max-width: 80vw;
   }
   @media (max-width: 749px){
-    //height: calc(722px - 25vw);
-    height: fit-content;
     width: 70vw;
     transform: translateY(60px);
     //padding: 0px 18px 10px 18px;
@@ -139,7 +138,7 @@
 
 .closeButton {
   position: absolute;
-  top: 1px;
-  right: 1px;
+  top: -6px;
+  right: -6px;
   padding: 1px;
 }
