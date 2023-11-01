@@ -380,7 +380,9 @@ const CheckoutPageContent: React.FC = () => {
 
                     <div id="shippingButton">
                       <div className="flex justify-end pt-8">
-                        <button className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE TO SHIPPING
+                        <button
+                          className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE TO
+                          SHIPPING
                         </button>
                       </div>
                     </div>

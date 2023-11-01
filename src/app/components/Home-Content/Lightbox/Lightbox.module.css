@@ -40,10 +40,10 @@
 }
 @media (max-width: 749px) {
   .lightboxContent {
-    height: calc(722px - 31vw);
+    height: fit-content;
     width: 70vw;
     transform: translateY(60px);
-    padding: 0px 18px 1px 18px;
+    padding: 0px 18px 10px 18px;
   }
 }
 
