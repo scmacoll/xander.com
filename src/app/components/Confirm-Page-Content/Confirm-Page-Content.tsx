@@ -42,8 +42,8 @@ const ConfirmPageContent: React.FC = () => {
 
           <div id="confirmationContainer"
                className="flex flex-col">
-            <div className="pt-3">
-              <div className="border border-solid border-foreground p-4">
+            <div className="pt-3 pb-3">
+              <div className="border rounded border-solid border-foreground p-4">
                 <div className="text-lg font-bold pb-1">Your order is confirmed</div>
                 <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation email has been sent to
                   stuart.charles.co@gmail.com. Come back to this page for updates on your order status.
@@ -52,137 +52,73 @@ const ConfirmPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div id="contactContainer">
+          <div id="contactContainer"
+               className="pt-3"
+          >
             <div
-              className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 pt-16 pb-14 border-foreground">
+              className="mx-auto flex w-full flex-col border rounded border-solid p-4 border-foreground">
               <div id="contactWrapper"
                    className="">
                 <div id="contactTopSection">
-                  <div id="contactHeader"
+
+                  <div id="customerInformationContainer"
                        className="pb-4">
                     <div className="flex flex-row items-center justify-between">
-                      <div className="flex text-xl font-bold">Contact</div>
-                      <div className="flex text-sm">
-                        <div>Have an account?</div>
-                        <div className="cursor-pointer pl-1 font-bold">Log in</div>
-                      </div>
+                      <div className="flex text-xl font-bold">Customer Information</div>
                     </div>
                   </div>
-                  <div id="contactEmail"
-                       className="pb-3">
-                    <div className="flex">
-                      <input type="text"
-                             placeholder="Email"
-                             className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-                      />
-                    </div>
-                  </div>
-                  <div id="emailOffersCheckbox"
-                       className="pb-12">
-                    <div className="flex items-center align-center">
-                      <div className="inline-flex">
-                        <input type="checkbox"
-                               value="1"
-                               className="accent-gray-500"/>
+                  {/*TODO*/}
+                  <div id="customerInformationLists">
+                    <div id="addressLists"
+                         className="flex"
+                    >
+                      <div className="w-1/2">
+                        <h4 className="font-bold">Shipping Address</h4>
+                        <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <li>Liz Brown</li>
+                          <li>2731 Davis Drive</li>
+                          <li>Markham ON L3P 2M4</li>
+                          <li>Canada</li>
+                          <li>403-561-0873</li>
+                        </ul>
                       </div>
-                      <div className="inline-flex pl-2">
-                        Email me with news and offers
-                      </div>
-                    </div>
-                  </div>
-                  <div id="contactBottomSection">
-                    <div id="contactShippingHeader">
-                      <div className="flex pb-2 text-xl font-bold">Shipping Address</div>
-                    </div>
-                    {/*!TODO:*/}
-                    <div id="contactDetails">
-                      <div id="countrySelect"
-                           className="relative w-full border border-solid border-foreground">
-                        <label htmlFor="country"
-                               className="absolute top-2 left-3 text-sm">Country/region</label>
-                        <div id="selectArrow"
-                             className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                               viewBox="0 0 24 24"
-                               xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M19 9l-7 7-7-7"></path>
-                          </svg>
-                        </div>
-                        <select id="country"
-                                className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none">
-                          <option value="Australia">Australia</option>
-                        </select>
-                      </div>
-                      <div id="contactNames"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text" placeholder="First Name"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
-                        <input type="text" placeholder="Last Name"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
-                      </div>
-                      <div id="contactCompany"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text"
-                               placeholder="Company (required for business addresses)"
-                               className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                      </div>
-                      <div id="contactAddressLineOne"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text" placeholder="Address"
-                               className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                      </div>
-                      <div id="contactAddressLineTwo"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text" placeholder="Apartment, suite, etc. (optional)"
-                               className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                      </div>
-                      <div id="contactAddressLineThree"
-                           className="flex justify-between gap-1 pt-4">
-                        <input type="text" placeholder="City"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% border-foreground placeholder-greyed-out"/>
-                        <div className="relative border border-solid w-32% border-foreground">
-                          <label htmlFor="country"
-                                 className="absolute top-2 left-3 text-sm font-bold text-greyed-out">State</label>
-                          <div id="selectArrow"
-                               className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                                 viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                          </div>
-                          <select id="country"
-                                  className="block w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none">
-                            <option value="State" selected disabled>State</option>
-                            <option value="State">Australian Capital Territory</option>
-                            <option value="State">New South Wales</option>
-                            <option value="State">Northern Territory</option>
-                            <option value="State">Queensland</option>
-                            <option value="State">South Australia</option>
-                            <option value="State">Tasmania</option>
-                            <option value="State">Victoria</option>
-                            <option value="State">Western Australia</option>
-                          </select>
-                        </div>
-                        <input type="text" placeholder="ZIP code"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% border-foreground placeholder-greyed-out"/>
+                      <div className="w-1/2">
+                        <h4 className="font-bold">Billing Address</h4>
+                        <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <li>Liz Brown</li>
+                          <li>2731 Davis Drive</li>
+                          <li>Markham ON L3P 2M4</li>
+                          <li>Canada</li>
+                          <li>403-561-0873</li>
+                        </ul>
                       </div>
                     </div>
-
-                    <div id="shippingButton">
-                      <div className="flex justify-end pt-8">
-                        <button
-                          className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE TO
-                          SHIPPING
-                        </button>
+                    <div id="methodLists"
+                         className="flex"
+                    >
+                      <div className="w-1/2 pt-4">
+                        <h4 className="font-bold">Shipping method</h4>
+                        <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <li>Expedited Parcel</li>
+                        </ul>
+                      </div>
+                      <div className="w-1/2 pt-4">
+                        <h4 className="font-bold">Payment method</h4>
+                        <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <li>VISA ending with 4242 --</li>
+                          <li>$129.46</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div id="shippingButton">
+              <div className="flex justify-end pt-8 pb-14">
+                <button
+                  className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE BROWSING
+                </button>
               </div>
             </div>
             <div id="checkoutFooter" className="flex py-4 text-xs font-bold text-greyed-out">
