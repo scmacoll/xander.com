@@ -1,6 +1,5 @@
 import styles from './Checkout-Page-Content.module.scss';
 import React from 'react';
-import classNames from 'classnames';
 import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 

@@ -18,7 +18,7 @@ const Lightbox: React.FC<LightboxProps> = ({ card, onClose, numColumns }) => {
           <Card
             card={card}
             numColumns={numColumns}
-          />
+            isOneColumn/>
           <button className={`${styles.closeButton}`} onClick={onClose}>
             <svg
               version="1.0"
