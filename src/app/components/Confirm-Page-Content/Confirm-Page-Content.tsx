@@ -114,8 +114,13 @@ const ConfirmPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div id="shippingButton">
-              <div className="flex justify-end pt-8 pb-14">
+            <div id="shippingButton" className="items-center justify-between flex pt-8 pb-14">
+              <div className="flex justify-start">
+                <div>?</div>
+                <div>Need help?</div>
+                <div>Contact us</div>
+              </div>
+              <div className="flex justify-end">
                 <button
                   className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE BROWSING
                 </button>
