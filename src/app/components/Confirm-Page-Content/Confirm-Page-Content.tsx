@@ -114,16 +114,44 @@ const ConfirmPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div id="shippingButton" className="items-center justify-between flex pt-8 pb-14">
-              <div className="flex justify-start">
-                <div>?</div>
-                <div>Need help?</div>
-                <div>Contact us</div>
-              </div>
-              <div className="flex justify-end">
-                <button
-                  className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE BROWSING
-                </button>
+            <div id="bottomContainer" className="pt-8 pb-14">
+              <div className="flex justify-between xs:flex-col-reverse">
+                <div id="contactContainer"
+                     className="flex justify-start contents-center items-end xs:justify-center xs:pt-4">
+                  <div className="flex items-center">
+                    <div id="questionMarkIcon"
+                         className="pr-1">
+                      <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                           width="32px" height="32px" viewBox="0 0 752.000000 752.000000"
+                           preserveAspectRatio="xMidYMid meet">
+                        <g transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                           fill="#d2cfca2b" stroke="none">
+                          <path d="M3531 5919 c-230 -24 -489 -98 -701 -200 -230 -111 -402 -231 -583
+                      -408 -194 -189 -313 -354 -433 -596 -361 -734 -282 -1587 210 -2255 81 -110
+                       258 -296 366 -383 652 -527 1552 -635 2299 -276 235 113 400 228 584 408 194
+                       190 314 354 432 596 300 611 300 1302 0 1910 -120 244 -238 407 -432 596 -462
+                       452 -1101 675 -1742 608z m434 -803 c216 -58 424 -235 515 -440 51 -116 64
+                       -180 64 -321 0 -153 -14 -217 -79 -350 -75 -155 -195 -275 -360 -361 -123 -64
+                       -137 -86 -145 -230 -8 -120 -27 -165 -89 -209 -37 -26 -51 -30 -111 -30 -60 0
+                       -74 4 -111 30 -70 49 -84 89 -84 230 1 128 15 197 60 285 56 111 166 213 290
+                       269 85 39 158 108 197 189 31 62 33 73 33 172 0 94 -3 111 -28 166 -17 36 -50
+                       82 -80 112 -160 157 -394 157 -554 0 -65 -65 -102 -145 -115 -252 -10 -83 -32
+                       -138 -64 -167 -54 -48 -144 -64 -209 -39 -72 27 -125 110 -124 195 0 73 23
+                       190 53 269 92 243 312 432 570 491 79 18 289 13 371 -9z m-115 -2366 c139 -71
+                       140 -274 1 -347 -185 -97 -372 128 -245 295 54 70 163 93 244 52z"/>
+                        </g>
+                      </svg>
+                    </div>
+                    <div className="pr-2 font-light text-sm">Need help?</div>
+                    <div className="cursor-pointer text-link-blue">Contact us</div>
+                  </div>
+                </div>
+                <div id="browsingButtonContainer"
+                     className="flex justify-end xs:justify-center">
+                  <button className="border-2 bg-shopify-blue font-bold border-solid border-foreground rounded p-4">
+                    CONTINUE BROWSING
+                  </button>
+                </div>
               </div>
             </div>
             <div id="checkoutFooter" className="flex py-4 text-xs font-bold text-greyed-out">
@@ -179,27 +207,22 @@ const ConfirmPageContent: React.FC = () => {
             </div>
             <div className="inline-flex text-sm flex-end">$135.00</div>
           </div>
-          <div className="flex justify-between border-b-gray-50 py-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4">
-            <div className="inline-flex flex-grow">
-              <input
-                type="text"
-                placeholder="Gift card or discount code"
-                className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-              />
-            </div>
-            <div
-              className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
-              <button>APPLY</button>
-            </div>
-          </div>
           <div className="flex flex-col border-y border-solid py-6 border-foreground">
             <div className="flex justify-between pb-4">
               <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-              <div className="inline-flex text-sm font-bold flex-end">$135.00</div>
+              <div className="inline-flex text-sm font-medium flex-end">$130.96</div>
+            </div>
+            <div className="flex justify-between pb-4">
+              <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+              <div className="inline-flex text-sm font-medium flex-end">Free</div>
+            </div>
+            <div className="flex justify-between pb-4">
+              <div className="inline-flex text-sm font-bold flex-start">Discount</div>
+              <div className="inline-flex text-sm font-medium flex-end">0.00</div>
             </div>
             <div className="flex justify-between">
-              <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-              <div className="inline-flex text-xs font-medium flex-end">Free</div>
+              <div className="inline-flex text-sm font-bold flex-start">Taxes</div>
+              <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
             </div>
           </div>
           <div className="flex justify-between py-6">

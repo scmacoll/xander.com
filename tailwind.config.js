@@ -16,6 +16,8 @@ module.exports = {
         'foreground': `rgb(var(--foreground-rgb))`,
         'greyed-out': '#d2cfca2b',
         'gold': 'rgb(var(--everforest-gold))',
+        'shopify-blue': 'rgb(var(--scroll-blue))',
+        'link-blue': 'rgb(var(--link-blue), .7)',
       },
       placeholderColor: {
         'greyed-out': '#d2cfca2b',
