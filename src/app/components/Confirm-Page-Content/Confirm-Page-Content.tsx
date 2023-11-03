@@ -1,10 +1,16 @@
 import styles from './Confirm-Page-Content.module.scss';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 
 const ConfirmPageContent: React.FC = () => {
+  const bottomRef = useRef<null | HTMLDivElement>(null);
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView(false);
+    }
+  }, []);
   return (
     <div className="relative mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div
@@ -338,7 +344,11 @@ const ConfirmPageContent: React.FC = () => {
               </div>
               <div className="flex items-center">
                 <div className="inline-flex pr-3 text-xs">AUD</div>
-                <div className="inline-flex text-2xl font-bold">$135.00</div>
+                <div ref={bottomRef}
+                     className={`${styles.smoothScroll}
+                     inline-flex text-2xl font-bold`}>
+                  $135.00
+                </div>
               </div>
             </div>
           </div></div>
