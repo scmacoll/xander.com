@@ -9,12 +9,12 @@ const ConfirmPageContent: React.FC = () => {
     <div className="relative mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div
         id="pageContainer"
-        className={`${styles.pageContainer} border-red mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
+        className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
       >
         {/*left side content*/}
         <div id="paymentDetailsWrapper"
              className="flex flex-col sm:w-full md:w-51.5% lg:w-51.5%">
-          <div className="border-green">
+          <div id="leftContentWrapper">
             <div id="checkoutTitle"
                  className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
               <div className="flex pb-1">
@@ -155,17 +155,17 @@ const ConfirmPageContent: React.FC = () => {
               </div>
             </div>
           </div>
-          {/*<div id="checkoutFooter"*/}
-          {/*     className="absolute bottom-0 flex py-4 text-xs font-bold text-greyed-out">*/}
-          {/*  <div className="pr-4 cursor-pointer">Refund Policy</div>*/}
-          {/*  <div className="pr-4 cursor-pointer">Privacy Policy</div>*/}
-          {/*  <div className="pr-4 cursor-pointer">Terms of Service</div>*/}
-          {/*</div>*/}
+          <div id="checkoutFooter"
+               className="absolute bottom-0 flex pt-4 text-xs font-bold text-greyed-out">
+            <div className="pr-4 cursor-pointer">Refund Policy</div>
+            <div className="pr-4 cursor-pointer">Privacy Policy</div>
+            <div className="pr-4 cursor-pointer">Terms of Service</div>
+          </div>
 
         </div>
         {/*right side content*/}
         <div id="rightContentWrapper"
-             className="relative flex flex-col pt-1 overflow-x-hidden overflow-y-auto max-h-610px xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative flex flex-col pt-1 max-h-610px xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
@@ -186,161 +186,162 @@ const ConfirmPageContent: React.FC = () => {
               </h4>
             </div>
           </div>
-
-          <div id="boughtItemContainer"
-               className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
+          <div className="pt-6"></div>
+          <div className={`${styles.scrollBar} pr-4 overflow-x-hidden overflow-y-auto`}>
+            <div id="boughtItemContainer"
+                 className="mx-auto flex w-full items-center justify-between border-b border-solid pb-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
                 </div>
-                <div className="flex font-light">13</div>
-              </div>
-            </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div id="boughtItemContainer"
-               className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
                 </div>
-                <div className="flex font-light">13</div>
               </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
             </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div id="boughtItemContainer"
-               className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
+            <div id="boughtItemContainer"
+                 className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
                 </div>
-                <div className="flex font-light">13</div>
-              </div>
-            </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div id="boughtItemContainer"
-               className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
                 </div>
-                <div className="flex font-light">13</div>
               </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
             </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div id="boughtItemContainer"
-               className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
+            <div id="boughtItemContainer"
+                 className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
                 </div>
-                <div className="flex font-light">13</div>
-              </div>
-            </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div id="boughtItemContainer"
-               className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
                 </div>
-                <div className="flex font-light">13</div>
+              </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
+            </div>
+            <div id="boughtItemContainer"
+                 className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
+                </div>
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
+                </div>
+              </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
+            </div>
+            <div id="boughtItemContainer"
+                 className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
+                </div>
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
+                </div>
+              </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
+            </div>
+            <div id="boughtItemContainer"
+                 className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
+                </div>
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
+                </div>
+              </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
+            </div>
+            <div className="flex flex-col border-b border-solid py-6 border-foreground">
+              <div className="flex justify-between pb-4">
+                <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+                <div className="inline-flex text-sm font-medium flex-end">$130.96</div>
+              </div>
+              <div className="flex justify-between pb-4">
+                <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                <div className="inline-flex text-sm font-medium flex-end">Free</div>
+              </div>
+              <div className="flex justify-between pb-4">
+                <div className="inline-flex text-sm font-bold flex-start">Discount</div>
+                <div className="inline-flex text-sm font-medium flex-end">0.00</div>
+              </div>
+              <div className="flex justify-between">
+                <div className="inline-flex text-sm font-bold flex-start">Taxes</div>
+                <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
               </div>
             </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div className="flex flex-col border-b border-solid py-6 border-foreground">
-            <div className="flex justify-between pb-4">
-              <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-              <div className="inline-flex text-sm font-medium flex-end">$130.96</div>
+            <div className="flex justify-between pt-6">
+              <div className="flex">
+                <div className="text-lg font-medium">Total</div>
+              </div>
+              <div className="flex items-center">
+                <div className="inline-flex pr-3 text-xs">AUD</div>
+                <div className="inline-flex text-2xl font-bold">$135.00</div>
+              </div>
             </div>
-            <div className="flex justify-between pb-4">
-              <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-              <div className="inline-flex text-sm font-medium flex-end">Free</div>
-            </div>
-            <div className="flex justify-between pb-4">
-              <div className="inline-flex text-sm font-bold flex-start">Discount</div>
-              <div className="inline-flex text-sm font-medium flex-end">0.00</div>
-            </div>
-            <div className="flex justify-between">
-              <div className="inline-flex text-sm font-bold flex-start">Taxes</div>
-              <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
-            </div>
-          </div>
-          <div className="flex justify-between py-6">
-            <div className="flex">
-              <div className="text-lg font-medium">Total</div>
-            </div>
-            <div className="flex items-center">
-              <div className="inline-flex pr-3 text-xs">AUD</div>
-              <div className="inline-flex text-2xl font-bold">$135.00</div>
-            </div>
-          </div>
-        </div>
+          </div></div>
       </div>
     </div>
   );

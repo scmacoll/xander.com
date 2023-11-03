@@ -1,3 +1,6 @@
-
+.scrollBar {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
+}
 
 /*# sourceMappingURL=Confirm-Page-Content.module.css.map */
