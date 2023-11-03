@@ -73,6 +73,14 @@ module.exports = {
         '2000px': '2000px',
         '4000px': '4000px',
       },
+      height: {
+        '576.8px': '576.8px',
+      },
+      maxHeight: {
+        '576.8px': '576.8px',
+        '610px': '610px',
+        '758px': '758px',
+      },
     },
     screens: {
       'custom-xs': '749px',
@@ -106,10 +114,10 @@ module.exports = {
         '.border-yellow': {
           border: '.1px solid yellow',
         },
-        '.border-purp': {
+        '.border-purple': {
           border: '.1px solid purple',
         },
-        '.border-oj': {
+        '.border-orange': {
           border: '.1px solid orange',
         },
         '.border-pink': {
