@@ -20,7 +20,6 @@ const ConfirmPageContent: React.FC = () => {
         {/*left side content*/}
         <div id="paymentDetailsWrapper"
              className="flex flex-col sm:w-full md:w-51.5% lg:w-51.5%">
-          <div id="leftContentWrapper">
             <div id="checkoutTitle"
                  className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
               <div className="flex pb-1">
@@ -118,7 +117,6 @@ const ConfirmPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
           <div id="bottomContainer" className="pb-14">
             <div className="pt-8">
               <div className="flex justify-between xs:flex-col-reverse">
@@ -161,6 +159,7 @@ const ConfirmPageContent: React.FC = () => {
               </div>
             </div>
           </div>
+
           <div id="checkoutFooter"
                className="absolute bottom-0 flex pt-4 text-xs font-bold text-greyed-out">
             <div className="pr-4 cursor-pointer">Refund Policy</div>
@@ -193,7 +192,7 @@ const ConfirmPageContent: React.FC = () => {
             </div>
           </div>
           <div className="pt-6"></div>
-          <div className={`${styles.scrollBar} pr-4 overflow-x-hidden overflow-y-auto`}>
+          <div className={`${styles.scrollBar} ${styles.scrollBarContent}  overflow-x-hidden overflow-y-auto`}>
             {/* <boughtItem> */}
             <div id="boughtItem">
               <div id="boughtItemContainer"
@@ -221,7 +220,7 @@ const ConfirmPageContent: React.FC = () => {
                 <div className="border-b border-solid border-foreground"></div>
               </div>
             </div>
-           {/* <boughtItem /> */}
+            {/* <boughtItem /> */}
             <div className="flex flex-col border-b border-solid pb-6 border-foreground">
               <div className="flex justify-between pb-4">
                 <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
