@@ -18,3 +18,87 @@
   width: calc(100% + 15px); /* Increase 15px if you increased padding-right */
   box-sizing: content-box;
 }
+
+// ####### "Similar Books" #######
+.featureSimilar {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.similarText {
+  font-size: 1.4em;
+  padding-bottom: .5em;
+}
+
+.similarContainer {
+  display: flex;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  border-top: .1px solid rgb(var(--foreground-rgb));
+  border-bottom: .1px solid rgb(var(--foreground-rgb));
+}
+
+.similarBooks {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.bookBlock {
+  display: block;
+  text-align: center;
+  padding: 1em;
+}
+
+.responsiveImage {
+  @media (min-width: 1200px) {
+    width: 115px;
+    height: auto;
+  }
+  @media (max-width: 1199px) and (min-width: 1000px) {
+    width: 115px;
+    height: auto;
+  }
+  @media (max-width: 999px) and (min-width: 750px) {
+    width: 100px;
+    height: auto;
+  }
+  @media (max-width: 749px) {
+    width: 100px;
+    height: auto;
+  }
+}
+
+.similarHeart {
+  display: inline-flex;
+  z-index: 2;
+}
+.similarHeart:hover svg path {
+  fill: rgb(112, 45, 45);
+}
+
+.similarBag {
+  display: inline-flex;
+  z-index: 2;
+}
+.similarBag:hover svg path {
+  fill: #d2cfca;
+
+}
+
+.similarRarrow {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 2;
+}
+
+.similarLarrow {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 2;
+}
