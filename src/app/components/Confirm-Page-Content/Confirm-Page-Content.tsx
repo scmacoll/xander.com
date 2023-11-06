@@ -146,7 +146,7 @@ const ConfirmPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-          <div id="lowerContainer" className="pb-14">
+          <div id="lowerContainer" className="xl:pb-14 lg:pb-14 md:pb-14 sm:pb-10 xs:pb-10 ">
             <div className="xl:pt-10 lg:pt-10 md:pt-10 sm:pt-10 xs:pt-6">
               <div className="flex justify-between xs:flex-col-reverse">
                 <div id="contactContainer"
@@ -283,7 +283,7 @@ const ConfirmPageContent: React.FC = () => {
       <div id="bottomContainer"
            className="flex flex-col w-full mx-auto xl:px-6 sm:px-0 xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
         <div
-          className={`${styles.featureSimilar} flex justify-around w-full`}>
+          className={`${styles.featureSimilar} flex w-full`}>
           <div className={`${styles.similarText}`}>SIMILAR BOOKS</div>
           <div className={`${styles.similarContainer} border-y border-solid border-foreground`}>
             <div className={`${styles.similarBooks}`}>
@@ -385,7 +385,7 @@ const ConfirmPageContent: React.FC = () => {
           </div>
         </div>
         <div id="checkoutFooter"
-             className="bottom-0 flex w-full pt-6 pb-3 text-xs font-bold text-greyed-out ">
+             className="bottom-0 flex justify-center w-full py-3 text-xs font-bold text-greyed-out ">
           <div className="pr-4 cursor-pointer">Refund Policy</div>
           <div className="pr-4 cursor-pointer">Privacy Policy</div>
           <div className="pr-4 cursor-pointer">Terms of Service</div>
