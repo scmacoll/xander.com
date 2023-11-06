@@ -412,34 +412,34 @@ const CheckoutPageContent: React.FC = () => {
               <h1 className="py-3 text-3xl">Xandria</h1>
             </div>
 
-            <div
-              className="relative z-10 flex py-4 text-sm font-medium justify-between before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
-              <div className="flex items-center">
-                <div className="pr-2">
-                  <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg" fill="#CFCAD2">
-                    <path d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
-                  </svg>
-                </div>
-                <div className={!isOrderSummaryHidden ? 'hidden' : ''}>
-                  <button onClick={toggleOrderSummary}>
-                    <div>Show Order Summary</div>
-                  </button>
-                </div>
-                <div className={isOrderSummaryHidden ? 'hidden' : ''}>
-                  <button className="flex items-center" onClick={toggleOrderSummary}>
-                    <div>Hide Order Summary</div>
-                    <div id="summaryArrowButton"
-                         className="pl-1">
-                        <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg"
-                             fill="#CFCAD2">
-                          <path
-                            d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                        </svg>
+            <div id="orderSummaryBanner"
+                 className="relative z-10 flex py-4 text-sm font-medium justify-between before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
+              <div id="orderSummaryText"
+                   className="flex justify-between flex-1">
+                  <button className="flex" onClick={toggleOrderSummary}>
+                    <div className="pr-2">
+                      <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg" fill="#CFCAD2">
+                        <path d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
+                      </svg>
+                    </div>
+                    <div className={!isOrderSummaryHidden ? 'hidden' : ''}>
+                        Show Order Summary
+                    </div>
+                    <div className={`flex items-center ${isOrderSummaryHidden ? 'hidden' : ''}`}>
+                        Hide Order Summary
+                        <div id="summaryArrowButton"
+                             className="pl-1">
+                          <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg"
+                               fill="#CFCAD2">
+                            <path
+                              d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                          </svg>
+                        </div>
                     </div>
                   </button>
-                </div>
+                <div>1 Item</div>
               </div>
-              <div>$135.00</div>
+              <div className="pl-14">$135.00</div>
             </div>
 
             <div className="flex text-sm xs:hidden sm:hidden">
