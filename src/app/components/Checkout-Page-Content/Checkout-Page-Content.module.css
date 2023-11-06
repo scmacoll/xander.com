@@ -1,3 +1,14 @@
+.orderSummaryButton {
+  display: flex;
+  z-index: 10;
+  align-items: center;
+}
+
+.orderSummaryButton:hover div {
+  color: white;
+  fill: white;
+}
+
 @media (max-width: 999px) {
   .borderSummary {
     transition: opacity 0.3s ease, max-height 0.3s ease;

@@ -25,13 +25,6 @@ const CheckoutPageContent: React.FC = () => {
             <div className="flex pb-1">
               <h1 className="py-3 text-3xl">Xandria</h1>
             </div>
-            <div className="flex text-sm">
-              <h4>
-                <span>Shipping</span>
-                <span className="px-2">&#x2C3;</span>
-                <span>Payment</span>
-              </h4>
-            </div>
           </div>
           <div id="checkoutExpressContainer"
                className="flex flex-col py-6">
@@ -264,7 +257,7 @@ const CheckoutPageContent: React.FC = () => {
 
           <div id="contactContainer">
             <div
-              className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 xl:pt-16 lg:pt-16 md:pt-16 sm:pt-8 xs:pt-8 pb-14 border-foreground">
+              className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 xl:pt-8 lg:pt-8 md:pt-8 sm:pt-4 xs:pt-4 pb-14 border-foreground">
               <div id="contactWrapper"
                    className="">
                 <div id="contactTopSection">
@@ -405,7 +398,7 @@ const CheckoutPageContent: React.FC = () => {
         </div>
         {/*right side content*/}
         <div id="cartDetailsWrapper"
-             className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative flex flex-col pt-1 pb-4 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
@@ -413,41 +406,30 @@ const CheckoutPageContent: React.FC = () => {
             </div>
 
             <div id="orderSummaryBanner"
-                 className="relative z-10 flex py-4 text-sm font-medium justify-between before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
-              <div id="orderSummaryText"
-                   className="flex justify-between flex-1">
-                  <button className="flex" onClick={toggleOrderSummary}>
-                    <div className="pr-2">
-                      <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg" fill="#CFCAD2">
+                 className="relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
+              <div id="orderSummaryLabel">
+                  <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
+                    <div className="fill-foreground pr-2">
+                      <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
                       </svg>
                     </div>
-                    <div className={!isOrderSummaryHidden ? 'hidden' : ''}>
-                        Show Order Summary
+                    <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                      <p>Show Order Summary</p>
                     </div>
-                    <div className={`flex items-center ${isOrderSummaryHidden ? 'hidden' : ''}`}>
-                        Hide Order Summary
-                        <div id="summaryArrowButton"
-                             className="pl-1">
-                          <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg"
-                               fill="#CFCAD2">
-                            <path
-                              d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                          </svg>
-                        </div>
+                    <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                      <p>Hide Order Summary</p>
+                    </div>
+                    <div id="summaryArrowButton"
+                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                      <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                      </svg>
                     </div>
                   </button>
-                <div>1 Item</div>
               </div>
-              <div className="pl-14">$135.00</div>
-            </div>
-
-            <div className="flex text-sm xs:hidden sm:hidden">
-              <h4>
-                <span>Shipping</span>
-                <span className="px-2">&#x2C3;</span>
-                <span>Payment</span>
-              </h4>
+              <div className="font-bold text-lg">$135.00</div>
             </div>
           </div>
 
@@ -497,7 +479,7 @@ const CheckoutPageContent: React.FC = () => {
                 <div className="inline-flex text-xs font-medium flex-end">Free</div>
               </div>
             </div>
-            <div className="flex justify-between py-6">
+            <div className="flex justify-between pt-6">
               <div className="flex">
                 <div className="text-lg font-medium">Total</div>
               </div>

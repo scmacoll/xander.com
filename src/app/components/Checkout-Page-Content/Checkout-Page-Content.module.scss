@@ -1,22 +1,12 @@
-//.summaryBanner {
-//  position: relative;
-//  z-index: 1;  /* This ensures content is on top of the pseudo-element */
-//}
-//
-//.summaryBanner::before {
-//  content: "";
-//  position: absolute;
-//  top: 0;
-//  bottom: 0;   /* This ensures it covers the entire height of the div */
-//  //background-color: rgb(25, 31, 38); /* Background color for the entire width */
-//  //background-color: hsl(212°, 20%, 13%);
-//  background-color: rgb(var(--background-translucent-rgb));
-//  border-top: 1px solid rgb(var(--foreground-rgb), .3);  /* Top border */
-//  border-bottom: 1px solid rgb(var(--foreground-rgb), .3);  /* Bottom border */
-//  left: calc(50% - 50vw);  /* Start it to the left */
-//  right: calc(50% - 50vw);  /* End it to the right */
-//  z-index: -1;  /* Place it behind the content */
-//}
+.orderSummaryButton {
+  display: flex;
+  z-index: 10;
+  align-items: center;
+}
+.orderSummaryButton:hover div {
+  color: white;
+  fill: white;
+}
 
 .borderSummary {
   @media (max-width: 999px) {
