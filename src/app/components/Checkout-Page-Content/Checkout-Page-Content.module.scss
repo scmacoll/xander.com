@@ -17,3 +17,20 @@
 //  right: calc(50% - 50vw);  /* End it to the right */
 //  z-index: -1;  /* Place it behind the content */
 //}
+
+.borderSummary {
+  @media (max-width: 999px) {
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.expanded {
+  @media (max-width: 999px) {
+    opacity: 1;
+    max-height: 500px; /* Use an approximate max height for your content */
+  }
+}
+

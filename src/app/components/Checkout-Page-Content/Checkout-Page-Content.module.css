@@ -1,3 +1,17 @@
+@media (max-width: 999px) {
+  .borderSummary {
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+}
 
+@media (max-width: 999px) {
+  .expanded {
+    opacity: 1;
+    max-height: 500px; /* Use an approximate max height for your content */
+  }
+}
 
 /*# sourceMappingURL=Checkout-Page-Content.module.css.map */

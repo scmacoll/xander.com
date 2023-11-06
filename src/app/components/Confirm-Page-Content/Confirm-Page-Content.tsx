@@ -189,7 +189,6 @@ const ConfirmPageContent: React.FC = () => {
             </div>
           </div>
 
-
         </div>
 
         <div id="rightContentWrapper"

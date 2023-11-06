@@ -1,10 +1,16 @@
 import styles from './Checkout-Page-Content.module.scss';
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 
 const CheckoutPageContent: React.FC = () => {
+  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
+
+  const toggleOrderSummary = useCallback (() => {
+    setOrderSummaryHidden(prevState => !prevState);
+  }, []);
+
   return (
     <div className="mx-auto flex w-full xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div
@@ -258,7 +264,7 @@ const CheckoutPageContent: React.FC = () => {
 
           <div id="contactContainer">
             <div
-              className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 pt-16 pb-14 border-foreground">
+              className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 xl:pt-16 lg:pt-16 md:pt-16 sm:pt-8 xs:pt-8 pb-14 border-foreground">
               <div id="contactWrapper"
                    className="">
                 <div id="contactTopSection">
@@ -408,7 +414,31 @@ const CheckoutPageContent: React.FC = () => {
 
             <div
               className="relative z-10 flex py-4 text-sm font-medium justify-between before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
-              <div>Hide Order Summary</div>
+              <div className="flex items-center">
+                <div className="pr-2">
+                  <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg" fill="#CFCAD2">
+                    <path d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
+                  </svg>
+                </div>
+                <div className={!isOrderSummaryHidden ? 'hidden' : ''}>
+                  <button onClick={toggleOrderSummary}>
+                    <div>Show Order Summary</div>
+                  </button>
+                </div>
+                <div className={isOrderSummaryHidden ? 'hidden' : ''}>
+                  <button className="flex items-center" onClick={toggleOrderSummary}>
+                    <div>Hide Order Summary</div>
+                    <div id="summaryArrowButton"
+                         className="pl-1">
+                        <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg"
+                             fill="#CFCAD2">
+                          <path
+                            d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                        </svg>
+                    </div>
+                  </button>
+                </div>
+              </div>
               <div>$135.00</div>
             </div>
 
@@ -421,57 +451,60 @@ const CheckoutPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div
-            className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
-            <div className="flex h-full items-center flex-start">
-              <div className="inline-flex h-full pr-3">
-                <Image
-                  src={masterandemissarry.src}
-                  alt="yuko"
-                  width="60"
-                  height="60"
+          <div id="borderSummary"
+               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded}`}>
+            <div
+              className="mx-auto flex w-full items-center justify-between border-b border-solid py-6 border-foreground">
+              <div className="flex h-full items-center flex-start">
+                <div className="inline-flex h-full pr-3">
+                  <Image
+                    src={masterandemissarry.src}
+                    alt="yuko"
+                    width="60"
+                    height="60"
+                  />
+                </div>
+                <div
+                  className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                  <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                    Sole)
+                  </div>
+                  <div className="flex font-light">13</div>
+                </div>
+              </div>
+              <div className="inline-flex text-sm flex-end">$135.00</div>
+            </div>
+            <div className="flex justify-between border-b-gray-50 py-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4">
+              <div className="inline-flex flex-grow">
+                <input
+                  type="text"
+                  placeholder="Gift card or discount code"
+                  className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                 />
               </div>
               <div
-                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                  Sole)
-                </div>
-                <div className="flex font-light">13</div>
+                className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
+                <button>APPLY</button>
               </div>
             </div>
-            <div className="inline-flex text-sm flex-end">$135.00</div>
-          </div>
-          <div className="flex justify-between border-b-gray-50 py-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4">
-            <div className="inline-flex flex-grow">
-              <input
-                type="text"
-                placeholder="Gift card or discount code"
-                className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-              />
+            <div className="flex flex-col border-y border-solid py-6 border-foreground">
+              <div className="flex justify-between pb-4">
+                <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+                <div className="inline-flex text-sm font-bold flex-end">$135.00</div>
+              </div>
+              <div className="flex justify-between">
+                <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                <div className="inline-flex text-xs font-medium flex-end">Free</div>
+              </div>
             </div>
-            <div
-              className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
-              <button>APPLY</button>
-            </div>
-          </div>
-          <div className="flex flex-col border-y border-solid py-6 border-foreground">
-            <div className="flex justify-between pb-4">
-              <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-              <div className="inline-flex text-sm font-bold flex-end">$135.00</div>
-            </div>
-            <div className="flex justify-between">
-              <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-              <div className="inline-flex text-xs font-medium flex-end">Free</div>
-            </div>
-          </div>
-          <div className="flex justify-between py-6">
-            <div className="flex">
-              <div className="text-lg font-medium">Total</div>
-            </div>
-            <div className="flex items-center">
-              <div className="inline-flex pr-3 text-xs">AUD</div>
-              <div className="inline-flex text-2xl font-bold">$135.00</div>
+            <div className="flex justify-between py-6">
+              <div className="flex">
+                <div className="text-lg font-medium">Total</div>
+              </div>
+              <div className="flex items-center">
+                <div className="inline-flex pr-3 text-xs">AUD</div>
+                <div className="inline-flex text-2xl font-bold">$135.00</div>
+              </div>
             </div>
           </div>
         </div>
