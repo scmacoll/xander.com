@@ -42,12 +42,12 @@ const ConfirmPageContent: React.FC = () => {
 
   return (
     <div className="relative mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+
       <div
         id="pageContainer"
-        className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-1120px md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
-      >
-        {/*left side content*/}
-        <div id="paymentDetailsWrapper"
+        className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}>
+
+        <div id="leftContentWrapper"
              className="flex mx-auto flex-col sm:w-full md:w-51.5% lg:w-51.5%">
             <div id="checkoutTitle"
                  className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
@@ -146,8 +146,8 @@ const ConfirmPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-          <div id="bottomContainer" className="pb-14">
-            <div className="pt-8">
+          <div id="lowerContainer" className="pb-14">
+            <div className="xl:pt-10 lg:pt-10 md:pt-10 sm:pt-10 xs:pt-6">
               <div className="flex justify-between xs:flex-col-reverse">
                 <div id="contactContainer"
                      className="flex justify-start contents-center items-end xs:justify-center xs:pt-4">
@@ -189,15 +189,9 @@ const ConfirmPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div id="checkoutFooter"
-               className="absolute bottom-0 flex pt-4 text-xs font-bold text-greyed-out">
-            <div className="pr-4 cursor-pointer">Refund Policy</div>
-            <div className="pr-4 cursor-pointer">Privacy Policy</div>
-            <div className="pr-4 cursor-pointer">Terms of Service</div>
-          </div>
 
         </div>
-        {/*right side content*/}
+
         <div id="rightContentWrapper"
              className="relative mx-auto flex flex-col pt-1 max-h-610px xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
@@ -268,7 +262,7 @@ const ConfirmPageContent: React.FC = () => {
                 <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
               </div>
             </div>
-            <div className="flex justify-between pt-6">
+            <div className="flex justify-between pt-6 pb-3">
               <div className="flex">
                 <div className="text-lg font-medium">Total</div>
               </div>
@@ -283,46 +277,51 @@ const ConfirmPageContent: React.FC = () => {
             </div>
           </div>
         </div>
+
       </div>
-      <div className={`${styles.featureSimilar} `}>
-        <div className={`${styles.similarText}`}>SIMILAR BOOKS</div>
-        <div className={`${styles.similarContainer}`}>
-          <div className={`${styles.similarBooks}`}>
-            {Array(numItems)
-              .fill(null)
-              .map((_, index) => (
-                <div key={index} className={`${styles.bookBlock}`}>
-                  <div>
-                    <a href="/book">
-                      <Image
-                        className={`${styles.responsiveImage}`}
-                        src={masterandemissarry.src}
-                        alt="yuko"
-                        width="115"
-                        height="115"
-                      />
-                    </a>
-                  </div>
-                  <div className="pt-3 pb-5 font-extrabold">Title</div>
-                  <div className="pb-6">Author</div>
-                  <div className="font-black pb-2">$24.99</div>
-                  <div className="flex justify-evenly">
-                    <div className={`${styles.similarHeart}`}>
-                      <svg
-                        version="1.0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="2em"
-                        height="2em"
-                        viewBox="0 0 752.000000 752.000000"
-                        preserveAspectRatio="xMidYMid meet"
-                      >
-                        <g
-                          transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                          fill="#d2cfca2b"
-                          stroke="none"
+
+      <div id="bottomContainer"
+           className="flex flex-col w-full mx-auto xl:px-6 sm:px-0 xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
+        <div
+          className={`${styles.featureSimilar} flex justify-around w-full`}>
+          <div className={`${styles.similarText}`}>SIMILAR BOOKS</div>
+          <div className={`${styles.similarContainer} border-y border-solid border-foreground`}>
+            <div className={`${styles.similarBooks}`}>
+              {Array(numItems)
+                .fill(null)
+                .map((_, index) => (
+                  <div key={index} className={`${styles.bookBlock}`}>
+                    <div>
+                      <a href="/book">
+                        <Image
+                          className={`${styles.responsiveImage}`}
+                          src={masterandemissarry.src}
+                          alt="yuko"
+                          width="115"
+                          height="115"
+                        />
+                      </a>
+                    </div>
+                    <div className="pt-3 pb-5 font-extrabold">Title</div>
+                    <div className="pb-6">Author</div>
+                    <div className="font-black pb-2">$24.99</div>
+                    <div className="flex justify-evenly">
+                      <div className={`${styles.similarHeart}`}>
+                        <svg
+                          version="1.0"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="2em"
+                          height="2em"
+                          viewBox="0 0 752.000000 752.000000"
+                          preserveAspectRatio="xMidYMid meet"
                         >
-                          <path
-                            d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
+                          <g
+                            transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
+                            fill="#d2cfca2b"
+                            stroke="none"
+                          >
+                            <path
+                              d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
                         -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
                         937 489 488 909 915 934 948 368 493 334 1168 -79 1590 -237 241 -530 365
                         -868 365 -135 0 -258 -18 -370 -55 -207 -67 -332 -149 -528 -343 l-148 -146
@@ -332,26 +331,26 @@ const ConfirmPageContent: React.FC = () => {
                         15 567 -87 773 -293 300 -300 378 -759 196 -1151 -83 -178 -87 -182 -1029
                         -1121 -487 -485 -896 -885 -908 -888 -13 -3 -33 -3 -45 0 -30 8 -1762 1732
                         -1823 1814 -308 414 -277 985 73 1339 238 240 572 346 907 288z"
-                          />
-                        </g>
-                      </svg>
-                    </div>
-                    <div className={`${styles.similarBag}`}>
-                      <svg
-                        version="1.0"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="2em"
-                        height="2em"
-                        viewBox="0 0 752.000000 752.000000"
-                        preserveAspectRatio="xMidYMid meet"
-                      >
-                        <g
-                          transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                          fill="#d2cfca2b"
-                          stroke="none"
+                            />
+                          </g>
+                        </svg>
+                      </div>
+                      <div className={`${styles.similarBag}`}>
+                        <svg
+                          version="1.0"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="2em"
+                          height="2em"
+                          viewBox="0 0 752.000000 752.000000"
+                          preserveAspectRatio="xMidYMid meet"
                         >
-                          <path
-                            d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
+                          <g
+                            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                            fill="#d2cfca2b"
+                            stroke="none"
+                          >
+                            <path
+                              d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                       l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
                       -1402 -51 -1480 46 -226 216 -402 442 -460 89 -23 2098 -22 2194 0 95 23 187
                       72 260 140 128 119 191 259 191 428 1 171 -121 2742 -131 2768 -18 47 -37 49
@@ -364,25 +363,32 @@ const ConfirmPageContent: React.FC = () => {
                       -1389 -21 -136 -119 -265 -248 -329 l-75 -37 -1076 0 -1076 0 -76 38 c-126 62
                       -211 172 -241 312 -9 47 -2 271 46 1338 32 705 60 1310 64 1345 l5 62 299 0
                       299 0 0 -163z"
-                          />
-                        </g>
-                      </svg>
+                            />
+                          </g>
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
 
-            <div className={`${styles.similarRarrow}`}>
-              <a href="/book">
-                <FontAwesomeIcon icon={faChevronRight} size="xl" />
-              </a>
-            </div>
-            <div className={`${styles.similarLarrow}`}>
-              <a href="/book">
-                <FontAwesomeIcon icon={faChevronLeft} size="xl" />
-              </a>
+              <div className={`${styles.similarRarrow}`}>
+                <a href="/book">
+                  <FontAwesomeIcon icon={faChevronRight} size="xl"/>
+                </a>
+              </div>
+              <div className={`${styles.similarLarrow}`}>
+                <a href="/book">
+                  <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
+                </a>
+              </div>
             </div>
           </div>
+        </div>
+        <div id="checkoutFooter"
+             className="bottom-0 flex w-full pt-6 pb-3 text-xs font-bold text-greyed-out ">
+          <div className="pr-4 cursor-pointer">Refund Policy</div>
+          <div className="pr-4 cursor-pointer">Privacy Policy</div>
+          <div className="pr-4 cursor-pointer">Terms of Service</div>
         </div>
       </div>
     </div>

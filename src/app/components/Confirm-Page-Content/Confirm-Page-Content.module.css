@@ -35,8 +35,6 @@
   display: flex;
   padding-top: 1.5em;
   padding-bottom: 1.5em;
-  border-top: 0.1px solid rgb(var(--foreground-rgb));
-  border-bottom: 0.1px solid rgb(var(--foreground-rgb));
 }
 
 .similarBooks {
@@ -96,18 +94,42 @@
   fill: #d2cfca;
 }
 
-.similarRarrow {
+.similarRarrow, .similarLarrow {
   position: absolute;
   top: 50%;
-  right: 0;
   z-index: 2;
+  color: rgb(var(--foreground-rgb), 0.3);
 }
 
-.similarLarrow {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  z-index: 2;
+@media (min-width: 1000px) {
+  .similarRarrow {
+    right: 0;
+  }
+  .similarLarrow {
+    left: 0;
+  }
+}
+@media (max-width: 999px) and (min-width: 750px) {
+  .similarRarrow {
+    right: -2.5%;
+  }
+  .similarLarrow {
+    left: -2.5%;
+  }
+}
+@media (max-width: 749px) {
+  .similarRarrow {
+    right: -2.5%;
+    padding-right: 5px;
+  }
+  .similarLarrow {
+    left: -2.5%;
+    padding-left: 5px;
+  }
+}
+.similarRarrow:hover svg path,
+.similarLarrow:hover svg path {
+  fill: #d2cfca;
 }
 
 /*# sourceMappingURL=Confirm-Page-Content.module.css.map */
