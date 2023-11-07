@@ -42,7 +42,6 @@ const ConfirmPageContent: React.FC = () => {
 
   return (
     <div className="relative mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
-
       <div
         id="pageContainer"
         className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}>
@@ -192,7 +191,7 @@ const ConfirmPageContent: React.FC = () => {
         </div>
 
         <div id="rightContentWrapper"
-             className="relative mx-auto flex flex-col pt-1 max-h-610px xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative mx-auto flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
@@ -204,73 +203,68 @@ const ConfirmPageContent: React.FC = () => {
               <div>Hide Order Summary</div>
               <div>$135.00</div>
             </div>
-
-            <div className="flex text-sm xs:hidden sm:hidden">
-              <h4>
-                <span>Shipping</span>
-                <span className="px-2">&#x2C3;</span>
-                <span>Payment</span>
-              </h4>
-            </div>
           </div>
-          <div className="pt-6"></div>
-          <div className={`${styles.scrollBar} ${styles.scrollBarContent}  overflow-x-hidden overflow-y-auto`}>
-            {/* <boughtItem> */}
-            <div id="boughtItem">
-              <div id="boughtItemContainer"
-                   className="mx-auto flex w-full items-center justify-between">
-                <div className="flex h-full items-center flex-start">
-                  <div className="inline-flex h-full pr-3">
-                    <Image
-                      src={masterandemissarry.src}
-                      alt="yuko"
-                      width="60"
-                      height="60"
-                    />
-                  </div>
-                  <div
-                    className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                    <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                      Sole)
+
+          <div id="borderSummary">
+            <div className="pt-6"></div>
+            <div className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+              {/* <boughtItem> */}
+              <div id="boughtItem">
+                <div id="boughtItemContainer"
+                     className="mx-auto flex w-full items-center justify-between">
+                  <div className="flex h-full items-center flex-start">
+                    <div className="inline-flex h-full pr-3">
+                      <Image
+                        src={masterandemissarry.src}
+                        alt="yuko"
+                        width="60"
+                        height="60"
+                      />
                     </div>
-                    <div className="flex font-light">13</div>
+                    <div
+                      className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                      <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                        Sole)
+                      </div>
+                      <div className="flex font-light">13</div>
+                    </div>
                   </div>
+                  <div className="inline-flex text-sm flex-end">$135.00</div>
                 </div>
-                <div className="inline-flex text-sm flex-end">$135.00</div>
+                <div id="borderGap" className="py-6 pb-6">
+                  <div className="border-b border-solid border-foreground"></div>
+                </div>
               </div>
-              <div id="borderGap" className="py-6 pb-6">
-                <div className="border-b border-solid border-foreground"></div>
+              {/* <boughtItem /> */}
+              <div className="flex flex-col border-b border-solid pb-6 border-foreground">
+                <div className="flex justify-between pb-4">
+                  <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+                  <div className="inline-flex text-sm font-medium flex-end">$130.96</div>
+                </div>
+                <div className="flex justify-between pb-4">
+                  <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                  <div className="inline-flex text-sm font-medium flex-end">Free</div>
+                </div>
+                <div className="flex justify-between pb-4">
+                  <div className="inline-flex text-sm font-bold flex-start">Discount</div>
+                  <div className="inline-flex text-sm font-medium flex-end">0.00</div>
+                </div>
+                <div className="flex justify-between">
+                  <div className="inline-flex text-sm font-bold flex-start">Taxes</div>
+                  <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
+                </div>
               </div>
-            </div>
-            {/* <boughtItem /> */}
-            <div className="flex flex-col border-b border-solid pb-6 border-foreground">
-              <div className="flex justify-between pb-4">
-                <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                <div className="inline-flex text-sm font-medium flex-end">$130.96</div>
-              </div>
-              <div className="flex justify-between pb-4">
-                <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-                <div className="inline-flex text-sm font-medium flex-end">Free</div>
-              </div>
-              <div className="flex justify-between pb-4">
-                <div className="inline-flex text-sm font-bold flex-start">Discount</div>
-                <div className="inline-flex text-sm font-medium flex-end">0.00</div>
-              </div>
-              <div className="flex justify-between">
-                <div className="inline-flex text-sm font-bold flex-start">Taxes</div>
-                <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
-              </div>
-            </div>
-            <div className="flex justify-between pt-6 pb-3">
-              <div className="flex">
-                <div className="text-lg font-medium">Total</div>
-              </div>
-              <div className="flex items-center">
-                <div className="inline-flex pr-3 text-xs">AUD</div>
-                <div ref={bottomRef}
-                     className={`${styles.smoothScroll}
+              <div className="flex justify-between pt-6 pb-3">
+                <div className="flex">
+                  <div className="text-lg font-medium">Total</div>
+                </div>
+                <div className="flex items-center">
+                  <div className="inline-flex pr-3 text-xs">AUD</div>
+                  <div ref={bottomRef}
+                       className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
-                  $135.00
+                    $135.00
+                  </div>
                 </div>
               </div>
             </div>

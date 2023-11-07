@@ -9,6 +9,7 @@
 }
 
 .borderSummary {
+  width: calc(100% + 15px);
   @media (max-width: 999px) {
     transition: opacity 0.3s ease, max-height 0.3s ease;
     overflow: hidden;
@@ -20,7 +21,27 @@
 .expanded {
   @media (max-width: 999px) {
     opacity: 1;
-    max-height: 500px; /* Use an approximate max height for your content */
+    max-height: fit-content; /* Use an approximate max height for your content */
   }
 }
 
+.scrollBar {
+  scrollbar-width: auto;
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
+  scrollbar-gutter: stable;
+}
+/* Always show scrollbar */
+.scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+}
+
+.scrollBarContent {
+  width: calc(100% + 15px); /* Increase 15px if you increased padding-right */
+  box-sizing: content-box;
+}
