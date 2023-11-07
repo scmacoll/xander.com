@@ -14,6 +14,7 @@ module.exports = {
       },
       textColor: {
         'foreground': `rgb(var(--foreground-rgb))`,
+        'creme': `rgb(var(--everforest-creme))`,
         'greyed-out': '#d2cfca2b',
         'gold': 'rgb(var(--everforest-gold))',
         'shopify-blue': 'rgb(var(--scroll-blue))',

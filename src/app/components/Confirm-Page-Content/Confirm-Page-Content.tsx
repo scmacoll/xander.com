@@ -67,7 +67,7 @@ const ConfirmPageContent: React.FC = () => {
                   </svg>
                 </div>
                 <div>
-                  <div className="text-sm font-light">
+                  <div className="text-sm text-gray-400">
                     <p>Order #1494</p>
                   </div>
                   <div className="font-bold text-lg">
@@ -108,7 +108,7 @@ const ConfirmPageContent: React.FC = () => {
                       >
                         <div className="w-1/2">
                           <h4 className="font-bold">Shipping Address</h4>
-                          <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <ul className="flex flex-col gap-1  text-gray-400 text-sm pt-2">
                             <li>Liz Brown</li>
                             <li>2731 Davis Drive</li>
                             <li>Markham ON L3P 2M4</li>
@@ -118,7 +118,7 @@ const ConfirmPageContent: React.FC = () => {
                         </div>
                         <div className="w-1/2">
                           <h4 className="font-bold">Billing Address</h4>
-                          <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li>Liz Brown</li>
                             <li>2731 Davis Drive</li>
                             <li>Markham ON L3P 2M4</li>
@@ -132,13 +132,13 @@ const ConfirmPageContent: React.FC = () => {
                       >
                         <div className="w-1/2 pt-4">
                           <h4 className="font-bold">Shipping method</h4>
-                          <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li>Expedited Parcel</li>
                           </ul>
                         </div>
                         <div className="w-1/2 pt-4">
                           <h4 className="font-bold">Payment method</h4>
-                          <ul className="flex flex-col gap-1 font-light text-sm pt-2">
+                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li>VISA ending with 4242 --</li>
                             <li>$129.46</li>
                           </ul>
@@ -153,7 +153,7 @@ const ConfirmPageContent: React.FC = () => {
             <div className="xl:pt-10 lg:pt-10 md:pt-10 sm:pt-10 xs:pt-6">
               <div className="flex justify-between xs:flex-col-reverse">
                 <div id="contactContainer"
-                     className="flex justify-start contents-center items-end xs:justify-center xs:pt-4">
+                     className="flex justify-start contents-center items-center xs:justify-center xs:pt-4">
                   <div className="flex items-center">
                     <div id="questionMarkIcon"
                          className="pr-1">
@@ -178,13 +178,13 @@ const ConfirmPageContent: React.FC = () => {
                         </g>
                       </svg>
                     </div>
-                    <div className="pr-2 font-light text-sm">Need help?</div>
+                    <div className="pr-2 text-gray-400 text-sm">Need help?</div>
                     <div className="cursor-pointer text-link-blue">Contact us</div>
                   </div>
                 </div>
                 <div id="browsingButtonContainer"
                      className="flex justify-end xs:justify-center">
-                  <button className="border-2 bg-shopify-blue font-bold border-solid border-foreground rounded p-4">
+                  <button className="border-2 bg-shopify-blue font-bold border-solid border-foreground rounded hover:border-shopify-blue  p-4">
                     CONTINUE BROWSING
                   </button>
                 </div>
@@ -253,7 +253,7 @@ const ConfirmPageContent: React.FC = () => {
                       <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
                         Sole)
                       </div>
-                      <div className="flex font-light">13</div>
+                      <div className="flex text-gray-400">13</div>
                     </div>
                   </div>
                   <div className="inline-flex text-sm flex-end">$135.00</div>

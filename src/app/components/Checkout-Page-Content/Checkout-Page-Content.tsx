@@ -385,8 +385,7 @@ const CheckoutPageContent: React.FC = () => {
                     <div id="shippingButton">
                       <div className="flex justify-end pt-8">
                         <button
-                          className="border-2 bg-shopify-blue font-bold border-solid border-foreground p-4">CONTINUE TO
-                          SHIPPING
+                          className="border-2 rounded bg-shopify-blue font-bold border-solid border-foreground hover:border-shopify-blue p-4">Confirm Order
                         </button>
                       </div>
                     </div>
@@ -481,14 +480,14 @@ const CheckoutPageContent: React.FC = () => {
                   />
                 </div>
                 <div
-                  className="inline-flex items-center rounded-sm border-2 border-solid p-2 px-5 font-bold border-foreground bg-greyed-out">
+                  className="inline-flex items-center rounded-sm border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out">
                   <button>APPLY</button>
                 </div>
               </div>
               <div className="flex flex-col border-y border-solid py-6 border-foreground">
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                  <div className="inline-flex text-sm font-bold flex-end">$135.00
+                  <div className="inline-flex text-sm flex-end">$135.00
                   </div>
                 </div>
                 <div className="flex justify-between">
