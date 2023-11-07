@@ -3,11 +3,13 @@
     width: 95%;
   }
 }
+
 @media (max-width: 1099px) and (min-width: 750px) {
   .header {
     width: 95%;
   }
 }
+
 @media (max-width: 749px) {
   .header {
     width: 100%;
@@ -18,24 +20,11 @@
 }
 
 .header {
-  position: relative;
   display: flex;
+  justify-content: space-between;
   border-bottom: .1px solid rgb(var(--foreground-rgb));
   width: 95%;
   align-items: center;
-  
-  @media (min-width: 1200px) {
-    justify-content: center;
-  }
-  @media (max-width: 1199px) and (min-width: 1000px) {
-    justify-content: center;
-  }
-  @media (max-width: 999px) and (min-width: 750px) {
-    justify-content: space-evenly;
-  }
-  @media (max-width: 749px) {
-    justify-content: center;
-  }
 }
 
 .switch {
@@ -93,14 +82,14 @@
 }
 
 .xandria {
-  position: absolute;
-  display: inline-flex;
+  flex: 1;
+  margin: auto;
+  border: .1px dashed purple;
   font-size: 1.875rem;
-  // justify-content: start;
-  // flex: 1;
   padding: 8px;
   text-align: center;
 }
+
 .shortenTitle h1 {
   // @media (max-width: 999px) and (min-width: 725px) {
   //   display: none;
@@ -122,7 +111,7 @@
 .shortenTitle::before {
   content: "X";
   font-size: 1.875rem;
-  
+
   @media (min-width: 1200px) {
     display: none;
   }
@@ -134,17 +123,14 @@
   }
   @media (max-width: 749px) {
     padding-left: .3em;
-    
+
   }
 }
 
 
 .userHeader {
-  display: inline-flex;
-  justify-content: end;
   align-items: center;
-  margin: 0 auto;
-  
+
   @media (min-width: 1200px) {
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
@@ -158,14 +144,14 @@
 
 .cardHeart {
   display: flex;
-  position: relative;
 }
+
 .cardHeart svg g {
   fill: rgb(var(--foreground-rgb));
 }
 
 .hide-svg {
-  
+
   @media (min-width: 1200px) {
   }
   @media (max-width: 1199px) and (min-width: 1000px) {

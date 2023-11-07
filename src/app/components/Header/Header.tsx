@@ -33,17 +33,17 @@ const Header: React.FC<HeaderProps> = ({
   const svgClass = hideSvg ? styles['hide-svg'] : '';
   
   return (
-    <header
-      className={`
+    <header className={`
       ${styles.header}
       ${shortenTitle ? styles.shortenTitle : ''} 
       ${showSearch ? 'pb-4' : ''} 
       flex justify-between items-center mx-auto p-1
       `}>
+
       {showFocusButton && (
         <div
           id="focusButton"
-          className="text-3xl flex flex-1 justify-start"
+          className="border-orange text-3xl"
           style={{ transform: 'translateX(4px)' }}
         >
           <svg id="dropdownIcon" className="hidden"
@@ -91,14 +91,15 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       )}
-      
+
       <div className={`${styles.xandria} `}>
         <a href="/">
           <h1>Xandria</h1>
         </a>
       </div>
       {showSearch && <SearchForm isBookPage={isBookPage} />}
-      <div className="flex cursor-pointer mx-auto justify-center align-center h-fit">
+      <div id="headerIcons"
+           className="flex border-yellow cursor-pointer mx-auto justify-end align-center h-fit">
         <div className={`${styles.cardHeart}`}>
           <svg
             id="headerHeartIcon"
@@ -126,39 +127,38 @@ const Header: React.FC<HeaderProps> = ({
               />
             </g>
           </svg>
-          <div className="absolute text-xs flex top-0 left-0 px-5 py-4"></div>
         </div>
-      </div>
-      <div className={`${styles.userHeader}`}>
-        <svg id="checkoutBagIcon"
-             className={svgClass}
-             version="1.0"
-             xmlns="http://www.w3.org/2000/svg"
-             width="3.2em"
-             height="3.2em"
-             viewBox="0 0 752.000000 752.000000"
-             preserveAspectRatio="xMidYMid meet">
-          <g
-            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-            fill="rgb(210, 207, 202)"
-            stroke="none">
-            <path
-              d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
-              l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
-              -1402 -51 -1480 46 -226 216 -402 442 -460 89 -23 2098 -22 2194 0 95 23 187
-              72 260 140 128 119 191 259 191 428 1 171 -121 2742 -131 2768 -18 47 -37 49
-              -393 49 l-333 0 -6 104 c-7 124 -27 207 -72 301 -126 262 -421 417 -711 375z
-              m215 -155 c142 -34 284 -140 348 -261 45 -85 64 -161 66 -266 l2 -93 -535 0
-              -535 0 2 93 c3 158 53 280 154 382 131 130 322 186 498 145z m-799 -938 c0
-              -152 2 -165 20 -182 26 -23 74 -23 100 0 18 17 20 30 20 182 l0 163 540 0 540
-              0 0 -163 c0 -152 2 -165 20 -182 26 -23 74 -23 100 0 18 17 20 30 20 182 l0
-              163 300 0 c165 0 300 -1 300 -2 1 -2 29 -604 64 -1338 43 -904 61 -1353 55
-              -1389 -21 -136 -119 -265 -248 -329 l-75 -37 -1076 0 -1076 0 -76 38 c-126 62
-              -211 172 -241 312 -9 47 -2 271 46 1338 32 705 60 1310 64 1345 l5 62 299 0
-              299 0 0 -163z"
-            />
-          </g>
-        </svg>
+        <div className={`${styles.userHeader}`}>
+          <svg id="checkoutBagIcon"
+               className={svgClass}
+               version="1.0"
+               xmlns="http://www.w3.org/2000/svg"
+               width="3.2em"
+               height="3.2em"
+               viewBox="0 0 752.000000 752.000000"
+               preserveAspectRatio="xMidYMid meet">
+            <g
+              transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+              fill="rgb(210, 207, 202)"
+              stroke="none">
+              <path
+                d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
+                l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
+                -1402 -51 -1480 46 -226 216 -402 442 -460 89 -23 2098 -22 2194 0 95 23 187
+                72 260 140 128 119 191 259 191 428 1 171 -121 2742 -131 2768 -18 47 -37 49
+                -393 49 l-333 0 -6 104 c-7 124 -27 207 -72 301 -126 262 -421 417 -711 375z
+                m215 -155 c142 -34 284 -140 348 -261 45 -85 64 -161 66 -266 l2 -93 -535 0
+                -535 0 2 93 c3 158 53 280 154 382 131 130 322 186 498 145z m-799 -938 c0
+                -152 2 -165 20 -182 26 -23 74 -23 100 0 18 17 20 30 20 182 l0 163 540 0 540
+                0 0 -163 c0 -152 2 -165 20 -182 26 -23 74 -23 100 0 18 17 20 30 20 182 l0
+                163 300 0 c165 0 300 -1 300 -2 1 -2 29 -604 64 -1338 43 -904 61 -1353 55
+                -1389 -21 -136 -119 -265 -248 -329 l-75 -37 -1076 0 -1076 0 -76 38 c-126 62
+                -211 172 -241 312 -9 47 -2 271 46 1338 32 705 60 1310 64 1345 l5 62 299 0
+                299 0 0 -163z"
+              />
+            </g>
+          </svg>
+        </div>
       </div>
 
     </header>

@@ -17,31 +17,11 @@
   }
 }
 .header {
-  position: relative;
   display: flex;
+  justify-content: space-between;
   border-bottom: 0.1px solid rgb(var(--foreground-rgb));
   width: 95%;
   align-items: center;
-}
-@media (min-width: 1200px) {
-  .header {
-    justify-content: center;
-  }
-}
-@media (max-width: 1199px) and (min-width: 1000px) {
-  .header {
-    justify-content: center;
-  }
-}
-@media (max-width: 999px) and (min-width: 750px) {
-  .header {
-    justify-content: space-evenly;
-  }
-}
-@media (max-width: 749px) {
-  .header {
-    justify-content: center;
-  }
 }
 
 .switch {
@@ -94,8 +74,9 @@
 }
 
 .xandria {
-  position: absolute;
-  display: inline-flex;
+  flex: 1;
+  margin: auto;
+  border: 0.1px dashed purple;
   font-size: 1.875rem;
   padding: 8px;
   text-align: center;
@@ -148,10 +129,7 @@
 }
 
 .userHeader {
-  display: inline-flex;
-  justify-content: end;
   align-items: center;
-  margin: 0 auto;
 }
 @media (max-width: 749px) {
   .userHeader {
@@ -161,7 +139,6 @@
 
 .cardHeart {
   display: flex;
-  position: relative;
 }
 
 .cardHeart svg g {
