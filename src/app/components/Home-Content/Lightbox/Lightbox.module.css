@@ -1,9 +1,9 @@
 .lightbox {
   position: fixed;
-  top: -112px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% + 112px); /* Take into account the height adjustment */
+  height: 100%; /* Take into account the height adjustment */
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
@@ -30,21 +30,37 @@
   height: fit-content;
   overflow-x: hidden;
 }
+@media (max-width: 2000px) and (min-width: 1424px) {
+  .lightboxContent {
+    transform: translateY(-12.5%);
+  }
+}
+@media (max-width: 1425px) and (min-width: 1200px) {
+  .lightboxContent {
+    transform: translateY(-12.5%);
+  }
+}
+@media (max-width: 1199px) and (min-width: 999px) {
+  .lightboxContent {
+    transform: translateY(-12.5%);
+  }
+}
 @media (max-width: 999px) and (min-width: 750px) {
   .lightboxContent {
+    transform: translateY(-12.5%);
     max-width: 80vw;
   }
 }
 @media (max-width: 749px) and (min-width: 480px) {
   .lightboxContent {
+    transform: translateY(0);
     width: 70vw;
-    transform: translateY(60px);
   }
 }
 @media (max-width: 479px) {
   .lightboxContent {
+    transform: translateY(0);
     width: 70vw;
-    transform: translateY(60px);
     padding-right: 6px;
   }
 }
