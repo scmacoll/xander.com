@@ -102,7 +102,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       </div>
       <div className={`${styles.bottomContent}`}>
         <div className={`${styles.cardIcons}`}>
-          <svg
+          <svg id="bookIcon"
             className={`${styles.cardIcon}`}
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
@@ -132,8 +132,8 @@ const Card: React.FC<CardProps> = ({ card }) => {
               />
             </g>
           </svg>
-          <svg
-            className={`${styles.cardIcon}`}
+          <svg id="globeIcon"
+            className={`${styles.cardIcon} hidden`}
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
             width="3em"
@@ -179,6 +179,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
               />
             </g>
           </svg>
+
         </div>
       </div>
     </div>

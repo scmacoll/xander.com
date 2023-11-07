@@ -4,7 +4,6 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  border: .1px solid green;
   top: 0;
   left: 0;
   width: 100%;
@@ -27,7 +26,6 @@
   //padding-top: 128px; // Prevent content from touching the top and bottom edges
   box-sizing: border-box; // Include padding in the height calculation
   // ... your existing styles
-  border: .1px dashed purple;
   height: 80%;
 }
 
@@ -40,12 +38,13 @@
   min-width: 350px;
   width: 675.5px;
   //height: 433.833px;
-  overflow-x: auto;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   text-align: start;
   height: fit-content;
+  overflow-x: hidden;
+  overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
   @media (max-width: 2000px) and (min-width: 1424px) {
     //transform: translateY(-12.5%);
   }
@@ -133,7 +132,7 @@
 
   @media (max-width: 479px) {
     //top: -5px;
-    right: 4px;
+    //right: 4px;
   }
 }
 .closeButton:hover svg path {
