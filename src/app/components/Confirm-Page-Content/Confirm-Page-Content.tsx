@@ -1,5 +1,5 @@
 import styles from './Confirm-Page-Content.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +9,11 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 const ConfirmPageContent: React.FC = () => {
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [numItems, setNumItems] = useState(5);
+  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
+  const toggleOrderSummary = useCallback (() => {
+    setOrderSummaryHidden(prevState => !prevState);
+  }, []);
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView(false);
@@ -74,7 +78,7 @@ const ConfirmPageContent: React.FC = () => {
             </div>
             <div id="confirmationContainer"
                  className="flex flex-col">
-              <div className="pt-3 pb-3">
+              <div className="xl:pt-3 lg:pt-3 md:pt-3 sm:pt-6 xs:pt-6 pb-3">
                 <div className="border rounded border-solid border-foreground p-4">
                   <div className="text-lg font-bold pb-1">Your order is confirmed</div>
                   <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation email
@@ -198,14 +202,37 @@ const ConfirmPageContent: React.FC = () => {
               <h1 className="py-3 text-3xl">Xandria</h1>
             </div>
 
-            <div
-              className="relative z-10 flex py-4 text-sm font-medium justify-between before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
-              <div>Hide Order Summary</div>
-              <div>$135.00</div>
+            <div id="orderSummaryBanner"
+                 className="relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
+              <div id="orderSummaryLabel">
+                <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
+                  <div className="fill-foreground pr-2">
+                    <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
+                    </svg>
+                  </div>
+                  <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                    <p>Show Order Summary</p>
+                  </div>
+                  <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                    <p>Hide Order Summary</p>
+                  </div>
+                  <div id="summaryArrowButton"
+                       className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                    <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+              <div className="font-bold text-lg">$135.00</div>
             </div>
           </div>
 
-          <div id="borderSummary">
+          <div id="borderSummary"
+               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
             <div className="pt-6"></div>
             <div className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
               {/* <boughtItem> */}
@@ -254,7 +281,7 @@ const ConfirmPageContent: React.FC = () => {
                   <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
                 </div>
               </div>
-              <div className="flex justify-between pt-6 pb-3">
+              <div className="flex justify-between pt-6 ">
                 <div className="flex">
                   <div className="text-lg font-medium">Total</div>
                 </div>

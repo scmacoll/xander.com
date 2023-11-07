@@ -1,14 +1,20 @@
 import styles from './Checkout-Page-Content.module.scss';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 
 
 const CheckoutPageContent: React.FC = () => {
+  const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
+  }, []);
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView(false);
+    }
   }, []);
 
   return (
@@ -28,7 +34,7 @@ const CheckoutPageContent: React.FC = () => {
             </div>
           </div>
           <div id="checkoutExpressContainer"
-               className="flex flex-col py-6">
+               className="flex flex-col pt-8 pb-6">
             <div
               id="checkoutExpressButtonsWrapper"
               className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
@@ -397,7 +403,7 @@ const CheckoutPageContent: React.FC = () => {
         </div>
 
         <div id="rightContentWrapper"
-             className="relative flex flex-col pt-1 pb-4 xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
@@ -464,60 +470,6 @@ const CheckoutPageContent: React.FC = () => {
                   <div className="border-b border-solid border-foreground"></div>
                 </div>
               </div>
-              {/* <boughtItem /> */}         {/* <boughtItem> */}
-              <div id="boughtItem">
-                <div id="boughtItemContainer"
-                     className="mx-auto flex w-full items-center justify-between">
-                  <div className="flex h-full items-center flex-start">
-                    <div className="inline-flex h-full pr-3">
-                      <Image
-                        src={masterandemissarry.src}
-                        alt="yuko"
-                        width="60"
-                        height="60"
-                      />
-                    </div>
-                    <div
-                      className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                      <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                        Sole)
-                      </div>
-                      <div className="flex font-light">13</div>
-                    </div>
-                  </div>
-                  <div className="inline-flex text-sm flex-end">$135.00</div>
-                </div>
-                <div id="borderGap" className="py-6 pb-6">
-                  <div className="border-b border-solid border-foreground"></div>
-                </div>
-              </div>
-              {/* <boughtItem /> */}         {/* <boughtItem> */}
-              <div id="boughtItem">
-                <div id="boughtItemContainer"
-                     className="mx-auto flex w-full items-center justify-between">
-                  <div className="flex h-full items-center flex-start">
-                    <div className="inline-flex h-full pr-3">
-                      <Image
-                        src={masterandemissarry.src}
-                        alt="yuko"
-                        width="60"
-                        height="60"
-                      />
-                    </div>
-                    <div
-                      className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                      <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                        Sole)
-                      </div>
-                      <div className="flex font-light">13</div>
-                    </div>
-                  </div>
-                  <div className="inline-flex text-sm flex-end">$135.00</div>
-                </div>
-                <div id="borderGap" className="py-6 pb-6">
-                  <div className="border-b border-solid border-foreground"></div>
-                </div>
-              </div>
               {/* <boughtItem /> */}
 
               <div className="flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4">
@@ -549,8 +501,11 @@ const CheckoutPageContent: React.FC = () => {
                   <div className="text-lg font-medium">Total</div>
                 </div>
                 <div className="flex items-center">
-                  <div className="inline-flex pr-3 text-xs">AUD</div>
-                  <div className="inline-flex text-2xl font-bold">$135.00</div>
+                  <div ref={bottomRef}
+                       className={`${styles.smoothScroll}
+                     inline-flex text-2xl font-bold`}>
+                    $135.00
+                  </div>
                 </div>
               </div>
             </div>

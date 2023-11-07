@@ -1,3 +1,31 @@
+.orderSummaryButton {
+  display: flex;
+  z-index: 10;
+  align-items: center;
+}
+.orderSummaryButton:hover div {
+  color: white;
+  fill: white;
+}
+
+.borderSummary {
+  width: calc(100% + 15px);
+  @media (max-width: 999px) {
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+.expanded {
+  @media (max-width: 999px) {
+    opacity: 1;
+    max-height: fit-content; /* Use an approximate max height for your content */
+  }
+}
+
+
 .scrollBar {
   scrollbar-width: auto;
   scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
