@@ -18,15 +18,17 @@
 }
 
 .lightboxWrapper {
-  //display: flex; // Use flexbox to center children
-  //flex-direction: column; // Stack children vertically
-  //justify-content: center; // Center vertically
-  //align-items: center; // Center horizontally
+  display: flex; // Use flexbox to center children
+  flex-direction: column; // Stack children vertically
+  justify-content: center; // Center vertically
+  align-items: center; // Center horizontally
   //height: 100vh; // Full viewport height
   //padding-bottom: 32px; // Prevent content from touching the top and bottom edges
   //padding-top: 128px; // Prevent content from touching the top and bottom edges
   box-sizing: border-box; // Include padding in the height calculation
   // ... your existing styles
+  border: .1px dashed purple;
+  height: 80%;
 }
 
 .lightboxContent {
@@ -38,11 +40,12 @@
   min-width: 350px;
   width: 675.5px;
   //height: 433.833px;
-  overflow: auto;
+  overflow-x: auto;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
   text-align: start;
   height: fit-content;
-
+  scrollbar-width: thin;
+  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
   @media (max-width: 2000px) and (min-width: 1424px) {
     //transform: translateY(-12.5%);
   }
