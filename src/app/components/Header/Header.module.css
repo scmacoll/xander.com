@@ -76,7 +76,6 @@
 .xandria {
   flex: 1;
   margin: auto;
-  border: 0.1px dashed purple;
   font-size: 1.875rem;
   padding: 8px;
   text-align: center;
@@ -128,20 +127,16 @@
   }
 }
 
-.userHeader {
+.shoppingBagIcon {
   align-items: center;
 }
 @media (max-width: 749px) {
-  .userHeader {
+  .shoppingBagIcon {
     transform: translateX(5px);
   }
 }
 
-.cardHeart {
-  display: flex;
-}
-
-.cardHeart svg g {
+.heartIcon svg g {
   fill: rgb(var(--foreground-rgb));
 }
 

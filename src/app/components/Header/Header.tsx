@@ -5,9 +5,7 @@ import SearchForm from '../Search/SearchForm';
 interface HeaderProps {
   onFocusModeToggle: () => void;
   isFocusMode: boolean;
-  showFocusButton: boolean;
   showSearch: boolean;
-  hideSvg?: boolean;
   shortenTitle: boolean;
   isBookPage: boolean;
 }
@@ -15,9 +13,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
   onFocusModeToggle,
   isFocusMode = true,
-  showFocusButton,
   showSearch,
-  hideSvg,
   shortenTitle = false,
   isBookPage = false,
 }) => {
@@ -30,8 +26,7 @@ const Header: React.FC<HeaderProps> = ({
       inputRef.current.click();
     }
   };
-  const svgClass = hideSvg ? styles['hide-svg'] : '';
-  
+
   return (
     <header className={`
       ${styles.header}
@@ -40,58 +35,84 @@ const Header: React.FC<HeaderProps> = ({
       flex justify-between items-center mx-auto p-1
       `}>
 
-      {showFocusButton && (
+      <div
+        id="focusButton"
+        className="text-3xl xs:hidden"
+        style={{ transform: 'translateX(4px)' }}
+      >
+        <svg id="dropdownIcon" className="hidden"
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          width="2.2rem"
+          height="2.2rem"
+          viewBox="0 0 752.000000 752.000000"
+          preserveAspectRatio="xMidYMid meet">
+          <g
+            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+            fill="rgba(210, 207, 202, 0.8)"
+            stroke="none">
+            <path
+              d="M1510 5415 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
+            -175z"
+            />
+            <path
+              d="M1517 3933 c-4 -3 -7 -84 -7 -180 l0 -173 2250 0 2250 0 -2 178 -3
+            177 -2241 3 c-1232 1 -2244 -1 -2247 -5z"
+            />
+            <path
+              d="M1510 2105 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
+            -175z"
+            />
+          </g>
+        </svg>
         <div
-          id="focusButton"
-          className="border-orange text-3xl"
-          style={{ transform: 'translateX(4px)' }}
-        >
-          <svg id="dropdownIcon" className="hidden"
-            version="1.0"
-            xmlns="http://www.w3.org/2000/svg"
-            width="2.2rem"
-            height="2.2rem"
-            viewBox="0 0 752.000000 752.000000"
-            preserveAspectRatio="xMidYMid meet">
-            <g
-              transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-              fill="rgba(210, 207, 202, 0.8)"
-              stroke="none">
-              <path
-                d="M1510 5415 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
-              -175z"
-              />
-              <path
-                d="M1517 3933 c-4 -3 -7 -84 -7 -180 l0 -173 2250 0 2250 0 -2 178 -3
-              177 -2241 3 c-1232 1 -2244 -1 -2247 -5z"
-              />
-              <path
-                d="M1510 2105 l0 -175 2250 0 2250 0 0 175 0 175 -2250 0 -2250 0 0
-              -175z"
-              />
-            </g>
-          </svg>
-          <div
-            className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
-            <span className="cursor-pointer text-sm pr-2" onClick={handleClick}>
-              Focus
-            </span>
-            <label
-              className={`${styles.switch} ${
-                isFocusMode ? styles.active : ''
-              }`}>
-              <input
-                type="checkbox"
-                onClick={handleFocusModeToggle}
-                defaultChecked={true}
-                ref={inputRef}
-              />
-              <span className={styles.slider}></span>
-            </label>
-          </div>
-        </div>
-      )}
+          className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
+                                                                                                          <span className="cursor-pointer text-sm pr-2" onClick={handleClick}>
+                                                                                                          Focus
+                                                                                                          </span>
+                                                                                                          <label
+                                                                                                          className={`${styles.switch} ${
+                                                                                                          isFocusMode ? styles.active : ''
+                                                                                                          }`}>
+                                                                                                          <input
+                                                                                                          type="checkbox"
+                                                                                                          onClick={handleFocusModeToggle}
+                                                                                                          defaultChecked={true}
+                                                                                                          ref={inputRef}
+                                                                                                          />
+                                                                                                          <span className={styles.slider}></span>
+                                                                                                          </label>
+                                                                                                          </div>
+      </div>
 
+      <div className={`${styles.heartIcon} hidden xs:flex`}>
+        <svg
+          id="headerHeartIcon"
+          // className={svgClass}
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          width="3em"
+          height="3em"
+          viewBox="0 0 752.000000 752.000000"
+          preserveAspectRatio="xMidYMid meet">
+          <g
+            transform="translate(000.000000,752.000000) scale(0.100000,-0.100000)"
+            stroke="none">
+            <path
+              d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
+                    -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
+                    937 489 488 909 915 934 948 368 493 334 1168 -79 1590 -237 241 -530 365
+                    -868 365 -135 0 -258 -18 -370 -55 -207 -67 -332 -149 -528 -343 l-148 -146
+                    -147 146 c-214 210 -365 302 -601 364 -125 33 -390 42 -516 19z m399 -190
+                    c112 -20 243 -69 347 -131 64 -38 126 -91 273 -236 115 -112 202 -189 218
+                    -193 54 -14 80 4 262 185 193 190 278 254 410 309 117 49 218 72 346 78 299
+                    15 567 -87 773 -293 300 -300 378 -759 196 -1151 -83 -178 -87 -182 -1029
+                    -1121 -487 -485 -896 -885 -908 -888 -13 -3 -33 -3 -45 0 -30 8 -1762 1732
+                    -1823 1814 -308 414 -277 985 73 1339 238 240 572 346 907 288z"
+            />
+          </g>
+        </svg>
+      </div>
       <div className={`${styles.xandria} `}>
         <a href="/">
           <h1>Xandria</h1>
@@ -99,11 +120,11 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       {showSearch && <SearchForm isBookPage={isBookPage} />}
       <div id="headerIcons"
-           className="flex border-yellow cursor-pointer mx-auto justify-end align-center h-fit">
-        <div className={`${styles.cardHeart}`}>
+           className="flex cursor-pointer mx-auto justify-end align-center h-fit">
+        <div className={`${styles.heartIcon} xs:hidden`}>
           <svg
             id="headerHeartIcon"
-            className={svgClass}
+            // className={svgClass}
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
             width="3em"
@@ -128,9 +149,9 @@ const Header: React.FC<HeaderProps> = ({
             </g>
           </svg>
         </div>
-        <div className={`${styles.userHeader}`}>
+        <div className={`${styles.shoppingBagIcon}`}>
           <svg id="checkoutBagIcon"
-               className={svgClass}
+               // className={svgClass}
                version="1.0"
                xmlns="http://www.w3.org/2000/svg"
                width="3.2em"
