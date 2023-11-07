@@ -44,8 +44,9 @@ const Header: React.FC<HeaderProps> = ({
         <div
           id="focusButton"
           className="text-3xl flex flex-1 justify-start"
-          style={{ transform: 'translateX(4px)' }}>
-          <svg id="dropdownIcon"
+          style={{ transform: 'translateX(4px)' }}
+        >
+          <svg id="dropdownIcon" className="hidden"
             version="1.0"
             xmlns="http://www.w3.org/2000/svg"
             width="2.2rem"
@@ -97,15 +98,46 @@ const Header: React.FC<HeaderProps> = ({
         </a>
       </div>
       {showSearch && <SearchForm isBookPage={isBookPage} />}
+      <div className="flex cursor-pointer mx-auto justify-center align-center h-fit">
+        <div className={`${styles.cardHeart}`}>
+          <svg
+            id="headerHeartIcon"
+            className={svgClass}
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            width="3em"
+            height="3em"
+            viewBox="0 0 752.000000 752.000000"
+            preserveAspectRatio="xMidYMid meet">
+            <g
+              transform="translate(000.000000,752.000000) scale(0.100000,-0.100000)"
+              stroke="none">
+              <path
+                d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
+                    -728 34 -44 454 -470 933 -946 959 -956 913 -916 1039 -916 127 0 78 -43 1059
+                    937 489 488 909 915 934 948 368 493 334 1168 -79 1590 -237 241 -530 365
+                    -868 365 -135 0 -258 -18 -370 -55 -207 -67 -332 -149 -528 -343 l-148 -146
+                    -147 146 c-214 210 -365 302 -601 364 -125 33 -390 42 -516 19z m399 -190
+                    c112 -20 243 -69 347 -131 64 -38 126 -91 273 -236 115 -112 202 -189 218
+                    -193 54 -14 80 4 262 185 193 190 278 254 410 309 117 49 218 72 346 78 299
+                    15 567 -87 773 -293 300 -300 378 -759 196 -1151 -83 -178 -87 -182 -1029
+                    -1121 -487 -485 -896 -885 -908 -888 -13 -3 -33 -3 -45 0 -30 8 -1762 1732
+                    -1823 1814 -308 414 -277 985 73 1339 238 240 572 346 907 288z"
+              />
+            </g>
+          </svg>
+          <div className="absolute text-xs flex top-0 left-0 px-5 py-4"></div>
+        </div>
+      </div>
       <div className={`${styles.userHeader}`}>
-        <svg id="checkoutBag"
-          className={svgClass}
-          version="1.0"
-          xmlns="http://www.w3.org/2000/svg"
-          width="3.2rem"
-          height="3.2rem"
-          viewBox="0 0 752.000000 752.000000"
-          preserveAspectRatio="xMidYMid meet">
+        <svg id="checkoutBagIcon"
+             className={svgClass}
+             version="1.0"
+             xmlns="http://www.w3.org/2000/svg"
+             width="3.2em"
+             height="3.2em"
+             viewBox="0 0 752.000000 752.000000"
+             preserveAspectRatio="xMidYMid meet">
           <g
             transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
             fill="rgb(210, 207, 202)"
@@ -127,41 +159,8 @@ const Header: React.FC<HeaderProps> = ({
             />
           </g>
         </svg>
-        <svg id="userIcon"
-          version="1.0"
-          xmlns="http://www.w3.org/2000/svg"
-          width="3.2rem"
-          height="3.2rem"
-          viewBox="0 0 752.000000 752.000000"
-          preserveAspectRatio="xMidYMid meet">
-          <g
-            transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-            fill="#ffffff"
-            stroke="none">
-            <path
-              d="M3491 5764 c-656 -89 -1232 -499 -1534 -1092 -247 -484 -285 -1065
-              -105 -1582 67 -192 206 -439 338 -600 794 -971 2243 -1004 3077 -71 333 373
-              513 843 513 1341 0 317 -65 597 -205 885 -301 620 -904 1046 -1590 1125 -124
-              14 -369 11 -494 -6z m499 -95 c326 -40 613 -152 893 -349 120 -84 353 -317
-              437 -437 135 -192 227 -381 285 -584 61 -211 70 -278 69 -544 0 -223 -2 -249
-              -27 -368 -70 -327 -210 -617 -419 -865 -38 -45 -72 -82 -76 -82 -4 0 -20 39
-              -35 88 -113 354 -379 662 -720 833 -81 41 -270 109 -303 109 -10 0 16 19 57
-              43 222 126 360 302 419 532 73 283 -2 570 -203 782 -335 352 -879 352 -1214 0
-              -343 -361 -296 -939 98 -1237 43 -32 103 -70 134 -85 l57 -28 -79 -23 c-453
-              -131 -819 -484 -960 -926 -15 -49 -31 -88 -35 -88 -4 0 -38 37 -76 83 -209
-              248 -349 537 -419 864 -25 119 -27 145 -27 368 -1 266 8 333 69 543 161 559
-              579 1021 1128 1247 113 46 308 99 422 115 50 6 97 13 105 15 40 8 345 4 420
-              -6z m-54 -699 c226 -57 423 -226 508 -436 78 -192 72 -411 -18 -599 -84 -177
-              -240 -317 -426 -380 -158 -54 -321 -54 -480 0 -400 136 -604 585 -444 979 84
-              208 281 378 504 436 103 26 252 26 356 0z m48 -1575 c270 -47 516 -175 712
-              -370 109 -109 210 -251 268 -376 36 -79 96 -258 96 -287 0 -10 -21 -36 -47
-              -57 -267 -225 -541 -360 -880 -432 -120 -25 -144 -27 -373 -27 -228 0 -254 2
-              -371 27 -345 73 -628 214 -899 446 l-35 30 17 63 c134 509 543 890 1056 982
-              106 19 348 20 456 1z"
-            />
-          </g>
-        </svg>
       </div>
+
     </header>
   );
 };

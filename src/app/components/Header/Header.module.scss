@@ -93,6 +93,7 @@
 }
 
 .xandria {
+  position: absolute;
   display: inline-flex;
   font-size: 1.875rem;
   // justify-content: start;
@@ -140,8 +141,9 @@
 
 .userHeader {
   display: inline-flex;
-  flex: 1;
   justify-content: end;
+  align-items: center;
+  margin: 0 auto;
   
   @media (min-width: 1200px) {
   }
@@ -152,6 +154,14 @@
   @media (max-width: 749px) {
     transform: translateX(5px);
   }
+}
+
+.cardHeart {
+  display: flex;
+  position: relative;
+}
+.cardHeart svg g {
+  fill: rgb(var(--foreground-rgb));
 }
 
 .hide-svg {
