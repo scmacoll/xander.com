@@ -1,0 +1,68 @@
+@keyframes glowingText {
+  0% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 60px #ff2d95, 0 0 70px #ff2d95;
+  }
+  100% {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+@keyframes movingGlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+@keyframes travelingGlow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+.search {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 2.5em;
+  width: 95%;
+}
+@media (max-width: 749px) {
+  .search {
+    padding-bottom: 1em;
+  }
+}
+
+@media (max-width: 749px) {
+  .h2TagLine {
+    letter-spacing: 0.07em;
+  }
+}
+.h2TagLine {
+  display: flex;
+  padding: 0.5em;
+  font-family: "Alliance Neue", sans-serif;
+  letter-spacing: 0.175em;
+  margin: 0 auto;
+  align-items: center;
+  color: transparent;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.5) 100%);
+  background-size: 200% 40%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: movingGlow 4s linear infinite;
+}
+@media (max-width: 749px) {
+  .h2TagLine {
+    letter-spacing: 0.07em;
+  }
+}
+
+.relative {
+  position: relative;
+}
+
+/*# sourceMappingURL=Search.module.css.map */

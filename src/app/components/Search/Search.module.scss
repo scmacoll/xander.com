@@ -1,13 +1,103 @@
+@keyframes glowingText {
+  0% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 60px #ff2d95, 0 0 70px #ff2d95;
+  }
+
+  100% {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+@keyframes movingGlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes travelingGlow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
 .search {
   display: flex;
   justify-content: center;
   margin: 0 auto;
   padding-top: 1rem;
-  padding-bottom: 1rem;
-  padding-bottom: 2.5rem;
+  padding-bottom: 2.5em;
   width: 95%;
-  margin: 0 auto;
+
+  @media (max-width: 749px) {
+    padding-bottom: 1em;
+  }
 }
+
+//.h2TagLine {
+//  position: relative;
+//  font-family: "Alliance Neue", sans-serif;
+//  letter-spacing: 0.175em;
+//  color: #FFFFFF; /* Adjust the color to fit the desired effect */
+//  background: linear-gradient(
+//                  to right,
+//                  rgba(255, 255, 255, 0) 0%,
+//                  rgba(255, 255, 255, 0.75) 50%, /* This is the glow color */
+//                  rgba(255, 255, 255, 0) 100%
+//  );
+//  background-size: 200% auto;
+//  background-clip: text;
+//  text-fill-color: transparent;
+//  -webkit-background-clip: text;
+//  -webkit-text-fill-color: transparent;
+//  animation: travelingGlow 3s linear infinite;
+//}
+
+@media (max-width: 749px) {
+  .h2TagLine {
+    letter-spacing: 0.07em;
+  }
+}
+
+.h2TagLine {
+  display: flex;
+  padding: .5em;
+  font-family: "Alliance Neue", sans-serif;
+  letter-spacing: .175em;
+  margin: 0 auto;
+  align-items: center;
+  color: transparent;
+  background: linear-gradient(
+                  90deg,
+                  rgba(255,255,255,0.5) 0%,
+                  rgba(255,255,255,0.8) 50%,
+                  rgba(255,255,255,0.5) 100%);
+  background-size: 200% 40%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: movingGlow 4s linear infinite;
+
+  @media (max-width: 749px) {
+    letter-spacing: .07em;
+  }
+}
+
+//.h2TagLine::after {
+//  content: '';
+//  position: absolute;
+//  top: 0;
+//  left: 0;
+//  right: 0;
+//  bottom: 0;
+//  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+//  pointer-events: none; /* This makes sure the pseudo-element doesn't interfere with mouse events */
+//  animation: movingGlow 2s linear infinite;
+//}
 
 .relative {
   position: relative;
