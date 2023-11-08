@@ -8,10 +8,10 @@
 }
 @keyframes movingGlow {
   0% {
-    background-position: -200% 0;
+    background-position: 200% 0;
   }
   100% {
-    background-position: 200% 0;
+    background-position: -200% 0;
   }
 }
 @keyframes travelingGlow {
@@ -53,7 +53,7 @@
   background-size: 200% 40%;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: movingGlow 4s linear infinite;
+  animation: movingGlow 7s linear infinite;
 }
 @media (max-width: 749px) {
   .h2TagLine {

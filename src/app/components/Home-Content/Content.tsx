@@ -55,6 +55,11 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
+
+  const handleCardInteraction = (card: TileCard) => {
+    setSelectedCard(card);
+  };
+
   const shiftColumn = (direction: 'left' | 'right') => {
     setDisplayedColumn((prevDisplayedColumn) => {
       const currentIndex = columns.indexOf(prevDisplayedColumn);
@@ -246,6 +251,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   return (
     <div id="sectionWrapper">
       <section className={styles.contentLayout}>
+
         <div id="arrowButtons" className="absolute">
           <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
           >
@@ -271,9 +277,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           {/*  </a>*/}
           {/*</div>*/}
         </div>
-        {selectedCard && (
-          <Lightbox card={selectedCard} onClose={() => setSelectedCard(null)} numColumns={numColumns} />
-        )}
 
         {combinedData.map((card, index) => {
           const cellLetter = card.cell_name.slice(-1);
@@ -306,17 +309,28 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
           return (
             <div key={index}
-                 onClick={() => setSelectedCard(card)}
+                 // onClick={() => setSelectedCard(card)}
                  className={classNames(styles.card, {
                    [styles.leftCard]: isFirstColumn,
                    [styles.middleCard]: isSecondColumn,
                    [styles.rightCard]: isThirdColumn,
                    [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
                  })}>
-              <Card card={card} />
+              <Card
+                card={card}
+                onInteraction={() => handleCardInteraction(card)}
+              />
             </div>
           );
         })}
+
+        {selectedCard && (
+          <Lightbox
+            card={selectedCard}
+            onClose={() => setSelectedCard(null)}
+            numColumns={numColumns} />
+        )}
+        
       </section>
 
       <div className={styles.pagination}>

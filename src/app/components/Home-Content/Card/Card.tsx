@@ -6,28 +6,27 @@ import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-mod
 
 interface CardProps {
   card: TileCard;
+  onInteraction : () => void;
 }
 
-const Card: React.FC<CardProps> = ({ card }) => {
+const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
   return (
     <div className={`${styles.cardContent}`}>
       <div className={`${styles.topContent}`}>
-        <div>
+        <div onClick={onInteraction}>
           <p className={`${styles.cardTitle}`}>{card.quote}</p>
         </div>
         <div className={`${styles.cardAuthor}`}>
           <div className={`${styles.authorName} flex items-center`}>
-            <a href="#">
-              <Image
-                className={`${styles.dp}`}
-                src={yukioMishimaImage.src}
-                alt="yuko"
-                width="100"
-                height="100"
-              />
-            </a>
+            <Image
+              className={`${styles.dp}`}
+              src={yukioMishimaImage.src}
+              alt="yuko"
+              width="100"
+              height="100"
+            />
             <h3 className="font-bold">
-              <a href="#">{card.author}</a>
+              <div>{card.author}</div>
             </h3>
           </div>
           <div className={`${styles.cardUserClick}`}>
@@ -58,7 +57,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
                 </g>
               </svg>
             </div>
-            <div className={`${styles.cardInfo}`}>
+            <div onClick={onInteraction} className={`${styles.cardInfo}`}>
               <svg
                 version="1.0"
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,21 +101,22 @@ const Card: React.FC<CardProps> = ({ card }) => {
       </div>
       <div className={`${styles.bottomContent}`}>
         <div className={`${styles.cardIcons}`}>
-          <svg id="bookIcon"
-            className={`${styles.cardIcon}`}
-            version="1.0"
-            xmlns="http://www.w3.org/2000/svg"
-            width="3em"
-            height="3em"
-            // transform="translate(0, -12)"
-            viewBox="0 0 752.000000 752.000000"
-            preserveAspectRatio="xMidYMid meet">
-            <g
-              transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-              fill="#868478"
-              stroke="none">
-              <path
-                d="M2091 5205 l-31 -27 0 -1014 0 -1015 25 -24 c30 -31 92 -34 126 -6
+          <a href="/book" target="_blank" rel="noopener noreferrer">
+            <svg id="bookIcon"
+                 className={`${styles.cardIcon}`}
+                 version="1.0"
+                 xmlns="http://www.w3.org/2000/svg"
+                 width="3em"
+                 height="3em"
+              // transform="translate(0, -12)"
+                 viewBox="0 0 752.000000 752.000000"
+                 preserveAspectRatio="xMidYMid meet">
+              <g
+                transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                fill="#868478"
+                stroke="none">
+                <path
+                  d="M2091 5205 l-31 -27 0 -1014 0 -1015 25 -24 c30 -31 92 -34 126 -6
               l24 19 5 949 5 948 480 0 c527 0 525 0 655 -62 91 -44 220 -168 263 -253 l27
               -55 0 -988 c0 -543 -2 -987 -5 -987 -3 0 -31 21 -62 46 -74 60 -214 128 -311
               151 -69 16 -132 18 -628 18 -538 0 -552 -1 -574 -20 -33 -30 -42 -62 -30 -101
@@ -129,9 +129,10 @@ const Card: React.FC<CardProps> = ({ card }) => {
               -502 -5 -574 -25 -98 -28 -222 -90 -293 -148 -31 -25 -58 -45 -61 -45 -3 0 -5
               444 -5 987 l0 988 27 54 c34 66 136 178 201 220 64 41 159 79 225 90 28 5 259
               8 512 7 l460 -1 3 -1062z"
-              />
-            </g>
-          </svg>
+                />
+              </g>
+            </svg>
+          </a>
           <svg id="globeIcon"
             className={`${styles.cardIcon} hidden`}
             version="1.0"

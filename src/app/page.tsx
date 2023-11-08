@@ -19,9 +19,7 @@ export default function Home() {
       <Header
         onFocusModeToggle={handleCardButtonClick}
         isFocusMode={false}
-        showFocusButton={true}
         showSearch={false}
-        hideSvg={true}
         shortenTitle={false}
         isBookPage={false}
       />
