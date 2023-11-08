@@ -19,18 +19,18 @@ const CheckoutPageContent: React.FC = () => {
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
-      <div
-        id="pageContainer"
-        className={`${styles.pageContainer}
-        mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
+      <div id="pageContainer"
+           className={`${styles.pageContainer}
+           mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
       >
-
         <div id="leftContentWrapper"
              className="flex flex-col sm:w-full md:w-51.5% lg:w-51.5%">
           <div id="checkoutTitle"
                className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
             <div className="flex pb-1">
-              <h1 className="py-3 text-3xl">Xandria</h1>
+              <h1 className="py-3 text-3xl">
+                <a href="/">Xandria</a>
+              </h1>
             </div>
           </div>
           <div id="checkoutExpressContainer"
@@ -385,7 +385,7 @@ const CheckoutPageContent: React.FC = () => {
                     <div id="shippingButton">
                       <div className="flex justify-end pt-8">
                         <button
-                          className="border-2 rounded bg-shopify-blue font-bold border-solid hover:border-foreground border-shopify-blue p-4">Confirm Order
+                          className="border-2 rounded bg-shopify-blue font-bold border-solid hover:border-foreground border-shopify-blue p-4">ORDER NOW
                         </button>
                       </div>
                     </div>
@@ -393,20 +393,17 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div id="checkoutFooter" className="flex py-4 text-xs font-bold text-greyed-out">
-              <div className="pr-4 cursor-pointer">Refund Policy</div>
-              <div className="pr-4 cursor-pointer">Privacy Policy</div>
-              <div className="pr-4 cursor-pointer">Terms of Service</div>
-            </div>
+
           </div>
         </div>
-
         <div id="rightContentWrapper"
              className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
-              <h1 className="py-3 text-3xl">Xandria</h1>
+              <h1 className="py-3 text-3xl">
+                <a href="/">Xandria</a>
+              </h1>
             </div>
 
             <div id="orderSummaryBanner"
@@ -511,6 +508,13 @@ const CheckoutPageContent: React.FC = () => {
           </div>
         </div>
       </div>
+      <div id="checkoutFooter"
+           className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-greyed-out mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
+        <div className="pr-4 cursor-pointer">Refund Policy</div>
+        <div className="pr-4 cursor-pointer">Privacy Policy</div>
+        <div className="pr-4 cursor-pointer">Terms of Service</div>
+      </div>
+
     </div>
   );
 
