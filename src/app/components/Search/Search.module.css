@@ -53,7 +53,7 @@
   background-size: 200% 40%;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: movingGlow 7s linear infinite;
+  animation: movingGlow 5s linear infinite;
 }
 @media (max-width: 749px) {
   .h2TagLine {
