@@ -11,6 +11,7 @@ module.exports = {
         foreground: `rgb(var(--foreground-rgb))`,
         background: `rgb(var(--background-start-rgb))`,
         'greyed-out': '#d2cfca2b',
+        'shopify-blue': 'rgb(var(--scroll-blue))',
       },
       textColor: {
         'foreground': `rgb(var(--foreground-rgb))`,
@@ -19,6 +20,7 @@ module.exports = {
         'gold': 'rgb(var(--everforest-gold))',
         'shopify-blue': 'rgb(var(--scroll-blue))',
         'link-blue': 'rgb(var(--link-blue), .7)',
+        'custom-red': 'rgb(var(--red))',
       },
       placeholderColor: {
         'greyed-out': '#d2cfca2b',
@@ -28,12 +30,14 @@ module.exports = {
         'translucent': `rgb(var(--background-translucent-rgb))`,
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
+        'custom-red': 'rgb(var(--red))',
       },
       borderColor: { // border-...
         foreground: `rgb(var(--foreground-rgb), .3)`,
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
         'greyed-out': '#d2cfca2b',
+        'custom-red': 'rgb(var(--red))',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -2,20 +2,61 @@ import styles from './Checkout-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
+import { Country, State, City } from 'country-state-city';
 
 
 const CheckoutPageContent: React.FC = () => {
+  const [countries, setCountries] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
+  const [states, setStates] = useState([]);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    setEmail(value);
+  };
+
+  const handleEmailBlur = () => {
+    if (emailRegex.test(email)) {
+      setEmailError('');
+    } else {
+      setEmailError('handleEmailBlur - Invalid email address.');
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!emailRegex.test(email)) {
+      setEmailError('handleSubmit - Invalid email address.');
+      return;
+    }
+
+  };
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
+
   useEffect(() => {
+    // @ts-ignore
+    setCountries(Country.getAllCountries());
+
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView(false);
     }
+
   }, []);
+
+  useEffect(() => {
+   if (selectedCountry) {
+     // @ts-ignore
+     setStates(State.getStatesOfCountry(selectedCountry));
+   }
+  }, [selectedCountry])
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -266,7 +307,9 @@ const CheckoutPageContent: React.FC = () => {
               className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 xl:pt-8 lg:pt-8 md:pt-8 sm:pt-4 xs:pt-4 pb-14 border-foreground">
               <div id="contactWrapper"
                    className="">
-                <div id="contactTopSection">
+                <form id="contactForm"
+                      onSubmit={handleSubmit}
+                >
                   <div id="contactHeader"
                        className="pb-4">
                     <div className="flex flex-row items-center justify-between">
@@ -279,11 +322,15 @@ const CheckoutPageContent: React.FC = () => {
                   </div>
                   <div id="contactEmail"
                        className="pb-3">
-                    <div className="flex">
+                    <div className="flex flex-col">
                       <input type="text"
                              placeholder="Email"
+                             value={email}
+                             onChange={handleEmailChange}
+                             onBlur={handleEmailBlur}
                              className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                       />
+                      {emailError && <div className="text-red-500 text-sm pt-4">{emailError}</div>}
                     </div>
                   </div>
                   <div id="emailOffersCheckbox"
@@ -292,7 +339,7 @@ const CheckoutPageContent: React.FC = () => {
                       <div className="inline-flex">
                         <input type="checkbox"
                                value="1"
-                               className="accent-gray-500"/>
+                               className="accent-foreground"/>
                       </div>
                       <div className="inline-flex pl-2">
                         Email me with news and offers
@@ -308,7 +355,8 @@ const CheckoutPageContent: React.FC = () => {
                       <div id="countrySelect"
                            className="relative w-full border border-solid border-foreground">
                         <label htmlFor="country"
-                               className="absolute top-2 left-3 text-sm">Country/region</label>
+                               className="absolute top-2 left-3 text-sm">Country/region
+                        </label>
                         <div id="selectArrow"
                              className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
                           <svg className="h-4 w-4" fill="none" stroke="currentColor"
@@ -320,8 +368,22 @@ const CheckoutPageContent: React.FC = () => {
                           </svg>
                         </div>
                         <select id="country"
-                                className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none">
-                          <option value="Australia">Australia</option>
+                                className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
+                                value={selectedCountry}
+                                onChange={(e) => {
+                                  setSelectedCountry(e.target.value);
+                                  // @ts-ignore
+                                  setStates(State.getStatesOfCountry(e.target.value));
+                                }}
+                        >
+                          {countries.map(({isoCode, name}) => (
+                            <option
+                              key={isoCode}
+                              value={isoCode}
+                            >
+                              {name}
+                            </option>
+                          ))}
                         </select>
                       </div>
                       <div id="contactNames"
@@ -352,8 +414,11 @@ const CheckoutPageContent: React.FC = () => {
                         <input type="text" placeholder="City"
                                className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% border-foreground placeholder-greyed-out"/>
                         <div className="relative border border-solid w-32% border-foreground">
-                          <label htmlFor="country"
-                                 className="absolute top-2 left-3 text-sm font-bold text-greyed-out">State</label>
+                          <label htmlFor="state"
+                                 className="absolute top-2 left-3 text-sm font-bold text-greyed-out"
+                          >
+                            State/Province
+                          </label>
                           <div id="selectArrow"
                                className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor"
@@ -364,17 +429,17 @@ const CheckoutPageContent: React.FC = () => {
                                     d="M19 9l-7 7-7-7"></path>
                             </svg>
                           </div>
-                          <select id="country"
-                                  className="block w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none">
-                            <option value="State" selected disabled>State</option>
-                            <option value="State">Australian Capital Territory</option>
-                            <option value="State">New South Wales</option>
-                            <option value="State">Northern Territory</option>
-                            <option value="State">Queensland</option>
-                            <option value="State">South Australia</option>
-                            <option value="State">Tasmania</option>
-                            <option value="State">Victoria</option>
-                            <option value="State">Western Australia</option>
+                          <select id="state"
+                                  className="block w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                          >
+                            {states.map(({isoCode, name}) => (
+                              <option
+                                key={isoCode}
+                                value={isoCode}
+                              >
+                                {name}
+                              </option>
+                            ))}
                           </select>
                         </div>
                         <input type="text" placeholder="ZIP code"
@@ -383,14 +448,20 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
 
                     <div id="shippingButton">
-                      <div className="flex justify-end pt-8">
+                      <div className="hidden flex justify-end pt-8">
                         <button
                           className="border-2 rounded bg-shopify-blue font-bold border-solid hover:border-foreground border-shopify-blue p-4">ORDER NOW
                         </button>
                       </div>
+                      <div className="flex justify-end pt-8">
+                        <button
+                          className="border-2 rounded text-gray-500 font-bold border-solid hover:border-custom-red border-gray-700 p-4">ORDER NOW
+                        </button>
+                      </div>
+
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
 
@@ -477,14 +548,18 @@ const CheckoutPageContent: React.FC = () => {
                   />
                 </div>
                 <div
-                  className="inline-flex items-center rounded-sm border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out">
+                  className="inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out">
+                  <button>APPLY</button>
+                </div>
+                <div
+                  className="hidden inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-shopify-blue bg-shopify-blue hover:border-foreground">
                   <button>APPLY</button>
                 </div>
               </div>
               <div className="flex flex-col border-y border-solid py-6 border-foreground">
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                  <div className="inline-flex text-sm flex-end">$135.00
+                  <div className="inline-flex text-sm flex-end font-bold">$135.00
                   </div>
                 </div>
                 <div className="flex justify-between">
@@ -509,7 +584,7 @@ const CheckoutPageContent: React.FC = () => {
         </div>
       </div>
       <div id="checkoutFooter"
-           className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-greyed-out mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
+           className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
         <div className="pr-4 cursor-pointer">Refund Policy</div>
         <div className="pr-4 cursor-pointer">Privacy Policy</div>
         <div className="pr-4 cursor-pointer">Terms of Service</div>

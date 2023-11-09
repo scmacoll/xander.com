@@ -108,7 +108,7 @@ const ConfirmPageContent: React.FC = () => {
                       >
                         <div className="w-1/2">
                           <h4 className="font-bold">Shipping Address</h4>
-                          <ul className="flex flex-col gap-1  text-gray-400 text-sm pt-2">
+                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li>Liz Brown</li>
                             <li>2731 Davis Drive</li>
                             <li>Markham ON L3P 2M4</li>
@@ -266,7 +266,7 @@ const ConfirmPageContent: React.FC = () => {
               <div className="flex flex-col border-b border-solid pb-6 border-foreground">
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                  <div className="inline-flex text-sm font-medium flex-end">$130.96</div>
+                  <div className="inline-flex text-sm font-bold flex-end">$130.96</div>
                 </div>
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
@@ -405,7 +405,7 @@ const ConfirmPageContent: React.FC = () => {
           </div>
         </div>
         <div id="checkoutFooter"
-             className="bottom-0 flex justify-center w-full py-3 text-xs font-bold text-greyed-out ">
+             className="bottom-0 flex justify-center w-full py-3 text-xs font-bold text-gray-500 ">
           <div className="pr-4 cursor-pointer">Refund Policy</div>
           <div className="pr-4 cursor-pointer">Privacy Policy</div>
           <div className="pr-4 cursor-pointer">Terms of Service</div>
