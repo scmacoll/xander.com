@@ -24,6 +24,25 @@ const CheckoutPageContent: React.FC = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const handleEmailChange = (event) => {
+    const { value } = event.target;
+    setEmail(value);
+  };
+  const handleEmailBlur = () => {
+    if (emailRegex.test(email)) {
+      setEmailError('');
+    } else {
+      setEmailError('handleEmailBlur - Invalid email address.');
+    }
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!emailRegex.test(email)) {
+      setEmailError('handleSubmit - Invalid email address.');
+      return;
+    }
+  };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(event.target.value);
     if (event.target.value.trim() !== '') {
@@ -70,29 +89,6 @@ const CheckoutPageContent: React.FC = () => {
     setZipcodeError(lastName.trim() === '');
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const handleEmailChange = (event) => {
-    const { value } = event.target;
-    setEmail(value);
-  };
-
-  const handleEmailBlur = () => {
-    if (emailRegex.test(email)) {
-      setEmailError('');
-    } else {
-      setEmailError('handleEmailBlur - Invalid email address.');
-    }
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!emailRegex.test(email)) {
-      setEmailError('handleSubmit - Invalid email address.');
-      return;
-    }
-
-  };
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
