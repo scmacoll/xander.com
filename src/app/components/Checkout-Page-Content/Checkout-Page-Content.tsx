@@ -6,6 +6,10 @@ import { Country, State, City } from 'country-state-city';
 
 
 const CheckoutPageContent: React.FC = () => {
+  const [firstName, setFirstName] = useState('');
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastName, setLastName] = useState('');
+  const [lastNameError, setLastNameError] = useState(false);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
   const [states, setStates] = useState([]);
@@ -13,6 +17,25 @@ const CheckoutPageContent: React.FC = () => {
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+
+  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(event.target.value);
+    if (event.target.value.trim() !== '') {
+      setFirstNameError(false);
+    }
+  }
+  const handleFirstNameBlur = () => {
+    setFirstNameError(firstName.trim() === '');
+  }
+  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(event.target.value);
+    if (event.target.value.trim() !== '') {
+      setLastNameError(false);
+    }
+  }
+  const handleLastNameBlur = () => {
+    setLastNameError(lastName.trim() === '');
+  }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -388,10 +411,24 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                       <div id="contactNames"
                            className="flex w-full justify-between pt-4">
-                        <input type="text" placeholder="First Name"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
-                        <input type="text" placeholder="Last Name"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out"/>
+                        <input type="text"
+                               placeholder="First Name"
+                               value={firstName}
+                               onChange={handleFirstNameChange}
+                               onBlur={handleFirstNameBlur}
+                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${firstNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                        />
+                        <input type="text"
+                               placeholder="Last Name"
+                               value={lastName}
+                               onChange={handleLastNameChange}
+                               onBlur={handleLastNameBlur}
+                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out
+                               ${lastNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                        />
                       </div>
                       <div id="contactCompany"
                            className="flex w-full justify-between pt-4">
