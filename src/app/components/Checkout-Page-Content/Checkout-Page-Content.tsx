@@ -10,6 +10,12 @@ const CheckoutPageContent: React.FC = () => {
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState('');
   const [lastNameError, setLastNameError] = useState(false);
+  const [address, setAddress] = useState('');
+  const [addressError, setAddressError] = useState(false);
+  const [city, setCity] = useState('');
+  const [cityError, setCityError] = useState(false);
+  const [zipcode, setZipcode] = useState('');
+  const [zipcodeError, setZipcodeError] = useState(false);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
   const [states, setStates] = useState([]);
@@ -35,6 +41,33 @@ const CheckoutPageContent: React.FC = () => {
   }
   const handleLastNameBlur = () => {
     setLastNameError(lastName.trim() === '');
+  }
+  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAddress(event.target.value);
+    if (event.target.value.trim() !== '') {
+      setAddressError(false);
+    }
+  }
+  const handleAddressBlur = () => {
+    setAddressError(lastName.trim() === '');
+  }
+  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(event.target.value);
+    if (event.target.value.trim() !== '') {
+      setCityError(false);
+    }
+  }
+  const handleCityBlur = () => {
+    setCityError(lastName.trim() === '');
+  }
+  const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setZipcode(event.target.value);
+    if (event.target.value.trim() !== '') {
+      setZipcodeError(false);
+    }
+  }
+  const handleZipcodeBlur = () => {
+    setZipcodeError(lastName.trim() === '');
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -425,7 +458,7 @@ const CheckoutPageContent: React.FC = () => {
                                value={lastName}
                                onChange={handleLastNameChange}
                                onBlur={handleLastNameBlur}
-                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% border-foreground placeholder-greyed-out
+                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
                                ${lastNameError ? 'border-custom-red' : 'border-foreground'}
                                `}
                         />
@@ -438,8 +471,15 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                       <div id="contactAddressLineOne"
                            className="flex w-full justify-between pt-4">
-                        <input type="text" placeholder="Address"
-                               className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                        <input type="text"
+                               placeholder="Address"
+                               value={address}
+                               onChange={handleAddressChange}
+                               onBlur={handleAddressBlur}
+                               className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
+                               ${addressError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                        />
                       </div>
                       <div id="contactAddressLineTwo"
                            className="flex w-full justify-between pt-4">
@@ -448,26 +488,31 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                       <div id="contactAddressLineThree"
                            className="flex justify-between gap-1 pt-4">
-                        <input type="text" placeholder="City"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% border-foreground placeholder-greyed-out"/>
+                        <input type="text"
+                               placeholder="City"
+                               value={city}
+                               onChange={handleCityChange}
+                               onBlur={handleCityBlur}
+                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                               ${cityError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                        />
                         <div className="relative border border-solid w-32% border-foreground">
                           <label htmlFor="state"
-                                 className="absolute top-2 left-3 text-sm font-bold text-greyed-out"
+                                 className="absolute top-1 left-3 text-sm font-bold text-greyed-out"
                           >
                             State/Province
                           </label>
                           <div id="selectArrow"
-                               className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                               className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor"
                                  viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M19 9l-7 7-7-7"></path>
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
                           </div>
                           <select id="state"
-                                  className="block w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                                  className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                           >
                             {states.map(({isoCode, name}) => (
                               <option
@@ -479,8 +524,15 @@ const CheckoutPageContent: React.FC = () => {
                             ))}
                           </select>
                         </div>
-                        <input type="text" placeholder="ZIP code"
-                               className="items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% border-foreground placeholder-greyed-out"/>
+                        <input type="text"
+                               placeholder="ZIP code"
+                               value={zipcode}
+                               onChange={handleZipcodeChange}
+                               onBlur={handleZipcodeBlur}
+                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                               ${zipcodeError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                        />
                       </div>
                     </div>
 
