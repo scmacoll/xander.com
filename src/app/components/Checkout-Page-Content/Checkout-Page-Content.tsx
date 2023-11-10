@@ -423,16 +423,27 @@ const CheckoutPageContent: React.FC = () => {
                                value="1"
                                className="accent-foreground"/>
                       </div>
-                      <div className="inline-flex pl-2">
+                      <div className="inline-flex pl-2 text-sm">
                         Email me with news and offers
                       </div>
                     </div>
                   </div>
                   <div id="contactBottomSection">
-                    <div id="contactShippingHeader">
-                      <div className="flex pb-2 text-xl font-bold">Shipping Address</div>
+                    <div id="contactShippingHeader"
+                         className="flex flex-row border-b border-solid border-foreground">
+                      <div className="flex w-1/2 pb-2 text-xl font-bold">
+                        <div className="border-b ">Shipping Address</div>
+                      </div>
+                      <div className="flex pb-2 text-xl text-greyed-out text-underline font-bold cursor-pointer">
+                        <div>Billing Address</div>
+                      </div>
                     </div>
-                    {/*!TODO:*/}
+                    <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                      <input type="checkbox"
+                             className="accent-foreground"
+                      />
+                      <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
+                    </div>
                     <div id="contactDetails">
                       <div id="countrySelect"
                            className="relative w-full border border-solid border-foreground">
