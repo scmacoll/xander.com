@@ -6,6 +6,7 @@ import { Country, State, City } from 'country-state-city';
 
 
 const CheckoutPageContent: React.FC = () => {
+  const [isFormValid, setIsFormValid] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState('');
@@ -19,10 +20,13 @@ const CheckoutPageContent: React.FC = () => {
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
   const [states, setStates] = useState([]);
-  const bottomRef = useRef<null | HTMLDivElement>(null);
-  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [discountCode, setDiscountCode] = useState('');
+  const [isCodeValid, setIsCodeValid] = useState(false);
+
+  const bottomRef = useRef<null | HTMLDivElement>(null);
+  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handleEmailChange = (event) => {
@@ -34,13 +38,6 @@ const CheckoutPageContent: React.FC = () => {
       setEmailError('');
     } else {
       setEmailError('handleEmailBlur - Invalid email address.');
-    }
-  };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!emailRegex.test(email)) {
-      setEmailError('handleSubmit - Invalid email address.');
-      return;
     }
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +85,11 @@ const CheckoutPageContent: React.FC = () => {
   const handleZipcodeBlur = () => {
     setZipcodeError(lastName.trim() === '');
   }
-
+  const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCode = event.target.value;
+    setDiscountCode(newCode);
+    setIsCodeValid(newCode.trim().length === 6);
+  }
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
@@ -109,6 +110,18 @@ const CheckoutPageContent: React.FC = () => {
      setStates(State.getStatesOfCountry(selectedCountry));
    }
   }, [selectedCountry])
+
+  useEffect(() => {
+    const isValid =
+      firstName.trim() !== '' && !firstNameError &&
+      lastName.trim() !== '' && !lastNameError &&
+      address.trim() !== '' && !addressError &&
+      city.trim() !== '' && !cityError &&
+      zipcode.trim() !== '' && !zipcodeError &&
+      emailRegex.test(email);
+
+    setIsFormValid(isValid);
+  }, [firstName, firstNameError, lastName, lastNameError, address, addressError, city, cityError, zipcode, zipcodeError, email]);
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -359,9 +372,7 @@ const CheckoutPageContent: React.FC = () => {
               className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 xl:pt-8 lg:pt-8 md:pt-8 sm:pt-4 xs:pt-4 pb-14 border-foreground">
               <div id="contactWrapper"
                    className="">
-                <form id="contactForm"
-                      onSubmit={handleSubmit}
-                >
+                <form id="contactForm">
                   <div id="contactHeader"
                        className="pb-4">
                     <div className="flex flex-row items-center justify-between">
@@ -533,14 +544,26 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
 
                     <div id="shippingButton">
-                      <div className="hidden flex justify-end pt-8">
-                        <button
-                          className="border-2 rounded bg-shopify-blue font-bold border-solid hover:border-foreground border-shopify-blue p-4">ORDER NOW
-                        </button>
-                      </div>
+                      {/*<div className="hidden flex justify-end pt-8">*/}
+                      {/*  <button*/}
+                      {/*    className="border-2 rounded bg-shopify-blue font-bold border-solid hover:border-foreground border-shopify-blue p-4">ORDER NOW*/}
+                      {/*  </button>*/}
+                      {/*</div>*/}
                       <div className="flex justify-end pt-8">
                         <button
-                          className="border-2 rounded text-gray-500 font-bold border-solid hover:border-custom-red border-gray-700 p-4">ORDER NOW
+                          className={`border-2 rounded font-bold p-4 border-solid
+                          ${isFormValid ?
+                            'hover:border-foreground border-shopify-blue bg-shopify-blue'
+                            : 'border-foreground bg-greyed-out'} 
+                          `}
+                          disabled={!isFormValid}
+                        >
+                        {/*<button*/}
+                        {/*  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out*/}
+                        {/*  `}*/}
+                        {/*  disabled={!isFormValid}*/}
+                        {/*>*/}
+                          ORDER NOW
                         </button>
                       </div>
 
@@ -629,12 +652,17 @@ const CheckoutPageContent: React.FC = () => {
                   <input
                     type="text"
                     placeholder="Gift card or discount code"
+                    value={discountCode}
+                    onChange={handleDiscountCodeChange}
                     className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                   />
                 </div>
                 <div
-                  className="inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out">
-                  <button>APPLY</button>
+                  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
+                  ${isCodeValid ? 'bg-shopify-blue' : 'bg-greyed-out'}
+                  `}
+                >
+                  <button disabled={!isCodeValid}>APPLY</button>
                 </div>
                 <div
                   className="hidden inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-shopify-blue bg-shopify-blue hover:border-foreground">
