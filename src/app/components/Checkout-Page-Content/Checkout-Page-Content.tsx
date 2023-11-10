@@ -403,7 +403,7 @@ const CheckoutPageContent: React.FC = () => {
                              value={email}
                              onChange={handleEmailChange}
                              onBlur={handleEmailBlur}
-                             className="w-70% xs:w-60% border-red items-center bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out"
+                             className="w-70% xs:w-60% items-center bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out"
                       />
                       {emailError && (
                         <span
@@ -525,9 +525,14 @@ const CheckoutPageContent: React.FC = () => {
                         />
                         <div className="relative border border-solid w-32% border-foreground">
                           <label htmlFor="state"
-                                 className="absolute top-1 left-3 text-sm font-bold text-greyed-out"
+                                 className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
                           >
                             State/Province
+                          </label>
+                          <label htmlFor="state"
+                                 className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
+                          >
+                            State
                           </label>
                           <div id="selectArrow"
                                className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
