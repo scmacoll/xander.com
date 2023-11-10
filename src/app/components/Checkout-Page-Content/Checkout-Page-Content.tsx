@@ -24,6 +24,8 @@ const CheckoutPageContent: React.FC = () => {
   const [emailError, setEmailError] = useState('');
   const [discountCode, setDiscountCode] = useState('');
   const [isCodeValid, setIsCodeValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
 
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
@@ -93,6 +95,16 @@ const CheckoutPageContent: React.FC = () => {
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
+  const handleApplyButtonClick = () => {
+    setIsLoading(true); // Start loading
+    setDisplayInvalidCodeMessage(false); // Hide any previous invalid code messages
+
+    // Simulate a loading/spinner for 3 seconds
+    setTimeout(() => {
+      setIsLoading(false); // Stop loading after 3 seconds
+      setDisplayInvalidCodeMessage(true); // Display invalid code message
+    }, 2000);
+  };
 
   useEffect(() => {
     // @ts-ignore
@@ -659,14 +671,15 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
                 <div
                   className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${isCodeValid ? 'bg-shopify-blue' : 'bg-greyed-out'}
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
+                  onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                 >
-                  <button disabled={!isCodeValid}>APPLY</button>
-                </div>
-                <div
-                  className="hidden inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-shopify-blue bg-shopify-blue hover:border-foreground">
-                  <button>APPLY</button>
+                  {isLoading ? (
+                    <button className={styles.loader}></button>
+                  ) : (
+                    <button disabled={!isCodeValid}>APPLY</button>
+                    )}
                 </div>
               </div>
               <div className="flex flex-col border-y border-solid py-6 border-foreground">
