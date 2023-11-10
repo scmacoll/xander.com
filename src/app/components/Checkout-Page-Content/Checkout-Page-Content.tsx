@@ -26,6 +26,7 @@ const CheckoutPageContent: React.FC = () => {
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
+  const [isBillingAddress, setIsBillingAddress] = useState(false);
 
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
@@ -93,6 +94,12 @@ const CheckoutPageContent: React.FC = () => {
     setIsCodeValid(newCode.trim().length === 6);
     setDisplayInvalidCodeMessage(false);
   }
+  const toggleBillingAddress = () => {
+    setIsBillingAddress(true);
+  };
+  const toggleShippingAddress = () => {
+    setIsBillingAddress(false);
+  };
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
@@ -429,134 +436,58 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
                   </div>
                   <div id="contactBottomSection">
-                    <div id="contactShippingHeader"
-                         className="flex flex-row border-b border-solid border-foreground">
-                      <div className="flex w-1/2 pb-2 text-xl font-bold">
-                        <div className="border-b ">Shipping Address</div>
-                      </div>
-                      <div className="flex pb-2 text-xl text-greyed-out text-underline font-bold cursor-pointer">
-                        <div>Billing Address</div>
-                      </div>
-                    </div>
-                    <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
-                      <input type="checkbox"
-                             className="accent-foreground"
-                      />
-                      <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
-                    </div>
-                    <div id="contactDetails">
-                      <div id="countrySelect"
-                           className="relative w-full border border-solid border-foreground">
-                        <label htmlFor="country"
-                               className="absolute top-2 left-3 text-sm">Country/region
-                        </label>
-                        <div id="selectArrow"
-                             className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                               viewBox="0 0 24 24"
-                               xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M19 9l-7 7-7-7"></path>
-                          </svg>
+                    <div id="shippingAddressDetails"
+                         className={`border-blue
+                         ${!isBillingAddress ? 'block' : 'hidden'} 
+                    `}
+                    >
+                      <div id="contactShippingHeader"
+                           className="flex flex-row border-b border-solid border-foreground">
+                        <div className="flex w-1/2 pb-2 text-xl font-bold">
+                          <div>
+                            Shipping Address
+                          </div>
                         </div>
-                        <select id="country"
-                                className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
-                                value={selectedCountry}
-                                onChange={(e) => {
-                                  setSelectedCountry(e.target.value);
-                                  // @ts-ignore
-                                  setStates(State.getStatesOfCountry(e.target.value));
-                                }}
-                        >
-                          {countries.map(({isoCode, name}) => (
-                            <option
-                              key={isoCode}
-                              value={isoCode}
-                            >
-                              {name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div id="contactNames"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text"
-                               placeholder="First Name"
-                               value={firstName}
-                               onChange={handleFirstNameChange}
-                               onBlur={handleFirstNameBlur}
-                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${firstNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                        />
-                        <input type="text"
-                               placeholder="Last Name"
-                               value={lastName}
-                               onChange={handleLastNameChange}
-                               onBlur={handleLastNameBlur}
-                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${lastNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                        />
-                      </div>
-                      <div id="contactCompany"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text"
-                               placeholder="Company (required for business addresses)"
-                               className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                      </div>
-                      <div id="contactAddressLineOne"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text"
-                               placeholder="Address"
-                               value={address}
-                               onChange={handleAddressChange}
-                               onBlur={handleAddressBlur}
-                               className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${addressError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                        />
-                      </div>
-                      <div id="contactAddressLineTwo"
-                           className="flex w-full justify-between pt-4">
-                        <input type="text" placeholder="Apartment, suite, etc. (optional)"
-                               className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                      </div>
-                      <div id="contactAddressLineThree"
-                           className="flex justify-between gap-1 pt-4">
-                        <input type="text"
-                               placeholder="City"
-                               value={city}
-                               onChange={handleCityChange}
-                               onBlur={handleCityBlur}
-                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${cityError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                        />
-                        <div className="relative border border-solid w-32% border-foreground">
-                          <label htmlFor="state"
-                                 className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
+                        <div className="flex pb-2 text-xl text-greyed-out text-underline font-bold cursor-pointer">
+                          <div className="cursor-pointer"
+                               onClick={toggleBillingAddress}
                           >
-                            State/Province
-                          </label>
-                          <label htmlFor="state"
-                                 className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
-                          >
-                            State
+                            Billing Address</div>
+                        </div>
+                      </div>
+                      <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                        <input type="checkbox" className="accent-foreground"
+                        />
+                        <div className="pl-2 text-sm">
+                          Billing address is the same as shipping address
+                        </div>
+                      </div>
+                      <div id="contactDetails">
+                        <div id="countrySelect"
+                             className="relative w-full border border-solid border-foreground">
+                          <label htmlFor="country"
+                                 className="absolute top-2 left-3 text-sm">Country/region
                           </label>
                           <div id="selectArrow"
-                               className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
+                               className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
                             <svg className="h-4 w-4" fill="none" stroke="currentColor"
                                  viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                              <path strokeLinecap="round" strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M19 9l-7 7-7-7"></path>
                             </svg>
                           </div>
-                          <select id="state"
-                                  className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                          <select id="country"
+                                  className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
+                                  value={selectedCountry}
+                                  onChange={(e) => {
+                                    setSelectedCountry(e.target.value);
+                                    // @ts-ignore
+                                    setStates(State.getStatesOfCountry(e.target.value));
+                                  }}
                           >
-                            {states.map(({isoCode, name}) => (
+                            {countries.map(({isoCode, name}) => (
                               <option
                                 key={isoCode}
                                 value={isoCode}
@@ -566,18 +497,264 @@ const CheckoutPageContent: React.FC = () => {
                             ))}
                           </select>
                         </div>
-                        <input type="text"
-                               placeholder="ZIP code"
-                               value={zipcode}
-                               onChange={handleZipcodeChange}
-                               onBlur={handleZipcodeBlur}
-                               className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                        <div id="contactNames"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text"
+                                 placeholder="First Name"
+                                 value={firstName}
+                                 onChange={handleFirstNameChange}
+                                 onBlur={handleFirstNameBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${firstNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                          <input type="text"
+                                 placeholder="Last Name"
+                                 value={lastName}
+                                 onChange={handleLastNameChange}
+                                 onBlur={handleLastNameBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${lastNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                        </div>
+                        <div id="contactCompany"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text"
+                                 placeholder="Company (required for business addresses)"
+                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                        </div>
+                        <div id="contactAddressLineOne"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text"
+                                 placeholder="Address"
+                                 value={address}
+                                 onChange={handleAddressChange}
+                                 onBlur={handleAddressBlur}
+                                 className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
+                               ${addressError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                        </div>
+                        <div id="contactAddressLineTwo"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                        </div>
+                        <div id="contactAddressLineThree"
+                             className="flex justify-between gap-1 pt-4">
+                          <input type="text"
+                                 placeholder="City"
+                                 value={city}
+                                 onChange={handleCityChange}
+                                 onBlur={handleCityBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                               ${cityError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                          <div className="relative border border-solid w-32% border-foreground">
+                            <label htmlFor="state"
+                                   className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
+                            >
+                              State/Province
+                            </label>
+                            <label htmlFor="state"
+                                   className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
+                            >
+                              State
+                            </label>
+                            <div id="selectArrow"
+                                 className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor"
+                                   viewBox="0 0 24 24"
+                                   xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                      d="M19 9l-7 7-7-7"></path>
+                              </svg>
+                            </div>
+                            <select id="state"
+                                    className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                            >
+                              {states.map(({isoCode, name}) => (
+                                <option
+                                  key={isoCode}
+                                  value={isoCode}
+                                >
+                                  {name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <input type="text"
+                                 placeholder="ZIP code"
+                                 value={zipcode}
+                                 onChange={handleZipcodeChange}
+                                 onBlur={handleZipcodeBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
                                ${zipcodeError ? 'border-custom-red' : 'border-foreground'}
                                `}
-                        />
+                          />
+                        </div>
                       </div>
                     </div>
-
+                    <div id="billingAddressDetails"
+                         className={`border-purple
+                         ${isBillingAddress ? 'block' : 'hidden'}
+                         `}
+                    >
+                      <div id="contactShippingHeader"
+                           className="flex flex-row border-b border-solid border-foreground">
+                        <div className="flex w-1/2 pb-2 text-xl font-bold text-greyed-out">
+                          <div className="border-b cursor-pointer"
+                               onClick={toggleShippingAddress}
+                          >
+                            Shipping Address
+                          </div>
+                        </div>
+                        <div className="flex pb-2 text-xl text-underline font-bold w-1/2">
+                            <div>Billing Address</div>
+                        </div>
+                      </div>
+                      <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                        <input type="checkbox" className="accent-foreground"
+                        />
+                        <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
+                      </div>
+                      <div id="contactDetails">
+                        <div id="countrySelect"
+                             className="relative w-full border border-solid border-foreground">
+                          <label htmlFor="country"
+                                 className="absolute top-2 left-3 text-sm">Country/region
+                          </label>
+                          <div id="selectArrow"
+                               className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                            <svg className="h-4 w-4" fill="none" stroke="currentColor"
+                                 viewBox="0 0 24 24"
+                                 xmlns="http://www.w3.org/2000/svg">
+                              <path strokeLinecap="round" strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                          </div>
+                          <select id="country"
+                                  className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
+                                  value={selectedCountry}
+                                  onChange={(e) => {
+                                    setSelectedCountry(e.target.value);
+                                    // @ts-ignore
+                                    setStates(State.getStatesOfCountry(e.target.value));
+                                  }}
+                          >
+                            {countries.map(({isoCode, name}) => (
+                              <option
+                                key={isoCode}
+                                value={isoCode}
+                              >
+                                {name}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div id="contactNames"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text"
+                                 placeholder="First Name"
+                                 value={firstName}
+                                 onChange={handleFirstNameChange}
+                                 onBlur={handleFirstNameBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${firstNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                          <input type="text"
+                                 placeholder="Last Name"
+                                 value={lastName}
+                                 onChange={handleLastNameChange}
+                                 onBlur={handleLastNameBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${lastNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                        </div>
+                        <div id="contactCompany"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text"
+                                 placeholder="Company (required for business addresses)"
+                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                        </div>
+                        <div id="contactAddressLineOne"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text"
+                                 placeholder="Address"
+                                 value={address}
+                                 onChange={handleAddressChange}
+                                 onBlur={handleAddressBlur}
+                                 className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
+                               ${addressError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                        </div>
+                        <div id="contactAddressLineTwo"
+                             className="flex w-full justify-between pt-4">
+                          <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                        </div>
+                        <div id="contactAddressLineThree"
+                             className="flex justify-between gap-1 pt-4">
+                          <input type="text"
+                                 placeholder="City"
+                                 value={city}
+                                 onChange={handleCityChange}
+                                 onBlur={handleCityBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                               ${cityError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                          <div className="relative border border-solid w-32% border-foreground">
+                            <label htmlFor="state"
+                                   className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
+                            >
+                              State/Province
+                            </label>
+                            <label htmlFor="state"
+                                   className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
+                            >
+                              State
+                            </label>
+                            <div id="selectArrow"
+                                 className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
+                              <svg className="h-4 w-4" fill="none" stroke="currentColor"
+                                   viewBox="0 0 24 24"
+                                   xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                      d="M19 9l-7 7-7-7"></path>
+                              </svg>
+                            </div>
+                            <select id="state"
+                                    className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                            >
+                              {states.map(({isoCode, name}) => (
+                                <option
+                                  key={isoCode}
+                                  value={isoCode}
+                                >
+                                  {name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <input type="text"
+                                 placeholder="ZIP code"
+                                 value={zipcode}
+                                 onChange={handleZipcodeChange}
+                                 onBlur={handleZipcodeBlur}
+                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                               ${zipcodeError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                          />
+                        </div>
+                      </div>
+                    </div>
                     <div id="shippingButton">
                       {/*<div className="hidden flex justify-end pt-8">*/}
                       {/*  <button*/}
