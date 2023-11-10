@@ -91,6 +91,7 @@ const CheckoutPageContent: React.FC = () => {
     const newCode = event.target.value;
     setDiscountCode(newCode);
     setIsCodeValid(newCode.trim().length === 6);
+    setDisplayInvalidCodeMessage(false);
   }
   const toggleOrderSummary = useCallback (() => {
     setOrderSummaryHidden(prevState => !prevState);
@@ -98,7 +99,6 @@ const CheckoutPageContent: React.FC = () => {
   const handleApplyButtonClick = () => {
     setIsLoading(true); // Start loading
     setDisplayInvalidCodeMessage(false); // Hide any previous invalid code messages
-
     // Simulate a loading/spinner for 3 seconds
     setTimeout(() => {
       setIsLoading(false); // Stop loading after 3 seconds
@@ -397,15 +397,22 @@ const CheckoutPageContent: React.FC = () => {
                   </div>
                   <div id="contactEmail"
                        className="pb-3">
-                    <div className="flex flex-col">
+                    <div className="relative flex flex-col border border-solid border-foreground">
                       <input type="text"
                              placeholder="Email"
                              value={email}
                              onChange={handleEmailChange}
                              onBlur={handleEmailBlur}
-                             className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                             className="w-70% xs:w-60% border-red items-center bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out"
                       />
-                      {emailError && <div className="text-red-500 text-sm pt-4">{emailError}</div>}
+                      {emailError && (
+                        <span
+                          className="absolute z-10 inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
+                        >
+                      {emailError}
+                    </span>
+                      )}
+
                     </div>
                   </div>
                   <div id="emailOffersCheckbox"
@@ -660,14 +667,22 @@ const CheckoutPageContent: React.FC = () => {
               {/* <boughtItem /> */}
 
               <div className="flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4">
-                <div className="inline-flex flex-grow">
+                <div className="relative inline-flex flex-grow">
                   <input
                     type="text"
                     placeholder="Gift card or discount code"
                     value={discountCode}
                     onChange={handleDiscountCodeChange}
+                    maxLength="16"
                     className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                   />
+                  {displayInvalidCodeMessage && (
+                    <span
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
+                    >
+                      Invalid code
+                    </span>
+                  )}
                 </div>
                 <div
                   className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
