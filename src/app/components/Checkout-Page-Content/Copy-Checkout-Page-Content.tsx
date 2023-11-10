@@ -6,22 +6,6 @@ import { Country, State, City } from 'country-state-city';
 
 
 const CheckoutPageContent: React.FC = () => {
-  const [shippingDetails, setShippingDetails] = useState({
-    firstName: '',
-    firstNameError: false,
-    lastName: '',
-    address: '',
-    city: '',
-    zipcode: '',
-  });
-
-  const [billingDetails, setBillingDetails] = useState({
-    firstName: '',
-    lastName: '',
-    address: '',
-    city: '',
-    zipcode: '',
-  });
   const [isFormValid, setIsFormValid] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
@@ -60,32 +44,14 @@ const CheckoutPageContent: React.FC = () => {
     }
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        firstName: event.target.value
-      }));
+    setFirstName(event.target.value);
     if (event.target.value.trim() !== '') {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        firstNameError: false
-      }));
-    }
+      setFirstNameError(false);
     }
   }
-  // const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFirstName(event.target.value);
-  //   if (event.target.value.trim() !== '') {
-  //     setFirstNameError(false);
-  //   }
-  // }
   const handleFirstNameBlur = () => {
-    setShippingDetails(prevDetails => ({
-      ...prevDetails,
-      firstNameError: prevDetails.firstName.trim() === ''
-    }));
+    setFirstNameError(firstName.trim() === '');
   }
-
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(event.target.value);
     if (event.target.value.trim() !== '') {
@@ -158,10 +124,10 @@ const CheckoutPageContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedCountry) {
-      // @ts-ignore
-      setStates(State.getStatesOfCountry(selectedCountry));
-    }
+   if (selectedCountry) {
+     // @ts-ignore
+     setStates(State.getStatesOfCountry(selectedCountry));
+   }
   }, [selectedCountry])
 
   useEffect(() => {
@@ -535,7 +501,7 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="First Name"
-                                 value={shippingDetails.firstName}
+                                 value={firstName}
                                  onChange={handleFirstNameChange}
                                  onBlur={handleFirstNameBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
@@ -646,7 +612,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                         <div className="flex pb-2 text-xl text-underline font-bold w-1/2">
-                          <div>Billing Address</div>
+                            <div>Billing Address</div>
                         </div>
                       </div>
                       <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
@@ -804,11 +770,11 @@ const CheckoutPageContent: React.FC = () => {
                           `}
                           disabled={!isFormValid}
                         >
-                          {/*<button*/}
-                          {/*  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out*/}
-                          {/*  `}*/}
-                          {/*  disabled={!isFormValid}*/}
-                          {/*>*/}
+                        {/*<button*/}
+                        {/*  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out*/}
+                        {/*  `}*/}
+                        {/*  disabled={!isFormValid}*/}
+                        {/*>*/}
                           ORDER NOW
                         </button>
                       </div>
@@ -921,7 +887,7 @@ const CheckoutPageContent: React.FC = () => {
                     <button className={styles.loader}></button>
                   ) : (
                     <button disabled={!isCodeValid}>APPLY</button>
-                  )}
+                    )}
                 </div>
               </div>
               <div className="flex flex-col border-y border-solid py-6 border-foreground">
