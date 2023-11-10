@@ -663,7 +663,7 @@ const CheckoutPageContent: React.FC = () => {
                                  onChange={handleFirstNameChange}
                                  onBlur={handleFirstNameBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${firstNameError ? 'border-custom-red' : 'border-foreground'}
+                                 ${firstNameError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                           <input type="text"
