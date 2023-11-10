@@ -37,7 +37,7 @@ const CheckoutPageContent: React.FC = () => {
     if (emailRegex.test(email)) {
       setEmailError('');
     } else {
-      setEmailError('handleEmailBlur - Invalid email address.');
+      setEmailError('Invalid email address');
     }
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,7 +65,7 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleAddressBlur = () => {
-    setAddressError(lastName.trim() === '');
+    setAddressError(address.trim() === '');
   }
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
@@ -74,7 +74,7 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleCityBlur = () => {
-    setCityError(lastName.trim() === '');
+    setCityError(city.trim() === '');
   }
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setZipcode(event.target.value);
@@ -83,7 +83,7 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleZipcodeBlur = () => {
-    setZipcodeError(lastName.trim() === '');
+    setZipcodeError(zipcode.trim() === '');
   }
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = event.target.value;
