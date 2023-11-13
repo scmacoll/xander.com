@@ -16,6 +16,7 @@ const CheckoutPageContent: React.FC = () => {
     lastNameError: false,
     addressError: false,
     cityError: false,
+    zipcodeError: false,
   });
 
   const [billingDetails, setBillingDetails] = useState({
@@ -28,12 +29,9 @@ const CheckoutPageContent: React.FC = () => {
     lastNameError: false,
     addressError: false,
     cityError: false,
+    zipcodeError: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const [city, setCity] = useState('');
-  const [cityError, setCityError] = useState(false);
-  const [zipcode, setZipcode] = useState('');
-  const [zipcodeError, setZipcodeError] = useState(false);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
   const [states, setStates] = useState([]);
@@ -214,13 +212,42 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setZipcode(event.target.value);
-    if (event.target.value.trim() !== '') {
-      setZipcodeError(false);
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        zipcode: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setShippingDetails(prevDetails => ({
+          ...prevDetails,
+          zipcodeError: false
+        }));
+      }
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        zipcode: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setBillingDetails(prevDetails => ({
+          ...prevDetails,
+          zipcodeError: false
+        }));
+      }
     }
   }
   const handleZipcodeBlur = () => {
-    setZipcodeError(zipcode.trim() === '');
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        zipcodeError: prevDetails.zipcode.trim() === ''
+      }));
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        zipcodeError: prevDetails.zipcode.trim() === ''
+      }));
+    }
   }
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = event.target.value;
@@ -720,11 +747,11 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <input type="text"
                                  placeholder="ZIP code"
-                                 value={zipcode}
+                                 value={shippingDetails.zipcode}
                                  onChange={handleZipcodeChange}
                                  onBlur={handleZipcodeBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${zipcodeError ? 'border-custom-red' : 'border-foreground'}
+                               ${shippingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
@@ -878,11 +905,11 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <input type="text"
                                  placeholder="ZIP code"
-                                 value={zipcode}
+                                 value={billingDetails.zipcode}
                                  onChange={handleZipcodeChange}
                                  onBlur={handleZipcodeBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${zipcodeError ? 'border-custom-red' : 'border-foreground'}
+                               ${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
