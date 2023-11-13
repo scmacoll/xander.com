@@ -275,8 +275,10 @@ const CheckoutPageContent: React.FC = () => {
       setDisplayInvalidCodeMessage(true); // Display invalid code message
     }, 2000);
   };
-  const handleReviewButtonClick = () => {
+  const handleReviewButtonClick = (event) => {
+    event.preventDefault();
     setIsReviewing(true);
+    setIsReviewed(false);
     setTimeout(() => {
       setIsReviewing(false);
       setIsReviewed(true);
@@ -972,22 +974,34 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
                     <div id="shippingButton">
                       <div className="flex justify-end pt-8">
-                        <div
-                          className={`border-2 rounded font-bold p-4 border-solid
-                          ${!isFormValid ? 'border-foreground bg-greyed-out'
-                            : (!isReviewed ? 'hover:border-foreground border-shopify-blue bg-shopify-blue'
-                                : 'bg-amazon-yellow border-amazon-yellow'
-                            )}
-                          `}
-                          onClick={isFormValid && !isReviewing ? handleReviewButtonClick : undefined}
+                        <div id="loadingBorder"
+                          className={`${isReviewing ? 'border-2 rounded font-bold p-4 border-solid border-foreground bg-greyed-out' : ''}`}
                         >
                           {isReviewing ? (
-                            <button className={styles.loader}></button>
+                            <button id="loadingReviewButton"
+                              className={styles.loader}
+                              disabled={isReviewing}></button>
                           ) : !isReviewed ? (
-                            <button>REVIEW ORDER</button>
-                            ) : (
-                            <button>PLACE ORDER</button>
-                            )}
+                            <button id="reviewOrderButton"
+                              className={`border-2 rounded font-bold p-4 border-solid
+                              ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default' 
+                              : 'hover:border-foreground border-shopify-blue bg-shopify-blue'}
+                              `}
+                              type="button"
+                              onClick={!isReviewing ? handleReviewButtonClick : undefined}
+                              disabled={!isFormValid}
+                            >
+                              REVIEW ORDER
+                            </button>
+                          ) : (
+                            <button id="placeOrderButton"
+                              className={`border-2 rounded font-bold p-4 border-solid
+                            ${isReviewed ? 'bg-amazon-yellow border-amazon-yellow' : ''}
+                            `}
+                            >
+                              PLACE ORDER
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -1133,7 +1147,7 @@ const CheckoutPageContent: React.FC = () => {
                     ${isReviewed ? '' : 'hidden'}
                     `}
                   >
-                      <button>PLACE ORDER</button>
+                    <button>PLACE ORDER</button>
                   </div>
                 </div>
               </div>
