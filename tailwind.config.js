@@ -31,6 +31,7 @@ module.exports = {
         'amazon-yellow': 'rgb(var(--everforest-gold), .7)',
         'shopify-blue': 'rgb(var(--scroll-blue))',
         'custom-red': 'rgb(var(--red))',
+        'gold': 'rgb(var(--everforest-gold))',
       },
       borderColor: { // border-...
         foreground: `rgb(var(--foreground-rgb), .3)`,

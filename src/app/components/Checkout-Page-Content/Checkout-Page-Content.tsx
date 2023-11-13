@@ -39,8 +39,11 @@ const CheckoutPageContent: React.FC = () => {
   const [discountCode, setDiscountCode] = useState('');
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isReviewing, setIsReviewing] = useState(false);
+  const [isReviewed, setIsReviewed] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [isBillingAddress, setIsBillingAddress] = useState(false);
+
   const [isSameAddress, setIsSameAddress] = useState(false);
   const sameAddressCheckboxRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<null | HTMLDivElement>(null);
@@ -48,7 +51,7 @@ const CheckoutPageContent: React.FC = () => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handleEmailChange = (event: any) => {
-    const { value } = event.target;
+    const {value} = event.target;
     setEmail(value);
   };
   const handleEmailBlur = () => {
@@ -260,7 +263,7 @@ const CheckoutPageContent: React.FC = () => {
   const toggleShippingAddress = () => {
     setIsBillingAddress(false);
   };
-  const toggleOrderSummary = useCallback (() => {
+  const toggleOrderSummary = useCallback(() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
   const handleApplyButtonClick = () => {
@@ -270,6 +273,13 @@ const CheckoutPageContent: React.FC = () => {
     setTimeout(() => {
       setIsLoading(false); // Stop loading after 3 seconds
       setDisplayInvalidCodeMessage(true); // Display invalid code message
+    }, 2000);
+  };
+  const handleReviewButtonClick = () => {
+    setIsReviewing(true);
+    setTimeout(() => {
+      setIsReviewing(false);
+      setIsReviewed(true);
     }, 2000);
   };
   const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -961,29 +971,25 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                     </div>
                     <div id="shippingButton">
-                      {/*<div className="hidden flex justify-end pt-8">*/}
-                      {/*  <button*/}
-                      {/*    className="border-2 rounded bg-shopify-blue font-bold border-solid hover:border-foreground border-shopify-blue p-4">ORDER NOW*/}
-                      {/*  </button>*/}
-                      {/*</div>*/}
                       <div className="flex justify-end pt-8">
-                        <button
+                        <div
                           className={`border-2 rounded font-bold p-4 border-solid
-                          ${isFormValid ?
-                            'hover:border-foreground border-shopify-blue bg-shopify-blue'
-                            : 'border-foreground bg-greyed-out'} 
+                          ${!isFormValid ? 'border-foreground bg-greyed-out'
+                            : (!isReviewed ? 'hover:border-foreground border-shopify-blue bg-shopify-blue'
+                                : 'bg-amazon-yellow border-amazon-yellow'
+                            )}
                           `}
-                          disabled={!isFormValid}
+                          onClick={isFormValid && !isReviewing ? handleReviewButtonClick : undefined}
                         >
-                          {/*<button*/}
-                          {/*  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground bg-greyed-out*/}
-                          {/*  `}*/}
-                          {/*  disabled={!isFormValid}*/}
-                          {/*>*/}
-                          ORDER NOW
-                        </button>
+                          {isReviewing ? (
+                            <button className={styles.loader}></button>
+                          ) : !isReviewed ? (
+                            <button>REVIEW ORDER</button>
+                            ) : (
+                            <button>PLACE ORDER</button>
+                            )}
+                        </div>
                       </div>
-
                     </div>
                   </div>
                 </form>
@@ -1033,7 +1039,8 @@ const CheckoutPageContent: React.FC = () => {
           <div id="borderSummary"
                className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
             <div className="pt-6"></div>
-            <div className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+            <div
+              className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
               {/* <boughtItem> */}
               <div id="boughtItem">
@@ -1106,7 +1113,7 @@ const CheckoutPageContent: React.FC = () => {
                   <div className="inline-flex text-xs font-medium flex-end">Free</div>
                 </div>
               </div>
-              <div className="flex justify-between pt-6">
+              <div className="flex justify-between pt-6 border-blue">
                 <div className="flex">
                   <div className="text-lg font-medium">Total</div>
                 </div>
@@ -1115,6 +1122,18 @@ const CheckoutPageContent: React.FC = () => {
                        className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
                     $135.00
+                  </div>
+                </div>
+              </div>
+              <div id="shippingButton">
+                <div className="flex justify-end pt-8">
+                  <div
+                    className={`border-2 rounded font-bold p-4 border-solid
+                    bg-amazon-yellow border-amazon-yellow
+                    ${isReviewed ? '' : 'hidden'}
+                    `}
+                  >
+                      <button>PLACE ORDER</button>
                   </div>
                 </div>
               </div>
