@@ -17,6 +17,7 @@ const CheckoutPageContent: React.FC = () => {
 
   const [billingDetails, setBillingDetails] = useState({
     firstName: '',
+    firstNameError: false,
     lastName: '',
     address: '',
     city: '',
@@ -65,14 +66,25 @@ const CheckoutPageContent: React.FC = () => {
         ...prevDetails,
         firstName: event.target.value
       }));
-    if (event.target.value.trim() !== '') {
-      setShippingDetails(prevDetails => ({
+      if (event.target.value.trim() !== '') {
+        setShippingDetails(prevDetails => ({
+          ...prevDetails,
+          firstNameError: false
+        }));
+      }
+    } else {
+      setBillingDetails(prevDetails => ({
         ...prevDetails,
-        firstNameError: false
+        firstName: event.target.value
       }));
+      if (event.target.value.trim() !== '') {
+        setBillingDetails(prevDetails => ({
+          ...prevDetails,
+          firstNameError: false
+        }));
+      }
     }
-    }
-  }
+  };
   // const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setFirstName(event.target.value);
   //   if (event.target.value.trim() !== '') {
@@ -80,11 +92,18 @@ const CheckoutPageContent: React.FC = () => {
   //   }
   // }
   const handleFirstNameBlur = () => {
-    setShippingDetails(prevDetails => ({
-      ...prevDetails,
-      firstNameError: prevDetails.firstName.trim() === ''
-    }));
-  }
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        firstNameError: prevDetails.firstName.trim() === ''
+      }));
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        firstNameError: prevDetails.firstName.trim() === ''
+      }));
+    }
+  };
 
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(event.target.value);
@@ -693,11 +712,11 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="First Name"
-                                 value={firstName}
+                                 value={billingDetails.firstName}
                                  onChange={handleFirstNameChange}
                                  onBlur={handleFirstNameBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                                 ${firstNameError ? 'border-custom-red' : 'border-foreground'}
+                               ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                           <input type="text"
