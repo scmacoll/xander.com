@@ -614,6 +614,7 @@ const CheckoutPageContent: React.FC = () => {
                     <div className="relative flex flex-col border border-solid border-foreground">
                       <input type="text"
                              placeholder="Email"
+                             readOnly={isReviewed}
                              value={email}
                              onChange={handleEmailChange}
                              onBlur={handleEmailBlur}
@@ -665,6 +666,7 @@ const CheckoutPageContent: React.FC = () => {
                         <input
                           id="checkboxSameAddress"
                           type="checkbox"
+                          disabled={isReviewed}
                           className="accent-foreground"
                           checked={isSameAddress}
                           onChange={toggleSameAddress}
@@ -690,6 +692,7 @@ const CheckoutPageContent: React.FC = () => {
                             </svg>
                           </div>
                           <select id="country"
+                                  disabled={isReviewed}
                                   className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
                                   value={selectedCountry}
                                   onChange={(e) => {
@@ -712,6 +715,7 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="First Name"
+                                 readOnly={isReviewed}
                                  value={shippingDetails.firstName}
                                  onChange={handleFirstNameChange}
                                  onBlur={handleFirstNameBlur}
@@ -721,6 +725,7 @@ const CheckoutPageContent: React.FC = () => {
                           />
                           <input type="text"
                                  placeholder="Last Name"
+                                 readOnly={isReviewed}
                                  value={shippingDetails.lastName}
                                  onChange={handleLastNameChange}
                                  onBlur={handleLastNameBlur}
@@ -733,12 +738,14 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Company (required for business addresses)"
+                                 readOnly={isReviewed}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                         </div>
                         <div id="contactAddressLineOne"
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Address"
+                                 readOnly={isReviewed}
                                  value={shippingDetails.address}
                                  onChange={handleAddressChange}
                                  onBlur={handleAddressBlur}
@@ -750,12 +757,14 @@ const CheckoutPageContent: React.FC = () => {
                         <div id="contactAddressLineTwo"
                              className="flex w-full justify-between pt-4">
                           <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                 readOnly={isReviewed}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                         </div>
                         <div id="contactAddressLineThree"
                              className="flex justify-between gap-1 pt-4">
                           <input type="text"
                                  placeholder="City"
+                                 readOnly={isReviewed}
                                  value={shippingDetails.city}
                                  onChange={handleCityChange}
                                  onBlur={handleCityBlur}
@@ -784,6 +793,7 @@ const CheckoutPageContent: React.FC = () => {
                               </svg>
                             </div>
                             <select id="state"
+                                    disabled={isReviewed}
                                     className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                             >
                               {states.map(({isoCode, name}) => (
@@ -798,6 +808,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <input type="text"
                                  placeholder="ZIP code"
+                                 readOnly={isReviewed}
                                  value={shippingDetails.zipcode}
                                  onChange={handleZipcodeChange}
                                  onBlur={handleZipcodeBlur}
@@ -975,29 +986,30 @@ const CheckoutPageContent: React.FC = () => {
                     <div id="shippingButton">
                       <div className="flex justify-end pt-8">
                         <div id="loadingBorder"
-                          className={`${isReviewing ? 'border-2 rounded font-bold p-4 border-solid border-foreground bg-greyed-out' : ''}`}
+                             className={`${isReviewing ? 'border-2 rounded font-bold p-4 border-solid border-foreground bg-greyed-out' : ''}`}
                         >
                           {isReviewing ? (
                             <button id="loadingReviewButton"
-                              className={styles.loader}
-                              disabled={isReviewing}></button>
+                                    className={styles.loader}
+                                    disabled={isReviewing}></button>
                           ) : !isReviewed ? (
                             <button id="reviewOrderButton"
-                              className={`border-2 rounded font-bold p-4 border-solid
-                              ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default' 
-                              : 'hover:border-foreground border-shopify-blue bg-shopify-blue'}
+                                    className={`border-2 rounded font-bold p-4 border-solid
+                              ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default'
+                                      : 'hover:border-foreground border-shopify-blue bg-shopify-blue'}
                               `}
-                              type="button"
-                              onClick={!isReviewing ? handleReviewButtonClick : undefined}
-                              disabled={!isFormValid}
+                                    type="button"
+                                    onClick={!isReviewing ? handleReviewButtonClick : undefined}
+                                    disabled={!isFormValid}
                             >
                               REVIEW ORDER
                             </button>
                           ) : (
-                            <button id="placeOrderButton"
+                            <button
+                              id="placeOrderButton"
                               className={`border-2 rounded font-bold p-4 border-solid
-                            ${isReviewed ? 'bg-amazon-yellow border-amazon-yellow' : ''}
-                            `}
+                              ${isReviewed ? 'bg-amazon-yellow border-amazon-yellow' : ''}
+                              `}
                             >
                               PLACE ORDER
                             </button>
