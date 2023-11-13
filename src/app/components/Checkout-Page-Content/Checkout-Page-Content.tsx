@@ -18,7 +18,6 @@ const CheckoutPageContent: React.FC = () => {
     cityError: false,
     zipcodeError: false,
   });
-
   const [billingDetails, setBillingDetails] = useState({
     firstName: '',
     lastName: '',
@@ -32,22 +31,23 @@ const CheckoutPageContent: React.FC = () => {
     zipcodeError: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
   const [states, setStates] = useState([]);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
   const [discountCode, setDiscountCode] = useState('');
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [isBillingAddress, setIsBillingAddress] = useState(false);
-
+  const [isSameAddress, setIsSameAddress] = useState(false);
+  const sameAddressCheckboxRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: any) => {
     const { value } = event.target;
     setEmail(value);
   };
@@ -96,7 +96,6 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   };
-
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
@@ -273,6 +272,30 @@ const CheckoutPageContent: React.FC = () => {
       setDisplayInvalidCodeMessage(true); // Display invalid code message
     }, 2000);
   };
+  const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSameAddress(!isSameAddress);
+
+    if (event.target.checked) {
+      setIsSameAddress(true);
+      setBillingDetails({
+        ...shippingDetails,
+      });
+    } else {
+      setIsSameAddress(false);
+      setBillingDetails({
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        zipcode: '',
+        firstNameError: false,
+        lastNameError: false,
+        addressError: false,
+        cityError: false,
+        zipcodeError: false,
+      });
+    }
+  }
 
   useEffect(() => {
     // @ts-ignore
@@ -291,16 +314,28 @@ const CheckoutPageContent: React.FC = () => {
     }
   }, [selectedCountry])
 
-  // useEffect(() => {
-  //   const isValid =
-  //     lastName.trim() !== '' && !lastNameError &&
-  //     address.trim() !== '' && !addressError &&
-  //     city.trim() !== '' && !cityError &&
-  //     zipcode.trim() !== '' && !zipcodeError &&
-  //     emailRegex.test(email);
-  //
-  //   setIsFormValid(isValid);
-  // }, [lastName, lastNameError, address, addressError, city, cityError, zipcode, zipcodeError, email]);
+  useEffect(() => {
+    const validateForm = (shipping: any, billing: any) => {
+      return (
+        shipping.firstName.trim() !== '' &&
+        shipping.lastName.trim() !== '' &&
+        shipping.address.trim() !== '' &&
+        shipping.city.trim() !== '' &&
+        shipping.zipcode.trim() !== '' &&
+        billing.firstName.trim() !== '' &&
+        billing.lastName.trim() !== '' &&
+        billing.address.trim() !== '' &&
+        billing.city.trim() !== '' &&
+        billing.zipcode.trim() !== '' &&
+        emailRegex.test(email)
+      );
+    };
+
+    setIsFormValid(
+      validateForm(shippingDetails, billingDetails)
+    );
+  }, [shippingDetails, billingDetails, email]);
+
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -597,9 +632,7 @@ const CheckoutPageContent: React.FC = () => {
                   </div>
                   <div id="contactBottomSection">
                     <div id="shippingAddressDetails"
-                         className={`border-blue
-                         ${!isBillingAddress ? 'block' : 'hidden'} 
-                    `}
+                         className={`${!isBillingAddress ? 'block' : 'hidden'}`}
                     >
                       <div id="contactShippingHeader"
                            className="flex flex-row border-b border-solid border-foreground">
@@ -609,14 +642,20 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                         <div className="flex pb-2 text-xl text-greyed-out text-underline font-bold cursor-pointer">
-                          <div className="cursor-pointer"
+                          <div className={`${isSameAddress ? 'hidden' : 'block'} cursor-pointer`}
                                onClick={toggleBillingAddress}
                           >
-                            Billing Address</div>
+                            Billing Address
+                          </div>
                         </div>
                       </div>
                       <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
-                        <input type="checkbox" className="accent-foreground"
+                        <input
+                          id="checkboxSameAddress"
+                          type="checkbox"
+                          className="accent-foreground"
+                          checked={isSameAddress}
+                          onChange={toggleSameAddress}
                         />
                         <div className="pl-2 text-sm">
                           Billing address is the same as shipping address
@@ -758,9 +797,7 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                     </div>
                     <div id="billingAddressDetails"
-                         className={`border-purple
-                         ${isBillingAddress ? 'block' : 'hidden'}
-                         `}
+                         className={`${isBillingAddress ? 'block' : 'hidden'}`}
                     >
                       <div id="contactShippingHeader"
                            className="flex flex-row border-b border-solid border-foreground">
@@ -772,11 +809,19 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                         <div className="flex pb-2 text-xl text-underline font-bold w-1/2">
-                          <div>Billing Address</div>
+                          <div className={`${isSameAddress ? 'hidden' : 'block'} cursor-pointer`}
+                          >
+                            Billing Address
+                          </div>
                         </div>
                       </div>
                       <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
-                        <input type="checkbox" className="accent-foreground"
+                        <input
+                          type="checkbox"
+                          className="accent-foreground"
+                          checked={isSameAddress}
+                          onChange={toggleSameAddress}
+                          onClick={toggleShippingAddress}
                         />
                         <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
                       </div>
