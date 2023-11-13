@@ -8,24 +8,26 @@ import { Country, State, City } from 'country-state-city';
 const CheckoutPageContent: React.FC = () => {
   const [shippingDetails, setShippingDetails] = useState({
     firstName: '',
-    firstNameError: false,
     lastName: '',
-    lastNameError: false,
     address: '',
-    addressError: false,
     city: '',
     zipcode: '',
+    firstNameError: false,
+    lastNameError: false,
+    addressError: false,
+    cityError: false,
   });
 
   const [billingDetails, setBillingDetails] = useState({
     firstName: '',
-    firstNameError: false,
     lastName: '',
-    lastNameError: false,
     address: '',
-    addressError: false,
     city: '',
     zipcode: '',
+    firstNameError: false,
+    lastNameError: false,
+    addressError: false,
+    cityError: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const [city, setCity] = useState('');
@@ -174,13 +176,42 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(event.target.value);
-    if (event.target.value.trim() !== '') {
-      setCityError(false);
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        city: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setShippingDetails(prevDetails => ({
+          ...prevDetails,
+          cityError: false
+        }));
+      }
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        city: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setBillingDetails(prevDetails => ({
+          ...prevDetails,
+          cityError: false
+        }));
+      }
     }
   }
   const handleCityBlur = () => {
-    setCityError(city.trim() === '');
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        cityError: prevDetails.city.trim() === ''
+      }));
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        cityError: prevDetails.city.trim() === ''
+      }));
+    }
   }
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setZipcode(event.target.value);
@@ -647,11 +678,11 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex justify-between gap-1 pt-4">
                           <input type="text"
                                  placeholder="City"
-                                 value={city}
+                                 value={shippingDetails.city}
                                  onChange={handleCityChange}
                                  onBlur={handleCityBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${cityError ? 'border-custom-red' : 'border-foreground'}
+                               ${shippingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                           <div className="relative border border-solid w-32% border-foreground">
@@ -805,11 +836,11 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex justify-between gap-1 pt-4">
                           <input type="text"
                                  placeholder="City"
-                                 value={city}
+                                 value={billingDetails.city}
                                  onChange={handleCityChange}
                                  onBlur={handleCityBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${cityError ? 'border-custom-red' : 'border-foreground'}
+                               ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                           <div className="relative border border-solid w-32% border-foreground">
