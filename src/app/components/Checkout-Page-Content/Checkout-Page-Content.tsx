@@ -12,6 +12,7 @@ const CheckoutPageContent: React.FC = () => {
     lastName: '',
     lastNameError: false,
     address: '',
+    addressError: false,
     city: '',
     zipcode: '',
   });
@@ -22,14 +23,11 @@ const CheckoutPageContent: React.FC = () => {
     lastName: '',
     lastNameError: false,
     address: '',
+    addressError: false,
     city: '',
     zipcode: '',
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const [lastName, setLastName] = useState('');
-  const [lastNameError, setLastNameError] = useState(false);
-  const [address, setAddress] = useState('');
-  const [addressError, setAddressError] = useState(false);
   const [city, setCity] = useState('');
   const [cityError, setCityError] = useState(false);
   const [zipcode, setZipcode] = useState('');
@@ -138,13 +136,42 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
-    if (event.target.value.trim() !== '') {
-      setAddressError(false);
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        address: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setShippingDetails(prevDetails => ({
+          ...prevDetails,
+          addressError: false
+        }));
+      }
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        address: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setBillingDetails(prevDetails => ({
+          ...prevDetails,
+          addressError: false
+        }));
+      }
     }
   }
   const handleAddressBlur = () => {
-    setAddressError(address.trim() === '');
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        addressError: prevDetails.address.trim() === ''
+      }));
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        addressError: prevDetails.address.trim() === ''
+      }));
+    }
   }
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCity(event.target.value);
@@ -603,11 +630,11 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Address"
-                                 value={address}
+                                 value={shippingDetails.address}
                                  onChange={handleAddressChange}
                                  onBlur={handleAddressBlur}
                                  className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${addressError ? 'border-custom-red' : 'border-foreground'}
+                               ${shippingDetails.addressError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
@@ -761,11 +788,11 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Address"
-                                 value={address}
+                                 value={billingDetails.address}
                                  onChange={handleAddressChange}
                                  onBlur={handleAddressBlur}
                                  className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${addressError ? 'border-custom-red' : 'border-foreground'}
+                               ${billingDetails.addressError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
