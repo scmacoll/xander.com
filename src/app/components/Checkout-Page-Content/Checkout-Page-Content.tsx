@@ -10,6 +10,7 @@ const CheckoutPageContent: React.FC = () => {
     firstName: '',
     firstNameError: false,
     lastName: '',
+    lastNameError: false,
     address: '',
     city: '',
     zipcode: '',
@@ -19,13 +20,12 @@ const CheckoutPageContent: React.FC = () => {
     firstName: '',
     firstNameError: false,
     lastName: '',
+    lastNameError: false,
     address: '',
     city: '',
     zipcode: '',
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState('');
   const [lastNameError, setLastNameError] = useState(false);
   const [address, setAddress] = useState('');
@@ -85,12 +85,6 @@ const CheckoutPageContent: React.FC = () => {
       }
     }
   };
-  // const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setFirstName(event.target.value);
-  //   if (event.target.value.trim() !== '') {
-  //     setFirstNameError(false);
-  //   }
-  // }
   const handleFirstNameBlur = () => {
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
@@ -106,13 +100,42 @@ const CheckoutPageContent: React.FC = () => {
   };
 
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-    if (event.target.value.trim() !== '') {
-      setLastNameError(false);
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        lastName: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setShippingDetails(prevDetails => ({
+          ...prevDetails,
+          lastNameError: false
+        }));
+      }
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        lastName: event.target.value
+      }));
+      if (event.target.value.trim() !== '') {
+        setBillingDetails(prevDetails => ({
+          ...prevDetails,
+          lastNameError: false
+        }));
+      }
     }
   }
   const handleLastNameBlur = () => {
-    setLastNameError(lastName.trim() === '');
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        lastNameError: prevDetails.lastName.trim() === ''
+      }));
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        lastNameError: prevDetails.lastName.trim() === ''
+      }));
+    }
   }
   const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(event.target.value);
@@ -183,17 +206,16 @@ const CheckoutPageContent: React.FC = () => {
     }
   }, [selectedCountry])
 
-  useEffect(() => {
-    const isValid =
-      firstName.trim() !== '' && !firstNameError &&
-      lastName.trim() !== '' && !lastNameError &&
-      address.trim() !== '' && !addressError &&
-      city.trim() !== '' && !cityError &&
-      zipcode.trim() !== '' && !zipcodeError &&
-      emailRegex.test(email);
-
-    setIsFormValid(isValid);
-  }, [firstName, firstNameError, lastName, lastNameError, address, addressError, city, cityError, zipcode, zipcodeError, email]);
+  // useEffect(() => {
+  //   const isValid =
+  //     lastName.trim() !== '' && !lastNameError &&
+  //     address.trim() !== '' && !addressError &&
+  //     city.trim() !== '' && !cityError &&
+  //     zipcode.trim() !== '' && !zipcodeError &&
+  //     emailRegex.test(email);
+  //
+  //   setIsFormValid(isValid);
+  // }, [lastName, lastNameError, address, addressError, city, cityError, zipcode, zipcodeError, email]);
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -563,11 +585,11 @@ const CheckoutPageContent: React.FC = () => {
                           />
                           <input type="text"
                                  placeholder="Last Name"
-                                 value={lastName}
+                                 value={shippingDetails.lastName}
                                  onChange={handleLastNameChange}
                                  onBlur={handleLastNameBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${lastNameError ? 'border-custom-red' : 'border-foreground'}
+                               ${shippingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
@@ -721,11 +743,11 @@ const CheckoutPageContent: React.FC = () => {
                           />
                           <input type="text"
                                  placeholder="Last Name"
-                                 value={lastName}
+                                 value={billingDetails.lastName}
                                  onChange={handleLastNameChange}
                                  onBlur={handleLastNameBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${lastNameError ? 'border-custom-red' : 'border-foreground'}
+                               ${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
