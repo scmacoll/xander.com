@@ -7,6 +7,7 @@ import { Country, State, City } from 'country-state-city';
 
 const CheckoutPageContent: React.FC = () => {
   const [shippingDetails, setShippingDetails] = useState({
+    country: 'AU',
     firstName: '',
     lastName: '',
     companyName: '',
@@ -21,6 +22,7 @@ const CheckoutPageContent: React.FC = () => {
     zipcodeError: false,
   });
   const [billingDetails, setBillingDetails] = useState({
+    country: 'AU',
     firstName: '',
     lastName: '',
     companyName: '',
@@ -38,8 +40,8 @@ const CheckoutPageContent: React.FC = () => {
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('AU'); // Set the default selected country to Australia
-  const [states, setStates] = useState([]);
+  const [shippingStates, setShippingStates] = useState([]);
+  const [billingStates, setBillingStates] = useState([]);
   const [discountCode, setDiscountCode] = useState('');
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,6 +65,38 @@ const CheckoutPageContent: React.FC = () => {
       setEmailError('');
     } else {
       setEmailError('Invalid email address');
+    }
+  };
+  const handleCountryChange = (e) => {
+    const newCountry = e.target.value
+
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        country: newCountry,
+      }));
+    }
+    if (isBillingAddress || isSameAddress) {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        country: newCountry,
+      }));
+    }
+  };
+  const handleStateChange = (e) => {
+    const newState = e.target.value
+
+    if (!isBillingAddress) {
+      setShippingStates(prevDetails => ({
+        ...prevDetails,
+        shippingStates: newState,
+      }));
+    }
+    if (isBillingAddress || isSameAddress) {
+      setBillingStates(prevDetails => ({
+        ...prevDetails,
+        billingStates: newState,
+      }));
     }
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,7 +177,6 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   }
-
   const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAddressLineOneChange = event.target.value;
 
@@ -172,6 +205,24 @@ const CheckoutPageContent: React.FC = () => {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
+      }));
+    }
+  }
+  const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newAddressLineTwoChange = event.target.value;
+
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        addressLineTwo: newAddressLineTwoChange,
+        addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
+      }));
+    }
+    if (isBillingAddress || isSameAddress) {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        addressLineTwo: newAddressLineTwoChange,
+        addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
       }));
     }
   }
@@ -304,15 +355,18 @@ const CheckoutPageContent: React.FC = () => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView(false);
     }
-
   }, []);
 
   useEffect(() => {
-    if (selectedCountry) {
+    if (shippingDetails.country) {
       // @ts-ignore
-      setStates(State.getStatesOfCountry(selectedCountry));
+      setShippingStates(State.getStatesOfCountry(shippingDetails.country));
     }
-  }, [selectedCountry])
+    if (billingDetails.country) {
+      // @ts-ignore
+      setBillingStates(State.getStatesOfCountry(billingDetails.country));
+    }
+  }, [shippingDetails.country, billingDetails.country])
 
   useEffect(() => {
     const validateForm = (shipping: any, billing: any) => {
@@ -664,7 +718,7 @@ const CheckoutPageContent: React.FC = () => {
                         </div>
                       </div>
                       <div id="contactDetails">
-                        <div id="countrySelect"
+                        <div id="shippingCountrySelect"
                              className="relative w-full border border-solid border-foreground">
                           <label htmlFor="country"
                                  className="absolute top-2 left-3 text-sm">Country/region
@@ -682,12 +736,8 @@ const CheckoutPageContent: React.FC = () => {
                           <select id="country"
                                   disabled={isReviewed}
                                   className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
-                                  value={selectedCountry}
-                                  onChange={(e) => {
-                                    setSelectedCountry(e.target.value);
-                                    // @ts-ignore
-                                    setStates(State.getStatesOfCountry(e.target.value));
-                                  }}
+                                  value={shippingDetails.country}
+                                  onChange={handleCountryChange}
                           >
                             {countries.map(({isoCode, name}) => (
                               <option
@@ -748,6 +798,8 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text" placeholder="Apartment, suite, etc. (optional)"
                                  readOnly={isReviewed}
+                                 value={shippingDetails.addressLineTwo}
+                                 onChange={handleAddressLineTwoChange}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                         </div>
                         <div id="contactAddressLineThree"
@@ -784,9 +836,10 @@ const CheckoutPageContent: React.FC = () => {
                             </div>
                             <select id="state"
                                     disabled={isReviewed}
+                                    onChange={handleStateChange}
                                     className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                             >
-                              {states.map(({isoCode, name}) => (
+                              {shippingStates.map(({isoCode, name}) => (
                                 <option
                                   key={isoCode}
                                   value={isoCode}
@@ -839,7 +892,7 @@ const CheckoutPageContent: React.FC = () => {
                         <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
                       </div>
                       <div id="contactDetails">
-                        <div id="countrySelect"
+                        <div id="billingDetailsCountrySelect"
                              className="relative w-full border border-solid border-foreground">
                           <label htmlFor="country"
                                  className="absolute top-2 left-3 text-sm">Country/region
@@ -856,12 +909,8 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <select id="country"
                                   className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
-                                  value={selectedCountry}
-                                  onChange={(e) => {
-                                    setSelectedCountry(e.target.value);
-                                    // @ts-ignore
-                                    setStates(State.getStatesOfCountry(e.target.value));
-                                  }}
+                                  value={billingDetails.country}
+                                  onChange={handleCountryChange}
                           >
                             {countries.map(({isoCode, name}) => (
                               <option
@@ -917,6 +966,8 @@ const CheckoutPageContent: React.FC = () => {
                         <div id="contactAddressLineTwo"
                              className="flex w-full justify-between pt-4">
                           <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                 value={billingDetails.addressLineTwo}
+                                 onChange={handleAddressLineTwoChange}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                         </div>
                         <div id="contactAddressLineThree"
@@ -951,9 +1002,10 @@ const CheckoutPageContent: React.FC = () => {
                               </svg>
                             </div>
                             <select id="state"
+                                    onChange={handleStateChange}
                                     className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                             >
-                              {states.map(({isoCode, name}) => (
+                              {billingStates.map(({isoCode, name}) => (
                                 <option
                                   key={isoCode}
                                   value={isoCode}
