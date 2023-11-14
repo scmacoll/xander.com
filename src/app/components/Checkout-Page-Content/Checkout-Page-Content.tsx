@@ -14,6 +14,7 @@ const CheckoutPageContent: React.FC = () => {
     addressLineOne: '',
     addressLineTwo: '',
     city: '',
+    state: 'NSW',
     zipcode: '',
     firstNameError: false,
     lastNameError: false,
@@ -29,6 +30,7 @@ const CheckoutPageContent: React.FC = () => {
     addressLineOne: '',
     addressLineTwo: '',
     city: '',
+    state: 'NSW',
     zipcode: '',
     firstNameError: false,
     lastNameError: false,
@@ -67,8 +69,8 @@ const CheckoutPageContent: React.FC = () => {
       setEmailError('Invalid email address');
     }
   };
-  const handleCountryChange = (e) => {
-    const newCountry = e.target.value
+  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCountry = event.target.value
 
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
@@ -83,19 +85,19 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   };
-  const handleStateChange = (e) => {
-    const newState = e.target.value
+  const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newState = event.target.value
 
     if (!isBillingAddress) {
-      setShippingStates(prevDetails => ({
+      setShippingDetails(prevDetails => ({
         ...prevDetails,
-        shippingStates: newState,
+        state: newState,
       }));
     }
     if (isBillingAddress || isSameAddress) {
-      setBillingStates(prevDetails => ({
+      setBillingDetails(prevDetails => ({
         ...prevDetails,
-        billingStates: newState,
+        state: newState,
       }));
     }
   };
@@ -359,14 +361,17 @@ const CheckoutPageContent: React.FC = () => {
 
   useEffect(() => {
     if (shippingDetails.country) {
-      // @ts-ignore
-      setShippingStates(State.getStatesOfCountry(shippingDetails.country));
+      const newShippingStates = State.getStatesOfCountry(shippingDetails.country);
+      setShippingStates(newShippingStates);
     }
+  }, [shippingDetails.country]);
+
+  useEffect(() => {
     if (billingDetails.country) {
-      // @ts-ignore
-      setBillingStates(State.getStatesOfCountry(billingDetails.country));
+      const newBillingStates = State.getStatesOfCountry(billingDetails.country);
+      setBillingStates(newBillingStates);
     }
-  }, [shippingDetails.country, billingDetails.country])
+  }, [billingDetails.country]);
 
   useEffect(() => {
     const validateForm = (shipping: any, billing: any) => {
@@ -390,6 +395,10 @@ const CheckoutPageContent: React.FC = () => {
     );
   }, [shippingDetails, billingDetails, email]);
 
+  console.log("isSameAddress:    ", isSameAddress);
+  console.log("isBillingAddress: ", isBillingAddress);
+  console.log("shipping state:    ", shippingDetails.state);
+  console.log("billing state: ", billingDetails.state);
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -836,6 +845,7 @@ const CheckoutPageContent: React.FC = () => {
                             </div>
                             <select id="state"
                                     disabled={isReviewed}
+                                    value={shippingDetails.state}
                                     onChange={handleStateChange}
                                     className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                             >
@@ -1001,7 +1011,8 @@ const CheckoutPageContent: React.FC = () => {
                                       d="M19 9l-7 7-7-7"></path>
                               </svg>
                             </div>
-                            <select id="state"
+                            <select id="billingDetailsstate"
+                                    value={billingDetails.state}
                                     onChange={handleStateChange}
                                     className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                             >
