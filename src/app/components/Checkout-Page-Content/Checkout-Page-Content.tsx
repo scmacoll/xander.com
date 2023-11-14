@@ -10,12 +10,13 @@ const CheckoutPageContent: React.FC = () => {
     firstName: '',
     lastName: '',
     companyName: '',
-    address: '',
+    addressLineOne: '',
+    addressLineTwo: '',
     city: '',
     zipcode: '',
     firstNameError: false,
     lastNameError: false,
-    addressError: false,
+    addressLineOneError: false,
     cityError: false,
     zipcodeError: false,
   });
@@ -23,12 +24,13 @@ const CheckoutPageContent: React.FC = () => {
     firstName: '',
     lastName: '',
     companyName: '',
-    address: '',
+    addressLineOne: '',
+    addressLineTwo: '',
     city: '',
     zipcode: '',
     firstNameError: false,
     lastNameError: false,
-    addressError: false,
+    addressLineOneError: false,
     cityError: false,
     zipcodeError: false,
   });
@@ -142,21 +144,21 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
 
-  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newAddressChange = event.target.value;
+  const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newAddressLineOneChange = event.target.value;
 
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        address: newAddressChange,
-        addressError: prevDetails.address.trim() === ''
+        addressLineOne: newAddressLineOneChange,
+        addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     }
     if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        address: newAddressChange,
-        addressError: prevDetails.address.trim() === ''
+        addressLineOne: newAddressLineOneChange,
+        addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     }
   }
@@ -164,12 +166,12 @@ const CheckoutPageContent: React.FC = () => {
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        addressError: prevDetails.address.trim() === ''
+        addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        addressError: prevDetails.address.trim() === ''
+        addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     }
   }
@@ -288,7 +290,7 @@ const CheckoutPageContent: React.FC = () => {
     //     zipcode: '',
     //     firstNameError: false,
     //     lastNameError: false,
-    //     addressError: false,
+    //     addressLineOneError: false,
     //     cityError: false,
     //     zipcodeError: false,
     //   });
@@ -317,12 +319,12 @@ const CheckoutPageContent: React.FC = () => {
       return (
         shipping.firstName.trim() !== '' &&
         shipping.lastName.trim() !== '' &&
-        shipping.address.trim() !== '' &&
+        shipping.addressLineOne.trim() !== '' &&
         shipping.city.trim() !== '' &&
         shipping.zipcode.trim() !== '' &&
         billing.firstName.trim() !== '' &&
         billing.lastName.trim() !== '' &&
-        billing.address.trim() !== '' &&
+        billing.addressLineOne.trim() !== '' &&
         billing.city.trim() !== '' &&
         billing.zipcode.trim() !== '' &&
         emailRegex.test(email)
@@ -734,11 +736,11 @@ const CheckoutPageContent: React.FC = () => {
                           <input type="text"
                                  placeholder="Address"
                                  readOnly={isReviewed}
-                                 value={shippingDetails.address}
-                                 onChange={handleAddressChange}
+                                 value={shippingDetails.addressLineOne}
+                                 onChange={handleAddressLineOneChange}
                                  onBlur={handleAddressBlur}
                                  className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${shippingDetails.addressError ? 'border-custom-red' : 'border-foreground'}
+                               ${shippingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
@@ -904,11 +906,11 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Address"
-                                 value={billingDetails.address}
-                                 onChange={handleAddressChange}
+                                 value={billingDetails.addressLineOne}
+                                 onChange={handleAddressLineOneChange}
                                  onBlur={handleAddressBlur}
                                  className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${billingDetails.addressError ? 'border-custom-red' : 'border-foreground'}
+                               ${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
                                `}
                           />
                         </div>
