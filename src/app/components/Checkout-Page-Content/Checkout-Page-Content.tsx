@@ -50,6 +50,8 @@ const CheckoutPageContent: React.FC = () => {
   const [isReviewing, setIsReviewing] = useState(false);
   const [isReviewed, setIsReviewed] = useState(false);
   const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
+  const [shippingError, setShippingError] = useState(false);
+  const [billingError, setBillingError] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [isBillingAddress, setIsBillingAddress] = useState(false);
 
@@ -316,16 +318,41 @@ const CheckoutPageContent: React.FC = () => {
     }, 2000);
   };
   const handleReviewButtonClick = (event) => {
-    if (isFormValid) {
-      event.preventDefault();
-      setIsReviewing(true);
-      setIsReviewed(false);
-      setTimeout(() => {
-        setIsReviewing(false);
-        setIsReviewed(true);
-      }, 2000);
-    } else {
-      setDisplayIncompleteMessage(true);
+    if (shippingDetails) {
+      if (isFormValid) {
+        event.preventDefault();
+        setIsReviewing(true);
+        setIsReviewed(false);
+        setTimeout(() => {
+                           setIsReviewing(false);
+                           setIsReviewed(true);
+                           }, 2000);
+      } else {
+        setShippingDetails((prevDetails) => ({
+          ...prevDetails,
+          firstNameError: shippingDetails.firstName.trim() === '',
+        }));
+        setDisplayIncompleteMessage(true);
+        setShippingError(true);
+      }
+    }
+    if (billingDetails || isSameAddress) {
+      if (isFormValid) {
+        event.preventDefault();
+        setIsReviewing(true);
+        setIsReviewed(false);
+        setTimeout(() => {
+          setIsReviewing(false);
+          setIsReviewed(true);
+        }, 2000);
+      } else {
+        setBillingDetails((prevDetails) => ({
+          ...prevDetails,
+          firstNameError: billingDetails.firstName.trim() === '',
+        }));
+        setDisplayIncompleteMessage(true);
+        setBillingError(true);
+      }
     }
   };
   const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -380,6 +407,27 @@ const CheckoutPageContent: React.FC = () => {
     }
   }, [billingDetails.country]);
 
+  // useEffect(() => {
+  //   const validateForm = (shipping: any, billing: any) => {
+  //     return (
+  //       shipping.firstName.trim() !== '' &&
+  //       shipping.lastName.trim() !== '' &&
+  //       shipping.addressLineOne.trim() !== '' &&
+  //       shipping.city.trim() !== '' &&
+  //       shipping.zipcode.trim() !== '' &&
+  //       billing.firstName.trim() !== '' &&
+  //       billing.lastName.trim() !== '' &&
+  //       billing.addressLineOne.trim() !== '' &&
+  //       billing.city.trim() !== '' &&
+  //       billing.zipcode.trim() !== '' &&
+  //       emailRegex.test(email)
+  //     );
+  //   };
+  //
+  //   setIsFormValid(
+  //     validateForm(shippingDetails, billingDetails)
+  //   );
+  // }, [shippingDetails, billingDetails, email]);
   useEffect(() => {
     const validateForm = (shipping: any, billing: any) => {
       return (
@@ -401,6 +449,7 @@ const CheckoutPageContent: React.FC = () => {
       validateForm(shippingDetails, billingDetails)
     );
   }, [shippingDetails, billingDetails, email]);
+
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -703,7 +752,8 @@ const CheckoutPageContent: React.FC = () => {
                       <div id="contactShippingHeader"
                            className="flex flex-row border-b border-solid border-foreground">
                         <div className="flex w-1/2 pb-2 text-xl font-bold">
-                          <div>
+                          <div className={`
+                          ${shippingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} `}>
                             Shipping Address
                           </div>
                         </div>
