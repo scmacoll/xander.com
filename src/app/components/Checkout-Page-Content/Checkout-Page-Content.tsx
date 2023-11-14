@@ -49,6 +49,7 @@ const CheckoutPageContent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [isReviewed, setIsReviewed] = useState(false);
+  const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [isBillingAddress, setIsBillingAddress] = useState(false);
 
@@ -315,13 +316,17 @@ const CheckoutPageContent: React.FC = () => {
     }, 2000);
   };
   const handleReviewButtonClick = (event) => {
-    event.preventDefault();
-    setIsReviewing(true);
-    setIsReviewed(false);
-    setTimeout(() => {
-      setIsReviewing(false);
-      setIsReviewed(true);
-    }, 2000);
+    if (isFormValid) {
+      event.preventDefault();
+      setIsReviewing(true);
+      setIsReviewed(false);
+      setTimeout(() => {
+        setIsReviewing(false);
+        setIsReviewed(true);
+      }, 2000);
+    } else {
+      setDisplayIncompleteMessage(true);
+    }
   };
   const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newIsSameAddress = event.target.checked;
@@ -362,6 +367,7 @@ const CheckoutPageContent: React.FC = () => {
   useEffect(() => {
     if (shippingDetails.country) {
       const newShippingStates = State.getStatesOfCountry(shippingDetails.country);
+      // @ts-ignore
       setShippingStates(newShippingStates);
     }
   }, [shippingDetails.country]);
@@ -369,6 +375,7 @@ const CheckoutPageContent: React.FC = () => {
   useEffect(() => {
     if (billingDetails.country) {
       const newBillingStates = State.getStatesOfCountry(billingDetails.country);
+      // @ts-ignore
       setBillingStates(newBillingStates);
     }
   }, [billingDetails.country]);
@@ -394,11 +401,6 @@ const CheckoutPageContent: React.FC = () => {
       validateForm(shippingDetails, billingDetails)
     );
   }, [shippingDetails, billingDetails, email]);
-
-  console.log("isSameAddress:    ", isSameAddress);
-  console.log("isBillingAddress: ", isBillingAddress);
-  console.log("shipping state:    ", shippingDetails.state);
-  console.log("billing state: ", billingDetails.state);
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -1038,8 +1040,15 @@ const CheckoutPageContent: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div id="shippingButton">
-                      <div className="flex justify-end pt-8">
+                    <div id="shippingButton"
+                         className="pt-8 items-center flex mx-auto justify-end">
+                      {displayIncompleteMessage && (
+                        <div id="incompleteError"
+                             className="flex text-sm pr-16 text-custom-red">
+                          <button>Form Incomplete</button>
+                        </div>
+                      )}
+                      <div id="orderButton" className="flex">
                         <div id="loadingBorder"
                              className={`${isReviewing ? 'border-2 rounded font-bold p-4 border-solid border-foreground bg-greyed-out' : ''}`}
                         >
@@ -1055,7 +1064,6 @@ const CheckoutPageContent: React.FC = () => {
                               `}
                                     type="button"
                                     onClick={!isReviewing ? handleReviewButtonClick : undefined}
-                                    disabled={!isFormValid}
                             >
                               REVIEW ORDER
                             </button>
@@ -1194,7 +1202,7 @@ const CheckoutPageContent: React.FC = () => {
                   <div className="inline-flex text-xs font-medium flex-end">Free</div>
                 </div>
               </div>
-              <div className="flex justify-between pt-6 border-blue">
+              <div className="flex justify-between pt-6">
                 <div className="flex">
                   <div className="text-lg font-medium">Total</div>
                 </div>
