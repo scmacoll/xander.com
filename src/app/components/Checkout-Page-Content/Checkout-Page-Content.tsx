@@ -9,6 +9,7 @@ const CheckoutPageContent: React.FC = () => {
   const [shippingDetails, setShippingDetails] = useState({
     firstName: '',
     lastName: '',
+    companyName: '',
     address: '',
     city: '',
     zipcode: '',
@@ -21,6 +22,7 @@ const CheckoutPageContent: React.FC = () => {
   const [billingDetails, setBillingDetails] = useState({
     firstName: '',
     lastName: '',
+    companyName: '',
     address: '',
     city: '',
     zipcode: '',
@@ -62,28 +64,21 @@ const CheckoutPageContent: React.FC = () => {
     }
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newFirstName = event.target.value
+
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        firstName: event.target.value
+        firstName: newFirstName,
+        firstNameError: newFirstName.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setShippingDetails(prevDetails => ({
-          ...prevDetails,
-          firstNameError: false
-        }));
-      }
-    } else {
+    }
+    if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        firstName: event.target.value
+        firstName: newFirstName,
+        firstNameError: newFirstName.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setBillingDetails(prevDetails => ({
-          ...prevDetails,
-          firstNameError: false
-        }));
-      }
     }
   };
   const handleFirstNameBlur = () => {
@@ -100,28 +95,21 @@ const CheckoutPageContent: React.FC = () => {
     }
   };
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newLastName = event.target.value;
+
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        lastName: event.target.value
+        lastName: newLastName,
+        lastNameError: prevDetails.lastName.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setShippingDetails(prevDetails => ({
-          ...prevDetails,
-          lastNameError: false
-        }));
-      }
-    } else {
+    }
+    if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        lastName: event.target.value
+        lastName: newLastName,
+        lastNameError: prevDetails.lastName.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setBillingDetails(prevDetails => ({
-          ...prevDetails,
-          lastNameError: false
-        }));
-      }
     }
   }
   const handleLastNameBlur = () => {
@@ -137,29 +125,39 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   }
-  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCompanyName = event.target.value;
+
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        address: event.target.value
+        companyName: newCompanyName,
       }));
-      if (event.target.value.trim() !== '') {
-        setShippingDetails(prevDetails => ({
-          ...prevDetails,
-          addressError: false
-        }));
-      }
-    } else {
+    }
+    if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        address: event.target.value
+        companyName: newCompanyName,
       }));
-      if (event.target.value.trim() !== '') {
-        setBillingDetails(prevDetails => ({
-          ...prevDetails,
-          addressError: false
-        }));
-      }
+    }
+  }
+
+  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newAddressChange = event.target.value;
+
+    if (!isBillingAddress) {
+      setShippingDetails(prevDetails => ({
+        ...prevDetails,
+        address: newAddressChange,
+        addressError: prevDetails.address.trim() === ''
+      }));
+    }
+    if (isBillingAddress || isSameAddress) {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        address: newAddressChange,
+        addressError: prevDetails.address.trim() === ''
+      }));
     }
   }
   const handleAddressBlur = () => {
@@ -176,28 +174,21 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCityChange = event.target.value;
+
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        city: event.target.value
+        city: newCityChange,
+        cityError: prevDetails.city.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setShippingDetails(prevDetails => ({
-          ...prevDetails,
-          cityError: false
-        }));
-      }
-    } else {
+    }
+    if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        city: event.target.value
+        city: newCityChange,
+        cityError: prevDetails.city.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setBillingDetails(prevDetails => ({
-          ...prevDetails,
-          cityError: false
-        }));
-      }
     }
   }
   const handleCityBlur = () => {
@@ -214,28 +205,21 @@ const CheckoutPageContent: React.FC = () => {
     }
   }
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newZipcodeChange = event.target.value;
+
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        zipcode: event.target.value
+        zipcode: newZipcodeChange,
+        zipcodeError: prevDetails.zipcode.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setShippingDetails(prevDetails => ({
-          ...prevDetails,
-          zipcodeError: false
-        }));
-      }
-    } else {
+    }
+    if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        zipcode: event.target.value
+        zipcode: newZipcodeChange,
+        zipcodeError: prevDetails.zipcode.trim() === ''
       }));
-      if (event.target.value.trim() !== '') {
-        setBillingDetails(prevDetails => ({
-          ...prevDetails,
-          zipcodeError: false
-        }));
-      }
     }
   }
   const handleZipcodeBlur = () => {
@@ -285,28 +269,30 @@ const CheckoutPageContent: React.FC = () => {
     }, 2000);
   };
   const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newIsSameAddress = event.target.checked;
     setIsSameAddress(!isSameAddress);
 
-    if (event.target.checked) {
+    if (newIsSameAddress) {
       setIsSameAddress(true);
       setBillingDetails({
         ...shippingDetails,
       });
-    } else {
-      setIsSameAddress(false);
-      setBillingDetails({
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        zipcode: '',
-        firstNameError: false,
-        lastNameError: false,
-        addressError: false,
-        cityError: false,
-        zipcodeError: false,
-      });
     }
+    // else {
+    //   setIsSameAddress(false);
+    //   setBillingDetails({
+    //     firstName: '',
+    //     lastName: '',
+    //     address: '',
+    //     city: '',
+    //     zipcode: '',
+    //     firstNameError: false,
+    //     lastNameError: false,
+    //     addressError: false,
+    //     cityError: false,
+    //     zipcodeError: false,
+    //   });
+    // }
   }
 
   useEffect(() => {
@@ -739,6 +725,8 @@ const CheckoutPageContent: React.FC = () => {
                           <input type="text"
                                  placeholder="Company (required for business addresses)"
                                  readOnly={isReviewed}
+                                 value={shippingDetails.companyName}
+                                 onChange={handleCompanyNameChange}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                         </div>
                         <div id="contactAddressLineOne"
@@ -908,6 +896,8 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Company (required for business addresses)"
+                                 value={billingDetails.companyName}
+                                 onChange={handleCompanyNameChange}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                         </div>
                         <div id="contactAddressLineOne"
