@@ -834,7 +834,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                      <div id="shippingBillingCheckbox" className="flex items-center py-4">
                         <input
                           id="checkboxSameAddress"
                           type="checkbox"
@@ -1015,7 +1015,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                      <div id="shippingBillingCheckbox" className="flex items-center py-4">
                         <input
                           type="checkbox"
                           disabled={isReviewed}
@@ -1172,6 +1172,117 @@ const CheckoutPageContent: React.FC = () => {
                         </div>
                       </div>
                     </div>
+                    <div
+                        className={`${isReviewed ? 'pt-6 md:hidden lg:hidden xl:hidden' : 'hidden'} ${styles.scrollBar} ${styles.scrollBarContent}  max-h-610px overflow-x-hidden overflow-y-auto`}>
+
+                      {/* <boughtItem> */}
+                      <div id="boughtItem">
+                        <div id="boughtItemContainer"
+                             className="mx-auto flex w-full items-center justify-between">
+                          <div className="flex h-full items-center flex-start">
+                            <div className="inline-flex h-full pr-3">
+                              <Image
+                                  src={masterandemissarry.src}
+                                  alt="yuko"
+                                  width="60"
+                                  height="60"
+                              />
+                            </div>
+                            <div
+                                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                              <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                                Sole)
+                              </div>
+                              <div className="flex font-light">13</div>
+                            </div>
+                          </div>
+                          <div className="inline-flex text-sm flex-end">$135.00</div>
+                        </div>
+                        <div id="borderGap" className="py-6 pb-6">
+                          <div className="border-b border-solid border-foreground"></div>
+                        </div>
+                      </div>
+                      {/* <boughtItem /> */}
+
+                      <div className={`${isReviewed? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
+                        <div className="relative inline-flex flex-grow">
+                          <input
+                              type="text"
+                              placeholder="Gift card or discount code"
+                              value={discountCode}
+                              onChange={handleDiscountCodeChange}
+                              maxLength="16"
+                              className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                          />
+                          {displayInvalidCodeMessage && (
+                              <span
+                                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
+                              >
+                      Invalid code
+                    </span>
+                          )}
+                        </div>
+                        <div
+                            className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  `}
+                            onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
+                        >
+                          {isLoading ? (
+                              <button className={styles.loader}></button>
+                          ) : (
+                              <button disabled={!isCodeValid}>APPLY</button>
+                          )}
+                        </div>
+                      </div>
+                      <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
+              flex flex-col border-solid border-foreground`}>
+                        <div className="flex justify-between pb-4">
+                          <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+                          <div className="inline-flex text-sm flex-end font-bold">$135.00
+                          </div>
+                        </div>
+                        <div className="flex justify-between">
+                          <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                          <div className="inline-flex text-xs font-medium flex-end">Free</div>
+                        </div>
+                      </div>
+                      <div className="flex justify-between pt-6">
+                        <div className="flex">
+                          <div className="text-lg font-medium">Total</div>
+                        </div>
+                        <div className="flex items-center">
+                          <div ref={bottomRef}
+                               className={`${styles.smoothScroll}
+                     inline-flex text-2xl font-bold`}>
+                            $135.00
+                          </div>
+                        </div>
+                      </div>
+                      <div id="shippingButton">
+                        <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
+                          {isReviewed && (
+                              <div id="incompleteError"
+                                   className="flex text-sm pr-16 text-custom-red xs:w-1/2">
+                                <button className="underline"
+                                        onClick={handleCancelButtonClick}
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                          )}
+                          <div
+                              className={`border-2 rounded font-bold p-4 border-solid
+                    bg-amazon-yellow border-amazon-yellow
+                    ${isReviewed ? '' : 'hidden'}
+                    `}
+                          >
+                            <button>PLACE ORDER</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div id="shippingButton"
                          className="pt-8 items-center flex mx-auto justify-end">
                       {displayIncompleteMessage && (
@@ -1270,10 +1381,10 @@ const CheckoutPageContent: React.FC = () => {
             </div>
           </div>
           <div id="borderSummary"
-               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
+               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
             <div className="pt-6"></div>
             <div
-              className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+              className={`${isReviewed ? 'sm:hidden xs:hidden' : ''} ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
               {/* <boughtItem> */}
               <div id="boughtItem">
@@ -1360,7 +1471,7 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
               </div>
               <div id="shippingButton">
-                <div className="flex justify-end pt-8">
+                <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
                   {isReviewed && (
                     <div id="incompleteError"
                          className="flex text-sm pr-16 text-custom-red xs:w-1/2">
