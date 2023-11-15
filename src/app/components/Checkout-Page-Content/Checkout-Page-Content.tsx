@@ -124,31 +124,29 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   };
-  const handleFirstNameBlur = () => {
-    console.log("handlefirstnameblur activated")
-    if (reviewButtonClicked) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        firstNameError: prevDetails.firstName.trim() === ''
-      }));
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        firstNameError: prevDetails.firstName.trim() === ''
-      }));
-    } else {
-      if (!isBillingAddress) {
-        setShippingDetails(prevDetails => ({
-          ...prevDetails,
-          firstNameError: prevDetails.firstName.trim() === ''
-        }));
+  const handleFirstNameBlur = (eventOrWasReviewButtonClicked: any) => {
+      const wasReviewButtonClicked = typeof eventOrWasReviewButtonClicked === 'boolean' ? eventOrWasReviewButtonClicked : false;
+      const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+      if (shouldValidate) {
+          const commonUpdate: any = (prevDetails: { firstName: string; }) => ({
+              ...prevDetails,
+              firstNameError: prevDetails.firstName.trim() === ''
+          });
+          setShippingDetails(commonUpdate);
+          setBillingDetails(commonUpdate);
+      } else if (!isBillingAddress) {
+          setShippingDetails(prevDetails => ({
+              ...prevDetails,
+              firstNameError: prevDetails.firstName.trim() === ''
+          }));
       } else {
-        setBillingDetails(prevDetails => ({
-          ...prevDetails,
-          firstNameError: prevDetails.firstName.trim() === ''
-        }));
+          setBillingDetails(prevDetails => ({
+              ...prevDetails,
+              firstNameError: prevDetails.firstName.trim() === ''
+          }));
       }
-    }
-    setReviewButtonClicked(false);
+      setReviewButtonClicked(false);
   };
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLastName = event.target.value;
@@ -168,8 +166,18 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   }
-  const handleLastNameBlur = () => {
-    if (!isBillingAddress) {
+  const handleLastNameBlur = (eventOrWasReviewButtonClicked: any) => {
+    const wasReviewButtonClicked = typeof eventOrWasReviewButtonClicked === 'boolean' ? eventOrWasReviewButtonClicked : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+    if (shouldValidate) {
+        const commonUpdate: any = (prevDetails: { lastName: string; }) => ({
+            ...prevDetails,
+            lastNameError: prevDetails.lastName.trim() === ''
+        });
+        setShippingDetails(commonUpdate);
+        setBillingDetails(commonUpdate);
+    } else if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
         lastNameError: prevDetails.lastName.trim() === ''
@@ -338,9 +346,7 @@ const CheckoutPageContent: React.FC = () => {
   };
 
   const handleReviewButtonClick = (event) => {
-    console.log("before set review btn", reviewButtonClicked);
     setReviewButtonClicked(true);
-    console.log("after set review btn", reviewButtonClicked);
 
     if (isFormValid) {
       if (shippingDetails) {
@@ -362,8 +368,8 @@ const CheckoutPageContent: React.FC = () => {
         }, 2000);
       }
     } else {
-      handleFirstNameBlur();
-      handleLastNameBlur();
+      handleFirstNameBlur(true);
+      handleLastNameBlur(true);
       handleAddressLineOneBlur();
       handleCityBlur();
       handleZipcodeBlur();
@@ -476,6 +482,7 @@ const CheckoutPageContent: React.FC = () => {
     const billingIsValid = validateBillingDetails(billingDetails);
     setIsFormValid(formIsValid);
 
+    // updating review btn errors in real-time
     if (formIsValid) {
       setDisplayIncompleteMessage(false);
       setShippingError(false);
@@ -484,18 +491,12 @@ const CheckoutPageContent: React.FC = () => {
     } else if (!formIsValid) {
       if (shippingIsValid) {
         setShippingError(false);
-      } else if (!shippingIsValid && reviewButtonClicked) {
-        setShippingError(true);
       }
       if (billingIsValid) {
         setBillingError(false);
-      } else if (!billingIsValid && reviewButtonClicked) {
-        setBillingError(true);
       }
     }
   }, [shippingDetails, billingDetails, email, reviewButtonClicked]);
-
-  console.log("review button status:     ", reviewButtonClicked);
 
 
   return (
