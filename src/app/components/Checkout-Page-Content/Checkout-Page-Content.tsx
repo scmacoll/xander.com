@@ -47,6 +47,7 @@ const CheckoutPageContent: React.FC = () => {
   const [discountCode, setDiscountCode] = useState('');
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [reviewButtonClicked, setReviewButtonClicked] = useState(false);
   const [isReviewing, setIsReviewing] = useState(false);
   const [isReviewed, setIsReviewed] = useState(false);
   const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
@@ -71,6 +72,7 @@ const CheckoutPageContent: React.FC = () => {
     } else {
       setEmailError('Invalid email address');
     }
+    setReviewButtonClicked(false);
   };
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = event.target.value
@@ -123,17 +125,30 @@ const CheckoutPageContent: React.FC = () => {
     }
   };
   const handleFirstNameBlur = () => {
-    if (!isBillingAddress) {
+    console.log("handlefirstnameblur activated")
+    if (reviewButtonClicked) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
         firstNameError: prevDetails.firstName.trim() === ''
       }));
-    } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
         firstNameError: prevDetails.firstName.trim() === ''
       }));
+    } else {
+      if (!isBillingAddress) {
+        setShippingDetails(prevDetails => ({
+          ...prevDetails,
+          firstNameError: prevDetails.firstName.trim() === ''
+        }));
+      } else {
+        setBillingDetails(prevDetails => ({
+          ...prevDetails,
+          firstNameError: prevDetails.firstName.trim() === ''
+        }));
+      }
     }
+    setReviewButtonClicked(false);
   };
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLastName = event.target.value;
@@ -165,6 +180,7 @@ const CheckoutPageContent: React.FC = () => {
         lastNameError: prevDetails.lastName.trim() === ''
       }));
     }
+    setReviewButtonClicked(false);
   }
   const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCompanyName = event.target.value;
@@ -200,7 +216,7 @@ const CheckoutPageContent: React.FC = () => {
       }));
     }
   }
-  const handleAddressBlur = () => {
+  const handleAddressLineOneBlur = () => {
     if (!isBillingAddress) {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
@@ -212,6 +228,7 @@ const CheckoutPageContent: React.FC = () => {
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     }
+    setReviewButtonClicked(false);
   }
   const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAddressLineTwoChange = event.target.value;
@@ -261,7 +278,8 @@ const CheckoutPageContent: React.FC = () => {
         cityError: prevDetails.city.trim() === ''
       }));
     }
-  }
+    setReviewButtonClicked(false);
+  };
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newZipcodeChange = event.target.value;
 
@@ -292,6 +310,7 @@ const CheckoutPageContent: React.FC = () => {
         zipcodeError: prevDetails.zipcode.trim() === ''
       }));
     }
+    setReviewButtonClicked(false);
   }
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = event.target.value;
@@ -317,27 +336,14 @@ const CheckoutPageContent: React.FC = () => {
       setDisplayInvalidCodeMessage(true); // Display invalid code message
     }, 2000);
   };
+
   const handleReviewButtonClick = (event) => {
-    if (shippingDetails) {
-      if (isFormValid) {
-        event.preventDefault();
-        setIsReviewing(true);
-        setIsReviewed(false);
-        setTimeout(() => {
-                           setIsReviewing(false);
-                           setIsReviewed(true);
-                           }, 2000);
-      } else {
-        setShippingDetails((prevDetails) => ({
-          ...prevDetails,
-          firstNameError: shippingDetails.firstName.trim() === '',
-        }));
-        setDisplayIncompleteMessage(true);
-        setShippingError(true);
-      }
-    }
-    if (billingDetails || isSameAddress) {
-      if (isFormValid) {
+    console.log("before set review btn", reviewButtonClicked);
+    setReviewButtonClicked(true);
+    console.log("after set review btn", reviewButtonClicked);
+
+    if (isFormValid) {
+      if (shippingDetails) {
         event.preventDefault();
         setIsReviewing(true);
         setIsReviewed(false);
@@ -345,16 +351,29 @@ const CheckoutPageContent: React.FC = () => {
           setIsReviewing(false);
           setIsReviewed(true);
         }, 2000);
-      } else {
-        setBillingDetails((prevDetails) => ({
-          ...prevDetails,
-          firstNameError: billingDetails.firstName.trim() === '',
-        }));
-        setDisplayIncompleteMessage(true);
-        setBillingError(true);
       }
+      if (billingDetails || isSameAddress) {
+        event.preventDefault();
+        setIsReviewing(true);
+        setIsReviewed(false);
+        setTimeout(() => {
+          setIsReviewing(false);
+          setIsReviewed(true);
+        }, 2000);
+      }
+    } else {
+      handleFirstNameBlur();
+      handleLastNameBlur();
+      handleAddressLineOneBlur();
+      handleCityBlur();
+      handleZipcodeBlur();
+      setDisplayIncompleteMessage(true);
+      setShippingError(true);
+      setBillingError(true);
     }
+
   };
+
   const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newIsSameAddress = event.target.checked;
     setIsSameAddress(!isSameAddress);
@@ -428,27 +447,55 @@ const CheckoutPageContent: React.FC = () => {
   //     validateForm(shippingDetails, billingDetails)
   //   );
   // }, [shippingDetails, billingDetails, email]);
+
   useEffect(() => {
-    const validateForm = (shipping: any, billing: any) => {
+    const validateShippingDetails = (shipping: any) => {
       return (
         shipping.firstName.trim() !== '' &&
         shipping.lastName.trim() !== '' &&
         shipping.addressLineOne.trim() !== '' &&
         shipping.city.trim() !== '' &&
-        shipping.zipcode.trim() !== '' &&
+        shipping.zipcode.trim() !== ''
+      );
+    };
+    const validateBillingDetails = (billing: any) => {
+      return (
         billing.firstName.trim() !== '' &&
         billing.lastName.trim() !== '' &&
         billing.addressLineOne.trim() !== '' &&
         billing.city.trim() !== '' &&
-        billing.zipcode.trim() !== '' &&
-        emailRegex.test(email)
+        billing.zipcode.trim() !== ''
       );
     };
+    const validateForm = (shipping: any, billing: any, email: any) => {
+      return validateShippingDetails(shipping) && validateBillingDetails(billing) && emailRegex.test(email);
+    };
 
-    setIsFormValid(
-      validateForm(shippingDetails, billingDetails)
-    );
-  }, [shippingDetails, billingDetails, email]);
+    const formIsValid = validateForm(shippingDetails, billingDetails, email);
+    const shippingIsValid = validateShippingDetails(shippingDetails);
+    const billingIsValid = validateBillingDetails(billingDetails);
+    setIsFormValid(formIsValid);
+
+    if (formIsValid) {
+      setDisplayIncompleteMessage(false);
+      setShippingError(false);
+      setBillingError(false);
+      return;
+    } else if (!formIsValid) {
+      if (shippingIsValid) {
+        setShippingError(false);
+      } else if (!shippingIsValid && reviewButtonClicked) {
+        setShippingError(true);
+      }
+      if (billingIsValid) {
+        setBillingError(false);
+      } else if (!billingIsValid && reviewButtonClicked) {
+        setBillingError(true);
+      }
+    }
+  }, [shippingDetails, billingDetails, email, reviewButtonClicked]);
+
+  console.log("review button status:     ", reviewButtonClicked);
 
 
   return (
@@ -758,7 +805,9 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                         <div className="flex pb-2 text-xl text-greyed-out text-underline font-bold cursor-pointer">
-                          <div className={`${isSameAddress ? 'hidden' : 'block'} cursor-pointer`}
+                          <div className={`${isSameAddress ? 'hidden' : 'block'}
+                          ${billingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} 
+                          cursor-pointer`}
                                onClick={toggleBillingAddress}
                           >
                             Billing Address
@@ -849,7 +898,7 @@ const CheckoutPageContent: React.FC = () => {
                                  readOnly={isReviewed}
                                  value={shippingDetails.addressLineOne}
                                  onChange={handleAddressLineOneChange}
-                                 onBlur={handleAddressBlur}
+                                 onBlur={handleAddressLineOneBlur}
                                  className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
                                ${shippingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
                                `}
@@ -930,14 +979,17 @@ const CheckoutPageContent: React.FC = () => {
                       <div id="contactShippingHeader"
                            className="flex flex-row border-b border-solid border-foreground">
                         <div className="flex w-1/2 pb-2 text-xl font-bold text-greyed-out">
-                          <div className="border-b cursor-pointer"
-                               onClick={toggleShippingAddress}
-                          >
+                          <div className={`border-b cursor-pointer
+                          ${shippingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} `}
+                            onClick={toggleShippingAddress}>
                             Shipping Address
                           </div>
+
                         </div>
                         <div className="flex pb-2 text-xl text-underline font-bold w-1/2">
-                          <div className={`${isSameAddress ? 'hidden' : 'block'} cursor-pointer`}
+                          <div className={`${isSameAddress ? 'hidden' : 'block'}
+                          ${billingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} 
+                          cursor-pointer`}
                           >
                             Billing Address
                           </div>
@@ -1019,7 +1071,7 @@ const CheckoutPageContent: React.FC = () => {
                                  placeholder="Address"
                                  value={billingDetails.addressLineOne}
                                  onChange={handleAddressLineOneChange}
-                                 onBlur={handleAddressBlur}
+                                 onBlur={handleAddressLineOneBlur}
                                  className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
                                ${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
                                `}
