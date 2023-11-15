@@ -215,14 +215,14 @@ const CheckoutPageContent: React.FC = () => {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
         addressLineOne: newAddressLineOneChange,
-        addressLineOneError: prevDetails.addressLineOne.trim() === ''
+        addressLineOneError: newAddressLineOneChange.trim() === ''
       }));
     }
     if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
         addressLineOne: newAddressLineOneChange,
-        addressLineOneError: prevDetails.addressLineOne.trim() === ''
+        addressLineOneError: newAddressLineOneChange.trim() === ''
       }));
     }
   }
@@ -265,14 +265,14 @@ const CheckoutPageContent: React.FC = () => {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
         city: newCityChange,
-        cityError: prevDetails.city.trim() === ''
+        cityError: newCityChange.trim() === ''
       }));
     }
     if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
         city: newCityChange,
-        cityError: prevDetails.city.trim() === ''
+        cityError: newCityChange.trim() === ''
       }));
     }
   }
@@ -297,14 +297,14 @@ const CheckoutPageContent: React.FC = () => {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
         zipcode: newZipcodeChange,
-        zipcodeError: prevDetails.zipcode.trim() === ''
+        zipcodeError: newZipcodeChange.trim() === ''
       }));
     }
     if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
         zipcode: newZipcodeChange,
-        zipcodeError: prevDetails.zipcode.trim() === ''
+        zipcodeError: newZipcodeChange.trim() === ''
       }));
     }
   }
