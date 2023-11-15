@@ -1172,8 +1172,37 @@ const CheckoutPageContent: React.FC = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="pt-12"></div>
+                    <div id="orderSummaryBanner"
+                         className={` ${!isReviewed ? 'sm:hidden xs:hidden' : ''}
+                 relative z-10 flex py-4 text-sm font-medium justify-between items-center border-y border-solid border-foreground`}>
+                      <div id="orderSummaryLabel">
+                        <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
+                          <div className="fill-foreground pr-2">
+                            <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                  d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
+                            </svg>
+                          </div>
+                          <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                            <p>Show Order Summary</p>
+                          </div>
+                          <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                            <p>Hide Order Summary</p>
+                          </div>
+                          <div id="summaryArrowButton"
+                               className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                            <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                  d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                            </svg>
+                          </div>
+                        </button>
+                      </div>
+                      <div className="font-bold text-lg">$135.00</div>
+                    </div>
                     <div
-                        className={`${isReviewed ? 'pt-6 md:hidden lg:hidden xl:hidden' : 'hidden'} ${styles.scrollBar} ${styles.scrollBarContent}  max-h-610px overflow-x-hidden overflow-y-auto`}>
+                        className={`${isReviewed ? 'pt-6 md:hidden lg:hidden xl:hidden' : 'hidden'} ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
                       {/* <boughtItem> */}
                       <div id="boughtItem">
@@ -1284,7 +1313,7 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
 
                     <div id="shippingButton"
-                         className="pt-8 items-center flex mx-auto justify-end">
+                         className="border-blue pt-8 items-center flex mx-auto justify-end">
                       {displayIncompleteMessage && (
                         <div id="incompleteError"
                              className="flex text-sm pr-16 text-custom-red xs:w-1/2">
@@ -1353,7 +1382,8 @@ const CheckoutPageContent: React.FC = () => {
             </div>
 
             <div id="orderSummaryBanner"
-                 className="relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
+                 className={` ${isReviewed ? 'sm:hidden xs:hidden' : ''}
+                 relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
               <div id="orderSummaryLabel">
                 <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
                   <div className="fill-foreground pr-2">
