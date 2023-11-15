@@ -1172,111 +1172,9 @@ const CheckoutPageContent: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="pt-12"></div>
-                    <div id="orderSummaryBanner"
-                         className={` ${!isReviewed ? 'sm:hidden xs:hidden' : ''}
-                 relative z-10 flex py-4 text-sm font-medium justify-between items-center border-y border-solid border-foreground`}>
-                      <div id="orderSummaryLabel">
-                        <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
-                          <div className="fill-foreground pr-2">
-                            <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                  d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
-                            </svg>
-                          </div>
-                          <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
-                            <p>Show Order Summary</p>
-                          </div>
-                          <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
-                            <p>Hide Order Summary</p>
-                          </div>
-                          <div id="summaryArrowButton"
-                               className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
-                            <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
-                              <path
-                                  d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                            </svg>
-                          </div>
-                        </button>
-                      </div>
-                      <div className="font-bold text-lg">$135.00</div>
-                    </div>
-                    <div
+                   <div
                         className={`${isReviewed ? 'pt-6 md:hidden lg:hidden xl:hidden' : 'hidden'} ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
-
-                      {/* <boughtItem> */}
-                      <div id="boughtItem">
-                        <div id="boughtItemContainer"
-                             className="mx-auto flex w-full items-center justify-between">
-                          <div className="flex h-full items-center flex-start">
-                            <div className="inline-flex h-full pr-3">
-                              <Image
-                                  src={masterandemissarry.src}
-                                  alt="yuko"
-                                  width="60"
-                                  height="60"
-                              />
-                            </div>
-                            <div
-                                className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                              <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                                Sole)
-                              </div>
-                              <div className="flex font-light">13</div>
-                            </div>
-                          </div>
-                          <div className="inline-flex text-sm flex-end">$135.00</div>
-                        </div>
-                        <div id="borderGap" className="py-6 pb-6">
-                          <div className="border-b border-solid border-foreground"></div>
-                        </div>
-                      </div>
-                      {/* <boughtItem /> */}
-
-                      <div className={`${isReviewed? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
-                        <div className="relative inline-flex flex-grow">
-                          <input
-                              type="text"
-                              placeholder="Gift card or discount code"
-                              value={discountCode}
-                              onChange={handleDiscountCodeChange}
-                              maxLength="16"
-                              className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-                          />
-                          {displayInvalidCodeMessage && (
-                              <span
-                                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
-                              >
-                      Invalid code
-                    </span>
-                          )}
-                        </div>
-                        <div
-                            className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
-                  `}
-                            onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
-                        >
-                          {isLoading ? (
-                              <button className={styles.loader}></button>
-                          ) : (
-                              <button disabled={!isCodeValid}>APPLY</button>
-                          )}
-                        </div>
-                      </div>
-                      <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
-              flex flex-col border-solid border-foreground`}>
-                        <div className="flex justify-between pb-4">
-                          <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                          <div className="inline-flex text-sm flex-end font-bold">$135.00
-                          </div>
-                        </div>
-                        <div className="flex justify-between">
-                          <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-                          <div className="inline-flex text-xs font-medium flex-end">Free</div>
-                        </div>
-                      </div>
-                      <div className="flex justify-between pt-6">
+                      <div className="flex justify-between">
                         <div className="flex">
                           <div className="text-lg font-medium">Total</div>
                         </div>
@@ -1313,7 +1211,7 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
 
                     <div id="shippingButton"
-                         className="border-blue pt-8 items-center flex mx-auto justify-end">
+                         className=" pt-8 items-center flex mx-auto justify-end">
                       {displayIncompleteMessage && (
                         <div id="incompleteError"
                              className="flex text-sm pr-16 text-custom-red xs:w-1/2">
@@ -1382,7 +1280,7 @@ const CheckoutPageContent: React.FC = () => {
             </div>
 
             <div id="orderSummaryBanner"
-                 className={` ${isReviewed ? 'sm:hidden xs:hidden' : ''}
+                 className={` 
                  relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
               <div id="orderSummaryLabel">
                 <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
