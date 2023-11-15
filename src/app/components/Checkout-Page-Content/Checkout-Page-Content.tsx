@@ -411,6 +411,10 @@ const CheckoutPageContent: React.FC = () => {
 
   };
 
+  const handleCancelButtonClick = (event) => {
+    setIsReviewed(false);
+  };
+
   const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newIsSameAddress = event.target.checked;
     setIsSameAddress(!isSameAddress);
@@ -539,9 +543,10 @@ const CheckoutPageContent: React.FC = () => {
                 id="checkoutExpressButtons"
                 className="mt-5 flex flex-row justify-around gap-3 p-1 px-4 xs:flex-col"
               >
-                <div
-                  className="inline-flex h-10 w-1/3 cursor-pointer items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue xs:h-12 xs:w-full">
+                <div id="shopPayButton"
+                  className="inline-flex h-10 w-1/3  items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue xs:h-12 xs:w-full">
                   <svg
+                    className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
                     version="1.0"
                     xmlns="http://www.w3.org/2000/svg"
                     width="85px"
@@ -621,9 +626,11 @@ const CheckoutPageContent: React.FC = () => {
                     </g>
                   </svg>
                 </div>
-                <div
-                  className="inline-flex h-10 w-1/3 cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full">
+                <div id="amazonPayButton"
+                  className={`inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full`}
+                >
                   <svg
+                    className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 176.515 33.863"
                     width="85px"
@@ -694,9 +701,10 @@ const CheckoutPageContent: React.FC = () => {
                     </g>
                   </svg>
                 </div>
-                <div
-                  className="inline-flex h-10 w-1/3 cursor-pointer items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full">
+                <div id="paypalButton"
+                  className="inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full">
                   <svg
+                    className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
                     xmlns="http://www.w3.org/2000/svg"
                     width="85px"
                     height="16px"
@@ -764,7 +772,8 @@ const CheckoutPageContent: React.FC = () => {
                       <div className="flex text-xl font-bold">Contact</div>
                       <div className="flex text-sm">
                         <div>Have an account?</div>
-                        <div className="cursor-pointer pl-1 font-bold">Log in</div>
+                        <div className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} pl-1 font-bold`}>
+                        Log in</div>
                       </div>
                     </div>
                   </div>
@@ -795,6 +804,7 @@ const CheckoutPageContent: React.FC = () => {
                       <div className="inline-flex">
                         <input type="checkbox"
                                value="1"
+                               disabled={isReviewed}
                                className="accent-foreground"/>
                       </div>
                       <div className="inline-flex pl-2 text-sm">
@@ -1008,6 +1018,7 @@ const CheckoutPageContent: React.FC = () => {
                       <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
                         <input
                           type="checkbox"
+                          disabled={isReviewed}
                           className="accent-foreground"
                           checked={isSameAddress}
                           onChange={toggleSameAddress}
@@ -1032,6 +1043,7 @@ const CheckoutPageContent: React.FC = () => {
                             </svg>
                           </div>
                           <select id="country"
+                                  disabled={isReviewed}
                                   className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
                                   value={billingDetails.country}
                                   onChange={handleCountryChange}
@@ -1050,6 +1062,7 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="First Name"
+                                 readOnly={isReviewed}
                                  value={billingDetails.firstName}
                                  onChange={handleFirstNameChange}
                                  onBlur={handleFirstNameBlur}
@@ -1059,6 +1072,7 @@ const CheckoutPageContent: React.FC = () => {
                           />
                           <input type="text"
                                  placeholder="Last Name"
+                                 readOnly={isReviewed}
                                  value={billingDetails.lastName}
                                  onChange={handleLastNameChange}
                                  onBlur={handleLastNameBlur}
@@ -1071,6 +1085,7 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Company (required for business addresses)"
+                                 readOnly={isReviewed}
                                  value={billingDetails.companyName}
                                  onChange={handleCompanyNameChange}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
@@ -1079,6 +1094,7 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex w-full justify-between pt-4">
                           <input type="text"
                                  placeholder="Address"
+                                 readOnly={isReviewed}
                                  value={billingDetails.addressLineOne}
                                  onChange={handleAddressLineOneChange}
                                  onBlur={handleAddressLineOneBlur}
@@ -1090,6 +1106,7 @@ const CheckoutPageContent: React.FC = () => {
                         <div id="contactAddressLineTwo"
                              className="flex w-full justify-between pt-4">
                           <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                 readOnly={isReviewed}
                                  value={billingDetails.addressLineTwo}
                                  onChange={handleAddressLineTwoChange}
                                  className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
@@ -1098,6 +1115,7 @@ const CheckoutPageContent: React.FC = () => {
                              className="flex justify-between gap-1 pt-4">
                           <input type="text"
                                  placeholder="City"
+                                 readOnly={isReviewed}
                                  value={billingDetails.city}
                                  onChange={handleCityChange}
                                  onBlur={handleCityBlur}
@@ -1126,6 +1144,7 @@ const CheckoutPageContent: React.FC = () => {
                               </svg>
                             </div>
                             <select id="billingDetailsstate"
+                                    disabled={isReviewed}
                                     value={billingDetails.state}
                                     onChange={handleStateChange}
                                     className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
@@ -1142,6 +1161,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <input type="text"
                                  placeholder="ZIP code"
+                                 readOnly={isReviewed}
                                  value={billingDetails.zipcode}
                                  onChange={handleZipcodeChange}
                                  onBlur={handleZipcodeBlur}
@@ -1156,9 +1176,19 @@ const CheckoutPageContent: React.FC = () => {
                          className="pt-8 items-center flex mx-auto justify-end">
                       {displayIncompleteMessage && (
                         <div id="incompleteError"
-                             className="flex text-sm pr-16 text-custom-red">
+                             className="flex text-sm pr-16 text-custom-red xs:w-1/2">
                           <button disabled={displayIncompleteMessage}>
-                            Form Incomplete
+                            Please fill out all required fields.
+                          </button>
+                        </div>
+                      )}
+                      {isReviewed && (
+                        <div id="incompleteError"
+                             className="flex text-sm pr-16 text-custom-red xs:w-1/2">
+                          <button className="underline"
+                                  onClick={handleCancelButtonClick}
+                          >
+                            Cancel
                           </button>
                         </div>
                       )}
@@ -1274,7 +1304,7 @@ const CheckoutPageContent: React.FC = () => {
               </div>
               {/* <boughtItem /> */}
 
-              <div className="flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4">
+              <div className={`${isReviewed? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
                 <div className="relative inline-flex flex-grow">
                   <input
                     type="text"
@@ -1305,7 +1335,8 @@ const CheckoutPageContent: React.FC = () => {
                   )}
                 </div>
               </div>
-              <div className="flex flex-col border-y border-solid py-6 border-foreground">
+              <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
+              flex flex-col border-solid border-foreground`}>
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                   <div className="inline-flex text-sm flex-end font-bold">$135.00
@@ -1330,6 +1361,16 @@ const CheckoutPageContent: React.FC = () => {
               </div>
               <div id="shippingButton">
                 <div className="flex justify-end pt-8">
+                  {isReviewed && (
+                    <div id="incompleteError"
+                         className="flex text-sm pr-16 text-custom-red xs:w-1/2">
+                      <button className="underline"
+                              onClick={handleCancelButtonClick}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
                   <div
                     className={`border-2 rounded font-bold p-4 border-solid
                     bg-amazon-yellow border-amazon-yellow
