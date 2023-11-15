@@ -39,6 +39,8 @@ const CheckoutPageContent: React.FC = () => {
     zipcodeError: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isShippingValid, setIsShippingValid] = useState(false);
+  const [isBillingValid, setIsBillingValid] = useState(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [countries, setCountries] = useState([]);
@@ -155,19 +157,19 @@ const CheckoutPageContent: React.FC = () => {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
         lastName: newLastName,
-        lastNameError: prevDetails.lastName.trim() === ''
+        lastNameError: newLastName.trim() === ''
       }));
     }
     if (isBillingAddress || isSameAddress) {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
         lastName: newLastName,
-        lastNameError: prevDetails.lastName.trim() === ''
+        lastNameError: newLastName.trim() === ''
       }));
     }
   }
-  const handleLastNameBlur = (eventOrWasReviewButtonClicked: any) => {
-    const wasReviewButtonClicked = typeof eventOrWasReviewButtonClicked === 'boolean' ? eventOrWasReviewButtonClicked : false;
+  const handleLastNameBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
@@ -370,9 +372,9 @@ const CheckoutPageContent: React.FC = () => {
     } else {
       handleFirstNameBlur(true);
       handleLastNameBlur(true);
-      handleAddressLineOneBlur();
-      handleCityBlur();
-      handleZipcodeBlur();
+      handleAddressLineOneBlur(true);
+      handleCityBlur(true);
+      handleZipcodeBlur(true);
       setDisplayIncompleteMessage(true);
       setShippingError(true);
       setBillingError(true);
@@ -481,6 +483,8 @@ const CheckoutPageContent: React.FC = () => {
     const shippingIsValid = validateShippingDetails(shippingDetails);
     const billingIsValid = validateBillingDetails(billingDetails);
     setIsFormValid(formIsValid);
+    setIsShippingValid(shippingIsValid);
+    setIsBillingValid(billingIsValid);
 
     // updating review btn errors in real-time
     if (formIsValid) {
@@ -496,7 +500,7 @@ const CheckoutPageContent: React.FC = () => {
         setBillingError(false);
       }
     }
-  }, [shippingDetails, billingDetails, email, reviewButtonClicked]);
+  }, [shippingDetails, billingDetails, email]);
 
 
   return (
