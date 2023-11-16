@@ -1187,28 +1187,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                     <div id="shippingButton">
-                       <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
-                         {isReviewed && (
-                           <div id="incompleteError"
-                                className="flex text-sm pr-16 text-custom-red xs:w-1/2">
-                             <button className="underline"
-                                     onClick={handleCancelButtonClick}>
-                               Cancel
-                             </button>
-                           </div>
-                         )}
-                         <div
-                           className={`border-2 rounded font-bold p-4 border-solid
-                           bg-amazon-yellow border-amazon-yellow
-                           ${isReviewed ? '' : 'hidden'}`}
-                         >
-                           <button>PLACE ORDER</button>
-                         </div>
-                       </div>
-                      </div>
                     </div>
-
                     <div id="shippingButton"
                          className=" pt-8 items-center flex mx-auto justify-end">
                       {displayIncompleteMessage && (
@@ -1249,14 +1228,15 @@ const CheckoutPageContent: React.FC = () => {
                               REVIEW ORDER
                             </button>
                           ) : (
-                            <button
+                            <a
+                              href="/confirm"
                               id="placeOrderButton"
                               className={`border-2 rounded font-bold p-4 border-solid
                               ${isReviewed ? 'bg-amazon-yellow border-amazon-yellow' : ''}
                               `}
                             >
                               PLACE ORDER
-                            </button>
+                            </a>
                           )}
                         </div>
                       </div>
@@ -1409,14 +1389,14 @@ const CheckoutPageContent: React.FC = () => {
                       </button>
                     </div>
                   )}
-                  <div
+                  <a
+                    href="/confirm"
                     className={`border-2 rounded font-bold p-4 border-solid
                     bg-amazon-yellow border-amazon-yellow
-                    ${isReviewed ? '' : 'hidden'}
-                    `}
+                    ${isReviewed ? '' : 'hidden'}`}
                   >
-                    <button>PLACE ORDER</button>
-                  </div>
+                    PLACE ORDER
+                  </a>
                 </div>
               </div>
             </div>

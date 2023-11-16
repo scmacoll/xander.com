@@ -184,9 +184,11 @@ const ConfirmPageContent: React.FC = () => {
                 </div>
                 <div id="browsingButtonContainer"
                      className="flex justify-end xs:justify-center">
-                  <button className="border-2 bg-shopify-blue font-bold border-solid hover:border-foreground rounded border-shopify-blue  p-4">
+                  <a href="/"
+                     className="border-2 bg-shopify-blue font-bold border-solid hover:border-foreground rounded border-shopify-blue  p-4"
+                  >
                     CONTINUE BROWSING
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
