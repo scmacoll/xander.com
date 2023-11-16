@@ -83,7 +83,7 @@ const ConfirmPageContent: React.FC = () => {
                   <div className="text-lg font-bold pb-1">Your order is confirmed</div>
                   <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation email
                     has been sent to
-                    stuart.charles.co@gmail.com. Come back to this page for updates on your order status.
+                    <span className="font-bold"> stuart.charles.co@gmail.com.</span> Come back to this page for updates on your order status.
                   </div>
                 </div>
               </div>
@@ -109,21 +109,21 @@ const ConfirmPageContent: React.FC = () => {
                         <div className="w-1/2">
                           <h4 className="font-bold">Shipping Address</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li>Liz Brown</li>
-                            <li>2731 Davis Drive</li>
-                            <li>Markham ON L3P 2M4</li>
-                            <li>Canada</li>
-                            <li>403-561-0873</li>
+                            <li id="shippingFullName">Liz Brown</li>
+                            <li id="shippingAddressLineOne">2731 Davis Drive</li>
+                            <li id="shippingCityZipCode">Markham ON L3P 2M4</li>
+                            <li id="shippingCountry">Canada</li>
+                            <li id="shippingAddressLineTwo">403-561-0873</li>
                           </ul>
                         </div>
                         <div className="w-1/2">
                           <h4 className="font-bold">Billing Address</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li>Liz Brown</li>
-                            <li>2731 Davis Drive</li>
-                            <li>Markham ON L3P 2M4</li>
-                            <li>Canada</li>
-                            <li>403-561-0873</li>
+                            <li id="billingFullName">Liz Brown</li>
+                            <li id="billingAddressLineOne">2731 Davis Drive</li>
+                            <li id="billingCityZipCode">Markham ON L3P 2M4</li>
+                            <li id="billingCountry">Canada</li>
+                            <li id="billingAddressLineTwo">403-561-0873</li>
                           </ul>
                         </div>
                       </div>

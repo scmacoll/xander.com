@@ -307,7 +307,6 @@ const CheckoutPageContent: React.FC = () => {
     }
     setReviewButtonClicked(false);
   };
-
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newZipcodeChange = event.target.value;
 
