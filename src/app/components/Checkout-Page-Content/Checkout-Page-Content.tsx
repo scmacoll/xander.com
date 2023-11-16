@@ -386,6 +386,7 @@ const CheckoutPageContent: React.FC = () => {
         setTimeout(() => {
           setIsReviewing(false);
           setIsReviewed(true);
+          setOrderSummaryHidden(false);
         }, 2000);
       }
       if (billingDetails || isSameAddress) {
@@ -395,6 +396,7 @@ const CheckoutPageContent: React.FC = () => {
         setTimeout(() => {
           setIsReviewing(false);
           setIsReviewed(true);
+          setOrderSummaryHidden(false);
         }, 2000);
       }
     } else {
@@ -1180,33 +1182,30 @@ const CheckoutPageContent: React.FC = () => {
                         </div>
                         <div className="flex items-center">
                           <div ref={bottomRef}
-                               className={`${styles.smoothScroll}
-                     inline-flex text-2xl font-bold`}>
+                               className={`${styles.smoothScroll} inline-flex text-2xl font-bold`}>
                             $135.00
                           </div>
                         </div>
                       </div>
-                      <div id="shippingButton">
-                        <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
-                          {isReviewed && (
-                              <div id="incompleteError"
-                                   className="flex text-sm pr-16 text-custom-red xs:w-1/2">
-                                <button className="underline"
-                                        onClick={handleCancelButtonClick}
-                                >
-                                  Cancel
-                                </button>
-                              </div>
-                          )}
-                          <div
-                              className={`border-2 rounded font-bold p-4 border-solid
-                    bg-amazon-yellow border-amazon-yellow
-                    ${isReviewed ? '' : 'hidden'}
-                    `}
-                          >
-                            <button>PLACE ORDER</button>
-                          </div>
-                        </div>
+                     <div id="shippingButton">
+                       <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
+                         {isReviewed && (
+                           <div id="incompleteError"
+                                className="flex text-sm pr-16 text-custom-red xs:w-1/2">
+                             <button className="underline"
+                                     onClick={handleCancelButtonClick}>
+                               Cancel
+                             </button>
+                           </div>
+                         )}
+                         <div
+                           className={`border-2 rounded font-bold p-4 border-solid
+                           bg-amazon-yellow border-amazon-yellow
+                           ${isReviewed ? '' : 'hidden'}`}
+                         >
+                           <button>PLACE ORDER</button>
+                         </div>
+                       </div>
                       </div>
                     </div>
 
@@ -1280,10 +1279,10 @@ const CheckoutPageContent: React.FC = () => {
             </div>
 
             <div id="orderSummaryBanner"
-                 className={` 
-                 relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
+                 className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
               <div id="orderSummaryLabel">
-                <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
+                <button className={styles.orderSummaryButton}
+                        onClick={toggleOrderSummary}>
                   <div className="fill-foreground pr-2">
                     <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -1312,7 +1311,7 @@ const CheckoutPageContent: React.FC = () => {
                className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
             <div className="pt-6"></div>
             <div
-              className={`${isReviewed ? 'sm:hidden xs:hidden' : ''} ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+              className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
               {/* <boughtItem> */}
               <div id="boughtItem">
