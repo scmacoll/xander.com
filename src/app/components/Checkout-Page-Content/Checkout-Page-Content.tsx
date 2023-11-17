@@ -4,7 +4,6 @@ import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { Country, State, City } from 'country-state-city';
 
-
 const CheckoutPageContent: React.FC = () => {
   const [shippingDetails, setShippingDetails] = useState({
     country: 'AU',
@@ -374,30 +373,29 @@ const CheckoutPageContent: React.FC = () => {
     }, 2000);
   };
 
-  const handleReviewButtonClick = (event) => {
+  // const updateContactDetails = (firstName: string) => {
+  //   setContactDetails({
+  //     shippingDetails: { ...shippingDetails, firstName },
+  //     billingDetails: { ...billingDetails }
+  //   });
+  // };
+  const saveToLocalStorage = () => {
+    localStorage.setItem('firstName', shippingDetails.firstName);
+  };
+  const handleReviewButtonClick = (event: React.MouseEvent) => {
+    event.preventDefault();
     setReviewButtonClicked(true);
 
     if (isFormValid) {
-      if (shippingDetails) {
-        event.preventDefault();
-        setIsReviewing(true);
-        setIsReviewed(false);
-        setTimeout(() => {
-          setIsReviewing(false);
-          setIsReviewed(true);
-          setOrderSummaryHidden(false);
-        }, 2000);
-      }
-      if (billingDetails || isSameAddress) {
-        event.preventDefault();
-        setIsReviewing(true);
-        setIsReviewed(false);
-        setTimeout(() => {
-          setIsReviewing(false);
-          setIsReviewed(true);
-          setOrderSummaryHidden(false);
-        }, 2000);
-      }
+      // updateContactDetails(shippingDetails.firstName)
+      saveToLocalStorage();
+      setIsReviewing(true);
+      setIsReviewed(false);
+      setTimeout(() => {
+        setIsReviewing(false);
+        setIsReviewed(true);
+        setOrderSummaryHidden(false);
+      }, 2000);
     } else {
       handleEmailBlur();
       handleFirstNameBlur(true);
@@ -409,7 +407,6 @@ const CheckoutPageContent: React.FC = () => {
       setShippingError(true);
       setBillingError(true);
     }
-
   };
 
   const handleCancelButtonClick = (event) => {
@@ -1065,8 +1062,8 @@ const CheckoutPageContent: React.FC = () => {
                                  placeholder="First Name"
                                  readOnly={isReviewed}
                                  value={billingDetails.firstName}
-                                 onChange={handleFirstNameChange}
-                                 onBlur={handleFirstNameBlur}
+                                 onChange={(e) => handleFirstNameChange(e, true)}
+                                 onBlur={(e) => handleFirstNameBlur(e, true)}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
                                ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
                                `}

@@ -4,9 +4,18 @@ import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from 'react-router-dom';
 
 
 const ConfirmPageContent: React.FC = () => {
+  const [firstName, setFirstName] = useState('');
+
+  useEffect(() => {
+    const storedFirstName = localStorage.getItem('firstName');
+    if (storedFirstName) {
+      setFirstName(storedFirstName);
+    }
+  }, []);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [numItems, setNumItems] = useState(5);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
@@ -109,7 +118,9 @@ const ConfirmPageContent: React.FC = () => {
                         <div className="w-1/2">
                           <h4 className="font-bold">Shipping Address</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li id="shippingFullName">Liz Brown</li>
+                            <li id="shippingFullName">
+                              {firstName}
+                            </li>
                             <li id="shippingAddressLineOne">2731 Davis Drive</li>
                             <li id="shippingCityZipCode">Markham ON L3P 2M4</li>
                             <li id="shippingCountry">Canada</li>
@@ -119,7 +130,9 @@ const ConfirmPageContent: React.FC = () => {
                         <div className="w-1/2">
                           <h4 className="font-bold">Billing Address</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li id="billingFullName">Liz Brown</li>
+                            <li id="billingFullName">
+
+                            </li>
                             <li id="billingAddressLineOne">2731 Davis Drive</li>
                             <li id="billingCityZipCode">Markham ON L3P 2M4</li>
                             <li id="billingCountry">Canada</li>
