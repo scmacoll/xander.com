@@ -8,13 +8,100 @@ import { useLocation } from 'react-router-dom';
 
 
 const ConfirmPageContent: React.FC = () => {
-  const [firstName, setFirstName] = useState('');
+  const [shippingFirstName, setShippingFirstName] = useState('');
+  const [shippingLastName, setShippingLastName] = useState('');
+  const [shippingCompanyName, setShippingCompanyName] = useState('');
+  const [shippingAddressLineOne, setShippingAddressLineOne] = useState('');
+  const [shippingAddressLineTwo, setShippingAddressLineTwo] = useState('');
+  const [shippingCity, setShippingCity] = useState('');
+  const [shippingState, setShippingState] = useState('');
+  const [shippingCountry, setShippingCountry] = useState('');
+  const [shippingZipcode, setShippingZipcode] = useState('');
+  const [billingFirstName, setBillingFirstName] = useState('');
+  const [billingLastName, setBillingLastName] = useState('');
+  const [billingCompanyName, setBillingCompanyName] = useState('');
+  const [billingAddressLineOne, setBillingAddressLineOne] = useState('');
+  const [billingAddressLineTwo, setBillingAddressLineTwo] = useState('');
+  const [billingCity, setBillingCity] = useState('');
+  const [billingState, setBillingState] = useState('');
+  const [billingCountry, setBillingCountry] = useState('');
+  const [billingZipcode, setBillingZipcode] = useState('');
 
   useEffect(() => {
-    const storedFirstName = localStorage.getItem('firstName');
-    if (storedFirstName) {
-      setFirstName(storedFirstName);
+    const storedShippingFirstName = localStorage.getItem('shippingFirstName');
+    const storedShippingLastName = localStorage.getItem('shippingLastName');
+    const storedShippingCompanyName = localStorage.getItem('shippingCompanyName');
+    const storedShippingAddressLineOne = localStorage.getItem('shippingAddressLineOne');
+    const storedShippingAddressLineTwo = localStorage.getItem('shippingAddressLineTwo');
+    const storedShippingCity = localStorage.getItem('shippingCity');
+    const storedShippingState = localStorage.getItem('shippingState');
+    const storedShippingCountry = localStorage.getItem('shippingCountry');
+    const storedShippingZipcode = localStorage.getItem('shippingZipcode');
+    const storedBillingFirstName = localStorage.getItem('billingFirstName');
+    const storedBillingLastName = localStorage.getItem('billingLastName');
+    const storedBillingCompanyName = localStorage.getItem('billingCompanyName');
+    const storedBillingAddressLineOne = localStorage.getItem('billingAddressLineOne');
+    const storedBillingAddressLineTwo = localStorage.getItem('billingAddressLineTwo');
+    const storedBillingCity = localStorage.getItem('billingCity');
+    const storedBillingState = localStorage.getItem('billingState');
+    const storedBillingCountry = localStorage.getItem('billingCountry');
+    const storedBillingZipcode = localStorage.getItem('billingZipcode');
+
+    if (storedShippingFirstName) {
+      setShippingFirstName(storedShippingFirstName);
     }
+    if (storedShippingLastName) {
+      setShippingLastName(storedShippingLastName);
+    }
+    if (storedShippingCompanyName) {
+      setShippingCompanyName(storedShippingCompanyName);
+    }
+    if (storedShippingAddressLineOne) {
+      setShippingAddressLineOne(storedShippingAddressLineOne);
+    }
+    if (storedShippingAddressLineTwo) {
+      setShippingAddressLineTwo(storedShippingAddressLineTwo);
+    }
+    if (storedShippingCity) {
+      setShippingCity(storedShippingCity);
+    }
+    if (storedShippingState) {
+      setShippingState(storedShippingState);
+    }
+    if (storedShippingCountry) {
+      setShippingCountry(storedShippingCountry);
+    }
+    if (storedShippingZipcode) {
+      setShippingZipcode(storedShippingZipcode);
+    }
+    if (storedBillingFirstName) {
+      setBillingFirstName(storedBillingFirstName);
+    }
+    if (storedBillingLastName) {
+      setBillingLastName(storedBillingLastName);
+    }
+    if (storedBillingCompanyName) {
+      setBillingCompanyName(storedBillingCompanyName);
+    }
+    if (storedBillingAddressLineOne) {
+      setBillingAddressLineOne(storedBillingAddressLineOne);
+    }
+    if (storedBillingAddressLineTwo) {
+      setBillingAddressLineTwo(storedBillingAddressLineTwo);
+    }
+    if (storedBillingCity) {
+      setBillingCity(storedBillingCity);
+    }
+    if (storedBillingState) {
+      setBillingState(storedBillingState);
+    }
+    if (storedBillingCountry) {
+      setBillingCountry(storedBillingCountry);
+    }
+    if (storedBillingZipcode) {
+      setBillingZipcode(storedBillingZipcode);
+    }
+
   }, []);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [numItems, setNumItems] = useState(5);
@@ -117,26 +204,27 @@ const ConfirmPageContent: React.FC = () => {
                       >
                         <div className="w-1/2">
                           <h4 className="font-bold">Shipping Address</h4>
-                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
+                          <ul className="flex border-red w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li id="shippingFullName">
-                              {firstName}
+                              {shippingFirstName} {shippingLastName}
                             </li>
-                            <li id="shippingAddressLineOne">2731 Davis Drive</li>
-                            <li id="shippingCityZipCode">Markham ON L3P 2M4</li>
-                            <li id="shippingCountry">Canada</li>
-                            <li id="shippingAddressLineTwo">403-561-0873</li>
+                            <li id=""></li>
+                            <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>
+                            <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>
+                            <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
+                            <li id="shippingCountry">{shippingCountry}</li>
                           </ul>
                         </div>
                         <div className="w-1/2">
                           <h4 className="font-bold">Billing Address</h4>
-                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
+                          <ul className="flex flex-col border-red w-5/6 gap-1 text-gray-400 text-sm pt-2">
                             <li id="billingFullName">
-
+                              {billingFirstName} {billingLastName}
                             </li>
-                            <li id="billingAddressLineOne">2731 Davis Drive</li>
-                            <li id="billingCityZipCode">Markham ON L3P 2M4</li>
-                            <li id="billingCountry">Canada</li>
-                            <li id="billingAddressLineTwo">403-561-0873</li>
+                            <li id="billingAddressLineOne">{billingAddressLineOne}</li>
+                            <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>
+                            <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>
+                            <li id="billingCountry">{billingCountry}</li>
                           </ul>
                         </div>
                       </div>

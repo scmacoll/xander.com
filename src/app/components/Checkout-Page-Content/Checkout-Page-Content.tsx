@@ -380,8 +380,25 @@ const CheckoutPageContent: React.FC = () => {
   //   });
   // };
   const saveToLocalStorage = () => {
-    localStorage.setItem('firstName', shippingDetails.firstName);
-  };
+    localStorage.setItem('shippingFirstName', shippingDetails.firstName);
+    localStorage.setItem('shippingLastName', shippingDetails.lastName);
+    localStorage.setItem('shippingCompanyName', shippingDetails.companyName);
+    localStorage.setItem('shippingAddressLineOne', shippingDetails.addressLineOne);
+    localStorage.setItem('shippingAddressLineTwo', shippingDetails.addressLineTwo);
+    localStorage.setItem('shippingCity', shippingDetails.city);
+    localStorage.setItem('shippingState', shippingDetails.state);
+    localStorage.setItem('shippingCountry', shippingDetails.country);
+    localStorage.setItem('shippingZipcode', shippingDetails.zipcode);
+    localStorage.setItem('billingFirstName', billingDetails.firstName);
+    localStorage.setItem('billingLastName', billingDetails.lastName);
+    localStorage.setItem('billingCompanyName', billingDetails.companyName);
+    localStorage.setItem('billingAddressLineOne', billingDetails.addressLineOne);
+    localStorage.setItem('billingAddressLineTwo', billingDetails.addressLineTwo);
+    localStorage.setItem('billingCity', billingDetails.city);
+    localStorage.setItem('billingState', billingDetails.state);
+    localStorage.setItem('billingCountry', billingDetails.country);
+    localStorage.setItem('billingZipcode', billingDetails.zipcode);
+  }
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
