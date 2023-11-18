@@ -380,6 +380,7 @@ const CheckoutPageContent: React.FC = () => {
   //   });
   // };
   const saveToLocalStorage = () => {
+    localStorage.setItem('email', email);
     localStorage.setItem('shippingFirstName', shippingDetails.firstName);
     localStorage.setItem('shippingLastName', shippingDetails.lastName);
     localStorage.setItem('shippingCompanyName', shippingDetails.companyName);

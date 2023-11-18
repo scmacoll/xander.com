@@ -4,10 +4,10 @@ import Image from "next/image";
 import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { useLocation } from 'react-router-dom';
 
 
 const ConfirmPageContent: React.FC = () => {
+  const [email, setEmail] = useState('');
   const [shippingFirstName, setShippingFirstName] = useState('');
   const [shippingLastName, setShippingLastName] = useState('');
   const [shippingCompanyName, setShippingCompanyName] = useState('');
@@ -28,6 +28,7 @@ const ConfirmPageContent: React.FC = () => {
   const [billingZipcode, setBillingZipcode] = useState('');
 
   useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
     const storedShippingFirstName = localStorage.getItem('shippingFirstName');
     const storedShippingLastName = localStorage.getItem('shippingLastName');
     const storedShippingCompanyName = localStorage.getItem('shippingCompanyName');
@@ -47,6 +48,9 @@ const ConfirmPageContent: React.FC = () => {
     const storedBillingCountry = localStorage.getItem('billingCountry');
     const storedBillingZipcode = localStorage.getItem('billingZipcode');
 
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
     if (storedShippingFirstName) {
       setShippingFirstName(storedShippingFirstName);
     }
@@ -167,7 +171,7 @@ const ConfirmPageContent: React.FC = () => {
                     <p>Order #1494</p>
                   </div>
                   <div className="font-bold text-lg">
-                    <h4>Thank you Stuart!</h4>
+                    <h4>Thank you {shippingFirstName}!</h4>
                   </div>
                 </div>
               </div>
@@ -179,7 +183,7 @@ const ConfirmPageContent: React.FC = () => {
                   <div className="text-lg font-bold pb-1">Your order is confirmed</div>
                   <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation email
                     has been sent to
-                    <span className="font-bold"> stuart.charles.co@gmail.com.</span> Come back to this page for updates on your order status.
+                    <span className="font-bold"> {email}</span> Come back to this page for updates on your order status.
                   </div>
                 </div>
               </div>
@@ -204,11 +208,11 @@ const ConfirmPageContent: React.FC = () => {
                       >
                         <div className="w-1/2">
                           <h4 className="font-bold">Shipping Address</h4>
-                          <ul className="flex border-red w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">
+                          <ul className="flex w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li id="shippingFullName">
                               {shippingFirstName} {shippingLastName}
                             </li>
-                            <li id=""></li>
+                            <li id="">{shippingCompanyName}</li>
                             <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>
                             <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>
                             <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
@@ -217,10 +221,11 @@ const ConfirmPageContent: React.FC = () => {
                         </div>
                         <div className="w-1/2">
                           <h4 className="font-bold">Billing Address</h4>
-                          <ul className="flex flex-col border-red w-5/6 gap-1 text-gray-400 text-sm pt-2">
+                          <ul className="flex flex-col  w-5/6 gap-1 text-gray-400 text-sm pt-2">
                             <li id="billingFullName">
                               {billingFirstName} {billingLastName}
                             </li>
+                            <li id="">{billingCompanyName}</li>
                             <li id="billingAddressLineOne">{billingAddressLineOne}</li>
                             <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>
                             <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>
@@ -234,7 +239,7 @@ const ConfirmPageContent: React.FC = () => {
                         <div className="w-1/2 pt-4">
                           <h4 className="font-bold">Shipping method</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li>Expedited Parcel</li>
+                            <li>Standard Delivery</li>
                           </ul>
                         </div>
                         <div className="w-1/2 pt-4">
