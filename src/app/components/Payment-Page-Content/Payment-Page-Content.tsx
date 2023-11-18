@@ -545,7 +545,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="py-12">
+          <div className="pt-12 pb-6">
             <div className="border border-solid border-foreground">
               <div className="flex flex-col p-4">
                 <div className="flex justify-between text-sm">
@@ -598,7 +598,7 @@ const PaymentPageContent: React.FC = () => {
           </div>
 
           <div className="pb-4">
-            <div className="border border-solid border-foreground">
+            <div>
               <div className="px-4 py-2">
                 <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
                   <div className="fill-white pr-1">
@@ -612,8 +612,9 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
+          {/*! hidden*/}
           <div id="checkoutExpressContainer"
-               className="flex flex-col pt-8 pb-6">
+               className="hidden flex flex-col pt-8 pb-6">
             <div
               id="checkoutExpressButtonsWrapper"
               className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
@@ -844,7 +845,8 @@ const PaymentPageContent: React.FC = () => {
               </div>
             </div>
           </div>
-          <div id="contactContainer">
+          {/*! hidden*/}
+          <div id="contactContainer" className="hidden">
             <div
               className="mx-auto flex h-full w-full flex-col border-b border-solid py-2 xl:pt-8 lg:pt-8 md:pt-8 sm:pt-4 xs:pt-4 pb-14 border-foreground">
               <div id="contactWrapper"
@@ -1485,8 +1487,9 @@ const PaymentPageContent: React.FC = () => {
           </div>
         </div>
       </div>
+      <div className="pb-4"></div>
       <div id="checkoutFooter"
-           className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
+           className="border-t border-solid border-foreground bottom-0 flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
         <div className="pr-4 cursor-pointer">Refund Policy</div>
         <div className="pr-4 cursor-pointer">Privacy Policy</div>
         <div className="pr-4 cursor-pointer">Terms of Service</div>
