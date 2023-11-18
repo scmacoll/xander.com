@@ -549,25 +549,29 @@ const PaymentPageContent: React.FC = () => {
             <div className="border border-solid border-foreground">
               <div className="flex flex-col p-4">
                 <div className="flex justify-between text-sm">
-                  <div className="flex text-gray-400">Contact</div>
-                  <div className="flex w-2/3">bobby@gmail.com</div>
+                  <div className="flex xs:flex-col">
+                    <div className="flex text-gray-400 w-20 pb-2">Contact</div>
+                    <div className="pr-8">bobby@gmail.com</div>
+                  </div>
                   <div className="flex font-bold cursor-pointer">Change</div>
                 </div>
                 <div>
-                  <div className="pt-4"></div>
+                  <div className="pt-2 xs:pt-4"></div>
                   <div className="border-solid border-b border-foreground"></div>
                   <div className="pb-4"></div>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <div className="flex text-gray-400">Ship to</div>
-                  <div className="flex w-2/3">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia</div>
+                  <div className="flex xs:flex-col">
+                    <div className="text-gray-400 w-20 pb-2">Ship to</div>
+                    <div className="pr-8">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia</div>
+                  </div>
                   <div className="flex font-bold cursor-pointer">Change</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div>
+          <div className="pb-4">
             <div className="flex w-1/2 pb-4 text-xl font-bold">
               Shipping method
             </div>
@@ -584,7 +588,29 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
+          <div className="pb-4">
+            <button id="reviewOrderButton"
+                    className={`border-2 rounded w-full font-bold p-3 border-solid border-foreground hover:border-shopify-blue bg-shopify-blue`}
+                    type="button"
+            >
+              CONTINUE TO PAYMENT
+            </button>
+          </div>
 
+          <div className="pb-4">
+            <div className="border border-solid border-foreground">
+              <div className="px-4 py-2">
+                <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
+                  <div className="fill-white pr-1">
+                    <svg className="-rotate-90" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                  </svg>
+                  </div>
+                  <div className="flex">Return to information</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div id="checkoutExpressContainer"
                className="flex flex-col pt-8 pb-6">
@@ -1276,7 +1302,7 @@ const PaymentPageContent: React.FC = () => {
                             <button id="reviewOrderButton"
                                     className={`border-2 rounded font-bold p-4 border-solid
                               ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default'
-                                      : 'hover:border-foreground border-shopify-blue bg-shopify-blue'}
+                                      : 'border-foreground hover:border-shopify-blue bg-shopify-blue'}
                               `}
                                     type="button"
                                     onClick={!isReviewing ? handleReviewButtonClick : undefined}

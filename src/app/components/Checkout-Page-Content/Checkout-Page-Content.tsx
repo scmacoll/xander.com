@@ -806,7 +806,7 @@ const CheckoutPageContent: React.FC = () => {
                       />
                       {emailError && (
                         <span
-                          className="absolute z-10 inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
+                          className="absolute z-10 inset-y-0 right-0 pr-4 flex items-center text-sm text-custom-red bg-transparent"
                         >
                       {emailError}
                     </span>
@@ -1215,7 +1215,7 @@ const CheckoutPageContent: React.FC = () => {
                       {isReviewed && (
                         <div id="incompleteError"
                              className="flex text-sm pr-16 text-custom-red xs:w-1/2">
-                          <button className="underline"
+                          <button className="hover:underline no-underline"
                                   onClick={handleCancelButtonClick}
                           >
                             Cancel
@@ -1234,7 +1234,7 @@ const CheckoutPageContent: React.FC = () => {
                             <button id="reviewOrderButton"
                                     className={`border-2 rounded font-bold p-4 border-solid
                               ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default'
-                                      : 'hover:border-foreground border-shopify-blue bg-shopify-blue'}
+                                      : 'border-foreground hover:border-shopify-blue bg-shopify-blue'}
                               `}
                                     type="button"
                                     onClick={!isReviewing ? handleReviewButtonClick : undefined}
@@ -1396,7 +1396,7 @@ const CheckoutPageContent: React.FC = () => {
                   {isReviewed && (
                     <div id="incompleteError"
                          className="flex text-sm pr-16 text-custom-red xs:w-1/2">
-                      <button className="underline"
+                      <button className="hover:underline no-underline"
                               onClick={handleCancelButtonClick}
                       >
                         Cancel
