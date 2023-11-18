@@ -566,8 +566,24 @@ const PaymentPageContent: React.FC = () => {
               </div>
             </div>
           </div>
-          
-          
+
+          <div>
+            <div className="flex w-1/2 pb-4 text-xl font-bold">
+              Shipping method
+            </div>
+            <div className="border border-solid border-foreground">
+              <div className="p-4">
+                <div className="flex justify-between items-center text-sm">
+                  <div className="flex text-gray-400 pr-2">o</div>
+                  <div className="flex flex-1">Standard Shipping (5-14 business days)</div>
+                  <div className="flex font-bold cursor-pointer">Free</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
           <div id="checkoutExpressContainer"
                className="flex flex-col pt-8 pb-6">
             <div
