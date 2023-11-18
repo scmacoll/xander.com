@@ -427,7 +427,7 @@ const CheckoutPageContent: React.FC = () => {
     }
   };
 
-  const handleCancelButtonClick = (event) => {
+  const handleCancelButtonClick = () => {
     setIsReviewed(false);
   };
 
@@ -1080,8 +1080,8 @@ const CheckoutPageContent: React.FC = () => {
                                  placeholder="First Name"
                                  readOnly={isReviewed}
                                  value={billingDetails.firstName}
-                                 onChange={(e) => handleFirstNameChange(e, true)}
-                                 onBlur={(e) => handleFirstNameBlur(e, true)}
+                                 onChange={handleFirstNameChange}
+                                 onBlur={handleFirstNameBlur}
                                  className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
                                ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
                                `}
@@ -1343,7 +1343,7 @@ const CheckoutPageContent: React.FC = () => {
                     placeholder="Gift card or discount code"
                     value={discountCode}
                     onChange={handleDiscountCodeChange}
-                    maxLength="16"
+                    maxLength={16}
                     className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                   />
                   {displayInvalidCodeMessage && (
