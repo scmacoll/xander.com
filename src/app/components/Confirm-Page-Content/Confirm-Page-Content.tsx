@@ -204,35 +204,75 @@ const ConfirmPageContent: React.FC = () => {
                     {/*TODO*/}
                     <div id="customerInformationLists">
                       <div id="addressLists"
-                           className="flex"
+                           className="flex flex-col"
                       >
-                        <div className="w-1/2">
-                          <h4 className="font-bold">Shipping Address</h4>
-                          <ul className="flex w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li id="shippingFullName">
-                              {shippingFirstName} {shippingLastName}
-                            </li>
-                            <li id="">{shippingCompanyName}</li>
-                            <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>
-                            <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>
-                            <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
-                            <li id="shippingCountry">{shippingCountry}</li>
-                          </ul>
-                        </div>
-                        <div className="w-1/2">
-                          <h4 className="font-bold">Billing Address</h4>
-                          <ul className="flex flex-col  w-5/6 gap-1 text-gray-400 text-sm pt-2">
-                            <li id="billingFullName">
-                              {billingFirstName} {billingLastName}
-                            </li>
-                            <li id="">{billingCompanyName}</li>
-                            <li id="billingAddressLineOne">{billingAddressLineOne}</li>
-                            <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>
-                            <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>
-                            <li id="billingCountry">{billingCountry}</li>
+                          <div className="flex flex-row">
+                            <h4 className="flex w-1/2 pr-10 font-bold">Shipping Address</h4>
+                            <h4 className="flex w-1/2 pr-10 font-bold">Billing Address</h4>
+                          </div>
+                        <div className="">
+                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="shippingFullName">
+                                {shippingFirstName} {shippingLastName}
+                              </li>
+                              <li className="flex w-1/2 pr-10" id="billingFullName">
+                                {billingFirstName} {billingLastName}
+                              </li>
+                            </div>
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="shippingCompanyName">{shippingCompanyName}</li>
+                              <li className="flex w-1/2 pr-10" id="billingCompanyName">{billingCompanyName}</li>
+                            </div>
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="shippingAddressLineOne">{shippingAddressLineOne}</li>
+                              <li className="flex w-1/2 pr-10" id="billingAddressLineOne">{billingAddressLineOne}</li>
+                            </div>
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>
+                              <li className="flex w-1/2 pr-10" id="billingAddressLineTwo">{billingAddressLineTwo}</li>
+                            </div>
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="billingCityStateZipcode">{billingCity} {billingState} {billingZipcode}</li>
+                              <li className="flex w-1/2 pr-10" id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
+                            </div>
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="shippingCountry">{shippingCountry}</li>
+                              <li className="flex w-1/2 pr-10" id="billingCountry">{billingCountry}</li>
+                            </div>
                           </ul>
                         </div>
                       </div>
+                      {/*<div id="addressLists"*/}
+                      {/*     className="flex"*/}
+                      {/*>*/}
+                      {/*  <div className="w-1/2">*/}
+                      {/*    <h4 className="font-bold">Shipping Address</h4>*/}
+                      {/*    <ul className="flex w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">*/}
+                      {/*      <li id="shippingFullName">*/}
+                      {/*        {shippingFirstName} {shippingLastName}*/}
+                      {/*      </li>*/}
+                      {/*      <li id="shippingCompanyName">{shippingCompanyName}</li>*/}
+                      {/*      <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>*/}
+                      {/*      <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>*/}
+                      {/*      <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>*/}
+                      {/*      <li id="shippingCountry">{shippingCountry}</li>*/}
+                      {/*    </ul>*/}
+                      {/*  </div>*/}
+                      {/*  <div className="w-1/2">*/}
+                      {/*    <h4 className="font-bold">Billing Address</h4>*/}
+                      {/*    <ul className="flex flex-col  w-5/6 gap-1 text-gray-400 text-sm pt-2">*/}
+                      {/*      <li id="billingFullName">*/}
+                      {/*        {billingFirstName} {billingLastName}*/}
+                      {/*      </li>*/}
+                      {/*      <li id="">{billingCompanyName}</li>*/}
+                      {/*      <li id="billingAddressLineOne">{billingAddressLineOne}</li>*/}
+                      {/*      <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>*/}
+                      {/*      <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>*/}
+                      {/*      <li id="billingCountry">{billingCountry}</li>*/}
+                      {/*    </ul>*/}
+                      {/*  </div>*/}
+                      {/*</div>*/}
                       <div id="methodLists"
                            className="flex"
                       >
