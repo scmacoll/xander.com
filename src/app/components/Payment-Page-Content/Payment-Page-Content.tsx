@@ -780,7 +780,21 @@ const PaymentPageContent: React.FC = () => {
 
           <div className="py-5"></div>
 
-          <div className="border-white"></div>
+          <div id="finePrintContainer"
+            className="text-sm">
+            <div>
+              <div>
+                Foreign transaction fees may apply.
+              </div>
+              <div>
+                Please check with your financial institution.
+              </div>
+            </div>
+            <div className="py-2"></div>
+            <div>
+              By placing this order, you agree to our <span className="cursor-pointer underline text-link-blue font-bold">Terms of Service</span> and understand our <span className="cursor-pointer underline text-link-blue font-bold">Privacy Policy</span>.
+            </div>
+          </div>
 
           {/*/!*! hidden*!/*/}
           {/*<div id="checkoutExpressContainer"*/}
