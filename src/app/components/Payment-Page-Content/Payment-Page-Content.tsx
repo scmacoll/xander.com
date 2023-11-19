@@ -593,7 +593,7 @@ const PaymentPageContent: React.FC = () => {
               className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
               <div className="pb-4">
                 <button id="reviewOrderButton"
-                        className={`border-2 rounded w-full font-bold p-3 border-solid border-foreground hover:border-shopify-blue bg-shopify-blue`}
+                        className={`border-2 rounded w-full font-bold p-3 border-solid border-foreground hover:bg-transparent bg-shopify-blue transition duration-200`}
                         type="button"
                 >
                   CONTINUE TO PAYMENT
@@ -616,6 +616,7 @@ const PaymentPageContent: React.FC = () => {
                 </div>
               </div>
             </div>
+
           </div>
 
           <div className={`${isReviewed? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
@@ -638,7 +639,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
             <div
               className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer  hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
               onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
             >
@@ -652,10 +653,10 @@ const PaymentPageContent: React.FC = () => {
 
           <div id="paymentContainer" className="">
             <div className="pb-6">
-              <div className="w-1/2 pb-4 text-xl font-bold">
+              <div className="w-1/2 text-xl font-bold">
                 Payment
               </div>
-              <div>
+              <div className="text-sm">
                 All transactions are secured and encrypted.
               </div>
             </div>
@@ -712,6 +713,74 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
+          <div className="py-5"></div>
+
+          <div>
+            <div className="pb-6">
+              <div className="w-1/2 text-xl font-bold">
+                Billing Address
+              </div>
+              <div className="text-sm">
+                Select the address that matches your card or payment method.
+              </div>
+            </div>
+            <div className="border border-solid border-foreground">
+              <div className="flex flex-col">
+                <div className="flex text-sm">
+                  <div className="flex items-center p-4">
+                    <div className="pr-2">
+                      <input type="radio" className="form-radio accent-gray-600" checked/>
+                    </div>
+                    <div className="">Same as shipping address</div>
+                  </div>
+                </div>
+                <div className="border-b border-solid border-foreground">
+                </div>
+                <div className="flex justify-between text-sm">
+                  <div className="flex p-4">
+                    <div className="pr-2">
+                      <input type="radio" className="form-radio accent-gray-600"/>
+                    </div>
+                    <div className="">Use a different billing address</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="py-3"></div>
+
+          <div
+            className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
+            <div className="pb-4">
+              <button id="reviewOrderButton"
+                      className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-foreground hover:bg-transparent bg-shopify-blue transition duration-200`}
+                      type="button"
+              >
+                PAY NOW
+              </button>
+            </div>
+
+            <div className="pb-4">
+              <div>
+                <div className="sm:px-4 xs:px-4 py-2">
+                  <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
+                    <div className="fill-white pr-1">
+                      <svg className="-rotate-90" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                      </svg>
+                    </div>
+                    <div className="flex">Return to shipping</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="py-5"></div>
+
+          <div className="border-white"></div>
 
           {/*/!*! hidden*!/*/}
           {/*<div id="checkoutExpressContainer"*/}
@@ -1538,7 +1607,7 @@ const PaymentPageContent: React.FC = () => {
                 </div>
                 <div
                   className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
                   onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                 >
