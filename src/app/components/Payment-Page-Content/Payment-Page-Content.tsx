@@ -593,7 +593,7 @@ const PaymentPageContent: React.FC = () => {
               className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
               <div className="pb-4">
                 <button id="reviewOrderButton"
-                        className={`border-2 rounded w-full font-bold p-3 border-solid border-foreground hover:bg-transparent bg-shopify-blue transition duration-200`}
+                        className={`border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
                         type="button"
                 >
                   CONTINUE TO PAYMENT
@@ -638,8 +638,8 @@ const PaymentPageContent: React.FC = () => {
               )}
             </div>
             <div
-              className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer  hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+              className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
               onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
             >
@@ -754,7 +754,7 @@ const PaymentPageContent: React.FC = () => {
             className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
             <div className="pb-4">
               <button id="reviewOrderButton"
-                      className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-foreground hover:bg-transparent bg-shopify-blue transition duration-200`}
+                      className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
                       type="button"
               >
                 PAY NOW
@@ -1620,8 +1620,8 @@ const PaymentPageContent: React.FC = () => {
                   )}
                 </div>
                 <div
-                  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
                   onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                 >
