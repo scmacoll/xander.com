@@ -529,13 +529,13 @@ const PaymentPageContent: React.FC = () => {
 
 
   return (
-    <div className="mx-auto flex border-green h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+    <div className="mx-auto flex h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div id="pageContainer"
-           className={`${styles.pageContainer} border-yellow pb-16 h-screen
+           className={`${styles.pageContainer} pb-16 h-screen
            mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
       >
         <div id="leftContentWrapper"
-             className="flex border-red h-full flex-col sm:w-full md:w-51.5% lg:w-51.5%">
+             className="flex h-full flex-col sm:w-full md:w-51.5% lg:w-51.5%">
           <div id="checkoutTitle"
                className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
             <div className="flex pb-1">
@@ -545,7 +545,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-8 pb-6">
+          <div className="pt-8 pb-10">
             <div className="border border-solid border-foreground">
               <div className="flex flex-col p-4">
                 <div className="flex justify-between text-sm">
@@ -571,7 +571,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="pb-4">
+          <div className="pb-6">
             <div className="flex w-1/2 pb-4 text-xl font-bold">
               Shipping method
             </div>
@@ -588,7 +588,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-row-reverse sm:flex-col xs:flex-col xl:items-center lg:items-center md:items-center md:justify-between lg:justify-between xl:justify-between">
+          <div className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
             <div className="pb-4">
               <button id="reviewOrderButton"
                       className={`border-2 rounded w-full font-bold p-3 border-solid border-foreground hover:border-shopify-blue bg-shopify-blue`}
@@ -1338,7 +1338,7 @@ const PaymentPageContent: React.FC = () => {
 
           <div className="pb-4"></div>
           <div id="checkoutFooter"
-               className="border-purple h-full items-end flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto">
+               className="xl:h-full lg:h-full md:h-full xl:items-end lg:items-end md:items-end flex justify-start w-full sm:pt-16 xs:pt-6 py-3 text-xs font-bold text-gray-500 mx-auto">
             <div className="flex border-t border-solid border-foreground pt-3 w-full">
               <div className="pr-4 cursor-pointer">Refund Policy</div>
               <div className="pr-4 cursor-pointer">Privacy Policy</div>
