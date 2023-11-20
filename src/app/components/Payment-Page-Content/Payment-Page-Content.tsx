@@ -916,7 +916,7 @@ const PaymentPageContent: React.FC = () => {
           </div>
 
           <div id="borderSummary"
-               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
+               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} ${isContinuedToPayment ? 'hidden' : ''} pr-4 `}>
             <div className="pt-6"></div>
             <div
               className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
