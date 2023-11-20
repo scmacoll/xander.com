@@ -638,7 +638,7 @@ const PaymentPageContent: React.FC = () => {
               )}
             </div>
             <div
-              className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+              className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
               onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
