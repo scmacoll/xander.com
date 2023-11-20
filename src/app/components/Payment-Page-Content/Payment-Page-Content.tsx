@@ -551,7 +551,7 @@ const PaymentPageContent: React.FC = () => {
         <div id="leftContentWrapper"
              className="flex h-full flex-col sm:w-full md:w-51.5% lg:w-51.5%">
           <div id="checkoutTitle"
-               className={`xs:hidden sm:hidden pt-1 md:block lg:block xl:block`}>
+               className={`${isContinuedToPayment ? 'block' : 'xs:hidden sm:hidden'} pt-1 md:block lg:block xl:block`}>
             <div className="flex pb-1">
               <h1 className="py-3 text-3xl">
                 <a href="/">Xandria</a>
@@ -586,7 +586,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className={` ${isContinuedToPayment ? 'hidden' : ''} border-blue`}>
+          <div className={` ${isContinuedToPayment ? 'hidden' : ''} border-blue `}>
             <div id="shippingReturnContinueContainer">
               <div className="pb-6">
                 <div className="flex w-1/2 pb-4 text-xl font-bold">
@@ -610,13 +610,13 @@ const PaymentPageContent: React.FC = () => {
                 <div className="pb-4">
                   <div id="reviewOrderButton"
                           onClick={handleContinueToPaymentButtonClick}
-                          className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''} border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
+                          className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''}border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
                           type="button"
                   >
                     {isNavigating ? (
                       <button className={styles.loader}></button>
                     ) : (
-                      <button>CONTINUE TO PAYMENT</button>
+                      <button className="flex mx-auto">CONTINUE TO PAYMENT</button>
                     )}
                   </div>
                 </div>
@@ -641,7 +641,7 @@ const PaymentPageContent: React.FC = () => {
 
           </div>
 
-          <div className={`${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} transition-opacity duration-1000`}>
+          <div className={`${!isContinuedToPayment ? 'hidden' : ''} border-purple`}>
             <div
               className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
               <div className="relative inline-flex flex-grow">
@@ -847,155 +847,158 @@ const PaymentPageContent: React.FC = () => {
 
         <div id="rightContentWrapper"
              className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
-          <div id="checkoutTitle"
-               className="pt-1 xs:block sm:block md:hidden lg:hidden">
-            <div className="flex pb-1">
-              <h1 className="py-3 text-3xl">
-                <a href="/">Xandria</a>
-              </h1>
-            </div>
-
-
-            <div id="orderSummaryBanner"
-                 className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
-              <div id="orderSummaryLabel">
-                <button className={styles.orderSummaryButton}
-                        onClick={toggleOrderSummary}>
-                  <div className="fill-foreground pr-2">
-                    <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
-                    </svg>
-                  </div>
-                  <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
-                    <p>Show Order Summary</p>
-                  </div>
-                  <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
-                    <p>Hide Order Summary</p>
-                  </div>
-                  <div id="summaryArrowButton"
-                       className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
-                    <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                    </svg>
-                  </div>
-                </button>
+          <div className="border-yellow">
+            <div id="checkoutTitle"
+                 className="pt-1  xs:block sm:block md:hidden lg:hidden">
+              <div className="flex pb-1">
+                <h1 className="py-3 text-3xl">
+                  <a href="/">Xandria</a>
+                </h1>
               </div>
-              <div className="font-bold text-lg">$135.00</div>
-            </div>
-          </div>
-          {/*TODO: Border Summary in left container*/}
-          <div id="borderSummary"
-               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
-            <div className="pt-6"></div>
-            <div
-              className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
-              {/* <boughtItem> */}
-              <div id="boughtItem">
-                <div id="boughtItemContainer"
-                     className="mx-auto flex w-full items-center justify-between">
-                  <div className="flex h-full items-center flex-start">
-                    <div className="inline-flex h-full pr-3">
-                      <Image
-                        src={masterandemissarry.src}
-                        alt="yuko"
-                        width="60"
-                        height="60"
-                      />
+
+              <div id="orderSummaryBanner"
+                   className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
+                <div id="orderSummaryLabel">
+                  <button className={styles.orderSummaryButton}
+                          onClick={toggleOrderSummary}>
+                    <div className="fill-foreground pr-2">
+                      <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
+                      </svg>
                     </div>
-                    <div
-                      className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                      <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                        Sole)
+                    <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                      <p>Show Order Summary</p>
+                    </div>
+                    <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
+                      <p>Hide Order Summary</p>
+                    </div>
+                    <div id="summaryArrowButton"
+                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                      <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                      </svg>
+                    </div>
+                  </button>
+                </div>
+                <div className="font-bold text-lg">$135.00</div>
+              </div>
+            </div>
+
+            <div id="borderSummary"
+                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
+              <div className="pt-6"></div>
+              <div
+                className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+
+                {/* <boughtItem> */}
+                <div id="boughtItem">
+                  <div id="boughtItemContainer"
+                       className="mx-auto flex w-full items-center justify-between">
+                    <div className="flex h-full items-center flex-start">
+                      <div className="inline-flex h-full pr-3">
+                        <Image
+                          src={masterandemissarry.src}
+                          alt="yuko"
+                          width="60"
+                          height="60"
+                        />
                       </div>
-                      <div className="flex font-light">13</div>
+                      <div
+                        className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                        <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                          Sole)
+                        </div>
+                        <div className="flex font-light">13</div>
+                      </div>
                     </div>
+                    <div className="inline-flex text-sm flex-end">$135.00</div>
                   </div>
-                  <div className="inline-flex text-sm flex-end">$135.00</div>
+                  <div id="borderGap" className="py-6 pb-6">
+                    <div className="border-b border-solid border-foreground"></div>
+                  </div>
                 </div>
-                <div id="borderGap" className="py-6 pb-6">
-                  <div className="border-b border-solid border-foreground"></div>
-                </div>
-              </div>
-              {/* <boughtItem /> */}
+                {/* <boughtItem /> */}
 
-              <div className={`${isReviewed? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
-                <div className="relative inline-flex flex-grow">
-                  <input
-                    type="text"
-                    placeholder="Gift card or discount code"
-                    value={discountCode}
-                    onChange={handleDiscountCodeChange}
-                    maxLength={16}
-                    className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-                  />
-                  {displayInvalidCodeMessage && (
-                    <span
-                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
-                    >
+                <div
+                  className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
+                  <div className="relative inline-flex flex-grow">
+                    <input
+                      type="text"
+                      placeholder="Gift card or discount code"
+                      value={discountCode}
+                      onChange={handleDiscountCodeChange}
+                      maxLength={16}
+                      className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                    />
+                    {displayInvalidCodeMessage && (
+                      <span
+                        className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
+                      >
                       Invalid code
                     </span>
-                  )}
-                </div>
-                <div
-                  className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                    )}
+                  </div>
+                  <div
+                    className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
-                  onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
-                >
-                  {isLoading ? (
-                    <button className={styles.loader}></button>
-                  ) : (
-                    <button disabled={!isCodeValid}>APPLY</button>
-                  )}
+                    onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
+                  >
+                    {isLoading ? (
+                      <button className={styles.loader}></button>
+                    ) : (
+                      <button disabled={!isCodeValid}>APPLY</button>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
+                <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
               flex flex-col border-solid border-foreground`}>
-                <div className="flex justify-between pb-4">
-                  <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                  <div className="inline-flex text-sm flex-end font-bold">$135.00
-                  </div>
-                </div>
-                <div className="flex justify-between">
-                  <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-                  <div className="inline-flex text-xs font-medium flex-end">Free</div>
-                </div>
-              </div>
-              <div className="flex justify-between pt-6">
-                <div className="flex">
-                  <div className="text-lg font-medium">Total</div>
-                </div>
-                <div className="flex items-center">
-                  <div ref={bottomRef}
-                       className={`${styles.smoothScroll}
-                     inline-flex text-2xl font-bold`}>
-                    $135.00
-                  </div>
-                </div>
-              </div>
-              <div id="shippingButton">
-                <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
-                  {isReviewed && (
-                    <div id="incompleteError"
-                         className="flex text-sm pr-16 text-custom-red xs:w-1/2">
-                      <button className="underline"
-                              onClick={handleCancelButtonClick}
-                      >
-                        Cancel
-                      </button>
+                  <div className="flex justify-between pb-4">
+                    <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+                    <div className="inline-flex text-sm flex-end font-bold">$135.00
                     </div>
-                  )}
-                  <a
-                    href="/confirm"
-                    className={`border-2 rounded font-bold p-4 border-solid
+                  </div>
+                  <div className="flex justify-between">
+                    <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                    <div className="inline-flex text-xs font-medium flex-end">Free</div>
+                  </div>
+                </div>
+                <div className="flex justify-between pt-6">
+                  <div className="flex">
+                    <div className="text-lg font-medium">Total</div>
+                  </div>
+                  <div className="flex items-center">
+                    <div ref={bottomRef}
+                         className={`${styles.smoothScroll}
+                     inline-flex text-2xl font-bold`}>
+                      $135.00
+                    </div>
+                  </div>
+                </div>
+                <div id="shippingButton">
+                  <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
+                    {isReviewed && (
+                      <div id="incompleteError"
+                           className="flex text-sm pr-16 text-custom-red xs:w-1/2">
+                        <button className="underline"
+                                onClick={handleCancelButtonClick}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    )}
+                    <a
+                      href="/confirm"
+                      className={`border-2 rounded font-bold p-4 border-solid
                     bg-amazon-yellow border-amazon-yellow
                     ${isReviewed ? '' : 'hidden'}`}
-                  >
-                    PLACE ORDER
-                  </a>
+                    >
+                      PLACE ORDER
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
