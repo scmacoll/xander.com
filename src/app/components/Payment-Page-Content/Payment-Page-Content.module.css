@@ -51,6 +51,7 @@
 }
 
 .loader {
+  cursor: default;
   border: 3px solid rgb(var(--foreground-rgb)); /* Light gray border */
   border-top: 3px solid transparent; /* Blue border */
   border-radius: 50%;
