@@ -1355,8 +1355,8 @@ const CheckoutPageContent: React.FC = () => {
                   )}
                 </div>
                 <div
-                  className={`inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-foreground
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer border-foreground' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
                   `}
                   onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                 >
