@@ -5,6 +5,8 @@ import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { Country, State, City } from 'country-state-city';
 
 const PaymentPageContent: React.FC = () => {
+  const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
+
   const [shippingDetails, setShippingDetails] = useState({
     country: 'AU',
     firstName: '',
@@ -373,6 +375,11 @@ const PaymentPageContent: React.FC = () => {
     }, 2000);
   };
 
+  const handleContinueToPaymentButtonClick = useCallback(() => {
+    setIsContinuedToPayment(prevState => !prevState);
+  }, []);
+
+
   // const updateContactDetails = (firstName: string) => {
   //   setContactDetails({
   //     shippingDetails: { ...shippingDetails, firstName },
@@ -571,32 +578,201 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div id="shippingReturnContinueContainer">
-            <div className="pb-6">
-              <div className="flex w-1/2 pb-4 text-xl font-bold">
-                Shipping method
-              </div>
-              <div className="border border-solid border-foreground">
-                <div className="p-4">
-                  <div className="flex justify-between items-center text-sm">
-                    <div className="flex text-gray-400 pr-2">
-                      <input type="radio" className="form-radio accent-gray-600" checked/>
+          <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+            <div id="shippingReturnContinueContainer">
+              <div className="pb-6">
+                <div className="flex w-1/2 pb-4 text-xl font-bold">
+                  Shipping method
+                </div>
+                <div className="border border-solid border-foreground">
+                  <div className="p-4">
+                    <div className="flex justify-between items-center text-sm">
+                      <div className="flex text-gray-400 pr-2">
+                        <input type="radio" className="form-radio accent-gray-600" checked/>
+                      </div>
+                      <div className="flex flex-1">Standard Shipping (5-14 business days)</div>
+                      <div className="flex font-bold cursor-pointer">Free</div>
                     </div>
-                    <div className="flex flex-1">Standard Shipping (5-14 business days)</div>
-                    <div className="flex font-bold cursor-pointer">Free</div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
+                <div className="pb-4">
+                  <button id="reviewOrderButton"
+                          onClick={handleContinueToPaymentButtonClick}
+                          className={`border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
+                          type="button"
+                  >
+                    CONTINUE TO PAYMENT
+                  </button>
+                </div>
+
+                <div className="pb-4">
+                  <div>
+                    <div className="sm:px-4 xs:px-4 py-2">
+                      <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
+                        <div className="fill-white pr-1">
+                          <svg className="-rotate-90" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                          </svg>
+                        </div>
+                        <div className="flex">Return to information</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          </div>
+
+          <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+            <div
+              className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
+              <div className="relative inline-flex flex-grow">
+                <input
+                  type="text"
+                  placeholder="Gift card or discount code"
+                  value={discountCode}
+                  onChange={handleDiscountCodeChange}
+                  maxLength={16}
+                  className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                />
+                {displayInvalidCodeMessage && (
+                  <span
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
+                  >
+                      Invalid code
+                    </span>
+                )}
+              </div>
+              <div
+                className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  `}
+                onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
+              >
+                {isLoading ? (
+                  <button className={styles.loader}></button>
+                ) : (
+                  <button disabled={!isCodeValid}>APPLY</button>
+                )}
+              </div>
+            </div>
+
+            <div className="p-2"></div>
+
+            <div id="paymentContainer" className="">
+              <div className="pb-6">
+                <div className="w-1/2 text-xl font-bold">
+                  Payment
+                </div>
+                <div className="text-sm">
+                  All transactions are secured and encrypted.
+                </div>
+              </div>
+              <div className="border border-solid border-foreground text-sm">
+                <div className="">
+                  <div
+                    className="flex justify-between mx-auto items-center p-4 border-b border-solid border-foreground">
+                    <div className="flex items-center">
+                      <div className="pr-2">
+                        <input type="radio" className="form-radio accent-gray-600" checked/>
+                      </div>
+                      <div className="pr-2">
+                        Credit card
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="pr-2">
+                        Visa
+                      </div>
+                      <div>
+                        Mastercard
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex flex-col p-4">
+                    <div className="">
+                      <div className="border border-solid border-foreground w-full">
+                        <div className="p-3">Card Number</div>
+                      </div>
+                      <div className="pt-3"></div>
+                      <div className="border border-solid border-foreground w-full">
+                        <div className="p-3">
+                          Name on card
+                        </div>
+                      </div>
+                      <div className="pt-3"></div>
+                      <div className="flex">
+                        <div className="border border-solid border-foreground w-full">
+                          <div className="p-3">
+                            Expiration Date
+                          </div>
+                        </div>
+                        <div className="pr-3"></div>
+                        <div className="border border-solid border-foreground w-full">
+                          <div className="p-3">
+                            Security Code
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            <div className="py-5"></div>
+
+            <div>
+              <div className="pb-6">
+                <div className="w-1/2 text-xl font-bold">
+                  Billing Address
+                </div>
+                <div className="text-sm">
+                  Select the address that matches your card or payment method.
+                </div>
+              </div>
+              <div className="border border-solid border-foreground">
+                <div className="flex flex-col">
+                  <div className="flex text-sm">
+                    <div className="flex items-center p-4">
+                      <div className="pr-2">
+                        <input type="radio" className="form-radio accent-gray-600" checked/>
+                      </div>
+                      <div className="">Same as shipping address</div>
+                    </div>
+                  </div>
+                  <div className="border-b border-solid border-foreground">
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <div className="flex p-4">
+                      <div className="pr-2">
+                        <input type="radio" className="form-radio accent-gray-600"/>
+                      </div>
+                      <div className="">Use a different billing address</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="py-3"></div>
+
             <div
               className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
               <div className="pb-4">
                 <button id="reviewOrderButton"
-                        className={`border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
+                        className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
                         type="button"
                 >
-                  CONTINUE TO PAYMENT
+                  PAY NOW
                 </button>
               </div>
 
@@ -610,189 +786,33 @@ const PaymentPageContent: React.FC = () => {
                             d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                         </svg>
                       </div>
-                      <div className="flex">Return to information</div>
+                      <div className="flex">
+                        <button onClick={handleContinueToPaymentButtonClick}
+                      >Return to shipping</button></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-          </div>
+            <div className="py-5"></div>
 
-          <div className={`${isReviewed? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
-            <div className="relative inline-flex flex-grow">
-              <input
-                type="text"
-                placeholder="Gift card or discount code"
-                value={discountCode}
-                onChange={handleDiscountCodeChange}
-                maxLength={16}
-                className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
-              />
-              {displayInvalidCodeMessage && (
-                <span
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-sm text-red-500 bg-transparent"
-                >
-                      Invalid code
-                    </span>
-              )}
-            </div>
-            <div
-              className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
-                  `}
-              onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
-            >
-              {isLoading ? (
-                <button className={styles.loader}></button>
-              ) : (
-                <button disabled={!isCodeValid}>APPLY</button>
-              )}
-            </div>
-          </div>
-
-          <div id="paymentContainer" className="">
-            <div className="pb-6">
-              <div className="w-1/2 text-xl font-bold">
-                Payment
-              </div>
-              <div className="text-sm">
-                All transactions are secured and encrypted.
-              </div>
-            </div>
-            <div className="border border-solid border-foreground text-sm">
-              <div className="">
-                <div className="flex justify-between mx-auto items-center p-4 border-b border-solid border-foreground">
-                  <div className="flex items-center">
-                    <div className="pr-2">
-                      <input type="radio" className="form-radio accent-gray-600" checked/>
-                    </div>
-                    <div className="pr-2">
-                      Credit card
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="pr-2">
-                      Visa
-                    </div>
-                    <div>
-                      Mastercard
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div id="finePrintContainer"
+                 className="text-sm">
               <div>
-                <div className="flex flex-col p-4">
-                  <div className="">
-                    <div className="border border-solid border-foreground w-full">
-                      <div className="p-3">Card Number</div>
-                    </div>
-                    <div className="pt-3"></div>
-                    <div className="border border-solid border-foreground w-full">
-                      <div className="p-3">
-                        Name on card
-                      </div>
-                    </div>
-                    <div className="pt-3"></div>
-                    <div className="flex">
-                      <div className="border border-solid border-foreground w-full">
-                        <div className="p-3">
-                          Expiration Date
-                        </div>
-                      </div>
-                      <div className="pr-3"></div>
-                      <div className="border border-solid border-foreground w-full">
-                        <div className="p-3">
-                          Security Code
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div>
+                  Foreign transaction fees may apply.
+                </div>
+                <div>
+                  Please check with your financial institution.
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="py-5"></div>
-
-          <div>
-            <div className="pb-6">
-              <div className="w-1/2 text-xl font-bold">
-                Billing Address
-              </div>
-              <div className="text-sm">
-                Select the address that matches your card or payment method.
-              </div>
-            </div>
-            <div className="border border-solid border-foreground">
-              <div className="flex flex-col">
-                <div className="flex text-sm">
-                  <div className="flex items-center p-4">
-                    <div className="pr-2">
-                      <input type="radio" className="form-radio accent-gray-600" checked/>
-                    </div>
-                    <div className="">Same as shipping address</div>
-                  </div>
-                </div>
-                <div className="border-b border-solid border-foreground">
-                </div>
-                <div className="flex justify-between text-sm">
-                  <div className="flex p-4">
-                    <div className="pr-2">
-                      <input type="radio" className="form-radio accent-gray-600"/>
-                    </div>
-                    <div className="">Use a different billing address</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="py-3"></div>
-
-          <div
-            className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
-            <div className="pb-4">
-              <button id="reviewOrderButton"
-                      className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
-                      type="button"
-              >
-                PAY NOW
-              </button>
-            </div>
-
-            <div className="pb-4">
+              <div className="py-2"></div>
               <div>
-                <div className="sm:px-4 xs:px-4 py-2">
-                  <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
-                    <div className="fill-white pr-1">
-                      <svg className="-rotate-90" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                      </svg>
-                    </div>
-                    <div className="flex">Return to shipping</div>
-                  </div>
-                </div>
+                By placing this order, you agree to our <span
+                className="cursor-pointer underline text-link-blue font-bold">Terms of Service</span> and understand
+                our <span className="cursor-pointer underline text-link-blue font-bold">Privacy Policy</span>.
               </div>
-            </div>
-          </div>
-
-          <div className="py-5"></div>
-
-          <div id="finePrintContainer"
-            className="text-sm">
-            <div>
-              <div>
-                Foreign transaction fees may apply.
-              </div>
-              <div>
-                Please check with your financial institution.
-              </div>
-            </div>
-            <div className="py-2"></div>
-            <div>
-              By placing this order, you agree to our <span className="cursor-pointer underline text-link-blue font-bold">Terms of Service</span> and understand our <span className="cursor-pointer underline text-link-blue font-bold">Privacy Policy</span>.
             </div>
           </div>
 
