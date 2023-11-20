@@ -378,14 +378,12 @@ const PaymentPageContent: React.FC = () => {
 
   const handleContinueToPaymentButtonClick = () => {
     setIsNavigating(true);
-    setTimeout(() => {
       setIsNavigating(false);
       if (isContinuedToPayment) {
         setIsContinuedToPayment(false);
       } else {
         setIsContinuedToPayment(true);
       }
-    }, 1000);
   };
 
 
@@ -545,7 +543,7 @@ const PaymentPageContent: React.FC = () => {
 
 
   return (
-    <div className="mx-auto border-red flex h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+    <div className="mx-auto flex h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div id="pageContainer"
            className={`${styles.pageContainer} pb-16 h-screen
            mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}>
@@ -553,44 +551,16 @@ const PaymentPageContent: React.FC = () => {
         <div id="leftContentWrapper"
              className="flex h-full flex-col sm:w-full md:w-51.5% lg:w-51.5%">
           <div id="checkoutTitle"
-               className={`${isContinuedToPayment ? 'xs:block sm:block' : 'hidden'} pt-1 md:hidden lg:hidden xl:hidden`}>
+               className={`xs:hidden sm:hidden pt-1 md:block lg:block xl:block`}>
             <div className="flex pb-1">
               <h1 className="py-3 text-3xl">
                 <a href="/">Xandria</a>
               </h1>
             </div>
-
-            <div id="orderSummaryBanner"
-                 className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
-              <div id="orderSummaryLabel">
-                <button className={styles.orderSummaryButton}
-                        onClick={toggleOrderSummary}>
-                  <div className="fill-foreground pr-2">
-                    <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M17.178 13.088H5.453c-.454 0-.91-.364-.91-.818L3.727 1.818H0V0h4.544c.455 0 .91.364.91.818l.09 1.272h13.45c.274 0 .547.09.73.364.18.182.27.454.18.727l-1.817 9.18c-.09.455-.455.728-.91.728zM6.27 11.27h10.09l1.454-7.362H5.634l.637 7.362zm.092 7.715c1.004 0 1.818-.813 1.818-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817zm9.18 0c1.004 0 1.817-.813 1.817-1.817s-.814-1.818-1.818-1.818-1.818.814-1.818 1.818.814 1.817 1.818 1.817z"></path>
-                    </svg>
-                  </div>
-                  <div className={`${styles.orderSummaryText} ${!isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
-                    <p>Show Order Summary</p>
-                  </div>
-                  <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
-                    <p>Hide Order Summary</p>
-                  </div>
-                  <div id="summaryArrowButton"
-                       className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
-                    <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                    </svg>
-                  </div>
-                </button>
-              </div>
-              <div className="font-bold text-lg">$135.00</div>
-            </div>
           </div>
 
-          <div className="pt-8 pb-10">
+
+          <div className="border-red pt-8 pb-10">
             <div className="border border-solid border-foreground">
               <div className="flex flex-col p-4">
                 <div className="flex justify-between text-sm">
@@ -616,7 +586,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+          <div className={` ${isContinuedToPayment ? 'hidden' : ''} border-blue`}>
             <div id="shippingReturnContinueContainer">
               <div className="pb-6">
                 <div className="flex w-1/2 pb-4 text-xl font-bold">
@@ -876,17 +846,18 @@ const PaymentPageContent: React.FC = () => {
         </div>
 
         <div id="rightContentWrapper"
-             className="relative flex flex-col  xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
-               className="pt-1 xs:block sm:block md:hidden lg:hidden xl:hidden">
+               className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
               <h1 className="py-3 text-3xl">
                 <a href="/">Xandria</a>
               </h1>
             </div>
 
+
             <div id="orderSummaryBanner"
-                 className={`${isContinuedToPayment ? 'hidden' : ''} relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
+                 className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
               <div id="orderSummaryLabel">
                 <button className={styles.orderSummaryButton}
                         onClick={toggleOrderSummary}>
@@ -914,9 +885,9 @@ const PaymentPageContent: React.FC = () => {
               <div className="font-bold text-lg">$135.00</div>
             </div>
           </div>
-
+          {/*TODO: Border Summary in left container*/}
           <div id="borderSummary"
-               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} ${isContinuedToPayment ? 'hidden' : ''} pr-4 `}>
+               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
             <div className="pt-6"></div>
             <div
               className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
