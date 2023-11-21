@@ -550,17 +550,17 @@ const PaymentPageContent: React.FC = () => {
 
         <div id="leftContentWrapper"
              className="flex h-full flex-col sm:w-full md:w-51.5% lg:w-51.5%">
+          <div id="checkoutTitle"
+               className={`${isContinuedToPayment ? 'block' : 'hidden'} pt-1 md:block lg:block xl:block`}>
+            <div className="flex pb-1">
+              <h1 className="py-3 text-3xl">
+                <a href="/">Xandria</a>
+              </h1>
+            </div>
+          </div>
           <div id="rightContentWrapper"
-               className={`${isContinuedToPayment ? '' : 'hidden'} border-yellow relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
+               className={`${isContinuedToPayment ? 'lg:hidden xl:hidden' : 'hidden'} border-orange relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
             <div className="">
-              <div id="checkoutTitle"
-                   className={`${isContinuedToPayment ? 'block' : 'xs:hidden sm:hidden'} pt-1 md:block lg:block xl:block`}>
-                <div className="flex pb-1">
-                  <h1 className="py-3 text-3xl">
-                    <a href="/">Xandria</a>
-                  </h1>
-                </div>
-              </div>
               <div id="orderSummaryBanner"
                    className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
                 <div id="orderSummaryLabel">
@@ -994,7 +994,7 @@ const PaymentPageContent: React.FC = () => {
         </div>
 
         <div id="rightContentWrapper"
-             className={`${isContinuedToPayment ? 'hidden' : ''} border-yellow relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
+             className={`${isContinuedToPayment ? 'xs:hidden sm:hidden' : ''} border-yellow relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
           <div className="">
             <div id="checkoutTitle"
                  className="pt-1 xs:block sm:block md:hidden lg:hidden">
