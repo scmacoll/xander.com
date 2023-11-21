@@ -904,7 +904,7 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <div id="visa">
-                          <div className="bg-white rounded">
+                          <div className="bg-white rounded border-2 border-solid border-black">
                             <svg
                               className={`cursor-default w-full h-full block`}
                               width="2.5em" height="1.5em"
@@ -914,7 +914,7 @@ const PaymentPageContent: React.FC = () => {
                       </div>
                       <div className="px-1"></div>
                       <div id="newMasterCard">
-                          <div className="bg-white rounded">
+                          <div className="bg-white rounded border-2 border-solid border-black">
                             <svg
                               className={`cursor-default w-full h-full block`}
                               width="2.5em" height="1.5em"
