@@ -767,26 +767,42 @@ const PaymentPageContent: React.FC = () => {
 
           <div className="pt-8 pb-10">
             <div className="border border-solid border-foreground">
-              <div className="flex flex-col p-4">
+              <div className="flex flex-col py-3 px-4">
                 <div className="flex justify-between text-sm">
                   <div className="flex xs:flex-col">
-                    <div className="flex text-gray-400 w-16 pb-2">Contact</div>
+                    <div className="flex text-gray-400 w-20">Contact</div>
                     <div className="pr-8 flex w-full flex-1">bobby@gmail.com</div>
                   </div>
                   <div className="flex font-bold cursor-pointer">Change</div>
                 </div>
                 <div>
-                  <div className="pt-2 xs:pt-4"></div>
+                  <div className="pt-3 xs:pt-3"></div>
                   <div className="border-solid border-b border-foreground"></div>
-                  <div className="pb-4"></div>
+                  <div className="pb-3"></div>
                 </div>
                 <div className="flex justify-between text-sm">
                   <div className="flex xs:flex-col">
-                    <div className="text-gray-400 flex-start w-16 pb-2">Ship to</div>
+                    <div className="text-gray-400 flex-start w-20">Ship to</div>
                     <div className="w-full flex flex-1 pr-8">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia</div>
                   </div>
                   <div className="flex font-bold cursor-pointer">Change</div>
                 </div>
+
+                <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+                  <div>
+                    <div className="pt-3 xs:pt-3"></div>
+                    <div className="border-solid border-b border-foreground"></div>
+                    <div className="pb-3"></div>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <div className="flex xs:flex-col">
+                      <div className="text-gray-400 flex-start w-20">Shipping Method</div>
+                      <div className="w-full flex flex-1 pr-8">Standard Shipping (5-14 business days) · Free</div>
+                    </div>
+                    <div className="flex font-bold cursor-pointer"></div>
+                  </div>
+                </div>
+                
               </div>
             </div>
           </div>
