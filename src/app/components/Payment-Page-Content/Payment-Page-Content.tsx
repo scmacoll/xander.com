@@ -791,7 +791,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} border-blue `}>
+          <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
             <div id="shippingReturnContinueContainer">
               <div className="pb-6">
                 <div className="flex w-1/2 pb-4 text-xl font-bold">
@@ -968,23 +968,23 @@ const PaymentPageContent: React.FC = () => {
                 </div>
               </div>
               <div className="border border-solid border-foreground">
-                <div className="flex flex-col">
+                {/* ? Bug where only the second input 'checked' will work as default ? */}
+                <div className="flex flex-col-reverse">
                   <div className="flex text-sm">
                     <div className="flex items-center p-4">
                       <div className="pr-2">
-                        <input id="shippingAddressCheck" type="radio" name="addressType" className="form-radio cursor-pointer accent-gray-600" checked/>
+                        <input id="shippingAddressCheck" type="radio" name="addressType" className="form-radio cursor-pointer accent-gray-600"/>
                       </div>
-                      <label htmlFor="shippingAddressCheck" className="cursor-pointer">Same as shipping address</label>
+                      <label htmlFor="shippingAddressCheck" className="cursor-pointer">Use a different billing address</label>
                     </div>
                   </div>
-                  <div className="border-b border-solid border-foreground">
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <div className="flex p-4">
+                  <div className="border-b border-solid border-foreground"></div>
+                  <div className="flex text-sm">
+                    <div className="flex items-center p-4">
                       <div className="pr-2">
-                        <input id="billingAddressCheck" type="radio" name="addressType" className="form-radio cursor-pointer accent-gray-600"/>
+                        <input id="billingAddressCheck" type="radio" name="addressType" className="form-radio cursor-pointer accent-gray-600" checked/>
                       </div>
-                      <label htmlFor="billingAddressCheck" className="cursor-pointer">Use a different billing address</label>
+                      <label htmlFor="billingAddressCheck" className="cursor-pointer">Same as shipping address</label>
                     </div>
                   </div>
                 </div>
