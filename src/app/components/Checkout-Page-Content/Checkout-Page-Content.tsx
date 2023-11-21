@@ -1340,7 +1340,7 @@ const CheckoutPageContent: React.FC = () => {
                 <div className="relative inline-flex flex-grow">
                   <input
                     type="text"
-                    placeholder="Gift card or discount code"
+                    placeholder="Discount code or gift card"
                     value={discountCode}
                     onChange={handleDiscountCodeChange}
                     maxLength={16}

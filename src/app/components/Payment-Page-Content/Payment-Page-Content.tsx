@@ -561,7 +561,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
           <div id="rightContentWrapper"
-               className={`${isContinuedToPayment ? 'lg:hidden xl:hidden' : 'hidden'} border-orange relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
+               className={`${isContinuedToPayment ? 'lg:hidden xl:hidden' : 'hidden'} relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
             <div className="">
               <div id="orderSummaryBanner"
                    className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
@@ -631,7 +631,7 @@ const PaymentPageContent: React.FC = () => {
                     <div className="relative inline-flex flex-grow">
                       <input
                         type="text"
-                        placeholder="Gift card or discount code"
+                        placeholder="Discount code or gift card"
                         value={discountCode}
                         onChange={handleDiscountCodeChange}
                         maxLength={16}
@@ -710,7 +710,7 @@ const PaymentPageContent: React.FC = () => {
           </div>
 
 
-          <div className="border-red pt-8 pb-10">
+          <div className="pt-8 pb-10">
             <div className="border border-solid border-foreground">
               <div className="flex flex-col p-4">
                 <div className="flex justify-between text-sm">
@@ -791,12 +791,12 @@ const PaymentPageContent: React.FC = () => {
 
           </div>
 
-          <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} border-purple `}>            <div
-              className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
+          <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} `}>            <div
+              className={`${isReviewed ? 'hidden' : ''} ${isOrderSummaryHidden ? '' : 'hidden'} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
               <div className="relative inline-flex flex-grow">
                 <input
                   type="text"
-                  placeholder="Gift card or discount code"
+                  placeholder="Discount code or gift card"
                   value={discountCode}
                   onChange={handleDiscountCodeChange}
                   maxLength={16}
@@ -811,7 +811,7 @@ const PaymentPageContent: React.FC = () => {
                 )}
               </div>
               <div
-                className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                className={`${styles.applyButton}  inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                 onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
@@ -905,9 +905,9 @@ const PaymentPageContent: React.FC = () => {
                   <div className="flex text-sm">
                     <div className="flex items-center p-4">
                       <div className="pr-2">
-                        <input type="radio" className="form-radio accent-gray-600" checked/>
+                        <input id="shippingAddressCheck" type="radio" name="addressType" className="form-radio cursor-pointer accent-gray-600" checked/>
                       </div>
-                      <div className="">Same as shipping address</div>
+                      <label htmlFor="shippingAddressCheck" className="cursor-pointer">Same as shipping address</label>
                     </div>
                   </div>
                   <div className="border-b border-solid border-foreground">
@@ -915,9 +915,9 @@ const PaymentPageContent: React.FC = () => {
                   <div className="flex justify-between text-sm">
                     <div className="flex p-4">
                       <div className="pr-2">
-                        <input type="radio" className="form-radio accent-gray-600"/>
+                        <input id="billingAddressCheck" type="radio" name="addressType" className="form-radio cursor-pointer accent-gray-600"/>
                       </div>
-                      <div className="">Use a different billing address</div>
+                      <label htmlFor="billingAddressCheck" className="cursor-pointer">Use a different billing address</label>
                     </div>
                   </div>
                 </div>
@@ -941,7 +941,7 @@ const PaymentPageContent: React.FC = () => {
                 <div>
                   <div className="sm:px-4 xs:px-4 py-2">
                     <div className={`flex justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
-                      <div className="fill-white pr-1">
+                      <div className="fill-white pr-2">
                         <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
@@ -995,7 +995,7 @@ const PaymentPageContent: React.FC = () => {
         </div>
 
         <div id="rightContentWrapper"
-             className={`${isContinuedToPayment ? 'xs:hidden sm:hidden' : ''} border-yellow relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
+             className={`${isContinuedToPayment ? 'xs:hidden sm:hidden' : ''} relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
           <div className="">
             <div id="checkoutTitle"
                  className="pt-1 xs:block sm:block md:hidden lg:hidden">
@@ -1076,7 +1076,7 @@ const PaymentPageContent: React.FC = () => {
                   <div className="relative inline-flex flex-grow">
                     <input
                       type="text"
-                      placeholder="Gift card or discount code"
+                      placeholder="Discount code or gift card"
                       value={discountCode}
                       onChange={handleDiscountCodeChange}
                       maxLength={16}
