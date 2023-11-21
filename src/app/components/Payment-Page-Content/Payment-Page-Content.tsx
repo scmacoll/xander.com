@@ -354,7 +354,7 @@ const PaymentPageContent: React.FC = () => {
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = event.target.value;
     setDiscountCode(newCode);
-    setIsCodeValid(newCode.trim().length === 6);
+    setIsCodeValid(newCode.trim().length !== 0);
     setDisplayInvalidCodeMessage(false);
   }
   const toggleBillingAddress = () => {
@@ -378,12 +378,14 @@ const PaymentPageContent: React.FC = () => {
 
   const handleContinueToPaymentButtonClick = () => {
     setIsNavigating(true);
+    setTimeout(() =>{
       setIsNavigating(false);
       if (isContinuedToPayment) {
         setIsContinuedToPayment(false);
       } else {
         setIsContinuedToPayment(true);
       }
+    }, 1000)
   };
 
 
@@ -645,7 +647,7 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                     <div
                       className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                       onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                     >
@@ -734,7 +736,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-          <div className={` ${isContinuedToPayment ? 'hidden' : ''} border-blue `}>
+          <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} border-blue `}>
             <div id="shippingReturnContinueContainer">
               <div className="pb-6">
                 <div className="flex w-1/2 pb-4 text-xl font-bold">
@@ -789,8 +791,7 @@ const PaymentPageContent: React.FC = () => {
 
           </div>
 
-          <div className={`${!isContinuedToPayment ? 'hidden' : ''} border-purple`}>
-            <div
+          <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} border-purple `}>            <div
               className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
               <div className="relative inline-flex flex-grow">
                 <input
@@ -811,7 +812,7 @@ const PaymentPageContent: React.FC = () => {
               </div>
               <div
                 className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                 onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
               >
@@ -941,7 +942,7 @@ const PaymentPageContent: React.FC = () => {
                   <div className="sm:px-4 xs:px-4 py-2">
                     <div className={`flex justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
                       <div className="fill-white pr-1">
-                        <svg className={`${isNavigating ? 'hidden' : ''} -rotate-90`} width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                         </svg>
@@ -1091,7 +1092,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                   <div
                     className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
-                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-greyed-out cursor-default'}
+                  ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                     onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                   >
