@@ -84,19 +84,10 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newState = event.target.value
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        state: newState,
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        state: newState,
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      state: newState,
+    }));
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFirstName = event.target.value
@@ -142,13 +133,8 @@ const PaymentPageContent: React.FC = () => {
         ...prevDetails,
         lastNameError: prevDetails.lastName.trim() === ''
       });
-      setShippingDetails(commonUpdate);
+      // setShippingDetails(commonUpdate);
       setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        lastNameError: prevDetails.lastName.trim() === ''
-      }));
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
@@ -159,37 +145,18 @@ const PaymentPageContent: React.FC = () => {
   }
   const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCompanyName = event.target.value;
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        companyName: newCompanyName,
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        companyName: newCompanyName,
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      companyName: newCompanyName,
+    }));
   }
   const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAddressLineOneChange = event.target.value;
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineOne: newAddressLineOneChange,
-        addressLineOneError: newAddressLineOneChange.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineOne: newAddressLineOneChange,
-        addressLineOneError: newAddressLineOneChange.trim() === ''
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      addressLineOne: newAddressLineOneChange,
+      addressLineOneError: newAddressLineOneChange.trim() === ''
+    }));
   }
   const handleAddressLineOneBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -200,13 +167,8 @@ const PaymentPageContent: React.FC = () => {
         ...prevDetails,
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
       });
-      setShippingDetails(commonUpdate);
+      // setShippingDetails(commonUpdate);
       setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineOneError: prevDetails.addressLineOne.trim() === ''
-      }));
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
@@ -218,38 +180,19 @@ const PaymentPageContent: React.FC = () => {
   const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAddressLineTwoChange = event.target.value;
 
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineTwo: newAddressLineTwoChange,
-        addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineTwo: newAddressLineTwoChange,
-        addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      addressLineTwo: newAddressLineTwoChange,
+      addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
+    }));
   }
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCityChange = event.target.value;
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        city: newCityChange,
-        cityError: newCityChange.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        city: newCityChange,
-        cityError: newCityChange.trim() === ''
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      city: newCityChange,
+      cityError: newCityChange.trim() === ''
+    }));
   }
   const handleCityBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -260,13 +203,8 @@ const PaymentPageContent: React.FC = () => {
         ...prevDetails,
         cityError: prevDetails.city.trim() === ''
       });
-      setShippingDetails(commonUpdate);
+      // setShippingDetails(commonUpdate);
       setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        cityError: prevDetails.city.trim() === ''
-      }));
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
@@ -277,21 +215,11 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newZipcodeChange = event.target.value;
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        zipcode: newZipcodeChange,
-        zipcodeError: newZipcodeChange.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        zipcode: newZipcodeChange,
-        zipcodeError: newZipcodeChange.trim() === ''
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      zipcode: newZipcodeChange,
+      zipcodeError: newZipcodeChange.trim() === ''
+    }));
   }
   const handleZipcodeBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -302,13 +230,8 @@ const PaymentPageContent: React.FC = () => {
         ...prevDetails,
         zipcodeError: prevDetails.zipcode.trim() === ''
       });
-      setShippingDetails(commonUpdate);
+      // setShippingDetails(commonUpdate);
       setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        zipcodeError: prevDetails.zipcode.trim() === ''
-      }));
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
@@ -323,12 +246,6 @@ const PaymentPageContent: React.FC = () => {
     setIsCodeValid(newCode.trim().length !== 0);
     setDisplayInvalidCodeMessage(false);
   }
-  const toggleBillingAddress = () => {
-    setIsBillingAddress(true);
-  };
-  const toggleShippingAddress = () => {
-    setIsBillingAddress(false);
-  };
   const toggleOrderSummary = useCallback(() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
@@ -764,7 +681,7 @@ const PaymentPageContent: React.FC = () => {
                   <div className="flex font-bold cursor-pointer">Change</div>
                 </div>
 
-                <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+                <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
                   <div>
                     <div className="pt-3 xs:pt-3"></div>
                     <div className="border-solid border-b border-foreground"></div>
@@ -778,12 +695,13 @@ const PaymentPageContent: React.FC = () => {
                     <div className="flex font-bold cursor-pointer"></div>
                   </div>
                 </div>
-                
+
               </div>
             </div>
           </div>
 
-          <div className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+          <div
+            className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
             <div id="shippingReturnContinueContainer">
               <div className="pb-6">
                 <div className="flex w-1/2 pb-4 text-xl font-bold">
@@ -820,7 +738,9 @@ const PaymentPageContent: React.FC = () => {
 
                 <div className="pb-4">
                   <div>
-                    <div className="sm:px-4 xs:px-4 py-2">
+                    <a className="sm:px-4 xs:px-4 py-2"
+                         href="/checkout"
+                    >
                       <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
                         <div className="fill-white pr-1">
                           <svg className="-rotate-90" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
@@ -830,7 +750,7 @@ const PaymentPageContent: React.FC = () => {
                         </div>
                         <div className="flex">Return to information</div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
