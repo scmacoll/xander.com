@@ -8,22 +8,6 @@ const PaymentPageContent: React.FC = () => {
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
   const [checkedAddressInput, setCheckedAddressInput] = useState<string>('shipping');
 
-  const [shippingDetails, setShippingDetails] = useState({
-    country: 'AU',
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    addressLineOne: '',
-    addressLineTwo: '',
-    city: '',
-    state: 'NSW',
-    zipcode: '',
-    firstNameError: false,
-    lastNameError: false,
-    addressLineOneError: false,
-    cityError: false,
-    zipcodeError: false,
-  });
   const [billingDetails, setBillingDetails] = useState({
     country: 'AU',
     firstName: '',
@@ -42,9 +26,7 @@ const PaymentPageContent: React.FC = () => {
     zipcodeError: false,
     phoneError: false,
   });
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [email, setEmail] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [isBillingValid, setIsBillingValid] = useState(false);
   const [countries, setCountries] = useState([]);
   const [shippingStates, setShippingStates] = useState([]);
   const [billingStates, setBillingStates] = useState([]);
@@ -64,20 +46,7 @@ const PaymentPageContent: React.FC = () => {
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
-  const handleEmailChange = (event: any) => {
-    const {value} = event.target;
-    setEmail(value);
-  };
-  const handleEmailBlur = () => {
-    if (emailRegex.test(email)) {
-      setEmailError('');
-    } else {
-      setEmailError('Invalid email address');
-    }
-    setReviewButtonClicked(false);
-  };
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = event.target.value
     setBillingDetails(prevDetails => ({
@@ -321,16 +290,6 @@ const PaymentPageContent: React.FC = () => {
   //   });
   // };
   const saveToLocalStorage = () => {
-    localStorage.setItem('email', email);
-    localStorage.setItem('shippingFirstName', shippingDetails.firstName);
-    localStorage.setItem('shippingLastName', shippingDetails.lastName);
-    localStorage.setItem('shippingCompanyName', shippingDetails.companyName);
-    localStorage.setItem('shippingAddressLineOne', shippingDetails.addressLineOne);
-    localStorage.setItem('shippingAddressLineTwo', shippingDetails.addressLineTwo);
-    localStorage.setItem('shippingCity', shippingDetails.city);
-    localStorage.setItem('shippingState', shippingDetails.state);
-    localStorage.setItem('shippingCountry', shippingDetails.country);
-    localStorage.setItem('shippingZipcode', shippingDetails.zipcode);
     localStorage.setItem('billingFirstName', billingDetails.firstName);
     localStorage.setItem('billingLastName', billingDetails.lastName);
     localStorage.setItem('billingCompanyName', billingDetails.companyName);
@@ -340,13 +299,13 @@ const PaymentPageContent: React.FC = () => {
     localStorage.setItem('billingState', billingDetails.state);
     localStorage.setItem('billingCountry', billingDetails.country);
     localStorage.setItem('billingZipcode', billingDetails.zipcode);
+    localStorage.setItem('billingPhone', billingDetails.phone);
   }
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
 
-    if (isFormValid) {
-      // updateContactDetails(shippingDetails.firstName)
+    if (isBillingValid) {
       saveToLocalStorage();
       setIsReviewing(true);
       setIsReviewed(false);
@@ -356,14 +315,12 @@ const PaymentPageContent: React.FC = () => {
         setOrderSummaryHidden(false);
       }, 2000);
     } else {
-      handleEmailBlur();
       handleFirstNameBlur(true);
       handleLastNameBlur(true);
       handleAddressLineOneBlur(true);
       handleCityBlur(true);
       handleZipcodeBlur(true);
       setDisplayIncompleteMessage(true);
-      setShippingError(true);
       setBillingError(true);
     }
   };
@@ -409,14 +366,6 @@ const PaymentPageContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (shippingDetails.country) {
-      const newShippingStates = State.getStatesOfCountry(shippingDetails.country);
-      // @ts-ignore
-      setShippingStates(newShippingStates);
-    }
-  }, [shippingDetails.country]);
-
-  useEffect(() => {
     if (billingDetails.country) {
       const newBillingStates = State.getStatesOfCountry(billingDetails.country);
       // @ts-ignore
@@ -425,15 +374,6 @@ const PaymentPageContent: React.FC = () => {
   }, [billingDetails.country]);
 
   useEffect(() => {
-    const validateShippingDetails = (shipping: any) => {
-      return (
-        shipping.firstName.trim() !== '' &&
-        shipping.lastName.trim() !== '' &&
-        shipping.addressLineOne.trim() !== '' &&
-        shipping.city.trim() !== '' &&
-        shipping.zipcode.trim() !== ''
-      );
-    };
     const validateBillingDetails = (billing: any) => {
       return (
         billing.firstName.trim() !== '' &&
@@ -443,30 +383,17 @@ const PaymentPageContent: React.FC = () => {
         billing.zipcode.trim() !== ''
       );
     };
-    const validateForm = (shipping: any, billing: any, email: any) => {
-      return validateShippingDetails(shipping) && validateBillingDetails(billing) && emailRegex.test(email);
-    };
 
-    const formIsValid = validateForm(shippingDetails, billingDetails, email);
-    const shippingIsValid = validateShippingDetails(shippingDetails);
     const billingIsValid = validateBillingDetails(billingDetails);
-    setIsFormValid(formIsValid);
+    setIsBillingValid(billingIsValid);
 
     // updating review btn errors in real-time
-    if (formIsValid) {
-      setDisplayIncompleteMessage(false);
-      setShippingError(false);
-      setBillingError(false);
-      return;
-    } else if (!formIsValid) {
-      if (shippingIsValid) {
-        setShippingError(false);
-      }
       if (billingIsValid) {
         setBillingError(false);
-      }
+      } else {
+      setDisplayIncompleteMessage(false);
     }
-  }, [shippingDetails, billingDetails, email]);
+  }, [billingDetails]);
 
 
   return (
@@ -1109,17 +1036,48 @@ const PaymentPageContent: React.FC = () => {
             <div className="py-3"></div>
 
             <div
-              className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
-              <div className="pb-4">
-                <button id="reviewOrderButton"
-                        className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
-                        type="button"
+              className="flex border-blue flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
+              {/*<div className="pb-4">*/}
+              {/*  <button id="reviewOrderButton"*/}
+              {/*          className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}*/}
+              {/*          type="button"*/}
+              {/*  >*/}
+              {/*    PAY NOW*/}
+              {/*  </button>*/}
+              {/*</div>*/}
+              <div id="orderButton" className="flex">
+                <div id="loadingBorder"
+                     className={`${isReviewing ? 'border-2 rounded font-bold p-4 border-solid border-foreground bg-greyed-out' : ''}`}
                 >
-                  PAY NOW
-                </button>
+                  {isReviewing ? (
+                    <button id="loadingReviewButton"
+                            className={styles.loader}
+                            disabled={isReviewing}></button>
+                  ) : !isReviewed ? (
+                    <button id="reviewOrderButton"
+                            className={`border-2 rounded font-bold p-4 border-solid
+                              ${!isBillingValid ? 'border-foreground bg-greyed-out cursor-default'
+                              : 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent'}
+                              `}
+                            type="button"
+                            onClick={!isReviewing ? handleReviewButtonClick : undefined}
+                    >
+                      REVIEW ORDER
+                    </button>
+                  ) : (
+                    <a
+                      href="/confirm"
+                      id="placeOrderButton"
+                      className={`border-2 rounded font-bold p-4 border-solid
+                              ${isReviewed ? 'bg-amazon-yellow border-amazon-yellow' : ''}
+                              `}
+                    >
+                      PLACE ORDER
+                    </a>
+                  )}
+                </div>
               </div>
-
-              <div className="pb-4">
+              <div className="">
                 <div>
                   <div className="sm:px-4 xs:px-4 py-2">
                     <div className={`flex justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>

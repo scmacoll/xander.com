@@ -1205,7 +1205,7 @@ const CheckoutPageContent: React.FC = () => {
                       </div>
                     </div>
                     <div id="shippingButton"
-                         className=" pt-8 items-center flex mx-auto justify-end">
+                         className="pt-8 items-center flex mx-auto justify-end">
                       {displayIncompleteMessage && (
                         <div id="incompleteError"
                              className="flex text-sm pr-16 text-custom-red xs:w-1/2">
@@ -1236,7 +1236,7 @@ const CheckoutPageContent: React.FC = () => {
                             <button id="reviewOrderButton"
                                     className={`border-2 rounded font-bold p-4 border-solid
                               ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default'
-                                      : 'border-foreground hover:border-shopify-blue bg-shopify-blue'}
+                                      : 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent'}
                               `}
                                     type="button"
                                     onClick={!isReviewing ? handleReviewButtonClick : undefined}
