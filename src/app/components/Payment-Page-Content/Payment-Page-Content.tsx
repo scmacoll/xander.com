@@ -380,6 +380,10 @@ const PaymentPageContent: React.FC = () => {
     setIsNavigating(true);
     if (isContinuedToPayment) {
       setTimeout(() => {
+      const shippingRadioButton = document.getElementById('shipping');
+      if (shippingRadioButton) {
+        (shippingRadioButton as HTMLInputElement).click();
+      }
       setIsContinuedToPayment(false);
       setIsNavigating(false);
       }, 500)
@@ -391,6 +395,7 @@ const PaymentPageContent: React.FC = () => {
     }
   };
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("input change to :  ", event.target.value);
     setCheckedAddressInput(event.target.value);
   };
 
@@ -989,7 +994,6 @@ const PaymentPageContent: React.FC = () => {
                 </div>
               </div>
               <div className="border border-solid border-foreground">
-                {/* ? Bug where only the second input 'checked' will work as default ? */}
                 <div className="flex flex-col">
                   <div className="flex text-sm">
                     <div className="flex items-center p-4">
