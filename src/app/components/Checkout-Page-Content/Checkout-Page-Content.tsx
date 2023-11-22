@@ -1031,141 +1031,41 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      <div id="shippingBillingCheckbox" className="flex items-center py-4">
-                        <input
-                          type="checkbox"
-                          disabled={isReviewed}
-                          className="accent-foreground"
-                          checked={isSameAddress}
-                          onChange={toggleSameAddress}
-                          onClick={toggleShippingAddress}
-                        />
-                        <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
-                      </div>
-                      <div id="contactDetails">
-                        <div id="billingDetailsCountrySelect"
-                             className="relative w-full border border-solid border-foreground">
-                          <label htmlFor="country"
-                                 className="absolute top-2 left-3 text-sm">Country/region
-                          </label>
-                          <div id="selectArrow"
-                               className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                            <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                                 viewBox="0 0 24 24"
-                                 xmlns="http://www.w3.org/2000/svg">
-                              <path strokeLinecap="round" strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                          </div>
-                          <select id="country"
-                                  disabled={isReviewed}
-                                  className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
-                                  value={billingDetails.country}
-                                  onChange={handleCountryChange}
-                          >
-                            {countries.map(({isoCode, name}) => (
-                              <option
-                                key={isoCode}
-                                value={isoCode}
-                              >
-                                {name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                        <div id="contactNames"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text"
-                                 placeholder="First Name"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.firstName}
-                                 onChange={handleFirstNameChange}
-                                 onBlur={handleFirstNameBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
+                      <div className="border-red">
+                        <div id="shippingBillingCheckbox" className="flex items-center py-4">
+                          <input
+                            type="checkbox"
+                            disabled={isReviewed}
+                            className="accent-foreground"
+                            checked={isSameAddress}
+                            onChange={toggleSameAddress}
+                            onClick={toggleShippingAddress}
                           />
-                          <input type="text"
-                                 placeholder="Last Name"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.lastName}
-                                 onChange={handleLastNameChange}
-                                 onBlur={handleLastNameBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
+                          <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
                         </div>
-                        <div id="contactCompany"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text"
-                                 placeholder="Company (required for business addresses)"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.companyName}
-                                 onChange={handleCompanyNameChange}
-                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                        </div>
-                        <div id="contactAddressLineOne"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text"
-                                 placeholder="Address"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.addressLineOne}
-                                 onChange={handleAddressLineOneChange}
-                                 onBlur={handleAddressLineOneBlur}
-                                 className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                        </div>
-                        <div id="contactAddressLineTwo"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text" placeholder="Apartment, suite, etc. (optional)"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.addressLineTwo}
-                                 onChange={handleAddressLineTwoChange}
-                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                        </div>
-                        <div id="contactAddressLineThree"
-                             className="flex justify-between gap-1 pt-4">
-                          <input type="text"
-                                 placeholder="City"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.city}
-                                 onChange={handleCityChange}
-                                 onBlur={handleCityBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                          <div className="relative border border-solid w-32% border-foreground">
-                            <label htmlFor="state"
-                                   className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
-                            >
-                              State/Province
-                            </label>
-                            <label htmlFor="state"
-                                   className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
-                            >
-                              State
+                        <div id="contactDetails">
+                          <div id="billingDetailsCountrySelect"
+                               className="relative w-full border border-solid border-foreground">
+                            <label htmlFor="country"
+                                   className="absolute top-2 left-3 text-sm">Country/region
                             </label>
                             <div id="selectArrow"
-                                 className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
+                                 className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
                               <svg className="h-4 w-4" fill="none" stroke="currentColor"
                                    viewBox="0 0 24 24"
                                    xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                <path strokeLinecap="round" strokeLinejoin="round"
+                                      strokeWidth="2"
                                       d="M19 9l-7 7-7-7"></path>
                               </svg>
                             </div>
-                            <select id="billingDetailsstate"
+                            <select id="country"
                                     disabled={isReviewed}
-                                    value={billingDetails.state}
-                                    onChange={handleStateChange}
-                                    className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                                    className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
+                                    value={billingDetails.country}
+                                    onChange={handleCountryChange}
                             >
-                              {billingStates.map(({isoCode, name}) => (
+                              {countries.map(({isoCode, name}) => (
                                 <option
                                   key={isoCode}
                                   value={isoCode}
@@ -1175,16 +1075,118 @@ const CheckoutPageContent: React.FC = () => {
                               ))}
                             </select>
                           </div>
-                          <input type="text"
-                                 placeholder="ZIP code"
-                                 readOnly={isReviewed}
-                                 value={billingDetails.zipcode}
-                                 onChange={handleZipcodeChange}
-                                 onBlur={handleZipcodeBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                          <div id="contactNames"
+                               className="flex w-full justify-between pt-4">
+                            <input type="text"
+                                   placeholder="First Name"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.firstName}
+                                   onChange={handleFirstNameChange}
+                                   onBlur={handleFirstNameBlur}
+                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                            />
+                            <input type="text"
+                                   placeholder="Last Name"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.lastName}
+                                   onChange={handleLastNameChange}
+                                   onBlur={handleLastNameBlur}
+                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
+                               ${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                            />
+                          </div>
+                          <div id="contactCompany"
+                               className="flex w-full justify-between pt-4">
+                            <input type="text"
+                                   placeholder="Company (required for business addresses)"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.companyName}
+                                   onChange={handleCompanyNameChange}
+                                   className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                          </div>
+                          <div id="contactAddressLineOne"
+                               className="flex w-full justify-between pt-4">
+                            <input type="text"
+                                   placeholder="Address"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.addressLineOne}
+                                   onChange={handleAddressLineOneChange}
+                                   onBlur={handleAddressLineOneBlur}
+                                   className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
+                               ${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                            />
+                          </div>
+                          <div id="contactAddressLineTwo"
+                               className="flex w-full justify-between pt-4">
+                            <input type="text" placeholder="Apartment, suite, etc. (optional)"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.addressLineTwo}
+                                   onChange={handleAddressLineTwoChange}
+                                   className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                          </div>
+                          <div id="contactAddressLineThree"
+                               className="flex justify-between gap-1 pt-4">
+                            <input type="text"
+                                   placeholder="City"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.city}
+                                   onChange={handleCityChange}
+                                   onBlur={handleCityBlur}
+                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+                               ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
+                               `}
+                            />
+                            <div className="relative border border-solid w-32% border-foreground">
+                              <label htmlFor="state"
+                                     className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
+                              >
+                                State/Province
+                              </label>
+                              <label htmlFor="state"
+                                     className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
+                              >
+                                State
+                              </label>
+                              <div id="selectArrow"
+                                   className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
+                                <svg className="h-4 w-4" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                        d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                              </div>
+                              <select id="billingDetailsstate"
+                                      disabled={isReviewed}
+                                      value={billingDetails.state}
+                                      onChange={handleStateChange}
+                                      className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                              >
+                                {billingStates.map(({isoCode, name}) => (
+                                  <option
+                                    key={isoCode}
+                                    value={isoCode}
+                                  >
+                                    {name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <input type="text"
+                                   placeholder="ZIP code"
+                                   readOnly={isReviewed}
+                                   value={billingDetails.zipcode}
+                                   onChange={handleZipcodeChange}
+                                   onBlur={handleZipcodeBlur}
+                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
                                ${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'}
                                `}
-                          />
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
