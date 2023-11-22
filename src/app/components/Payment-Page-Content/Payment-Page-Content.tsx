@@ -34,11 +34,13 @@ const PaymentPageContent: React.FC = () => {
     city: '',
     state: 'NSW',
     zipcode: '',
+    phone: '',
     firstNameError: false,
     lastNameError: false,
     addressLineOneError: false,
     cityError: false,
     zipcodeError: false,
+    phoneError: false,
   });
   const [isFormValid, setIsFormValid] = useState(false);
   const [email, setEmail] = useState('');
@@ -63,6 +65,7 @@ const PaymentPageContent: React.FC = () => {
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const handleEmailChange = (event: any) => {
     const {value} = event.target;
     setEmail(value);
@@ -186,6 +189,35 @@ const PaymentPageContent: React.FC = () => {
       addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
     }));
   }
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPhone = event.target.value;
+
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      phone: newPhone,
+      phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
+    }));
+  };
+  const handlePhoneBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+    if (shouldValidate) {
+      const commonUpdate: any = (prevDetails: { phone: string; }) => ({
+        ...prevDetails,
+        phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
+      });
+      // setShippingDetails(commonUpdate);
+      setBillingDetails(commonUpdate);
+    } else {
+      setBillingDetails(prevDetails => ({
+        ...prevDetails,
+        phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
+      }));
+    }
+    setReviewButtonClicked(false);
+  };
+
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCityChange = event.target.value;
     setBillingDetails(prevDetails => ({
@@ -998,7 +1030,7 @@ const PaymentPageContent: React.FC = () => {
                              onChange={handleAddressLineTwoChange}
                              className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
                     </div>
-                    <div id="contactAddressLineThree"
+                    <div id="contactCityStateCode"
                          className="flex justify-between gap-1 pt-4">
                       <input type="text"
                              placeholder="City"
@@ -1053,10 +1085,21 @@ const PaymentPageContent: React.FC = () => {
                              onChange={handleZipcodeChange}
                              onBlur={handleZipcodeBlur}
                              className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'}
-                               `}
+                             ${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} `}
                       />
                     </div>
+                    <div id="contactPhone"
+                         className="flex w-full justify-between pt-4">
+                      <input type="text" placeholder="Phone (optional)"
+                             readOnly={isReviewed}
+                             value={billingDetails.phone}
+                             onChange={handlePhoneChange}
+                             onBlur={handlePhoneBlur}
+                             className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
+                             ${billingDetails.phoneError ? 'border-custom-red' : 'border-foreground'} `}
+                      />
+                    </div>
+
                   </div>
                 </div>
 
