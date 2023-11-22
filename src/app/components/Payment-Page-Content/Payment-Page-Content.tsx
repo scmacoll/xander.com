@@ -77,19 +77,10 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = event.target.value
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        country: newCountry,
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        country: newCountry,
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      country: newCountry,
+    }));
   };
   const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newState = event.target.value
@@ -109,21 +100,11 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newFirstName = event.target.value
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        firstName: newFirstName,
-        firstNameError: newFirstName.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        firstName: newFirstName,
-        firstNameError: newFirstName.trim() === ''
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      firstName: newFirstName,
+      firstNameError: newFirstName.trim() === ''
+    }));
   };
   const handleFirstNameBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -134,13 +115,8 @@ const PaymentPageContent: React.FC = () => {
         ...prevDetails,
         firstNameError: prevDetails.firstName.trim() === ''
       });
-      setShippingDetails(commonUpdate);
+      // setShippingDetails(commonUpdate);
       setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        firstNameError: prevDetails.firstName.trim() === ''
-      }));
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
@@ -151,21 +127,11 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newLastName = event.target.value;
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        lastName: newLastName,
-        lastNameError: newLastName.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        lastName: newLastName,
-        lastNameError: newLastName.trim() === ''
-      }));
-    }
+    setBillingDetails(prevDetails => ({
+      ...prevDetails,
+      lastName: newLastName,
+      lastNameError: newLastName.trim() === ''
+    }));
   }
   const handleLastNameBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -984,7 +950,7 @@ const PaymentPageContent: React.FC = () => {
 
             <div className="py-5"></div>
 
-            <div>
+            <div className="border-purple">
               <div className="pb-6">
                 <div className="w-1/2 text-xl font-bold">
                   Billing Address
@@ -1028,8 +994,7 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                {/*TODO: Billing details*/}
-                <div className={`transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
+                <div className={`border-red transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
                   <div id="contactDetails">
                     <div id="billingDetailsCountrySelect"
                          className="relative w-full border border-solid border-foreground">
@@ -1047,16 +1012,14 @@ const PaymentPageContent: React.FC = () => {
                           </svg>
                         </div>
                       <select id="country"
-                              disabled={isReviewed}
+                              // disabled={isReviewed}
                               className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
                               value={billingDetails.country}
-                              onChange={handleCountryChange}
-                      >
+                              onChange={handleCountryChange}>
                         {countries.map(({isoCode, name}) => (
                           <option
                             key={isoCode}
-                            value={isoCode}
-                          >
+                            value={isoCode}>
                             {name}
                           </option>
                         ))}
