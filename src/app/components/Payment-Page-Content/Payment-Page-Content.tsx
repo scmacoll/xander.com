@@ -9,7 +9,6 @@ const PaymentPageContent: React.FC = () => {
   const [checkedAddressInput, setCheckedAddressInput] = useState<string>('shipping');
 
   const [isFocused, setIsFocused] = useState({
-    country: false,
     firstName: false,
     lastName: false,
     companyName: false,
@@ -21,7 +20,6 @@ const PaymentPageContent: React.FC = () => {
     phone: false,
   });
   const [hasText, setHasText] = useState({
-    country: false,
     firstName: false,
     lastName: false,
     companyName: false,
@@ -93,6 +91,16 @@ const PaymentPageContent: React.FC = () => {
       firstName: newFirstName,
       firstNameError: newFirstName.trim() === ''
     }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      firstName: newFirstName.length > 0
+    }));
+  };
+  const handleFirstNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      firstName: true
+    }));
   };
   const handleFirstNameBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -111,6 +119,10 @@ const PaymentPageContent: React.FC = () => {
         firstNameError: prevDetails.firstName.trim() === ''
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      firstName: false
+    }));
     setReviewButtonClicked(false);
   };
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -253,8 +265,6 @@ const PaymentPageContent: React.FC = () => {
     }))
     setReviewButtonClicked(false);
   };
-  const showCityLabel = isFocused.city || hasText.city;
-  const showZipcodeLabel = isFocused.zipcode || hasText.zipcode;
   const handleZipcodeFocused = () => {
     setIsFocused(prevState => ({
       ...prevState,
@@ -314,6 +324,17 @@ const PaymentPageContent: React.FC = () => {
       setDisplayInvalidCodeMessage(true); // Display invalid code message
     }, 2000);
   };
+
+  const showCountryLabel = isFocused.country || hasText.country;
+  const showFirstNameLabel = isFocused.firstName || hasText.firstName;
+  const showLastNameLabel = isFocused.lastName || hasText.lastName;
+  const showCompanyNameLabel = isFocused.companyName || hasText.companyName;
+  const showAddressLineOneLabel = isFocused.addressLineOne || hasText.addressLineOne;
+  const showAddressLineTwoLabel = isFocused.addressLineTwo || hasText.addressLineTwo;
+  const showCityLabel = isFocused.city || hasText.city;
+  const showStateLabel = isFocused.state || hasText.state;
+  const showZipcodeLabel = isFocused.zipcode || hasText.zipcode;
+  const showPhoneLabel = isFocused.phone || hasText.phone;
 
   const handleContinueToPaymentButtonClick = () => {
     setIsNavigating(true);
@@ -991,16 +1012,23 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                     <div id="contactNames"
                          className="flex w-full justify-between pt-4">
-                      <input type="text"
-                             placeholder="First Name"
-                             readOnly={isReviewed}
-                             value={billingDetails.firstName}
-                             onChange={handleFirstNameChange}
-                             onBlur={handleFirstNameBlur}
-                             className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                      />
+
+                      <div id="cityInputContainer"
+                           className={`${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
+                        <label className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          First Name
+                        </label>
+                        <input type="text"
+                               placeholder={showFirstNameLabel ? '' : 'First Name'}
+                               readOnly={isReviewed}
+                               value={billingDetails.firstName}
+                               onChange={handleFirstNameChange}
+                               onFocus={handleFirstNameFocused}
+                               onBlur={handleFirstNameBlur}
+                               className={`placeholder:transition-opacity placeholder:duration-700
+                               ${showFirstNameLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                        />
+                      </div>
                       <input type="text"
                              placeholder="Last Name"
                              readOnly={isReviewed}
