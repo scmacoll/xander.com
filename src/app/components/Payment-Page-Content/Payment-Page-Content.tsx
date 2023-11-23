@@ -16,7 +16,7 @@ const PaymentPageContent: React.FC = () => {
     addressLineOne: false,
     addressLineTwo: false,
     city: false,
-    state:  false,
+    state: false,
     zipcode: false,
     phone: false,
   });
@@ -28,7 +28,7 @@ const PaymentPageContent: React.FC = () => {
     addressLineOne: false,
     addressLineTwo: false,
     city: false,
-    state:  false,
+    state: false,
     zipcode: false,
     phone: false,
   });
@@ -253,13 +253,24 @@ const PaymentPageContent: React.FC = () => {
     }))
     setReviewButtonClicked(false);
   };
-  const showLabel = isFocused.city || hasText.city;
+  const showCityLabel = isFocused.city || hasText.city;
+  const showZipcodeLabel = isFocused.zipcode || hasText.zipcode;
+  const handleZipcodeFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      zipcode: true
+    }));
+  };
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newZipcodeChange = event.target.value;
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       zipcode: newZipcodeChange,
       zipcodeError: newZipcodeChange.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      zipcode: newZipcodeChange.length > 0
     }));
   }
   const handleZipcodeBlur = (userClickOrEvent: any) => {
@@ -279,6 +290,10 @@ const PaymentPageContent: React.FC = () => {
         zipcodeError: prevDetails.zipcode.trim() === ''
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      zipcode: false
+    }));
     setReviewButtonClicked(false);
   };
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -1030,26 +1045,27 @@ const PaymentPageContent: React.FC = () => {
                     <div id="contactCityStateCode"
                          className="flex justify-between gap-1 pt-4">
 
-                      <div id="cityInput" className={`${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
+                      <div id="cityInputContainer"
+                           className={`${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
                         <label htmlFor="state"
-                               className={`transition-opacity duration-500 ${showLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                               className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
                                  flex items-end  text-sm px-3 font-bold text-greyed-out`}>
                           City
                         </label>
                         <input id="cityInput"
                                type="text"
-                               placeholder={showLabel ? "" : "City"}
+                               placeholder={showCityLabel ? "" : "City"}
                                readOnly={isReviewed}
                                value={billingDetails.city}
                                onChange={handleCityChange}
                                onFocus={handleCityFocused}
                                onBlur={handleCityBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                               ${showLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
+                               ${showCityLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                `}
-                               // className={`border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full placeholder-greyed-out
-                               // ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
-                               // `}
+                          // className={`border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full placeholder-greyed-out
+                          // ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
+                          // `}
                         />
                       </div>
                       <div id="stateInput" className="relative border border-solid w-32% border-foreground">
@@ -1088,16 +1104,26 @@ const PaymentPageContent: React.FC = () => {
                           ))}
                         </select>
                       </div>
-                      <input id="zipcodeInput"
-                             type="text"
-                             placeholder="ZIP code"
-                             readOnly={isReviewed}
-                             value={billingDetails.zipcode}
-                             onChange={handleZipcodeChange}
-                             onBlur={handleZipcodeBlur}
-                             className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                             ${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} `}
-                      />
+                      <div id="zipcodeInputContainer"
+                           className={`${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
+                        <label htmlFor="state"
+                               className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                                 flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          Postcode
+                        </label>
+                        <input id="zipcodeInput"
+                               type="text"
+                               placeholder={showZipcodeLabel ? '' : 'Postcode'}
+                               readOnly={isReviewed}
+                               value={billingDetails.zipcode}
+                               onFocus={handleZipcodeFocused}
+                               onChange={handleZipcodeChange}
+                               onBlur={handleZipcodeBlur}
+                               className={`placeholder:transition-opacity placeholder:duration-700
+                               ${showZipcodeLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
+                               `}
+                        />
+                      </div>
                     </div>
                     <div id="contactPhone"
                          className="flex w-full justify-between pt-4">
