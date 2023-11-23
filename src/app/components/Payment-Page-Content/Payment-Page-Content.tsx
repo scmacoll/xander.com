@@ -7,8 +7,31 @@ import { Country, State, City } from 'country-state-city';
 const PaymentPageContent: React.FC = () => {
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
   const [checkedAddressInput, setCheckedAddressInput] = useState<string>('shipping');
-  const [isFocused, setIsFocused] = useState(false);
-  const [hasText, setHasText] = useState(false);
+
+  const [isFocused, setIsFocused] = useState({
+    country: false,
+    firstName: false,
+    lastName: false,
+    companyName: false,
+    addressLineOne: false,
+    addressLineTwo: false,
+    city: false,
+    state:  false,
+    zipcode: false,
+    phone: false,
+  });
+  const [hasText, setHasText] = useState({
+    country: false,
+    firstName: false,
+    lastName: false,
+    companyName: false,
+    addressLineOne: false,
+    addressLineTwo: false,
+    city: false,
+    state:  false,
+    zipcode: false,
+    phone: false,
+  });
   const [billingDetails, setBillingDetails] = useState({
     country: 'AU',
     firstName: '',
@@ -27,6 +50,7 @@ const PaymentPageContent: React.FC = () => {
     zipcodeError: false,
     phoneError: false,
   });
+
   const [isBillingValid, setIsBillingValid] = useState(false);
   const [countries, setCountries] = useState([]);
   const [shippingStates, setShippingStates] = useState([]);
@@ -195,10 +219,16 @@ const PaymentPageContent: React.FC = () => {
       city: newCityChange,
       cityError: newCityChange.trim() === ''
     }));
-    setHasText(newCityChange.length > 0);
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      city: newCityChange.length > 0
+    }));
   }
   const handleCityFocused = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsFocused(true);
+    setIsFocused(prevState => ({
+      ...prevState,
+      city: true
+    }));
   };
   const handleCityBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -217,10 +247,13 @@ const PaymentPageContent: React.FC = () => {
         cityError: prevDetails.city.trim() === ''
       }));
     }
-    setIsFocused(false);
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      city: false
+    }))
     setReviewButtonClicked(false);
   };
-  const showLabel = isFocused || hasText;
+  const showLabel = isFocused.city || hasText.city;
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newZipcodeChange = event.target.value;
     setBillingDetails(prevDetails => ({
