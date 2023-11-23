@@ -74,7 +74,7 @@ const PaymentPageContent: React.FC = () => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { firstName: string; }) => ({
+      const commonUpdate: any = (prevDetails: {firstName: string;}) => ({
         ...prevDetails,
         firstNameError: prevDetails.firstName.trim() === ''
       });
@@ -101,7 +101,7 @@ const PaymentPageContent: React.FC = () => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { lastName: string; }) => ({
+      const commonUpdate: any = (prevDetails: {lastName: string;}) => ({
         ...prevDetails,
         lastNameError: prevDetails.lastName.trim() === ''
       });
@@ -135,7 +135,7 @@ const PaymentPageContent: React.FC = () => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { addressLineOne: string; }) => ({
+      const commonUpdate: any = (prevDetails: {addressLineOne: string;}) => ({
         ...prevDetails,
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
       });
@@ -172,7 +172,7 @@ const PaymentPageContent: React.FC = () => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { phone: string; }) => ({
+      const commonUpdate: any = (prevDetails: {phone: string;}) => ({
         ...prevDetails,
         phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
       });
@@ -200,7 +200,7 @@ const PaymentPageContent: React.FC = () => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { city: string; }) => ({
+      const commonUpdate: any = (prevDetails: {city: string;}) => ({
         ...prevDetails,
         cityError: prevDetails.city.trim() === ''
       });
@@ -227,7 +227,7 @@ const PaymentPageContent: React.FC = () => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { zipcode: string; }) => ({
+      const commonUpdate: any = (prevDetails: {zipcode: string;}) => ({
         ...prevDetails,
         zipcodeError: prevDetails.zipcode.trim() === ''
       });
@@ -264,17 +264,17 @@ const PaymentPageContent: React.FC = () => {
     setIsNavigating(true);
     if (isContinuedToPayment) {
       setTimeout(() => {
-      const shippingRadioButton = document.getElementById('shipping');
-      if (shippingRadioButton) {
-        (shippingRadioButton as HTMLInputElement).click();
-      }
-      setIsContinuedToPayment(false);
-      setIsNavigating(false);
+        const shippingRadioButton = document.getElementById('shipping');
+        if (shippingRadioButton) {
+          (shippingRadioButton as HTMLInputElement).click();
+        }
+        setIsContinuedToPayment(false);
+        setIsNavigating(false);
       }, 500)
     } else {
       setTimeout(() => {
-      setIsContinuedToPayment(true);
-      setIsNavigating(false);
+        setIsContinuedToPayment(true);
+        setIsNavigating(false);
       }, 1200)
     }
   };
@@ -388,9 +388,9 @@ const PaymentPageContent: React.FC = () => {
     setIsBillingValid(billingIsValid);
 
     // updating review btn errors in real-time
-      if (billingIsValid) {
-        setBillingError(false);
-      } else {
+    if (billingIsValid) {
+      setBillingError(false);
+    } else {
       setDisplayIncompleteMessage(false);
     }
   }, [billingDetails]);
@@ -640,7 +640,8 @@ const PaymentPageContent: React.FC = () => {
                   <div className="flex font-bold cursor-pointer">Change</div>
                 </div>
 
-                <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
+                <div
+                  className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
                   <div>
                     <div className="pt-3 xs:pt-3"></div>
                     <div className="border-solid border-b border-foreground"></div>
@@ -683,9 +684,9 @@ const PaymentPageContent: React.FC = () => {
                 className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
                 <div className="pb-4">
                   <div id="reviewOrderButton"
-                          onClick={handleContinueToPaymentButtonClick}
-                          className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''}border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
-                          type="button"
+                       onClick={handleContinueToPaymentButtonClick}
+                       className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''}border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
+                       type="button"
                   >
                     {isNavigating ? (
                       <button className={styles.loader}></button>
@@ -698,7 +699,7 @@ const PaymentPageContent: React.FC = () => {
                 <div className="pb-4">
                   <div>
                     <a className="sm:px-4 xs:px-4 py-2"
-                         href="/checkout"
+                       href="/checkout"
                     >
                       <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
                         <div className="fill-white pr-1">
@@ -713,11 +714,13 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                 </div>
               </div>
-          </div>
+            </div>
 
           </div>
 
-          <div className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} `}>            <div
+          <div
+            className={`transition-opacity duration-1000 ${!isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'} `}>
+            <div
               className={`${isReviewed ? 'hidden' : ''} ${isOrderSummaryHidden ? '' : 'hidden'} flex justify-between border-b-gray-50 pb-6 md:hidden lg:hidden xl:hidden xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
               <div className="relative inline-flex flex-grow">
                 <input
@@ -775,22 +778,48 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <div id="visa">
-                          <div className="bg-white rounded border-2 border-solid border-black">
-                            <svg
-                              className={`cursor-default w-full h-full block`}
-                              width="2.5em" height="1.5em"
-                              transform="scale(.75)"
-                              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 83"><defs><linearGradient id="logosVisa0" x1="45.974%" x2="54.877%" y1="-2.006%" y2="100%"><stop offset="0%" stop-color="#222357"/><stop offset="100%" stop-color="#254AA5"/></linearGradient></defs><path fill="url(#logosVisa0)" d="M132.397 56.24c-.146-11.516 10.263-17.942 18.104-21.763c8.056-3.92 10.762-6.434 10.73-9.94c-.06-5.365-6.426-7.733-12.383-7.825c-10.393-.161-16.436 2.806-21.24 5.05l-3.744-17.519c4.82-2.221 13.745-4.158 23-4.243c21.725 0 35.938 10.724 36.015 27.351c.085 21.102-29.188 22.27-28.988 31.702c.069 2.86 2.798 5.912 8.778 6.688c2.96.392 11.131.692 20.395-3.574l3.636 16.95c-4.982 1.814-11.385 3.551-19.357 3.551c-20.448 0-34.83-10.87-34.946-26.428m89.241 24.968c-3.967 0-7.31-2.314-8.802-5.865L181.803 1.245h21.709l4.32 11.939h26.528l2.506-11.939H256l-16.697 79.963h-17.665m3.037-21.601l6.265-30.027h-17.158l10.893 30.027m-118.599 21.6L88.964 1.246h20.687l17.104 79.963h-20.679m-30.603 0L53.941 26.782l-8.71 46.277c-1.022 5.166-5.058 8.149-9.54 8.149H.493L0 78.886c7.226-1.568 15.436-4.097 20.41-6.803c3.044-1.653 3.912-3.098 4.912-7.026L41.819 1.245H63.68l33.516 79.963H75.473" transform="matrix(1 0 0 -1 0 82.668)"/></svg>
-                          </div>
+                        <div className="bg-white rounded border-2 border-solid border-black">
+                          <svg
+                            className={`cursor-default w-full h-full block`}
+                            width="2.5em" height="1.5em"
+                            transform="scale(.75)"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 83">
+                            <defs>
+                              <linearGradient id="logosVisa0" x1="45.974%" x2="54.877%" y1="-2.006%" y2="100%">
+                                <stop offset="0%" stop-color="#222357"/>
+                                <stop offset="100%" stop-color="#254AA5"/>
+                              </linearGradient>
+                            </defs>
+                            <path fill="url(#logosVisa0)"
+                                  d="M132.397 56.24c-.146-11.516 10.263-17.942 18.104-21.763c8.056-3.92 10.762-6.434 10.73-9.94c-.06-5.365-6.426-7.733-12.383-7.825c-10.393-.161-16.436 2.806-21.24 5.05l-3.744-17.519c4.82-2.221 13.745-4.158 23-4.243c21.725 0 35.938 10.724 36.015 27.351c.085 21.102-29.188 22.27-28.988 31.702c.069 2.86 2.798 5.912 8.778 6.688c2.96.392 11.131.692 20.395-3.574l3.636 16.95c-4.982 1.814-11.385 3.551-19.357 3.551c-20.448 0-34.83-10.87-34.946-26.428m89.241 24.968c-3.967 0-7.31-2.314-8.802-5.865L181.803 1.245h21.709l4.32 11.939h26.528l2.506-11.939H256l-16.697 79.963h-17.665m3.037-21.601l6.265-30.027h-17.158l10.893 30.027m-118.599 21.6L88.964 1.246h20.687l17.104 79.963h-20.679m-30.603 0L53.941 26.782l-8.71 46.277c-1.022 5.166-5.058 8.149-9.54 8.149H.493L0 78.886c7.226-1.568 15.436-4.097 20.41-6.803c3.044-1.653 3.912-3.098 4.912-7.026L41.819 1.245H63.68l33.516 79.963H75.473"
+                                  transform="matrix(1 0 0 -1 0 82.668)"/>
+                          </svg>
+                        </div>
                       </div>
                       <div className="px-1"></div>
                       <div id="newMasterCard">
-                          <div className="bg-white rounded border-2 border-solid border-black">
-                            <svg
-                              className={`cursor-default w-full h-full block`}
-                              width="2.5em" height="1.5em"
-                              xmlns="http://www.w3.org/2000/svg" id="svg895" version="1.1" viewBox="-96 -98.908 832 593.448"><defs id="defs879"><style id="style877" type="text/css">.</style></defs><path id="rect887" display="inline" fill="#ff5f00" stroke-width="5.494" d="M224.833 42.298h190.416v311.005H224.833z"/><path id="path889" d="M244.446 197.828a197.448 197.448 0 0175.54-155.475 197.777 197.777 0 100 311.004 197.448 197.448 0 01-75.54-155.53z" fill="#eb001b" stroke-width="5.494"/><path id="path891" d="M621.101 320.394v-6.372h2.747v-1.319h-6.537v1.319h2.582v6.373zm12.691 0v-7.69h-1.978l-2.307 5.493-2.308-5.494h-1.977v7.691h1.428v-5.823l2.143 5h1.483l2.143-5v5.823z" className="e" fill="#f79e1b" stroke-width="5.494"/><path id="path893" d="M640 197.828a197.777 197.777 0 01-320.015 155.474 197.777 197.777 0 000-311.004A197.777 197.777 0 01640 197.773z" className="e" fill="#f79e1b" stroke-width="5.494"/></svg>
-                          </div>
+                        <div className="bg-white rounded border-2 border-solid border-black">
+                          <svg
+                            className={`cursor-default w-full h-full block`}
+                            width="2.5em" height="1.5em"
+                            xmlns="http://www.w3.org/2000/svg" id="svg895" version="1.1"
+                            viewBox="-96 -98.908 832 593.448">
+                            <defs id="defs879">
+                              <style id="style877" type="text/css">.</style>
+                            </defs>
+                            <path id="rect887" display="inline" fill="#ff5f00" stroke-width="5.494"
+                                  d="M224.833 42.298h190.416v311.005H224.833z"/>
+                            <path id="path889"
+                                  d="M244.446 197.828a197.448 197.448 0 0175.54-155.475 197.777 197.777 0 100 311.004 197.448 197.448 0 01-75.54-155.53z"
+                                  fill="#eb001b" stroke-width="5.494"/>
+                            <path id="path891"
+                                  d="M621.101 320.394v-6.372h2.747v-1.319h-6.537v1.319h2.582v6.373zm12.691 0v-7.69h-1.978l-2.307 5.493-2.308-5.494h-1.977v7.691h1.428v-5.823l2.143 5h1.483l2.143-5v5.823z"
+                                  className="e" fill="#f79e1b" stroke-width="5.494"/>
+                            <path id="path893"
+                                  d="M640 197.828a197.777 197.777 0 01-320.015 155.474 197.777 197.777 0 000-311.004A197.777 197.777 0 01640 197.773z"
+                                  className="e" fill="#f79e1b" stroke-width="5.494"/>
+                          </svg>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -850,7 +879,7 @@ const PaymentPageContent: React.FC = () => {
                                className="form-radio cursor-pointer accent-gray-600"
                                checked={checkedAddressInput === 'shipping'}
                                onChange={handleAddressInputChange}
-                               />
+                        />
                       </div>
                       <label htmlFor="shipping" className="cursor-pointer">Same as shipping address</label>
                     </div>
@@ -873,25 +902,26 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className={`border-red transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
+                <div
+                  className={`border-red transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
                   <div id="contactDetails">
                     <div id="billingDetailsCountrySelect"
                          className="relative w-full border border-solid border-foreground">
                       <label htmlFor="country"
                              className="absolute top-2 left-3 text-sm">Country/region
                       </label>
-                        <div id="selectArrow"
-                             className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                          <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                               viewBox="0 0 24 24"
-                               xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                  strokeWidth="2"
-                                  d="M19 9l-7 7-7-7"></path>
-                          </svg>
-                        </div>
+                      <div id="selectArrow"
+                           className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+                        <svg className="h-4 w-4" fill="none" stroke="currentColor"
+                             viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </div>
                       <select id="country"
-                              // disabled={isReviewed}
+                        // disabled={isReviewed}
                               className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
                               value={billingDetails.country}
                               onChange={handleCountryChange}>
@@ -959,17 +989,28 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                     <div id="contactCityStateCode"
                          className="flex justify-between gap-1 pt-4">
-                      <input type="text"
-                             placeholder="City"
-                             readOnly={isReviewed}
-                             value={billingDetails.city}
-                             onChange={handleCityChange}
-                             onBlur={handleCityBlur}
-                             className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
+
+                      <div id="cityInput" className="relative flex flex-col border border-solid w-32% border-foreground">
+                        <label htmlFor="state"
+                               className="flex items-end pt-1 text-sm h-fit px-3 font-bold text-greyed-out">
+                          City
+                        </label>
+                        <input id="cityInput"
+                               type="text"
+                               placeholder="City"
+                               readOnly={isReviewed}
+                               value={billingDetails.city}
+                               onChange={handleCityChange}
+                               onBlur={handleCityBlur}
+                               className={`block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
                                `}
-                      />
-                      <div className="relative border border-solid w-32% border-foreground">
+                               // className={`border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full placeholder-greyed-out
+                               // ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
+                               // `}
+                        />
+                      </div>
+                      <div id="stateInput" className="relative border border-solid w-32% border-foreground">
                         <label htmlFor="state"
                                className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
                         >
@@ -1005,7 +1046,8 @@ const PaymentPageContent: React.FC = () => {
                           ))}
                         </select>
                       </div>
-                      <input type="text"
+                      <input id="zipcodeInput"
+                             type="text"
                              placeholder="ZIP code"
                              readOnly={isReviewed}
                              value={billingDetails.zipcode}
@@ -1080,9 +1122,11 @@ const PaymentPageContent: React.FC = () => {
               <div className="">
                 <div>
                   <div className="sm:px-4 xs:px-4 py-2">
-                    <div className={`flex justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
+                    <div
+                      className={`flex justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
                       <div className="fill-white pr-2">
-                        <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7"
+                             xmlns="http://www.w3.org/2000/svg">
                           <path
                             d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                         </svg>
@@ -1090,12 +1134,12 @@ const PaymentPageContent: React.FC = () => {
                       <div className="flex"
                            onClick={handleContinueToPaymentButtonClick}
                       >
-                      {isNavigating ? (
-                        <button className={styles.loader}></button>
-                      ) : (
-                        <button>Return to shipping</button>
-                      )}
-                        </div>
+                        {isNavigating ? (
+                          <button className={styles.loader}></button>
+                        ) : (
+                          <button>Return to shipping</button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
