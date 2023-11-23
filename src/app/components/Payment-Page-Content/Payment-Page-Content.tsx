@@ -172,7 +172,24 @@ const PaymentPageContent: React.FC = () => {
       ...prevDetails,
       companyName: newCompanyName,
     }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      companyName: newCompanyName.length > 0
+    }));
+  };
+  const handleCompanyNameBlur = (userClickOrEvent: any) => {
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      companyName: false
+    }));
+    setReviewButtonClicked(false);
   }
+  const handleCompanyNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      companyName: true
+    }));
+  };
   const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAddressLineOneChange = event.target.value;
     setBillingDetails(prevDetails => ({
@@ -1062,28 +1079,25 @@ const PaymentPageContent: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <div id="contactCompany"
-                         className="flex w-full justify-between pt-4">
-                      <input type="text"
-                             placeholder="Company (optional)"
-                             readOnly={isReviewed}
-                             value={billingDetails.companyName}
-                             onChange={handleCompanyNameChange}
-                             className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                    <div id="companyNameInputContainer"
+                         className={`relative pt-4 w-full`}>
+                      <div className="border border-solid border-foreground">
+                        <label
+                        className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                        Company
+                      </label>
+                        <input type="text"
+                               placeholder={showCompanyNameLabel ? '' : 'Company (optional)'}
+                               readOnly={isReviewed}
+                               value={billingDetails.companyName}
+                               onChange={handleCompanyNameChange}
+                               onFocus={handleCompanyNameFocused}
+                               onBlur={handleCompanyNameBlur}
+                               className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showCompanyNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                        /></div>
                     </div>
-                    <div id="contactAddressLineOne"
-                         className="flex w-full justify-between pt-4">
-                      <input type="text"
-                             placeholder="Address"
-                             readOnly={isReviewed}
-                             value={billingDetails.addressLineOne}
-                             onChange={handleAddressLineOneChange}
-                             onBlur={handleAddressLineOneBlur}
-                             className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                      />
-                    </div>
+
                     <div id="contactAddressLineTwo"
                          className="flex w-full justify-between pt-4">
                       <input type="text" placeholder="Apartment, suite, etc. (optional)"
