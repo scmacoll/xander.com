@@ -197,7 +197,11 @@ const PaymentPageContent: React.FC = () => {
       addressLineOne: newAddressLineOneChange,
       addressLineOneError: newAddressLineOneChange.trim() === ''
     }));
-  }
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      addressLineOne: newAddressLineOneChange.length > 0
+    }));
+  };
   const handleAddressLineOneBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
@@ -215,7 +219,17 @@ const PaymentPageContent: React.FC = () => {
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      addressLineOne: false
+    }));
     setReviewButtonClicked(false);
+  };
+  const handleAddressLineOneFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      addressLineOne: true
+    }));
   };
   const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newAddressLineTwoChange = event.target.value;
@@ -225,7 +239,21 @@ const PaymentPageContent: React.FC = () => {
       addressLineTwo: newAddressLineTwoChange,
       addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
     }));
-  }
+  };
+  const handleAddressLineTwoBlur = () => {
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      addressLineTwo: false
+    }));
+    setReviewButtonClicked(false);
+  };
+
+  const handleAddressLineTwoFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      addressLineTwo: true
+    }));
+  };
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPhone = event.target.value;
 
@@ -233,6 +261,10 @@ const PaymentPageContent: React.FC = () => {
       ...prevDetails,
       phone: newPhone,
       phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      phone: newPhone.length > 0
     }));
   };
   const handlePhoneBlur = (userClickOrEvent: any) => {
@@ -252,7 +284,17 @@ const PaymentPageContent: React.FC = () => {
         phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      phone: false
+    }));
     setReviewButtonClicked(false);
+  };
+  const handlePhoneFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      phone: true
+    }));
   };
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -1045,8 +1087,10 @@ const PaymentPageContent: React.FC = () => {
                          className="flex w-full justify-between pt-4">
 
                       <div id="firstNameInputContainer"
-                           className={`${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
-                        <label className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                           className={`${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} 
+                           relative flex flex-col border border-solid w-49%`}>
+                        <label
+                          className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
                           First Name
                         </label>
                         <input type="text"
@@ -1062,18 +1106,19 @@ const PaymentPageContent: React.FC = () => {
                       </div>
                       <div id="lastNameInputContainer"
                            className={`${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
-                        <label className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                        <label
+                          className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
                           Last Name
                         </label>
                         <input type="text"
-                             placeholder={showLastNameLabel ? '' : 'Last Name'}
-                             readOnly={isReviewed}
-                             value={billingDetails.lastName}
-                             onChange={handleLastNameChange}
-                             onFocus={handleLastNameFocused}
-                             onBlur={handleLastNameBlur}
-                             // className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out`}
-                             className={`placeholder:transition-opacity placeholder:duration-700
+                               placeholder={showLastNameLabel ? '' : 'Last Name'}
+                               readOnly={isReviewed}
+                               value={billingDetails.lastName}
+                               onChange={handleLastNameChange}
+                               onFocus={handleLastNameFocused}
+                               onBlur={handleLastNameBlur}
+                          // className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out`}
+                               className={`placeholder:transition-opacity placeholder:duration-700
                              ${showLastNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
 
                         />
@@ -1083,9 +1128,9 @@ const PaymentPageContent: React.FC = () => {
                          className={`relative pt-4 w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
-                        className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
-                        Company
-                      </label>
+                          className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          Company (optional)
+                        </label>
                         <input type="text"
                                placeholder={showCompanyNameLabel ? '' : 'Company (optional)'}
                                readOnly={isReviewed}
@@ -1095,16 +1140,47 @@ const PaymentPageContent: React.FC = () => {
                                onBlur={handleCompanyNameBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
                              ${showCompanyNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
-                        /></div>
+                        />
+                      </div>
                     </div>
 
-                    <div id="contactAddressLineTwo"
-                         className="flex w-full justify-between pt-4">
-                      <input type="text" placeholder="Apartment, suite, etc. (optional)"
-                             readOnly={isReviewed}
-                             value={billingDetails.addressLineTwo}
-                             onChange={handleAddressLineTwoChange}
-                             className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
+                    <div id="addressLineOneInputContainer"
+                         className={`relative pt-4 w-full`}>
+                      <div className="border border-solid border-foreground">
+                        <label
+                          className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          Address
+                        </label>
+                        <input type="text"
+                               placeholder={showAddressLineOneLabel ? '' : 'Address'}
+                               readOnly={isReviewed}
+                               value={billingDetails.addressLineOne}
+                               onChange={handleAddressLineOneChange}
+                               onFocus={handleAddressLineOneFocused}
+                               onBlur={handleAddressLineOneBlur}
+                               className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showAddressLineOneLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                        />
+                      </div>
+                    </div>
+                    <div id="addressLineTwoInputContainer"
+                         className={`relative pt-4 w-full`}>
+                      <div className="border border-solid border-foreground">
+                        <label
+                          className={`transition-opacity duration-500 ${showAddressLineTwoLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          Apartment, suite, etc. (optional)
+                        </label>
+                        <input type="text"
+                               placeholder={showAddressLineTwoLabel ? '' : 'Apartment, suite, etc. (optional)'}
+                               readOnly={isReviewed}
+                               value={billingDetails.addressLineTwo}
+                               onChange={handleAddressLineTwoChange}
+                               onFocus={handleAddressLineTwoFocused}
+                               onBlur={handleAddressLineTwoBlur}
+                               className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showAddressLineTwoLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                        />
+                      </div>
                     </div>
                     <div id="contactCityStateCode"
                          className="flex justify-between gap-1 pt-4">
@@ -1189,18 +1265,26 @@ const PaymentPageContent: React.FC = () => {
                         />
                       </div>
                     </div>
-                    <div id="contactPhone"
-                         className="flex w-full justify-between pt-4">
-                      <input type="text" placeholder="Phone (optional)"
-                             readOnly={isReviewed}
-                             value={billingDetails.phone}
-                             onChange={handlePhoneChange}
-                             onBlur={handlePhoneBlur}
-                             className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                             ${billingDetails.phoneError ? 'border-custom-red' : 'border-foreground'} `}
-                      />
+                      {/*<input type="text" placeholder="Phone (optional)"*/}
+                    <div id="phoneInputContainer"
+                         className={`relative pt-4 w-full`}>
+                      <div className="border border-solid border-foreground">
+                        <label
+                            className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          Phone (optional)
+                        </label>
+                        <input type="text"
+                               placeholder={showPhoneLabel ? '' : 'Phone (optional)'}
+                               readOnly={isReviewed}
+                               value={billingDetails.phone}
+                               onChange={handlePhoneChange}
+                               onFocus={handlePhoneFocused}
+                               onBlur={handlePhoneBlur}
+                               className={`placeholder:transition-opacity placeholder:duration-500
+                             ${showPhoneLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                        />
+                      </div>
                     </div>
-
                   </div>
                 </div>
 
