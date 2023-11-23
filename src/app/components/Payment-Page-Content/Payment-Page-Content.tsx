@@ -7,7 +7,8 @@ import { Country, State, City } from 'country-state-city';
 const PaymentPageContent: React.FC = () => {
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
   const [checkedAddressInput, setCheckedAddressInput] = useState<string>('shipping');
-
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasText, setHasText] = useState(false);
   const [billingDetails, setBillingDetails] = useState({
     country: 'AU',
     firstName: '',
@@ -194,7 +195,11 @@ const PaymentPageContent: React.FC = () => {
       city: newCityChange,
       cityError: newCityChange.trim() === ''
     }));
+    setHasText(newCityChange.length > 0);
   }
+  const handleCityFocused = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFocused(true);
+  };
   const handleCityBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
@@ -212,8 +217,10 @@ const PaymentPageContent: React.FC = () => {
         cityError: prevDetails.city.trim() === ''
       }));
     }
+    setIsFocused(false);
     setReviewButtonClicked(false);
   };
+  const showLabel = isFocused || hasText;
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newZipcodeChange = event.target.value;
     setBillingDetails(prevDetails => ({
@@ -990,20 +997,22 @@ const PaymentPageContent: React.FC = () => {
                     <div id="contactCityStateCode"
                          className="flex justify-between gap-1 pt-4">
 
-                      <div id="cityInput" className="relative flex flex-col border border-solid w-32% border-foreground">
+                      <div id="cityInput" className={`${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
                         <label htmlFor="state"
-                               className="flex items-end pt-1 text-sm h-fit px-3 font-bold text-greyed-out">
+                               className={`transition-opacity duration-500 ${showLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                                 flex items-end  text-sm px-3 font-bold text-greyed-out`}>
                           City
                         </label>
                         <input id="cityInput"
                                type="text"
-                               placeholder="City"
+                               placeholder={showLabel ? "" : "City"}
                                readOnly={isReviewed}
                                value={billingDetails.city}
                                onChange={handleCityChange}
+                               onFocus={handleCityFocused}
                                onBlur={handleCityBlur}
-                               className={`block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
-                               ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
+                               className={`placeholder:transition-opacity placeholder:duration-700
+                               ${showLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                `}
                                // className={`border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full placeholder-greyed-out
                                // ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
