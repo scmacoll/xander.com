@@ -132,6 +132,10 @@ const PaymentPageContent: React.FC = () => {
       lastName: newLastName,
       lastNameError: newLastName.trim() === ''
     }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      lastName: newLastName.length > 0
+    }));
   }
   const handleLastNameBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
@@ -150,7 +154,17 @@ const PaymentPageContent: React.FC = () => {
         lastNameError: prevDetails.lastName.trim() === ''
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      lastName: false
+    }));
     setReviewButtonClicked(false);
+  }
+  const handleLastNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      lastName: true
+    }));
   }
   const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCompanyName = event.target.value;
@@ -934,7 +948,7 @@ const PaymentPageContent: React.FC = () => {
 
             <div className="py-5"></div>
 
-            <div className="border-purple">
+            <div className="">
               <div className="pb-6">
                 <div className="w-1/2 text-xl font-bold">
                   Billing Address
@@ -979,7 +993,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                 </div>
                 <div
-                  className={`border-red transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
+                  className={`transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
                   <div id="contactDetails">
                     <div id="billingDetailsCountrySelect"
                          className="relative w-full border border-solid border-foreground">
@@ -1013,7 +1027,7 @@ const PaymentPageContent: React.FC = () => {
                     <div id="contactNames"
                          className="flex w-full justify-between pt-4">
 
-                      <div id="cityInputContainer"
+                      <div id="firstNameInputContainer"
                            className={`${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
                         <label className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
                           First Name
@@ -1026,24 +1040,32 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handleFirstNameFocused}
                                onBlur={handleFirstNameBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                               ${showFirstNameLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                               ${showFirstNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                         />
                       </div>
-                      <input type="text"
-                             placeholder="Last Name"
+                      <div id="lastNameInputContainer"
+                           className={`${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
+                        <label className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          Last Name
+                        </label>
+                        <input type="text"
+                             placeholder={showLastNameLabel ? '' : 'Last Name'}
                              readOnly={isReviewed}
                              value={billingDetails.lastName}
                              onChange={handleLastNameChange}
+                             onFocus={handleLastNameFocused}
                              onBlur={handleLastNameBlur}
-                             className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                      />
+                             // className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out`}
+                             className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showLastNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+
+                        />
+                      </div>
                     </div>
                     <div id="contactCompany"
                          className="flex w-full justify-between pt-4">
                       <input type="text"
-                             placeholder="Company (required for business addresses)"
+                             placeholder="Company (optional)"
                              readOnly={isReviewed}
                              value={billingDetails.companyName}
                              onChange={handleCompanyNameChange}
@@ -1174,7 +1196,7 @@ const PaymentPageContent: React.FC = () => {
             <div className="py-3"></div>
 
             <div
-              className="flex border-blue flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
+              className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
               {/*<div className="pb-4">*/}
               {/*  <button id="reviewOrderButton"*/}
               {/*          className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}*/}
