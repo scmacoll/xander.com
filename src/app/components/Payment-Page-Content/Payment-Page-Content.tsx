@@ -1270,8 +1270,8 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                 </div>
                 <div
-                  className={`transition-opacity duration-500 ${!isSameAddress ? 'p-4 h-auto  opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground`}>
-                  <div id="contactDetails">
+                  className={`transition-opacity duration-500 ${!isSameAddress ? 'p-4 h-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground`}>
+                  <div id="contactDetails" className="flex flex-col gap-3">
                     <div id="billingDetailsCountrySelect"
                          className="relative w-full border border-solid border-foreground">
                       <label htmlFor="country"
@@ -1301,12 +1301,12 @@ const PaymentPageContent: React.FC = () => {
                         ))}
                       </select>
                     </div>
-                    <div id="contactNames"
-                         className="flex w-full justify-between pt-4">
 
+                    <div id="contactNames"
+                         className="flex w-full justify-between gap-3">
                       <div id="firstNameInputContainer"
                            className={`${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} 
-                           relative flex flex-col border border-solid w-49%`}>
+                           relative flex flex-col border border-solid w-full`}>
                         <label
                           className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           First Name
@@ -1319,11 +1319,11 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handleFirstNameFocused}
                                onBlur={handleFirstNameBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                               ${showFirstNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                               ${showFirstNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                         />
                       </div>
                       <div id="lastNameInputContainer"
-                           className={`${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
+                           className={`${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
                         <label
                           className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Last Name
@@ -1337,14 +1337,14 @@ const PaymentPageContent: React.FC = () => {
                                onBlur={handleLastNameBlur}
                           // className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out`}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                             ${showLastNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                             ${showLastNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
 
                         />
                       </div>
                     </div>
 
                     <div id="companyNameInputContainer"
-                         className={`pt-4 w-full`}>
+                         className={`w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
                           className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'}
@@ -1359,13 +1359,13 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handleCompanyNameFocused}
                                onBlur={handleCompanyNameBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                             ${showCompanyNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                             ${showCompanyNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                         />
                       </div>
                     </div>
 
                     <div id="addressLineOneInputContainer"
-                         className={`relative pt-4 w-full`}>
+                         className={`relative w-full`}>
                       <div className={`${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
                         <label
                           className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1379,12 +1379,12 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handleAddressLineOneFocused}
                                onBlur={handleAddressLineOneBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                             ${showAddressLineOneLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                             ${showAddressLineOneLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                         />
                       </div>
                     </div>
                     <div id="addressLineTwoInputContainer"
-                         className={`relative pt-4 w-full`}>
+                         className={`relative w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
                           className={`transition-opacity duration-500 ${showAddressLineTwoLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1398,17 +1398,18 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handleAddressLineTwoFocused}
                                onBlur={handleAddressLineTwoBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                             ${showAddressLineTwoLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                             ${showAddressLineTwoLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                         />
                       </div>
                     </div>
-                    <div id="contactCityStateCode"
-                         className="flex justify-between gap-1 pt-4">
 
+                    <div id="contactCityStateCode"
+                         className="flex w-full justify-between gap-3">
                       <div id="cityInputContainer"
-                           className={`${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
-                        <label className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
-                                 flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                           className={`${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                        <label
+                          className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                           flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           City
                         </label>
                         <input id="cityInput"
@@ -1420,22 +1421,18 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handleCityFocused}
                                onBlur={handleCityBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                               ${showCityLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
+                               ${showCityLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                `}
                         />
                       </div>
-                      <div  id="stateInput" className="relative border border-solid w-32% border-foreground">
 
-                        <span
-                               className="xs:hidden flex pt-1 px-3 text-xs font-bold text-greyed-out"
-                        >
+                      <div id="stateInput" className="relative border border-solid w-full border-foreground">
+                        <label className="xs:hidden flex items-end pt-1 px-3 text-xs font-bold text-greyed-out">
                           State/territory
-                        </span>
-                        <span
-                               className="hidden xs:block absolute top-1 left-3 text-xs font-bold text-greyed-out"
-                        >
+                        </label>
+                        <label className="hidden xs:flex items-end pt-1 px-3 text-xs font-bold text-greyed-out">
                           State
-                        </span>
+                        </label>
                         <div id="selectArrow"
                              className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
                           <svg className="h-4 w-4" fill="none" stroke="currentColor"
@@ -1449,7 +1446,7 @@ const PaymentPageContent: React.FC = () => {
                                 disabled={isReviewed}
                                 value={billingDetails.state}
                                 onChange={handleStateChange}
-                                className="block text-sm w-full appearance-none px-3 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                                className="block text-sm w-full overflow-hidden appearance-none px-3 pb-2 bg-background focus:border-blue-500 focus:outline-none"
                         >
                           {billingStates.map(({isoCode, name}) => (
                             <option
@@ -1462,10 +1459,10 @@ const PaymentPageContent: React.FC = () => {
                         </select>
                       </div>
                       <div id="zipcodeInputContainer"
-                           className={`${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
-                        <label htmlFor="state"
+                           className={`${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                        <label
                                className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
-                                 flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                                flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Postcode
                         </label>
                         <input id="zipcodeInput"
@@ -1477,17 +1474,16 @@ const PaymentPageContent: React.FC = () => {
                                onChange={handleZipcodeChange}
                                onBlur={handleZipcodeBlur}
                                className={`placeholder:transition-opacity placeholder:duration-700
-                               ${showZipcodeLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
+                               ${showZipcodeLabel ? 'h-auto placeholder:opacity-0 overflow-hidden pb-2' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                `}
                         />
                       </div>
                     </div>
-                    {/*<input type="text" placeholder="Phone (optional)"*/}
                     <div id="phoneInputContainer"
-                         className={`relative pt-4 w-full`}>
+                         className={`relative w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
-                          className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Phone (optional)
                         </label>
                         <input type="text"
@@ -1498,7 +1494,7 @@ const PaymentPageContent: React.FC = () => {
                                onFocus={handlePhoneFocused}
                                onBlur={handlePhoneBlur}
                                className={`placeholder:transition-opacity placeholder:duration-500
-                             ${showPhoneLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                             ${showPhoneLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                         />
                       </div>
                     </div>
