@@ -87,17 +87,32 @@ const PaymentPageContent: React.FC = () => {
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
   const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCardNumber = event.target.value
+    let newCardNumber = event.target.value;
+    // Remove non-digit characters and add space after every 4 digits
+    newCardNumber = newCardNumber.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardNumber: newCardNumber,
-      cardNumberError: newCardNumber.trim() === ''
+      // Update the error state based on the regex for digits only (without spaces)
+      cardNumberError: !cardNumberDigitRegex.test(newCardNumber.replace(/\s/g, ''))
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
       cardNumber: newCardNumber.length > 0
     }));
   };
+  // const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newCardNumber = event.target.value
+  //   setCardDetails(prevDetails => ({
+  //     ...prevDetails,
+  //     cardNumber: newCardNumber,
+  //     cardNumberError: !cardNumberDigitRegex.test(newCardNumber)
+  //   }));
+  //   setHasText(prevDetails => ({
+  //     ...prevDetails,
+  //     cardNumber: newCardNumber.length > 0
+  //   }));
+  // };
   const handleCardNumberFocused = () => {
     setIsFocused(prevState => ({
       ...prevState,
@@ -111,7 +126,12 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardNumberError: prevDetails.cardNumber.trim() === ''
+        cardNumberError: prevDetails.cardNumber.length > 0 && !cardNumberLengthRegex.test(prevDetails.cardNumber)
+      }));
+    } else {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardNumberError: prevDetails.cardNumber.length > 0 && !cardNumberLengthRegex.test(prevDetails.cardNumber)
       }));
     }
     setIsFocused(prevDetails => ({
@@ -226,6 +246,8 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
+  const cardNumberDigitRegex = /^\d+$/;
+  const cardNumberLengthRegex = /^(?:\d{4}\s){3}\d{4}$/;
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newCountry = event.target.value
     setBillingDetails(prevDetails => ({
@@ -1148,6 +1170,7 @@ const PaymentPageContent: React.FC = () => {
                                  placeholder={showCardNumberLabel ? '' : "Card Number"}
                                  readOnly={isReviewed}
                                  value={cardDetails.cardNumber}
+                                 maxLength={19}
                                  onChange={handleCardNumberChange}
                                  onFocus={handleCardNumberFocused}
                                  onBlur={handleCardNumberBlur}
