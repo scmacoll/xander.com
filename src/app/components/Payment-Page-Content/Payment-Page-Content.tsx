@@ -121,6 +121,41 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
+  const handleCardNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCardName = event.target.value
+    setCardDetails(prevDetails => ({
+      ...prevDetails,
+      cardName: newCardName,
+      cardNameError: newCardName.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      cardName: newCardName.length > 0
+    }));
+  };
+  const handleCardNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      cardName: true
+    }));
+  };
+  const handleCardNameBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+    if (shouldValidate) {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardNameError: prevDetails.cardName.trim() === ''
+      }));
+    }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      cardName: false
+    }));
+    setReviewButtonClicked(false);
+  };
+
 
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -452,6 +487,9 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const showCardNumberLabel = isFocused.cardNumber || hasText.cardNumber;
+  const showCardNameLabel = isFocused.cardName|| hasText.cardName
+  const showCardExpiryLabel = isFocused.cardExpiry || hasText.cardExpiry;
+  const showCardCodeLabel = isFocused.cardCode || hasText.cardCode;
 
   const showFirstNameLabel = isFocused.firstName || hasText.firstName;
   const showLastNameLabel = isFocused.lastName || hasText.lastName;
@@ -1029,6 +1067,7 @@ const PaymentPageContent: React.FC = () => {
                 <div>
                   <div className="flex flex-col p-4">
                     <div id="cardDetailsInputContainer">
+
                       <div id="cardNumberInputContainer"
                            className={`${cardDetails.cardNumberError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
                         <div className="">
@@ -1048,12 +1087,29 @@ const PaymentPageContent: React.FC = () => {
                           />
                         </div>
                       </div>
+
                       <div className="pt-3"></div>
-                      <div className="border border-solid border-foreground w-full">
-                        <div className="p-3">
-                          Name on card
+
+                      <div id="cardNameInputContainer"
+                           className={`${cardDetails.cardNameError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                        <div className="">
+                          <label
+                            className={`transition-opacity duration-500 ${showCardNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                            Name on card
+                          </label>
+                          <input type="text"
+                                 placeholder={showCardNameLabel ? '' : "Name on card"}
+                                 readOnly={isReviewed}
+                                 value={cardDetails.cardName}
+                                 onChange={handleCardNameChange}
+                                 onFocus={handleCardNameFocused}
+                                 onBlur={handleCardNameBlur}
+                                 className={`placeholder:transition-opacity placeholder:duration-700
+                                 ${showCardNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                          />
                         </div>
                       </div>
+
                       <div className="pt-3"></div>
                       <div className="flex">
                         <div className="border border-solid border-foreground w-full">
@@ -1161,7 +1217,7 @@ const PaymentPageContent: React.FC = () => {
                            className={`${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} 
                            relative flex flex-col border border-solid w-49%`}>
                         <label
-                          className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           First Name
                         </label>
                         <input type="text"
@@ -1178,7 +1234,7 @@ const PaymentPageContent: React.FC = () => {
                       <div id="lastNameInputContainer"
                            className={`${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-49%`}>
                         <label
-                          className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Last Name
                         </label>
                         <input type="text"
@@ -1195,11 +1251,13 @@ const PaymentPageContent: React.FC = () => {
                         />
                       </div>
                     </div>
+
                     <div id="companyNameInputContainer"
-                         className={`relative pt-4 w-full`}>
+                         className={`pt-4 w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
-                          className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'}
+                          flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Company (optional)
                         </label>
                         <input type="text"
@@ -1219,7 +1277,7 @@ const PaymentPageContent: React.FC = () => {
                          className={`relative pt-4 w-full`}>
                       <div className={`${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
                         <label
-                          className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Address
                         </label>
                         <input type="text"
@@ -1238,7 +1296,7 @@ const PaymentPageContent: React.FC = () => {
                          className={`relative pt-4 w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
-                          className={`transition-opacity duration-500 ${showAddressLineTwoLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showAddressLineTwoLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Apartment, suite, etc. (optional)
                         </label>
                         <input type="text"
@@ -1258,9 +1316,8 @@ const PaymentPageContent: React.FC = () => {
 
                       <div id="cityInputContainer"
                            className={`${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
-                        <label htmlFor="state"
-                               className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
-                                 flex items-end  text-sm px-3 font-bold text-greyed-out`}>
+                        <label className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                                 flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           City
                         </label>
                         <input id="cityInput"
@@ -1274,22 +1331,20 @@ const PaymentPageContent: React.FC = () => {
                                className={`placeholder:transition-opacity placeholder:duration-700
                                ${showCityLabel ? 'h-auto placeholder:opacity-0 overflow-hidden' : 'h-full placeholder:opacity-100'} block text-sm appearance-none pb-1 px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                `}
-                          // className={`border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-full placeholder-greyed-out
-                          // ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
-                          // `}
                         />
                       </div>
-                      <div id="stateInput" className="relative border border-solid w-32% border-foreground">
-                        <label htmlFor="state"
-                               className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
+                      <div  id="stateInput" className="relative border border-solid w-32% border-foreground">
+
+                        <span
+                               className="xs:hidden flex pt-1 px-3 text-xs font-bold text-greyed-out"
                         >
-                          State/Province
-                        </label>
-                        <label htmlFor="state"
-                               className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
+                          State/territory
+                        </span>
+                        <span
+                               className="hidden xs:block absolute top-1 left-3 text-xs font-bold text-greyed-out"
                         >
                           State
-                        </label>
+                        </span>
                         <div id="selectArrow"
                              className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
                           <svg className="h-4 w-4" fill="none" stroke="currentColor"
@@ -1299,11 +1354,11 @@ const PaymentPageContent: React.FC = () => {
                                   d="M19 9l-7 7-7-7"></path>
                           </svg>
                         </div>
-                        <select id="billingDetailsstate"
+                        <select id="stateSelect"
                                 disabled={isReviewed}
                                 value={billingDetails.state}
                                 onChange={handleStateChange}
-                                className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                                className="block text-sm w-full appearance-none px-3 pb-1 bg-background focus:border-blue-500 focus:outline-none"
                         >
                           {billingStates.map(({isoCode, name}) => (
                             <option
@@ -1319,7 +1374,7 @@ const PaymentPageContent: React.FC = () => {
                            className={`${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-32%`}>
                         <label htmlFor="state"
                                className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
-                                 flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                                 flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Postcode
                         </label>
                         <input id="zipcodeInput"
