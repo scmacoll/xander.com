@@ -6,7 +6,6 @@ import { Country, State, City } from 'country-state-city';
 
 const PaymentPageContent: React.FC = () => {
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
-  const [checkedAddressInput, setCheckedAddressInput] = useState<string>('shipping');
 
   const [isFocused, setIsFocused] = useState({
     firstName: false,
@@ -65,7 +64,7 @@ const PaymentPageContent: React.FC = () => {
   const [billingError, setBillingError] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [useShippingAddress, setUseShippingAddress] = useState(true);
-  const [isSameAddress, setIsSameAddress] = useState(false);
+  const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
@@ -429,7 +428,7 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log("input change to :  ", event.target.value);
-    setCheckedAddressInput(event.target.value);
+    setIsSameAddress(prevIsSameAddress => !prevIsSameAddress);
   };
 
   // const updateContactDetails = (firstName: string) => {
@@ -1026,7 +1025,8 @@ const PaymentPageContent: React.FC = () => {
                                type="radio"
                                name="addressType"
                                className="form-radio cursor-pointer accent-gray-600"
-                               checked={checkedAddressInput === 'shipping'}
+                               checked={isSameAddress}
+                               // checked={checkedAddressInput === 'shipping'}
                                onChange={handleAddressInputChange}
                         />
                       </div>
@@ -1042,7 +1042,8 @@ const PaymentPageContent: React.FC = () => {
                                type="radio"
                                name="addressType"
                                className="form-radio cursor-pointer accent-gray-600"
-                               checked={checkedAddressInput === 'billing'}
+                               checked={!isSameAddress}
+                               // checked={checkedAddressInput === 'billing'}
                                onChange={handleAddressInputChange}
                         />
                       </div>
@@ -1052,7 +1053,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                 </div>
                 <div
-                  className={`transition-opacity duration-500 ${checkedAddressInput === 'billing' ? 'h-auto p-auto opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground p-4`}>
+                  className={`transition-opacity duration-500 ${!isSameAddress ? 'p-4 h-auto  opacity-100' : 'opacity-0 h-0 p-0 overflow-hidden'} border-t border-solid border-foreground`}>
                   <div id="contactDetails">
                     <div id="billingDetailsCountrySelect"
                          className="relative w-full border border-solid border-foreground">
@@ -1305,7 +1306,7 @@ const PaymentPageContent: React.FC = () => {
               {/*</div>*/}
               <div id="orderButton" className="flex">
                 <div id="loadingBorder"
-                     className={`${isReviewing ? 'border-2 rounded font-bold p-4 border-solid border-foreground bg-greyed-out' : ''}`}
+                     className={`${isReviewing ? '' : ''}`}
                 >
                   {isReviewing ? (
                     <button id="loadingReviewButton"
