@@ -188,17 +188,55 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
   const handleCardExpiryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCardExpiry = event.target.value
+    let newCardExpiry = event.target.value;
+
+    // Remove all non-digit characters except the slash
+    newCardExpiry = newCardExpiry.replace(/[^0-9\/]/g, '');
+
+    // Check if the user is trying to delete the slash
+    if (newCardExpiry.length === 2 && event.target.value.length < event.target.defaultValue.length) {
+      newCardExpiry = newCardExpiry.substring(0, 1);
+    } else if (newCardExpiry.length === 2) {
+      // Automatically add slash after the month if not deleting
+      newCardExpiry += '/';
+    }
+
+    // Limit the length to MM/YY (5 characters)
+    newCardExpiry = newCardExpiry.substring(0, 5);
+
+    // Update state with the formatted expiry date
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardExpiry: newCardExpiry,
-      cardExpiryError: newCardExpiry.trim() === ''
+      cardExpiryError: !isValidExpiryDate(newCardExpiry)
     }));
+
     setHasText(prevDetails => ({
       ...prevDetails,
       cardExpiry: newCardExpiry.length > 0
     }));
   };
+
+
+  const isValidExpiryDate = (expiryDate) => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // JavaScript months are 0-indexed
+    const parts = expiryDate.split('/');
+
+    if (parts.length === 2) {
+      const expMonth = parseInt(parts[0], 10);
+      const expYear = parseInt(`20${parts[1]}`, 10); // Assuming YY format for year
+
+      // Check if the year and month are valid
+      if (expYear > currentYear || (expYear === currentYear && expMonth >= currentMonth)) {
+        return expMonth >= 1 && expMonth <= 12;
+      }
+    }
+
+    return false;
+  };
+
   const handleCardExpiryFocused = () => {
     setIsFocused(prevState => ({
       ...prevState,
@@ -1211,23 +1249,23 @@ const PaymentPageContent: React.FC = () => {
                       </div>
 
                       <div className="flex gap-3">
-                          <div id="cardExpiryInputContainer"
-                               className={`${cardDetails.cardExpiryError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
-                              <label
-                                className={`transition-opacity duration-500 ${showCardExpiryLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
-                                Expiration date (MM/YY)
-                              </label>
-                              <input type="text"
-                                     placeholder={showCardExpiryLabel ? '' : "Expiration date (MM/YY)"}
-                                     readOnly={isReviewed}
-                                     value={cardDetails.cardExpiry}
-                                     onChange={handleCardExpiryChange}
-                                     onFocus={handleCardExpiryFocused}
-                                     onBlur={handleCardExpiryBlur}
-                                     className={`placeholder:transition-opacity placeholder:duration-700
+                        <div id="cardExpiryInputContainer"
+                             className={`${cardDetails.cardExpiryError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                          <label
+                            className={`transition-opacity duration-500 ${showCardExpiryLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                            Expiration date (MM/YY)
+                          </label>
+                          <input type="text"
+                                 placeholder={showCardExpiryLabel ? '' : "Expiration date (MM/YY)"}
+                                 readOnly={isReviewed}
+                                 value={cardDetails.cardExpiry}
+                                 onChange={handleCardExpiryChange}
+                                 onFocus={handleCardExpiryFocused}
+                                 onBlur={handleCardExpiryBlur}
+                                 className={`placeholder:transition-opacity placeholder:duration-700
                                  ${showCardExpiryLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
-                              />
-                          </div>
+                          />
+                        </div>
 
                         <div id="cardCodeInputContainer"
                              className={`${cardDetails.cardCodeError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
@@ -1494,7 +1532,7 @@ const PaymentPageContent: React.FC = () => {
                       <div id="zipcodeInputContainer"
                            className={`${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
                         <label
-                               className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                          className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
                                 flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Postcode
                         </label>
