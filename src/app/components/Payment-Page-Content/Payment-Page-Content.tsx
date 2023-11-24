@@ -89,8 +89,6 @@ const PaymentPageContent: React.FC = () => {
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const cardNumberDigitRegex = /^\d+$/;
   const cardNumberLengthRegex = /^(?:\d{4}\s){3}\d{4}$/;
-  // TODO: Sort out if should keep or remove empty space as error
-  const cardNameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 
   const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let newCardNumber = event.target.value;
@@ -150,6 +148,7 @@ const PaymentPageContent: React.FC = () => {
   const handleCardNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let newCardName = event.target.value
     newCardName = newCardName.replace(/[^a-zA-Z\s'-]/g, '');
+    newCardName = newCardName.substring(0, 60);
 
     setCardDetails(prevDetails => ({
       ...prevDetails,
@@ -174,12 +173,10 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardNameError: !cardNameRegex.test(prevDetails.cardName)
       }));
     }
     setCardDetails(prevDetails => ({
       ...prevDetails,
-      cardNameError: !cardNameRegex.test(prevDetails.cardName)
     }));
     setIsFocused(prevDetails => ({
       ...prevDetails,
@@ -208,7 +205,7 @@ const PaymentPageContent: React.FC = () => {
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardExpiry: newCardExpiry,
-      cardExpiryError: !isValidExpiryDate(newCardExpiry)
+      cardExpiryError: newCardExpiry.length === 5 && !isValidExpiryDate(newCardExpiry)
     }));
 
     setHasText(prevDetails => ({
@@ -217,8 +214,7 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
 
-
-  const isValidExpiryDate = (expiryDate) => {
+  const isValidExpiryDate = (expiryDate: string) => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1; // JavaScript months are 0-indexed
@@ -250,22 +246,25 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardExpiryError: prevDetails.cardExpiry.trim() === ''
       }));
     }
     setIsFocused(prevDetails => ({
       ...prevDetails,
-      cardExpiry: false
+      cardExpiry: false,
     }));
     setReviewButtonClicked(false);
   };
 
   const handleCardCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCardCode = event.target.value
+    let newCardCode = event.target.value;
+    // Remove all non-digit characters
+    newCardCode = newCardCode.replace(/\D/g, '');
+    // Limit the length to 3 characters
+    newCardCode = newCardCode.substring(0, 3);
+    // Update state with the new card code
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardCode: newCardCode,
-      cardCodeError: newCardCode.trim() === ''
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
@@ -285,9 +284,13 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardCodeError: prevDetails.cardCode.trim() === ''
+        cardCodeError: prevDetails.cardCode.length > 0 && prevDetails.cardCode.length < 3
       }));
     }
+  setCardDetails(prevDetails => ({
+      ...prevDetails,
+      cardCodeError: prevDetails.cardCode.length > 0 && prevDetails.cardCode.length < 3
+    }));
     setIsFocused(prevDetails => ({
       ...prevDetails,
       cardCode: false
