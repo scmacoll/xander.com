@@ -8,6 +8,10 @@ const PaymentPageContent: React.FC = () => {
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
   const [isFocused, setIsFocused] = useState({
+    cardNumber: false,
+    cardName: false,
+    cardExpiry: false,
+    cardCode: false,
     firstName: false,
     lastName: false,
     companyName: false,
@@ -19,6 +23,10 @@ const PaymentPageContent: React.FC = () => {
     phone: false,
   });
   const [hasText, setHasText] = useState({
+    cardNumber: false,
+    cardName: false,
+    cardExpiry: false,
+    cardCode: false,
     firstName: false,
     lastName: false,
     companyName: false,
@@ -28,6 +36,16 @@ const PaymentPageContent: React.FC = () => {
     state: false,
     zipcode: false,
     phone: false,
+  });
+  const [cardDetails, setCardDetails] = useState({
+    cardNumber: '',
+    cardName: '',
+    cardExpiry: '',
+    cardCode: '',
+    cardNumberError: false,
+    cardNameError: false,
+    cardExpiryError: false,
+    cardCodeError: false,
   });
   const [billingDetails, setBillingDetails] = useState({
     country: 'AU',
@@ -67,6 +85,42 @@ const PaymentPageContent: React.FC = () => {
   const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
+
+  const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCardNumber = event.target.value
+    setCardDetails(prevDetails => ({
+      ...prevDetails,
+      cardNumber: newCardNumber,
+      cardNumberError: newCardNumber.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      cardNumber: newCardNumber.length > 0
+    }));
+  };
+  const handleCardNumberFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      cardNumber: true
+    }));
+  };
+  const handleCardNumberBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+    if (shouldValidate) {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardNumberError: prevDetails.cardNumber.trim() === ''
+      }));
+    }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      cardNumber: false
+    }));
+    setReviewButtonClicked(false);
+  };
+
 
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -397,14 +451,14 @@ const PaymentPageContent: React.FC = () => {
     }, 2000);
   };
 
-  const showCountryLabel = isFocused.country || hasText.country;
+  const showCardNumberLabel = isFocused.cardNumber || hasText.cardNumber;
+
   const showFirstNameLabel = isFocused.firstName || hasText.firstName;
   const showLastNameLabel = isFocused.lastName || hasText.lastName;
   const showCompanyNameLabel = isFocused.companyName || hasText.companyName;
   const showAddressLineOneLabel = isFocused.addressLineOne || hasText.addressLineOne;
   const showAddressLineTwoLabel = isFocused.addressLineTwo || hasText.addressLineTwo;
   const showCityLabel = isFocused.city || hasText.city;
-  const showStateLabel = isFocused.state || hasText.state;
   const showZipcodeLabel = isFocused.zipcode || hasText.zipcode;
   const showPhoneLabel = isFocused.phone || hasText.phone;
 
@@ -974,9 +1028,25 @@ const PaymentPageContent: React.FC = () => {
                 </div>
                 <div>
                   <div className="flex flex-col p-4">
-                    <div className="">
-                      <div className="border border-solid border-foreground w-full">
-                        <div className="p-3">Card Number</div>
+                    <div id="cardDetailsInputContainer">
+                      <div id="cardNumberInputContainer"
+                           className={`${cardDetails.cardNumberError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                        <div className="">
+                          <label
+                            className={`transition-opacity duration-500 ${showCardNumberLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                            Card Number
+                          </label>
+                          <input type="text"
+                                 placeholder={showCardNumberLabel ? '' : "Card Number"}
+                                 readOnly={isReviewed}
+                                 value={cardDetails.cardNumber}
+                                 onChange={handleCardNumberChange}
+                                 onFocus={handleCardNumberFocused}
+                                 onBlur={handleCardNumberBlur}
+                                 className={`placeholder:transition-opacity placeholder:duration-700
+                                 ${showCardNumberLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                          />
+                        </div>
                       </div>
                       <div className="pt-3"></div>
                       <div className="border border-solid border-foreground w-full">
@@ -1026,7 +1096,7 @@ const PaymentPageContent: React.FC = () => {
                                name="addressType"
                                className="form-radio cursor-pointer accent-gray-600"
                                checked={isSameAddress}
-                               // checked={checkedAddressInput === 'shipping'}
+                          // checked={checkedAddressInput === 'shipping'}
                                onChange={handleAddressInputChange}
                         />
                       </div>
@@ -1043,7 +1113,7 @@ const PaymentPageContent: React.FC = () => {
                                name="addressType"
                                className="form-radio cursor-pointer accent-gray-600"
                                checked={!isSameAddress}
-                               // checked={checkedAddressInput === 'billing'}
+                          // checked={checkedAddressInput === 'billing'}
                                onChange={handleAddressInputChange}
                         />
                       </div>
@@ -1147,7 +1217,7 @@ const PaymentPageContent: React.FC = () => {
 
                     <div id="addressLineOneInputContainer"
                          className={`relative pt-4 w-full`}>
-                      <div className="border border-solid border-foreground">
+                      <div className={`${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
                         <label
                           className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
                           Address
@@ -1266,12 +1336,12 @@ const PaymentPageContent: React.FC = () => {
                         />
                       </div>
                     </div>
-                      {/*<input type="text" placeholder="Phone (optional)"*/}
+                    {/*<input type="text" placeholder="Phone (optional)"*/}
                     <div id="phoneInputContainer"
                          className={`relative pt-4 w-full`}>
                       <div className="border border-solid border-foreground">
                         <label
-                            className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                          className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
                           Phone (optional)
                         </label>
                         <input type="text"
