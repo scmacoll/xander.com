@@ -155,7 +155,75 @@ const PaymentPageContent: React.FC = () => {
     }));
     setReviewButtonClicked(false);
   };
+  const handleCardExpiryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCardExpiry = event.target.value
+    setCardDetails(prevDetails => ({
+      ...prevDetails,
+      cardExpiry: newCardExpiry,
+      cardExpiryError: newCardExpiry.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      cardExpiry: newCardExpiry.length > 0
+    }));
+  };
+  const handleCardExpiryFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      cardExpiry: true
+    }));
+  };
+  const handleCardExpiryBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
+    if (shouldValidate) {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardExpiryError: prevDetails.cardExpiry.trim() === ''
+      }));
+    }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      cardExpiry: false
+    }));
+    setReviewButtonClicked(false);
+  };
+
+  const handleCardCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newCardCode = event.target.value
+    setCardDetails(prevDetails => ({
+      ...prevDetails,
+      cardCode: newCardCode,
+      cardCodeError: newCardCode.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      cardCode: newCardCode.length > 0
+    }));
+  };
+  const handleCardCodeFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      cardCode: true
+    }));
+  };
+  const handleCardCodeBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+    if (shouldValidate) {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardCodeError: prevDetails.cardCode.trim() === ''
+      }));
+    }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      cardCode: false
+    }));
+    setReviewButtonClicked(false);
+  };
 
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -1066,13 +1134,14 @@ const PaymentPageContent: React.FC = () => {
                 </div>
                 <div>
                   <div className="flex flex-col p-4">
-                    <div id="cardDetailsInputContainer">
+                    <div id="cardDetailsInputContainer"
+                         className="flex flex-col gap-3">
 
                       <div id="cardNumberInputContainer"
                            className={`${cardDetails.cardNumberError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
                         <div className="">
                           <label
-                            className={`transition-opacity duration-500 ${showCardNumberLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                            className={`transition-opacity duration-500 ${showCardNumberLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                             Card Number
                           </label>
                           <input type="text"
@@ -1083,18 +1152,16 @@ const PaymentPageContent: React.FC = () => {
                                  onFocus={handleCardNumberFocused}
                                  onBlur={handleCardNumberBlur}
                                  className={`placeholder:transition-opacity placeholder:duration-700
-                                 ${showCardNumberLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                                 ${showCardNumberLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                           />
                         </div>
                       </div>
-
-                      <div className="pt-3"></div>
 
                       <div id="cardNameInputContainer"
                            className={`${cardDetails.cardNameError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
                         <div className="">
                           <label
-                            className={`transition-opacity duration-500 ${showCardNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-sm px-3 font-bold text-greyed-out`}>
+                            className={`transition-opacity duration-500 ${showCardNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                             Name on card
                           </label>
                           <input type="text"
@@ -1105,25 +1172,49 @@ const PaymentPageContent: React.FC = () => {
                                  onFocus={handleCardNameFocused}
                                  onBlur={handleCardNameBlur}
                                  className={`placeholder:transition-opacity placeholder:duration-700
-                                 ${showCardNameLabel ? 'h-auto placeholder:opacity-0 pb-1 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                                 ${showCardNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                           />
                         </div>
                       </div>
 
-                      <div className="pt-3"></div>
-                      <div className="flex">
-                        <div className="border border-solid border-foreground w-full">
-                          <div className="p-3">
-                            Expiration Date
+                      <div className="flex gap-3">
+                          <div id="cardExpiryInputContainer"
+                               className={`${cardDetails.cardExpiryError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                              <label
+                                className={`transition-opacity duration-500 ${showCardExpiryLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                                Expiration date (MM/YY)
+                              </label>
+                              <input type="text"
+                                     placeholder={showCardExpiryLabel ? '' : "Expiration date (MM/YY)"}
+                                     readOnly={isReviewed}
+                                     value={cardDetails.cardExpiry}
+                                     onChange={handleCardExpiryChange}
+                                     onFocus={handleCardExpiryFocused}
+                                     onBlur={handleCardExpiryBlur}
+                                     className={`placeholder:transition-opacity placeholder:duration-700
+                                 ${showCardExpiryLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                              />
                           </div>
-                        </div>
-                        <div className="pr-3"></div>
-                        <div className="border border-solid border-foreground w-full">
-                          <div className="p-3">
-                            Security Code
-                          </div>
+
+                        <div id="cardCodeInputContainer"
+                             className={`${cardDetails.cardCodeError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                          <label
+                            className={`transition-opacity duration-500 ${showCardCodeLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                            Security code
+                          </label>
+                          <input type="text"
+                                 placeholder={showCardCodeLabel ? '' : "Security code"}
+                                 readOnly={isReviewed}
+                                 value={cardDetails.cardCode}
+                                 onChange={handleCardCodeChange}
+                                 onFocus={handleCardCodeFocused}
+                                 onBlur={handleCardCodeBlur}
+                                 className={`placeholder:transition-opacity placeholder:duration-700
+                                 ${showCardCodeLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                          />
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
