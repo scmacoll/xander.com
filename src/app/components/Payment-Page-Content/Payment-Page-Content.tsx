@@ -150,8 +150,8 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleCardNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newCardName = event.target.value
+  const handleCardNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newCardName = event ? event.target.value: '';
     newCardName = newCardName.replace(/[^a-zA-Z\s'-]/g, '');
     newCardName = newCardName.substring(0, 60);
 
@@ -180,10 +180,12 @@ const PaymentPageContent: React.FC = () => {
         ...prevDetails,
         cardNameError: prevDetails.cardName.trim() === ''
       }));
+    } else {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardNameError: prevDetails.cardName.trim() === '' && prevDetails.cardName.trim() === ' '
+      }));
     }
-    setCardDetails(prevDetails => ({
-      ...prevDetails,
-    }));
     setIsFocused(prevDetails => ({
       ...prevDetails,
       cardName: false
@@ -331,7 +333,9 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFirstName = event.target.value
+    let newFirstName = event.target.value
+    newFirstName = newFirstName.substring(0, 30);
+
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       firstName: newFirstName,
@@ -362,7 +366,6 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        firstNameError: prevDetails.firstName.trim() === ''
       }));
     }
     setIsFocused(prevDetails => ({
@@ -372,7 +375,9 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
   const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newLastName = event.target.value;
+    let newLastName = event.target.value;
+    newLastName = newLastName.substring(0, 30);
+
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       lastName: newLastName,
@@ -397,7 +402,6 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        lastNameError: prevDetails.lastName.trim() === ''
       }));
     }
     setIsFocused(prevDetails => ({
@@ -413,7 +417,9 @@ const PaymentPageContent: React.FC = () => {
     }));
   }
   const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCompanyName = event.target.value;
+    let newCompanyName = event.target.value;
+    newCompanyName = newCompanyName.substring(0, 60);
+
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       companyName: newCompanyName,
@@ -437,15 +443,16 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newAddressLineOneChange = event.target.value;
+    let newAddressLineOne = event.target.value;
+    newAddressLineOne = newAddressLineOne.substring(0, 60);
     setBillingDetails(prevDetails => ({
       ...prevDetails,
-      addressLineOne: newAddressLineOneChange,
-      addressLineOneError: newAddressLineOneChange.trim() === ''
+      addressLineOne: newAddressLineOne,
+      addressLineOneError: newAddressLineOne.trim() === ''
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
-      addressLineOne: newAddressLineOneChange.length > 0
+      addressLineOne: newAddressLineOne.length > 0
     }));
   };
   const handleAddressLineOneBlur = (userClickOrEvent: any) => {
@@ -462,7 +469,6 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        addressLineOneError: prevDetails.addressLineOne.trim() === ''
       }));
     }
     setIsFocused(prevDetails => ({
@@ -478,11 +484,12 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newAddressLineTwoChange = event.target.value;
+    let newAddressLineTwo = event.target.value;
+    newAddressLineTwo = newAddressLineTwo.substring(0, 60);
 
     setBillingDetails(prevDetails => ({
       ...prevDetails,
-      addressLineTwo: newAddressLineTwoChange,
+      addressLineTwo: newAddressLineTwo,
       addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
     }));
   };
@@ -500,8 +507,11 @@ const PaymentPageContent: React.FC = () => {
       addressLineTwo: true
     }));
   };
+  const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newPhone = event.target.value;
+    let newPhone = event.target.value;
+    newPhone = newPhone.replace(/[^\d\s()]/g, '');
+    newPhone = newPhone.substring(0, 15);
 
     setBillingDetails(prevDetails => ({
       ...prevDetails,
@@ -514,7 +524,6 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handlePhoneBlur = (userClickOrEvent: any) => {
-    const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
@@ -545,7 +554,9 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCityChange = event.target.value;
+    let newCityChange = event.target.value;
+    newCityChange = newCityChange.substring(0, 30);
+
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       city: newCityChange,
@@ -576,7 +587,6 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        cityError: prevDetails.city.trim() === ''
       }));
     }
     setIsFocused(prevDetails => ({
@@ -592,15 +602,19 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newZipcodeChange = event.target.value;
+    let newZipcode = event.target.value;
+    // Allow digits, letters, spaces, and hyphens
+    newZipcode = newZipcode.replace(/[^\d\w\s-]/g, '');
+    newZipcode = newZipcode.substring(0, 10);
+
     setBillingDetails(prevDetails => ({
       ...prevDetails,
-      zipcode: newZipcodeChange,
-      zipcodeError: newZipcodeChange.trim() === ''
+      zipcode: newZipcode,
+      zipcodeError: newZipcode.trim() === ''
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
-      zipcode: newZipcodeChange.length > 0
+      zipcode: newZipcode.length > 0
     }));
   }
   const handleZipcodeBlur = (userClickOrEvent: any) => {
@@ -617,7 +631,6 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
-        zipcodeError: prevDetails.zipcode.trim() === ''
       }));
     }
     setIsFocused(prevDetails => ({
@@ -669,6 +682,17 @@ const PaymentPageContent: React.FC = () => {
         }
         setIsContinuedToPayment(false);
         setIsNavigating(false);
+
+        handleCardNameChange('');
+        handleCardNameBlur(false);
+        handleCardNumberBlur(false);
+        handleCardExpiryBlur(false);
+        handleCardCodeBlur(false);
+        handleFirstNameBlur(false);
+        handleLastNameBlur(false);
+        handleAddressLineOneBlur(false);
+        handleCityBlur(false);
+        handleZipcodeBlur(false);
       }, 500)
     } else {
       setTimeout(() => {
@@ -688,6 +712,7 @@ const PaymentPageContent: React.FC = () => {
   //     billingDetails: { ...billingDetails }
   //   });
   // };
+
   const saveToLocalStorage = () => {
     localStorage.setItem('billingFirstName', billingDetails.firstName);
     localStorage.setItem('billingLastName', billingDetails.lastName);
@@ -802,6 +827,7 @@ const PaymentPageContent: React.FC = () => {
   useEffect(() => {
     const validateCardDetails = (cardDetails: any) => {
       return (
+        // if this is all True
         cardDetails.cardNumber.trim() !== '' &&
         cardDetails.cardNumberError === false &&
         cardDetails.cardNumberInvalid === false &&
