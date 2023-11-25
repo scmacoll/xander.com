@@ -135,7 +135,7 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardNumberError: prevDetails.cardNumber.length > 0 && !cardNumberLengthRegex.test(prevDetails.cardNumber)
+        cardNumberError: prevDetails.cardNumber.length !== 19
       }));
     } else {
       setCardDetails(prevDetails => ({
@@ -178,6 +178,7 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
+        cardNameError: prevDetails.cardName.trim() === ''
       }));
     }
     setCardDetails(prevDetails => ({
@@ -250,6 +251,7 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
+        cardExpiryError: prevDetails.cardExpiry.length !== 5 && !isValidExpiryDate(prevDetails.cardExpiry),
       }));
     } else {
       setCardDetails(prevDetails => ({
@@ -299,13 +301,14 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
+        cardCodeError: prevDetails.cardCode.length !== 3
+      }));
+    } else {
+    setCardDetails(prevDetails => ({
+        ...prevDetails,
         cardCodeError: prevDetails.cardCode.length > 0 && prevDetails.cardCode.length < 3
       }));
     }
-  setCardDetails(prevDetails => ({
-      ...prevDetails,
-      cardCodeError: prevDetails.cardCode.length > 0 && prevDetails.cardCode.length < 3
-    }));
     setIsFocused(prevDetails => ({
       ...prevDetails,
       cardCode: false
@@ -710,6 +713,10 @@ const PaymentPageContent: React.FC = () => {
         setOrderSummaryHidden(false);
       }, 2000);
     } else {
+      handleCardNameBlur(true);
+      handleCardNumberBlur(true);
+      handleCardExpiryBlur(true);
+      handleCardCodeBlur(true);
       handleFirstNameBlur(true);
       handleLastNameBlur(true);
       handleAddressLineOneBlur(true);
