@@ -92,16 +92,16 @@ const PaymentPageContent: React.FC = () => {
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
 
-  const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCardNumberChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     const cardNumberDigitRegex = /^\d+$/;
-    let newCardNumber = event.target.value;
+    let newCardNumber = event ? event.target.value : '';
     // Remove non-digit characters and add space after every 4 digits
     newCardNumber = newCardNumber.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardNumber: newCardNumber,
       // Update the error state based on the regex for digits only (without spaces)
-      cardNumberError: !cardNumberDigitRegex.test(newCardNumber.replace(/\s/g, '')),
+      cardNumberError: newCardNumber.length > 0 && !cardNumberDigitRegex.test(newCardNumber.replace(/\s/g, '')),
       cardNumberInvalid: newCardNumber.length !== 19
     }));
     setHasText(prevDetails => ({
@@ -151,7 +151,7 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const handleCardNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newCardName = event ? event.target.value: '';
+    let newCardName = event ? event.target.value : '';
     newCardName = newCardName.replace(/[^a-zA-Z\s'-]/g, '');
     newCardName = newCardName.substring(0, 60);
 
@@ -259,7 +259,7 @@ const PaymentPageContent: React.FC = () => {
       setCardDetails(prevDetails => ({
         ...prevDetails,
         cardExpiryError: prevDetails.cardExpiry.length > 0 && prevDetails.cardExpiry.length < 5
-    }));
+      }));
     }
     setIsFocused(prevDetails => ({
       ...prevDetails,
@@ -306,7 +306,7 @@ const PaymentPageContent: React.FC = () => {
         cardCodeError: prevDetails.cardCode.length !== 3
       }));
     } else {
-    setCardDetails(prevDetails => ({
+      setCardDetails(prevDetails => ({
         ...prevDetails,
         cardCodeError: prevDetails.cardCode.length > 0 && prevDetails.cardCode.length < 3
       }));
@@ -659,7 +659,7 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const showCardNumberLabel = isFocused.cardNumber || hasText.cardNumber;
-  const showCardNameLabel = isFocused.cardName|| hasText.cardName
+  const showCardNameLabel = isFocused.cardName || hasText.cardName
   const showCardExpiryLabel = isFocused.cardExpiry || hasText.cardExpiry;
   const showCardCodeLabel = isFocused.cardCode || hasText.cardCode;
 
@@ -684,6 +684,9 @@ const PaymentPageContent: React.FC = () => {
         setIsNavigating(false);
 
         handleCardNameChange('');
+        handleCardNumberChange('');
+        handleCardExpiryChange('');
+        handleCardCodeChange('');
         handleCardNameBlur(false);
         handleCardNumberBlur(false);
         handleCardExpiryBlur(false);
@@ -1289,7 +1292,7 @@ const PaymentPageContent: React.FC = () => {
                          className="flex flex-col gap-3">
 
                       <div id="cardNumberInputContainer"
-                           className={`${cardDetails.cardNumberError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                           className={`${cardDetails.cardNumberError ? 'border-custom-red' : 'border-foreground'} border border-solid w-full`}>
                         <div className="">
                           <label
                             className={`transition-opacity duration-500 ${showCardNumberLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1310,7 +1313,7 @@ const PaymentPageContent: React.FC = () => {
                       </div>
 
                       <div id="cardNameInputContainer"
-                           className={`${cardDetails.cardNameError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                           className={`${cardDetails.cardNameError ? 'border-custom-red' : 'border-foreground'} border border-solid w-full`}>
                         <div className="">
                           <label
                             className={`transition-opacity duration-500 ${showCardNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1332,7 +1335,7 @@ const PaymentPageContent: React.FC = () => {
 
                       <div className="flex gap-3">
                         <div id="cardExpiryInputContainer"
-                             className={`${cardDetails.cardExpiryError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                             className={`${cardDetails.cardExpiryError ? 'border-custom-red' : 'border-foreground'} border border-solid w-full`}>
                           <label
                             className={`transition-opacity duration-500 ${showCardExpiryLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                             Expiration date (MM/YY)
@@ -1350,7 +1353,7 @@ const PaymentPageContent: React.FC = () => {
                         </div>
 
                         <div id="cardCodeInputContainer"
-                             className={`${cardDetails.cardCodeError ? 'border-custom-red' :'border-foreground'} border border-solid w-full`}>
+                             className={`${cardDetails.cardCodeError ? 'border-custom-red' : 'border-foreground'} border border-solid w-full`}>
                           <label
                             className={`transition-opacity duration-500 ${showCardCodeLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                             Security code
@@ -1518,7 +1521,8 @@ const PaymentPageContent: React.FC = () => {
 
                     <div id="addressLineOneInputContainer"
                          className={`relative w-full`}>
-                      <div className={`${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
+                      <div
+                        className={`${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
                         <label
                           className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                           Address
