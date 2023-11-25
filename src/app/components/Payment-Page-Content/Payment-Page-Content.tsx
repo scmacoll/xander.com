@@ -69,6 +69,8 @@ const PaymentPageContent: React.FC = () => {
     phoneError: false,
   });
 
+  const [initCardDetails, setInitCardDetails] = useState(cardDetails);
+  const [initBillingDetails, setInitBillingDetails] = useState(billingDetails);
   const [isBillingValid, setIsBillingValid] = useState(false);
   const [isCardValid, setIsCardValid] = useState(false);
   const [countries, setCountries] = useState([]);
@@ -192,8 +194,8 @@ const PaymentPageContent: React.FC = () => {
     }));
     setReviewButtonClicked(false);
   };
-  const handleCardExpiryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newCardExpiry = event.target.value;
+  const handleCardExpiryChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newCardExpiry = event ? event.target.value : '';
     // Remove all non-digit characters except the slash
     newCardExpiry = newCardExpiry.replace(/[^0-9\/]/g, '');
     // Replace two consecutive slashes with a singl2e slash
@@ -268,9 +270,9 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleCardCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCardCodeChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     const cardCodeDigitRegex = /^\d+$/;
-    let newCardCode = event.target.value;
+    let newCardCode = event ? event.target.value : '';
     // Remove all non-digit characters
     newCardCode = newCardCode.replace(/\D/g, '');
     // Limit the length to 3 characters
@@ -318,28 +320,28 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCountry = event.target.value
+  const handleCountryChange = (event?: React.ChangeEvent<HTMLSelectElement>) => {
+    const newCountry = event ? event.target.value : 'AU';
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       country: newCountry,
     }));
   };
-  const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newState = event.target.value
+  const handleStateChange = (event?: React.ChangeEvent<HTMLSelectElement>) => {
+    const newState = event ? event.target.value : 'NSW';
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       state: newState,
     }));
   };
-  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newFirstName = event.target.value
+  const handleFirstNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newFirstName = event ? event.target.value : '';
     newFirstName = newFirstName.substring(0, 30);
 
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       firstName: newFirstName,
-      firstNameError: newFirstName.trim() === ''
+      firstNameError: newFirstName.trim() === '' && newFirstName.length > 0
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
@@ -366,6 +368,7 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
+        firstNameError: prevDetails.firstName.trim() === ' '
       }));
     }
     setIsFocused(prevDetails => ({
@@ -374,8 +377,8 @@ const PaymentPageContent: React.FC = () => {
     }));
     setReviewButtonClicked(false);
   };
-  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newLastName = event.target.value;
+  const handleLastNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newLastName = event ? event.target.value : '';
     newLastName = newLastName.substring(0, 30);
 
     setBillingDetails(prevDetails => ({
@@ -402,6 +405,7 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
+        lastNameError: prevDetails.lastName.trim() === ' '
       }));
     }
     setIsFocused(prevDetails => ({
@@ -416,8 +420,8 @@ const PaymentPageContent: React.FC = () => {
       lastName: true
     }));
   }
-  const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newCompanyName = event.target.value;
+  const handleCompanyNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newCompanyName = event ? event.target.value : '';
     newCompanyName = newCompanyName.substring(0, 60);
 
     setBillingDetails(prevDetails => ({
@@ -442,8 +446,8 @@ const PaymentPageContent: React.FC = () => {
       companyName: true
     }));
   };
-  const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newAddressLineOne = event.target.value;
+  const handleAddressLineOneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newAddressLineOne = event ? event.target.value : '';
     newAddressLineOne = newAddressLineOne.substring(0, 60);
     setBillingDetails(prevDetails => ({
       ...prevDetails,
@@ -469,6 +473,7 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
+        addressLineOneError: prevDetails.addressLineOne.trim() === ' '
       }));
     }
     setIsFocused(prevDetails => ({
@@ -483,8 +488,8 @@ const PaymentPageContent: React.FC = () => {
       addressLineOne: true
     }));
   };
-  const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newAddressLineTwo = event.target.value;
+  const handleAddressLineTwoChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newAddressLineTwo = event ? event.target.value : '';
     newAddressLineTwo = newAddressLineTwo.substring(0, 60);
 
     setBillingDetails(prevDetails => ({
@@ -508,8 +513,8 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
-  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newPhone = event.target.value;
+  const handlePhoneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newPhone = event ? event.target.value : '';
     newPhone = newPhone.replace(/[^\d\s()]/g, '');
     newPhone = newPhone.substring(0, 15);
 
@@ -553,8 +558,8 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newCityChange = event.target.value;
+  const handleCityChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newCityChange = event ? event.target.value : '';
     newCityChange = newCityChange.substring(0, 30);
 
     setBillingDetails(prevDetails => ({
@@ -587,6 +592,7 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
+        cityError: prevDetails.city.trim() === ' '
       }));
     }
     setIsFocused(prevDetails => ({
@@ -601,8 +607,8 @@ const PaymentPageContent: React.FC = () => {
       zipcode: true
     }));
   };
-  const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let newZipcode = event.target.value;
+  const handleZipcodeChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newZipcode = event ? event.target.value : '';
     // Allow digits, letters, spaces, and hyphens
     newZipcode = newZipcode.replace(/[^\d\w\s-]/g, '');
     newZipcode = newZipcode.substring(0, 10);
@@ -631,6 +637,7 @@ const PaymentPageContent: React.FC = () => {
     } else {
       setBillingDetails(prevDetails => ({
         ...prevDetails,
+        zipcodeError: prevDetails.zipcode.trim() === ' '
       }));
     }
     setIsFocused(prevDetails => ({
@@ -682,20 +689,12 @@ const PaymentPageContent: React.FC = () => {
         }
         setIsContinuedToPayment(false);
         setIsNavigating(false);
+        resetCardDetails();
+        resetBillingDetails();
 
-        handleCardNameChange('');
-        handleCardNumberChange('');
-        handleCardExpiryChange('');
-        handleCardCodeChange('');
-        handleCardNameBlur(false);
-        handleCardNumberBlur(false);
-        handleCardExpiryBlur(false);
-        handleCardCodeBlur(false);
-        handleFirstNameBlur(false);
-        handleLastNameBlur(false);
-        handleAddressLineOneBlur(false);
-        handleCityBlur(false);
-        handleZipcodeBlur(false);
+
+
+
       }, 500)
     } else {
       setTimeout(() => {
@@ -707,6 +706,9 @@ const PaymentPageContent: React.FC = () => {
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // console.log("input change to :  ", event.target.value);
     setIsSameAddress(prevIsSameAddress => !prevIsSameAddress);
+    if (isSameAddress) {
+      resetBillingDetails();
+    }
   };
 
   // const updateContactDetails = (firstName: string) => {
@@ -753,6 +755,39 @@ const PaymentPageContent: React.FC = () => {
       setDisplayIncompleteMessage(true);
       setBillingError(true);
     }
+  };
+
+  const resetCardDetails = () => {
+    handleCardNameChange('');
+    handleCardNumberChange('');
+    handleCardExpiryChange('');
+    handleCardCodeChange('');
+    handleCardNameBlur(false);
+    handleCardNumberBlur(false);
+    handleCardExpiryBlur(false);
+    handleCardCodeBlur(false);
+    // setInitCardDetails(cardDetails);
+  };
+
+  const resetBillingDetails = () => {
+    handleCountryChange('AU');
+    handleFirstNameChange('');
+    handleLastNameChange('');
+    handleCompanyNameChange('');
+    handleAddressLineOneChange('');
+    handleAddressLineTwoChange('');
+    handleCityChange('');
+    if (billingDetails.country === 'AU') {
+      handleStateChange('NSW');
+    }
+    handleZipcodeChange('');
+    handlePhoneChange('');
+    handleFirstNameBlur(false);
+    handleLastNameBlur(false);
+    handleAddressLineOneBlur(false);
+    handleCityBlur(false);
+    handleZipcodeBlur(false);
+    // setInitBillingDetails(billingDetails);
   };
 
   const showValidatedContent = isCardValid && (isSameAddress || isBillingValid);
