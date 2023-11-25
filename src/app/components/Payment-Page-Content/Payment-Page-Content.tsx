@@ -43,6 +43,7 @@ const PaymentPageContent: React.FC = () => {
     cardExpiry: '',
     cardCode: '',
     cardNumberError: false,
+    cardNumberInvalid: false,
     cardNameError: false,
     cardExpiryError: false,
     cardExpiryInvalid: false,
@@ -100,7 +101,8 @@ const PaymentPageContent: React.FC = () => {
       ...prevDetails,
       cardNumber: newCardNumber,
       // Update the error state based on the regex for digits only (without spaces)
-      cardNumberError: !cardNumberDigitRegex.test(newCardNumber.replace(/\s/g, ''))
+      cardNumberError: !cardNumberDigitRegex.test(newCardNumber.replace(/\s/g, '')),
+      cardNumberInvalid: newCardNumber.length !== 19
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
@@ -795,6 +797,7 @@ const PaymentPageContent: React.FC = () => {
       return (
         cardDetails.cardNumber.trim() !== '' &&
         cardDetails.cardNumberError === false &&
+        cardDetails.cardNumberInvalid === false &&
         cardDetails.cardName.trim() !== '' &&
         cardDetails.cardNameError === false &&
         cardDetails.cardExpiry.trim() !== '' &&
