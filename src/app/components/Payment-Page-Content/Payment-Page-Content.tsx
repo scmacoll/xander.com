@@ -320,16 +320,15 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleCountryChange = (event?: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCountry = event ? event.target.value : 'AU';
+  const handleCountryChange = (eventOrValue?: React.ChangeEvent<HTMLSelectElement> | string) => {
+    const newCountry = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'AU';
     setBillingDetails(prevDetails => ({
       ...prevDetails,
       country: newCountry,
     }));
   };
-  const handleStateChange = (event?: React.ChangeEvent<HTMLSelectElement>) => {
-    const newState = event ? event.target.value : 'NSW';
-    setBillingDetails(prevDetails => ({
+  const handleStateChange = (eventOrValue?: React.ChangeEvent<HTMLSelectElement> | string) => {
+    const newState = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'NSW';    setBillingDetails(prevDetails => ({
       ...prevDetails,
       state: newState,
     }));
