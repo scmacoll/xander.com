@@ -45,7 +45,9 @@ const PaymentPageContent: React.FC = () => {
     cardNumberError: false,
     cardNameError: false,
     cardExpiryError: false,
+    cardExpiryInvalid: false,
     cardCodeError: false,
+    cardCodeInvalid: false,
   });
   const [billingDetails, setBillingDetails] = useState({
     country: 'AU',
@@ -67,6 +69,7 @@ const PaymentPageContent: React.FC = () => {
   });
 
   const [isBillingValid, setIsBillingValid] = useState(false);
+  const [isCardValid, setIsCardValid] = useState(false);
   const [countries, setCountries] = useState([]);
   const [shippingStates, setShippingStates] = useState([]);
   const [billingStates, setBillingStates] = useState([]);
@@ -80,17 +83,16 @@ const PaymentPageContent: React.FC = () => {
   const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
   const [shippingError, setShippingError] = useState(false);
   const [billingError, setBillingError] = useState(false);
+  const [cardDetailsError, setCardDetailsError] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [useShippingAddress, setUseShippingAddress] = useState(true);
   const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
-  const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
-  const cardNumberDigitRegex = /^\d+$/;
-  const cardNumberLengthRegex = /^(?:\d{4}\s){3}\d{4}$/;
 
   const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const cardNumberDigitRegex = /^\d+$/;
     let newCardNumber = event.target.value;
     // Remove non-digit characters and add space after every 4 digits
     newCardNumber = newCardNumber.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
@@ -124,6 +126,7 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handleCardNumberBlur = (userClickOrEvent: any) => {
+    const cardNumberLengthRegex = /^(?:\d{4}\s){3}\d{4}$/;
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
@@ -186,10 +189,10 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleCardExpiryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let newCardExpiry = event.target.value;
-
     // Remove all non-digit characters except the slash
     newCardExpiry = newCardExpiry.replace(/[^0-9\/]/g, '');
-
+    // Replace two consecutive slashes with a singl2e slash
+    newCardExpiry = newCardExpiry.replace(/\/{2,}/g, '/');
     // Check if the user is trying to delete the slash
     if (newCardExpiry.length === 2 && event.target.value.length < event.target.defaultValue.length) {
       newCardExpiry = newCardExpiry.substring(0, 1);
@@ -197,15 +200,14 @@ const PaymentPageContent: React.FC = () => {
       // Automatically add slash after the month if not deleting
       newCardExpiry += '/';
     }
-
     // Limit the length to MM/YY (5 characters)
     newCardExpiry = newCardExpiry.substring(0, 5);
-
     // Update state with the formatted expiry date
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardExpiry: newCardExpiry,
-      cardExpiryError: newCardExpiry.length === 5 && !isValidExpiryDate(newCardExpiry)
+      cardExpiryError: newCardExpiry.length === 5 && !isValidExpiryDate(newCardExpiry),
+      cardExpiryInvalid: newCardExpiry.length !== 5
     }));
 
     setHasText(prevDetails => ({
@@ -247,6 +249,11 @@ const PaymentPageContent: React.FC = () => {
       setCardDetails(prevDetails => ({
         ...prevDetails,
       }));
+    } else {
+      setCardDetails(prevDetails => ({
+        ...prevDetails,
+        cardExpiryError: prevDetails.cardExpiry.length > 0 && prevDetails.cardExpiry.length < 5
+    }));
     }
     setIsFocused(prevDetails => ({
       ...prevDetails,
@@ -256,6 +263,7 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const handleCardCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const cardCodeDigitRegex = /^\d+$/;
     let newCardCode = event.target.value;
     // Remove all non-digit characters
     newCardCode = newCardCode.replace(/\D/g, '');
@@ -265,12 +273,17 @@ const PaymentPageContent: React.FC = () => {
     setCardDetails(prevDetails => ({
       ...prevDetails,
       cardCode: newCardCode,
+      cardCodeError: !cardCodeDigitRegex.test(newCardCode),
+      cardCodeInvalid: newCardCode.length !== 3
     }));
     setHasText(prevDetails => ({
       ...prevDetails,
       cardCode: newCardCode.length > 0
     }));
+    if (newCardCode.length !== 3) {
+    }
   };
+
   const handleCardCodeFocused = () => {
     setIsFocused(prevState => ({
       ...prevState,
@@ -496,6 +509,7 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handlePhoneBlur = (userClickOrEvent: any) => {
+    const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
@@ -659,7 +673,7 @@ const PaymentPageContent: React.FC = () => {
     }
   };
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("input change to :  ", event.target.value);
+    // console.log("input change to :  ", event.target.value);
     setIsSameAddress(prevIsSameAddress => !prevIsSameAddress);
   };
 
@@ -684,8 +698,7 @@ const PaymentPageContent: React.FC = () => {
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
-
-    if (isBillingValid) {
+    if (showValidatedContent) {
       saveToLocalStorage();
       setIsReviewing(true);
       setIsReviewed(false);
@@ -704,6 +717,8 @@ const PaymentPageContent: React.FC = () => {
       setBillingError(true);
     }
   };
+
+  const showValidatedContent = isCardValid && (isSameAddress || isBillingValid);
 
   const handleCancelButtonClick = () => {
     setIsReviewed(false);
@@ -775,6 +790,34 @@ const PaymentPageContent: React.FC = () => {
     }
   }, [billingDetails]);
 
+  useEffect(() => {
+    const validateCardDetails = (cardDetails: any) => {
+      return (
+        cardDetails.cardNumber.trim() !== '' &&
+        cardDetails.cardNumberError === false &&
+        cardDetails.cardName.trim() !== '' &&
+        cardDetails.cardNameError === false &&
+        cardDetails.cardExpiry.trim() !== '' &&
+        cardDetails.cardExpiryError === false &&
+        cardDetails.cardExpiryInvalid === false &&
+        cardDetails.cardCode.trim() !== '' &&
+        cardDetails.cardCodeError === false &&
+        cardDetails.cardCodeInvalid === false
+      );
+    };
+
+    const cardDetailsAreValid = validateCardDetails(cardDetails);
+    setIsCardValid(cardDetailsAreValid);
+    // updating review btn errors in real-time
+    if (cardDetailsAreValid) {
+      setCardDetailsError(false);
+    } else {
+      setDisplayIncompleteMessage(false);
+    }
+  }, [cardDetails]);
+
+  console.log("is card details valid: ", isCardValid);
+  console.log("is same address?: ", isSameAddress);
 
   return (
     <div className="mx-auto flex h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -1334,7 +1377,6 @@ const PaymentPageContent: React.FC = () => {
                                name="addressType"
                                className="form-radio cursor-pointer accent-gray-600"
                                checked={!isSameAddress}
-                          // checked={checkedAddressInput === 'billing'}
                                onChange={handleAddressInputChange}
                         />
                       </div>
@@ -1601,8 +1643,7 @@ const PaymentPageContent: React.FC = () => {
                   ) : !isReviewed ? (
                     <button id="reviewOrderButton"
                             className={`border-2 rounded font-bold p-4 border-solid
-                              ${!isBillingValid ? 'border-foreground bg-greyed-out cursor-default'
-                              : 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent'}
+                              ${showValidatedContent ? 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent' : 'border-foreground bg-greyed-out cursor-default'}
                               `}
                             type="button"
                             onClick={!isReviewing ? handleReviewButtonClick : undefined}
