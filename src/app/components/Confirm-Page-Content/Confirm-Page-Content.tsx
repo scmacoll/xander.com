@@ -30,6 +30,7 @@ const ConfirmPageContent: React.FC = () => {
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
+
     const storedShippingFirstName = localStorage.getItem('shippingFirstName');
     const storedShippingLastName = localStorage.getItem('shippingLastName');
     const storedShippingCompanyName = localStorage.getItem('shippingCompanyName');
@@ -39,6 +40,7 @@ const ConfirmPageContent: React.FC = () => {
     const storedShippingState = localStorage.getItem('shippingState');
     const storedShippingCountry = localStorage.getItem('shippingCountry');
     const storedShippingZipcode = localStorage.getItem('shippingZipcode');
+
     const storedBillingFirstName = localStorage.getItem('billingFirstName');
     const storedBillingLastName = localStorage.getItem('billingLastName');
     const storedBillingCompanyName = localStorage.getItem('billingCompanyName');
@@ -48,6 +50,7 @@ const ConfirmPageContent: React.FC = () => {
     const storedBillingState = localStorage.getItem('billingState');
     const storedBillingCountry = localStorage.getItem('billingCountry');
     const storedBillingZipcode = localStorage.getItem('billingZipcode');
+
     const storedCardNumber = localStorage.getItem('cardNumber');
 
     if (storedEmail) {
@@ -239,8 +242,8 @@ const ConfirmPageContent: React.FC = () => {
                               <li className="flex w-1/2 pr-10" id="billingAddressLineTwo">{billingAddressLineTwo}</li>
                             </div>
                             <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="billingCityStateZipcode">{billingCity} {billingState} {billingZipcode}</li>
                               <li className="flex w-1/2 pr-10" id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
+                              <li className="flex w-1/2 pr-10" id="billingCityStateZipcode">{billingCity} {billingState} {billingZipcode}</li>
                             </div>
                             <div className="flex">
                               <li className="flex w-1/2 pr-10" id="shippingCountry">{shippingCountry}</li>

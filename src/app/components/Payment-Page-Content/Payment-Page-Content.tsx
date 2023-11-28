@@ -705,10 +705,9 @@ const PaymentPageContent: React.FC = () => {
       }, 1200)
     }
     setIsReviewed(false);
-    setIsContinuedToPayment(() => {
+    setTimeout(() => {
       resetCardDetails();
       resetBillingDetails();
-
     }, 500)
   };
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -727,18 +726,45 @@ const PaymentPageContent: React.FC = () => {
   // };
 
   const saveToLocalStorage = () => {
-    localStorage.setItem('billingFirstName', billingDetails.firstName);
-    localStorage.setItem('billingLastName', billingDetails.lastName);
-    localStorage.setItem('billingCompanyName', billingDetails.companyName);
-    localStorage.setItem('billingAddressLineOne', billingDetails.addressLineOne);
-    localStorage.setItem('billingAddressLineTwo', billingDetails.addressLineTwo);
-    localStorage.setItem('billingCity', billingDetails.city);
-    localStorage.setItem('billingState', billingDetails.state);
-    localStorage.setItem('billingCountry', billingDetails.country);
-    localStorage.setItem('billingZipcode', billingDetails.zipcode);
-    localStorage.setItem('billingPhone', billingDetails.phone);
+    if (isSameAddress) {
+      const shippingFirstName: any = localStorage.getItem('shippingFirstName');
+      const shippingLastName: any = localStorage.getItem('shippingLastName');
+      const shippingCompanyName: any = localStorage.getItem('shippingCompanyName');
+      const shippingAddressLineOne: any = localStorage.getItem('shippingAddressLineOne');
+      const shippingAddressLineTwo: any = localStorage.getItem('shippingAddressLineTwo');
+      const shippingCity: any = localStorage.getItem('shippingCity');
+      const shippingState: any = localStorage.getItem('shippingState');
+      const shippingCountry: any = localStorage.getItem('shippingCountry');
+      const shippingZipcode: any = localStorage.getItem('shippingZipcode');
+      localStorage.setItem('billingFirstName', shippingFirstName);
+      localStorage.setItem('billingLastName', shippingLastName);
+      localStorage.setItem('billingCompanyName', shippingCompanyName);
+      localStorage.setItem('billingAddressLineOne', shippingAddressLineOne);
+      localStorage.setItem('billingAddressLineTwo', shippingAddressLineTwo);
+      localStorage.setItem('billingCity', shippingCity);
+      localStorage.setItem('billingState', shippingState);
+      localStorage.setItem('billingCountry', shippingCountry);
+      localStorage.setItem('billingZipcode', shippingZipcode);
+      // localStorage.setItem('billingPhone', shippingPhone);
+    } else {
+      // Save billingDetails to localStorage
+      localStorage.setItem('billingFirstName', billingDetails.firstName);
+      localStorage.setItem('billingLastName', billingDetails.lastName);
+      localStorage.setItem('billingCompanyName', billingDetails.companyName);
+      localStorage.setItem('billingAddressLineOne', billingDetails.addressLineOne);
+      localStorage.setItem('billingAddressLineTwo', billingDetails.addressLineTwo);
+      localStorage.setItem('billingCity', billingDetails.city);
+      localStorage.setItem('billingState', billingDetails.state);
+      localStorage.setItem('billingCountry', billingDetails.country);
+      localStorage.setItem('billingZipcode', billingDetails.zipcode);
+      localStorage.setItem('billingPhone', billingDetails.phone);
+    }
+
+    // Save other details
     localStorage.setItem('cardNumber', cardDetails.cardNumber);
+    console.log(localStorage.getItem('billingFirstName'));
   }
+
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);

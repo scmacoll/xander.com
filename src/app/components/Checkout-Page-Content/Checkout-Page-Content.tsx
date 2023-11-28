@@ -481,7 +481,6 @@ const CheckoutPageContent: React.FC = () => {
   const handleSaveToLocalStorage = (event: React.MouseEvent) => {
     setReviewButtonClicked(true);
     saveToLocalStorage();
-    console.log("saved to local storage", saveToLocalStorage());
   };
 
   useEffect(() => {
