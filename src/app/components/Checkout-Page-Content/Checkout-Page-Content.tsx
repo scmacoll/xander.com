@@ -478,6 +478,11 @@ const CheckoutPageContent: React.FC = () => {
       setShippingError(true);
     }
   };
+  const handleSaveToLocalStorage = (event: React.MouseEvent) => {
+    setReviewButtonClicked(true);
+    saveToLocalStorage();
+    console.log("saved to local storage", saveToLocalStorage());
+  };
 
   useEffect(() => {
     // @ts-ignore
@@ -503,7 +508,8 @@ const CheckoutPageContent: React.FC = () => {
         shipping.lastName.trim() !== '' &&
         shipping.addressLineOne.trim() !== '' &&
         shipping.city.trim() !== '' &&
-        shipping.zipcode.trim() !== ''
+        shipping.zipcode.trim() !== '' &&
+        emailRegex.test(email)
       );
     };
 
@@ -1067,13 +1073,13 @@ const CheckoutPageContent: React.FC = () => {
                         <div id="loadingBorder"
                         >
                           <a id="reviewOrderButton"
-                             href="/payment"
+                             href={isShippingValid ? "/payment" : ""}
                              className={`border-2 rounded font-bold py-3 px-4 border-solid
                               ${!isShippingValid ? 'border-transparent bg-greyed-out cursor-default'
                                : 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent'}
                               `}
                              type="button"
-                             onClick={handleReviewButtonClick}
+                             onClick={!isShippingValid ? handleReviewButtonClick : handleSaveToLocalStorage}
                           >
                             CONTINUE TO SHIPPING
                           </a>

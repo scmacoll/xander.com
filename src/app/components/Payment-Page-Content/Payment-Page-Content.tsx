@@ -1768,7 +1768,7 @@ const PaymentPageContent: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <div className="">
+                <div className={`${isReviewed ? 'hidden' : ''} `}>
                   <div>
                     <div className="sm:px-4 xs:px-4 py-2">
                       <div
