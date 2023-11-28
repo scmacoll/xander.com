@@ -1713,7 +1713,7 @@ const PaymentPageContent: React.FC = () => {
                   >
                     {isReviewing ? (
                       <button id="loadingReviewButton"
-                              className={styles.loader}
+                              className={`${styles.loader} xs:flex xs:justify-center xs:w-full`}
                               disabled={isReviewing}></button>
                     ) : !isReviewed ? (
                       <button id="reviewOrderButton"
