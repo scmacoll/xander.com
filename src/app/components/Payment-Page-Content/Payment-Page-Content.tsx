@@ -328,7 +328,8 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
   const handleStateChange = (eventOrValue?: React.ChangeEvent<HTMLSelectElement> | string) => {
-    const newState = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'NSW';    setBillingDetails(prevDetails => ({
+    const newState = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'NSW';
+    setBillingDetails(prevDetails => ({
       ...prevDetails,
       state: newState,
     }));
@@ -688,10 +689,6 @@ const PaymentPageContent: React.FC = () => {
         }
         setIsContinuedToPayment(false);
         setIsNavigating(false);
-        resetCardDetails();
-        resetBillingDetails();
-
-
 
 
       }, 500)
@@ -701,6 +698,9 @@ const PaymentPageContent: React.FC = () => {
         setIsNavigating(false);
       }, 1200)
     }
+    setIsReviewed(false);
+    resetCardDetails();
+    resetBillingDetails();
   };
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // console.log("input change to :  ", event.target.value);
@@ -1045,9 +1045,8 @@ const PaymentPageContent: React.FC = () => {
                       )}
                       <a
                         href="/confirm"
-                        className={`border-2 rounded font-bold p-4 border-solid
-                    bg-amazon-yellow border-amazon-yellow
-                    ${isReviewed ? '' : 'hidden'}`}
+                        className={`border-2 rounded font-bold py-3 px-4 border-solid 
+                    ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : 'hidden'}`}
                       >
                         PLACE ORDER
                       </a>
@@ -1697,79 +1696,86 @@ const PaymentPageContent: React.FC = () => {
 
             <div className="py-3"></div>
 
-            <div
-              className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
-              {/*<div className="pb-4">*/}
-              {/*  <button id="reviewOrderButton"*/}
-              {/*          className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}*/}
-              {/*          type="button"*/}
-              {/*  >*/}
-              {/*    PAY NOW*/}
-              {/*  </button>*/}
-              {/*</div>*/}
-              <div id="orderButton" className="flex">
-                <div id="loadingBorder"
-                     className={`${isReviewing ? '' : ''}`}
-                >
-                  {isReviewing ? (
-                    <button id="loadingReviewButton"
-                            className={styles.loader}
-                            disabled={isReviewing}></button>
-                  ) : !isReviewed ? (
-                    <button id="reviewOrderButton"
-                            className={`border-2 rounded font-bold p-4 border-solid
-                              ${showValidatedContent ? 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent' : 'border-foreground bg-greyed-out cursor-default'}
+            <div className="flex flex-col xs:flex-col-reverse">
+              <div
+                className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
+                {/*<div className="pb-4">*/}
+                {/*  <button id="reviewOrderButton"*/}
+                {/*          className={`border-2 rounded w-full font-bold px-6 py-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}*/}
+                {/*          type="button"*/}
+                {/*  >*/}
+                {/*    PAY NOW*/}
+                {/*  </button>*/}
+                {/*</div>*/}
+                <div id="orderButton" className="flex">
+                  <div id="loadingBorder"
+                       className={`${isReviewing ? '' : ''} xs:w-full`}
+                  >
+                    {isReviewing ? (
+                      <button id="loadingReviewButton"
+                              className={styles.loader}
+                              disabled={isReviewing}></button>
+                    ) : !isReviewed ? (
+                      <button id="reviewOrderButton"
+                              className={`xs:w-full border-2 rounded font-bold py-3 px-4 border-solid
+                              ${showValidatedContent ? 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent' : 'border-transparent bg-greyed-out cursor-default'}
                               `}
-                            type="button"
-                            onClick={!isReviewing ? handleReviewButtonClick : undefined}
-                    >
-                      REVIEW ORDER
-                    </button>
-                  ) : (
-                    <a
-                      href="/confirm"
-                      id="placeOrderButton"
-                      className={`border-2 rounded font-bold p-4 border-solid
-                              ${isReviewed ? 'bg-amazon-yellow border-amazon-yellow' : ''}
-                              `}
-                    >
-                      PLACE ORDER
-                    </a>
-                  )}
-                </div>
-              </div>
-              <div className="">
-                <div>
-                  <div className="sm:px-4 xs:px-4 py-2">
-                    <div
-                      className={`flex justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
-                      <div className="fill-white pr-2">
-                        <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7"
-                             xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
-                        </svg>
-                      </div>
-                      <div className="flex"
-                           onClick={handleContinueToPaymentButtonClick}
+                              type="button"
+                              onClick={!isReviewing ? handleReviewButtonClick : undefined}
                       >
-                        {isNavigating ? (
-                          <button className={styles.loader}></button>
-                        ) : (
-                          <button>Return to shipping</button>
-                        )}
+                        REVIEW ORDER
+                      </button>
+                    ) : (
+                      <div className="flex xs:flex-col-reverse">
+                        <div id="incompleteError"
+                             className="flex text-sm sm:pt-4 xs:pt-4 pr-16 xs:pr-0 text-custom-red xs:justify-center">
+                          <button className="underline hover:no-underline"
+                                  onClick={handleCancelButtonClick}
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                        <a
+                        href="/confirm"
+                        id="placeOrderButton"
+                        className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
+                              ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : ''}
+                              `}
+                      >
+                        PLACE ORDER
+                      </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="">
+                  <div>
+                    <div className="sm:px-4 xs:px-4 py-2">
+                      <div
+                        className={`flex sm:pt-4 xs:pt-4 justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
+                        <div className="fill-white pr-2">
+                          <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7"
+                               xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                          </svg>
+                        </div>
+                        <div className="flex"
+                             onClick={handleContinueToPaymentButtonClick}
+                        >
+                          {isNavigating ? (
+                            <button className={styles.loader}></button>
+                          ) : (
+                            <button>Return to shipping</button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="py-5"></div>
-
-            <div id="finePrintContainer"
-                 className="text-sm">
-              <div>
+              <div className="py-3"></div>
+              <div className="text-sm">
                 <div>
                   Foreign transaction fees may apply.
                 </div>
@@ -1777,8 +1783,13 @@ const PaymentPageContent: React.FC = () => {
                   Please check with your financial institution.
                 </div>
               </div>
+            </div>
+
+
+            <div id="finePrintContainer"
+                 className="text-sm">
               <div className="py-2"></div>
-              <div>
+              <div className="text-sm">
                 By placing this order, you agree to our <span
                 className="cursor-pointer underline text-link-blue font-bold">Terms of Service</span> and understand
                 our <span className="cursor-pointer underline text-link-blue font-bold">Privacy Policy</span>.
@@ -1935,7 +1946,7 @@ const PaymentPageContent: React.FC = () => {
                     {isReviewed && (
                       <div id="incompleteError"
                            className="flex text-sm pr-16 text-custom-red xs:w-1/2">
-                        <button className="underline"
+                        <button className="underline hover:no-underline"
                                 onClick={handleCancelButtonClick}
                         >
                           Cancel
@@ -1944,9 +1955,8 @@ const PaymentPageContent: React.FC = () => {
                     )}
                     <a
                       href="/confirm"
-                      className={`border-2 rounded font-bold p-4 border-solid
-                    bg-amazon-yellow border-amazon-yellow
-                    ${isReviewed ? '' : 'hidden'}`}
+                      className={`border-2 rounded font-bold py-3 px-4 border-solid
+                    ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : 'hidden'}`}
                     >
                       PLACE ORDER
                     </a>
