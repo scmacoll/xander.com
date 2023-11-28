@@ -697,8 +697,11 @@ const PaymentPageContent: React.FC = () => {
       }, 1200)
     }
     setIsReviewed(false);
-    resetCardDetails();
-    resetBillingDetails();
+    setIsContinuedToPayment(() => {
+      resetCardDetails();
+      resetBillingDetails();
+
+    }, 500)
   };
   const handleAddressInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // console.log("input change to :  ", event.target.value);
@@ -1700,6 +1703,19 @@ const PaymentPageContent: React.FC = () => {
 
             <div className="py-3"></div>
 
+            <div className={`${isReviewed ? '' : 'hidden'} flex justify-between`}>
+              <div className="flex">
+                <div className="text-lg font-medium">Total</div>
+              </div>
+              <div className="flex items-center">
+                <div ref={bottomRef}
+                     className={`${styles.smoothScroll} inline-flex text-2xl font-bold`}>
+                  $135.00
+                </div>
+              </div>
+            </div>
+            <div className={`${isReviewed ? '' : 'hidden'} py-3`}></div>
+
             <div className="flex flex-col xs:flex-col-reverse">
               <div
                 className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
@@ -1732,7 +1748,7 @@ const PaymentPageContent: React.FC = () => {
                     ) : (
                       <div className="flex xs:flex-col-reverse">
                         <div id="incompleteError"
-                             className="flex text-sm sm:pt-4 xs:pt-4 pr-16 xs:pr-0 text-custom-red xs:justify-center">
+                             className="flex text-sm xs:pt-4 pr-16 xs:pr-0 text-custom-red xs:justify-center">
                           <button className="underline hover:no-underline"
                                   onClick={handleCancelButtonClick}
                           >
@@ -1740,14 +1756,14 @@ const PaymentPageContent: React.FC = () => {
                           </button>
                         </div>
                         <a
-                        href="/confirm"
-                        id="placeOrderButton"
-                        className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
+                          href="/confirm"
+                          id="placeOrderButton"
+                          className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
                               ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : ''}
                               `}
-                      >
-                        PLACE ORDER
-                      </a>
+                        >
+                          PLACE ORDER
+                        </a>
                       </div>
                     )}
                   </div>
@@ -1756,7 +1772,7 @@ const PaymentPageContent: React.FC = () => {
                   <div>
                     <div className="sm:px-4 xs:px-4 py-2">
                       <div
-                        className={`flex sm:pt-4 xs:pt-4 justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
+                        className={`flex xs:pt-2 justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
                         <div className="fill-white pr-2">
                           <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7"
                                xmlns="http://www.w3.org/2000/svg">
