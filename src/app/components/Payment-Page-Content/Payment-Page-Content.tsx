@@ -728,6 +728,7 @@ const PaymentPageContent: React.FC = () => {
     localStorage.setItem('billingCountry', billingDetails.country);
     localStorage.setItem('billingZipcode', billingDetails.zipcode);
     localStorage.setItem('billingPhone', billingDetails.phone);
+    localStorage.setItem('cardNumber', cardDetails.cardNumber);
   }
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();

@@ -26,6 +26,7 @@ const ConfirmPageContent: React.FC = () => {
   const [billingState, setBillingState] = useState('');
   const [billingCountry, setBillingCountry] = useState('');
   const [billingZipcode, setBillingZipcode] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -47,6 +48,7 @@ const ConfirmPageContent: React.FC = () => {
     const storedBillingState = localStorage.getItem('billingState');
     const storedBillingCountry = localStorage.getItem('billingCountry');
     const storedBillingZipcode = localStorage.getItem('billingZipcode');
+    const storedCardNumber = localStorage.getItem('cardNumber');
 
     if (storedEmail) {
       setEmail(storedEmail);
@@ -104,6 +106,10 @@ const ConfirmPageContent: React.FC = () => {
     }
     if (storedBillingZipcode) {
       setBillingZipcode(storedBillingZipcode);
+    }
+    if (storedCardNumber) {
+      const lastFourDigits = storedCardNumber.slice(-4);
+      setCardNumber(lastFourDigits);
     }
 
   }, []);
@@ -285,7 +291,7 @@ const ConfirmPageContent: React.FC = () => {
                         <div className="w-1/2 pt-4">
                           <h4 className="font-bold">Payment method</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li>VISA ending with 4242 --</li>
+                            <li>VISA ending with {cardNumber} --</li>
                             <li>$129.46</li>
                           </ul>
                         </div>
