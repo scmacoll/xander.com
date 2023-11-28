@@ -689,8 +689,6 @@ const PaymentPageContent: React.FC = () => {
         }
         setIsContinuedToPayment(false);
         setIsNavigating(false);
-
-
       }, 500)
     } else {
       setTimeout(() => {
@@ -1225,7 +1223,7 @@ const PaymentPageContent: React.FC = () => {
                   value={discountCode}
                   onChange={handleDiscountCodeChange}
                   maxLength={16}
-                  className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                  className="w-full items-center border border-solid bg-transparent px-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                 />
                 {displayInvalidCodeMessage && (
                   <span
@@ -1429,15 +1427,19 @@ const PaymentPageContent: React.FC = () => {
                       <div className="pr-2">
                         <input id="shipping"
                                value="shipping"
+                               disabled={isReviewed && !isSameAddress}
+                               readOnly={isReviewed}
                                type="radio"
                                name="addressType"
-                               className="form-radio cursor-pointer accent-gray-600"
+                               className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} form-radio cursor-pointer accent-gray-600`}
                                checked={isSameAddress}
                           // checked={checkedAddressInput === 'shipping'}
                                onChange={handleAddressInputChange}
                         />
                       </div>
-                      <label htmlFor="shipping" className="cursor-pointer">Same as shipping address</label>
+                      <label htmlFor="shipping"
+                             className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} `}>
+                        Same as shipping address</label>
                     </div>
                   </div>
                   <div className="border-b border-solid border-foreground"></div>
@@ -1446,14 +1448,16 @@ const PaymentPageContent: React.FC = () => {
                       <div className="pr-2">
                         <input id="billing"
                                value="billing"
+                               disabled={isReviewed && isSameAddress}
+                               readOnly={isReviewed}
                                type="radio"
                                name="addressType"
-                               className="form-radio cursor-pointer accent-gray-600"
+                               className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}form-radio cursor-pointer accent-gray-600`}
                                checked={!isSameAddress}
                                onChange={handleAddressInputChange}
                         />
                       </div>
-                      <label htmlFor="billing" className="cursor-pointer"
+                      <label htmlFor="billing" className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} `}
                       >Use a different billing address</label>
                     </div>
                   </div>
@@ -1894,7 +1898,7 @@ const PaymentPageContent: React.FC = () => {
                       value={discountCode}
                       onChange={handleDiscountCodeChange}
                       maxLength={16}
-                      className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                      className="w-full items-center border border-solid bg-transparent px-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                     />
                     {displayInvalidCodeMessage && (
                       <span
