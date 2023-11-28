@@ -5,6 +5,36 @@ import masterandemissarry from '../../assets/masterandemissarry.jpg';
 import { Country, State, City } from 'country-state-city';
 
 const CheckoutPageContent: React.FC = () => {
+  const [isFocused, setIsFocused] = useState({
+    cardNumber: false,
+    cardName: false,
+    cardExpiry: false,
+    cardCode: false,
+    firstName: false,
+    lastName: false,
+    companyName: false,
+    addressLineOne: false,
+    addressLineTwo: false,
+    city: false,
+    state: false,
+    zipcode: false,
+    phone: false,
+  });
+  const [hasText, setHasText] = useState({
+    cardNumber: false,
+    cardName: false,
+    cardExpiry: false,
+    cardCode: false,
+    firstName: false,
+    lastName: false,
+    companyName: false,
+    addressLineOne: false,
+    addressLineTwo: false,
+    city: false,
+    state: false,
+    zipcode: false,
+    phone: false,
+  });
   const [shippingDetails, setShippingDetails] = useState({
     country: 'AU',
     firstName: '',
@@ -15,34 +45,19 @@ const CheckoutPageContent: React.FC = () => {
     city: '',
     state: 'NSW',
     zipcode: '',
+    phone: '',
     firstNameError: false,
     lastNameError: false,
     addressLineOneError: false,
     cityError: false,
     zipcodeError: false,
+    phoneError: false
   });
-  const [billingDetails, setBillingDetails] = useState({
-    country: 'AU',
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    addressLineOne: '',
-    addressLineTwo: '',
-    city: '',
-    state: 'NSW',
-    zipcode: '',
-    firstNameError: false,
-    lastNameError: false,
-    addressLineOneError: false,
-    cityError: false,
-    zipcodeError: false,
-  });
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isShippingValid, setIsShippingValid] = useState(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [countries, setCountries] = useState([]);
   const [shippingStates, setShippingStates] = useState([]);
-  const [billingStates, setBillingStates] = useState([]);
   const [discountCode, setDiscountCode] = useState('');
   const [isCodeValid, setIsCodeValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,11 +66,8 @@ const CheckoutPageContent: React.FC = () => {
   const [isReviewed, setIsReviewed] = useState(false);
   const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
   const [shippingError, setShippingError] = useState(false);
-  const [billingError, setBillingError] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
-  const [isBillingAddress, setIsBillingAddress] = useState(false);
 
-  const [isSameAddress, setIsSameAddress] = useState(false);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
@@ -72,294 +84,348 @@ const CheckoutPageContent: React.FC = () => {
     }
     setReviewButtonClicked(false);
   };
-  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCountry = event.target.value
 
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        country: newCountry,
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        country: newCountry,
-      }));
-    }
+  const handleCountryChange = (eventOrValue?: React.ChangeEvent<HTMLSelectElement> | string) => {
+    const newCountry = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'AU';
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      country: newCountry,
+    }));
   };
-  const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newState = event.target.value
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        state: newState,
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        state: newState,
-      }));
-    }
+  const handleStateChange = (eventOrValue?: React.ChangeEvent<HTMLSelectElement> | string) => {
+    const newState = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'NSW';
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      state: newState,
+    }));
   };
-  const handleFirstNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newFirstName = event.target.value
 
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        firstName: newFirstName,
-        firstNameError: newFirstName.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        firstName: newFirstName,
-        firstNameError: newFirstName.trim() === ''
-      }));
-    }
+  const handleFirstNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newFirstName = event ? event.target.value : '';
+    newFirstName = newFirstName.substring(0, 30);
+
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      firstName: newFirstName,
+      firstNameError: newFirstName.trim() === '' && newFirstName.length > 0
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      firstName: newFirstName.length > 0
+    }));
+  };
+  const handleFirstNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      firstName: true
+    }));
   };
   const handleFirstNameBlur = (userClickOrEvent: any) => {
-      const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
-      const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
-      if (shouldValidate) {
-          const commonUpdate: any = (prevDetails: { firstName: string; }) => ({
-              ...prevDetails,
-              firstNameError: prevDetails.firstName.trim() === ''
-          });
-          setShippingDetails(commonUpdate);
-          setBillingDetails(commonUpdate);
-      } else if (!isBillingAddress) {
-          setShippingDetails(prevDetails => ({
-              ...prevDetails,
-              firstNameError: prevDetails.firstName.trim() === ''
-          }));
-      } else {
-          setBillingDetails(prevDetails => ({
-              ...prevDetails,
-              firstNameError: prevDetails.firstName.trim() === ''
-          }));
-      }
-      setReviewButtonClicked(false);
-  };
-  const handleLastNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newLastName = event.target.value;
-
-    if (!isBillingAddress) {
+    if (shouldValidate) {
+      const commonUpdate: any = (prevDetails: {firstName: string;}) => ({
+        ...prevDetails,
+        firstNameError: prevDetails.firstName.trim() === ''
+      });
+      // setShippingDetails(commonUpdate);
+      setShippingDetails(commonUpdate);
+    } else {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        lastName: newLastName,
-        lastNameError: newLastName.trim() === ''
+        firstNameError: prevDetails.firstName.trim() === ' '
       }));
     }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        lastName: newLastName,
-        lastNameError: newLastName.trim() === ''
-      }));
-    }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      firstName: false
+    }));
+    setReviewButtonClicked(false);
+  };
+
+  const handleLastNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newLastName = event ? event.target.value : '';
+    newLastName = newLastName.substring(0, 30);
+
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      lastName: newLastName,
+      lastNameError: newLastName.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      lastName: newLastName.length > 0
+    }));
   }
   const handleLastNameBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-        const commonUpdate: any = (prevDetails: { lastName: string; }) => ({
-            ...prevDetails,
-            lastNameError: prevDetails.lastName.trim() === ''
-        });
-        setShippingDetails(commonUpdate);
-        setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
+      const commonUpdate: any = (prevDetails: {lastName: string;}) => ({
+        ...prevDetails,
+        lastNameError: prevDetails.lastName.trim() === ''
+      });
+      // setShippingDetails(commonUpdate);
+      setShippingDetails(commonUpdate);
+    } else {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        lastNameError: prevDetails.lastName.trim() === ''
-      }));
-    } else {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        lastNameError: prevDetails.lastName.trim() === ''
+        lastNameError: prevDetails.lastName.trim() === ' '
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      lastName: false
+    }));
     setReviewButtonClicked(false);
   }
-  const handleCompanyNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCompanyName = event.target.value;
-
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        companyName: newCompanyName,
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        companyName: newCompanyName,
-      }));
-    }
+  const handleLastNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      lastName: true
+    }));
   }
-  const handleAddressLineOneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newAddressLineOneChange = event.target.value;
 
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineOne: newAddressLineOneChange,
-        addressLineOneError: newAddressLineOneChange.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineOne: newAddressLineOneChange,
-        addressLineOneError: newAddressLineOneChange.trim() === ''
-      }));
-    }
+  const handleCompanyNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newCompanyName = event ? event.target.value : '';
+    newCompanyName = newCompanyName.substring(0, 60);
+
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      companyName: newCompanyName,
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      companyName: newCompanyName.length > 0
+    }));
+  };
+  const handleCompanyNameBlur = (userClickOrEvent: any) => {
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      companyName: false
+    }));
+    setReviewButtonClicked(false);
   }
+  const handleCompanyNameFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      companyName: true
+    }));
+  };
+
+  const handleAddressLineOneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newAddressLineOne = event ? event.target.value : '';
+    newAddressLineOne = newAddressLineOne.substring(0, 60);
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      addressLineOne: newAddressLineOne,
+      addressLineOneError: newAddressLineOne.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      addressLineOne: newAddressLineOne.length > 0
+    }));
+  };
   const handleAddressLineOneBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { addressLineOne: string; }) => ({
+      const commonUpdate: any = (prevDetails: {addressLineOne: string;}) => ({
         ...prevDetails,
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
       });
+      // setShippingDetails(commonUpdate);
       setShippingDetails(commonUpdate);
-      setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
+    } else {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        addressLineOneError: prevDetails.addressLineOne.trim() === ''
-      }));
-    } else {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineOneError: prevDetails.addressLineOne.trim() === ''
+        addressLineOneError: prevDetails.addressLineOne.trim() === ' '
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      addressLineOne: false
+    }));
     setReviewButtonClicked(false);
   };
-  const handleAddressLineTwoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newAddressLineTwoChange = event.target.value;
+  const handleAddressLineOneFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      addressLineOne: true
+    }));
+  };
+  const handleAddressLineTwoChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newAddressLineTwo = event ? event.target.value : '';
+    newAddressLineTwo = newAddressLineTwo.substring(0, 60);
 
-    if (!isBillingAddress) {
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      addressLineTwo: newAddressLineTwo,
+      addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
+    }));
+  };
+  const handleAddressLineTwoBlur = () => {
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      addressLineTwo: false
+    }));
+    setReviewButtonClicked(false);
+  };
+
+  const handleAddressLineTwoFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      addressLineTwo: true
+    }));
+  };
+
+  const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
+  const handlePhoneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newPhone = event ? event.target.value : '';
+    newPhone = newPhone.replace(/[^\d\s()]/g, '');
+    newPhone = newPhone.substring(0, 15);
+
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      phone: newPhone,
+      phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      phone: newPhone.length > 0
+    }));
+  };
+  const handlePhoneBlur = (userClickOrEvent: any) => {
+    const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
+    const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
+
+    if (shouldValidate) {
+      const commonUpdate: any = (prevDetails: {phone: string;}) => ({
+        ...prevDetails,
+        phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
+      });
+      // setShippingDetails(commonUpdate);
+      setShippingDetails(commonUpdate);
+    } else {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        addressLineTwo: newAddressLineTwoChange,
-        addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
+        phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
       }));
     }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        addressLineTwo: newAddressLineTwoChange,
-        addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
-      }));
-    }
-  }
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newCityChange = event.target.value;
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      phone: false
+    }));
+    setReviewButtonClicked(false);
+  };
+  const handlePhoneFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      phone: true
+    }));
+  };
 
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        city: newCityChange,
-        cityError: newCityChange.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        city: newCityChange,
-        cityError: newCityChange.trim() === ''
-      }));
-    }
+  const handleCityChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newCityChange = event ? event.target.value : '';
+    newCityChange = newCityChange.substring(0, 30);
+
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      city: newCityChange,
+      cityError: newCityChange.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      city: newCityChange.length > 0
+    }));
   }
+  const handleCityFocused = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      city: true
+    }));
+  };
   const handleCityBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { city: string; }) => ({
+      const commonUpdate: any = (prevDetails: {city: string;}) => ({
         ...prevDetails,
         cityError: prevDetails.city.trim() === ''
       });
+      // setShippingDetails(commonUpdate);
       setShippingDetails(commonUpdate);
-      setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
+    } else {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        cityError: prevDetails.city.trim() === ''
-      }));
-    } else {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        cityError: prevDetails.city.trim() === ''
+        cityError: prevDetails.city.trim() === ' '
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      city: false
+    }))
     setReviewButtonClicked(false);
   };
-  const handleZipcodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newZipcodeChange = event.target.value;
 
-    if (!isBillingAddress) {
-      setShippingDetails(prevDetails => ({
-        ...prevDetails,
-        zipcode: newZipcodeChange,
-        zipcodeError: newZipcodeChange.trim() === ''
-      }));
-    }
-    if (isBillingAddress || isSameAddress) {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        zipcode: newZipcodeChange,
-        zipcodeError: newZipcodeChange.trim() === ''
-      }));
-    }
+  const handleZipcodeFocused = () => {
+    setIsFocused(prevState => ({
+      ...prevState,
+      zipcode: true
+    }));
+  };
+  const handleZipcodeChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    let newZipcode = event ? event.target.value : '';
+    // Allow digits, letters, spaces, and hyphens
+    newZipcode = newZipcode.replace(/[^\d\w\s-]/g, '');
+    newZipcode = newZipcode.substring(0, 10);
+
+    setShippingDetails(prevDetails => ({
+      ...prevDetails,
+      zipcode: newZipcode,
+      zipcodeError: newZipcode.trim() === ''
+    }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      zipcode: newZipcode.length > 0
+    }));
   }
   const handleZipcodeBlur = (userClickOrEvent: any) => {
     const wasReviewButtonClicked = typeof userClickOrEvent === 'boolean' ? userClickOrEvent : false;
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: { zipcode: string; }) => ({
+      const commonUpdate: any = (prevDetails: {zipcode: string;}) => ({
         ...prevDetails,
         zipcodeError: prevDetails.zipcode.trim() === ''
       });
+      // setShippingDetails(commonUpdate);
       setShippingDetails(commonUpdate);
-      setBillingDetails(commonUpdate);
-    } else if (!isBillingAddress) {
+    } else {
       setShippingDetails(prevDetails => ({
         ...prevDetails,
-        zipcodeError: prevDetails.zipcode.trim() === ''
-      }));
-    } else {
-      setBillingDetails(prevDetails => ({
-        ...prevDetails,
-        zipcodeError: prevDetails.zipcode.trim() === ''
+        zipcodeError: prevDetails.zipcode.trim() === ' '
       }));
     }
+    setIsFocused(prevDetails => ({
+      ...prevDetails,
+      zipcode: false
+    }));
     setReviewButtonClicked(false);
   };
+
+
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = event.target.value;
     setDiscountCode(newCode);
     setIsCodeValid(newCode.trim().length === 6);
     setDisplayInvalidCodeMessage(false);
   }
-  const toggleBillingAddress = () => {
-    setIsBillingAddress(true);
-  };
-  const toggleShippingAddress = () => {
-    setIsBillingAddress(false);
-  };
+
   const toggleOrderSummary = useCallback(() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
@@ -372,13 +438,14 @@ const CheckoutPageContent: React.FC = () => {
       setDisplayInvalidCodeMessage(true); // Display invalid code message
     }, 2000);
   };
-
-  // const updateContactDetails = (firstName: string) => {
-  //   setContactDetails({
-  //     shippingDetails: { ...shippingDetails, firstName },
-  //     billingDetails: { ...billingDetails }
-  //   });
-  // };
+  const showFirstNameLabel = isFocused.firstName || hasText.firstName;
+  const showLastNameLabel = isFocused.lastName || hasText.lastName;
+  const showCompanyNameLabel = isFocused.companyName || hasText.companyName;
+  const showAddressLineOneLabel = isFocused.addressLineOne || hasText.addressLineOne;
+  const showAddressLineTwoLabel = isFocused.addressLineTwo || hasText.addressLineTwo;
+  const showCityLabel = isFocused.city || hasText.city;
+  const showZipcodeLabel = isFocused.zipcode || hasText.zipcode;
+  const showPhoneLabel = isFocused.phone || hasText.phone;
   const saveToLocalStorage = () => {
     localStorage.setItem('email', email);
     localStorage.setItem('shippingFirstName', shippingDetails.firstName);
@@ -390,21 +457,13 @@ const CheckoutPageContent: React.FC = () => {
     localStorage.setItem('shippingState', shippingDetails.state);
     localStorage.setItem('shippingCountry', shippingDetails.country);
     localStorage.setItem('shippingZipcode', shippingDetails.zipcode);
-    localStorage.setItem('billingFirstName', billingDetails.firstName);
-    localStorage.setItem('billingLastName', billingDetails.lastName);
-    localStorage.setItem('billingCompanyName', billingDetails.companyName);
-    localStorage.setItem('billingAddressLineOne', billingDetails.addressLineOne);
-    localStorage.setItem('billingAddressLineTwo', billingDetails.addressLineTwo);
-    localStorage.setItem('billingCity', billingDetails.city);
-    localStorage.setItem('billingState', billingDetails.state);
-    localStorage.setItem('billingCountry', billingDetails.country);
-    localStorage.setItem('billingZipcode', billingDetails.zipcode);
+    localStorage.setItem('shippingPhone', shippingDetails.phone);
   }
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
 
-    if (isFormValid) {
+    if (isShippingValid) {
       // updateContactDetails(shippingDetails.firstName)
       saveToLocalStorage();
       setIsReviewing(true);
@@ -423,40 +482,12 @@ const CheckoutPageContent: React.FC = () => {
       handleZipcodeBlur(true);
       setDisplayIncompleteMessage(true);
       setShippingError(true);
-      setBillingError(true);
     }
   };
 
   const handleCancelButtonClick = () => {
     setIsReviewed(false);
   };
-
-  const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newIsSameAddress = event.target.checked;
-    setIsSameAddress(!isSameAddress);
-
-    if (newIsSameAddress) {
-      setIsSameAddress(true);
-      setBillingDetails({
-        ...shippingDetails,
-      });
-    }
-    // else {
-    //   setIsSameAddress(false);
-    //   setBillingDetails({
-    //     firstName: '',
-    //     lastName: '',
-    //     address: '',
-    //     city: '',
-    //     zipcode: '',
-    //     firstNameError: false,
-    //     lastNameError: false,
-    //     addressLineOneError: false,
-    //     cityError: false,
-    //     zipcodeError: false,
-    //   });
-    // }
-  }
 
   useEffect(() => {
     // @ts-ignore
@@ -476,14 +507,6 @@ const CheckoutPageContent: React.FC = () => {
   }, [shippingDetails.country]);
 
   useEffect(() => {
-    if (billingDetails.country) {
-      const newBillingStates = State.getStatesOfCountry(billingDetails.country);
-      // @ts-ignore
-      setBillingStates(newBillingStates);
-    }
-  }, [billingDetails.country]);
-
-  useEffect(() => {
     const validateShippingDetails = (shipping: any) => {
       return (
         shipping.firstName.trim() !== '' &&
@@ -493,39 +516,21 @@ const CheckoutPageContent: React.FC = () => {
         shipping.zipcode.trim() !== ''
       );
     };
-    const validateBillingDetails = (billing: any) => {
-      return (
-        billing.firstName.trim() !== '' &&
-        billing.lastName.trim() !== '' &&
-        billing.addressLineOne.trim() !== '' &&
-        billing.city.trim() !== '' &&
-        billing.zipcode.trim() !== ''
-      );
-    };
-    const validateForm = (shipping: any, billing: any, email: any) => {
-      return validateShippingDetails(shipping) && validateBillingDetails(billing) && emailRegex.test(email);
-    };
 
-    const formIsValid = validateForm(shippingDetails, billingDetails, email);
     const shippingIsValid = validateShippingDetails(shippingDetails);
-    const billingIsValid = validateBillingDetails(billingDetails);
-    setIsFormValid(formIsValid);
+    setIsShippingValid(shippingIsValid);
 
     // updating review btn errors in real-time
-    if (formIsValid) {
+    if (shippingIsValid) {
       setDisplayIncompleteMessage(false);
       setShippingError(false);
-      setBillingError(false);
       return;
-    } else if (!formIsValid) {
+    } else if (!shippingIsValid) {
       if (shippingIsValid) {
         setShippingError(false);
       }
-      if (billingIsValid) {
-        setBillingError(false);
-      }
     }
-  }, [shippingDetails, billingDetails, email]);
+  }, [shippingDetails, email]);
 
 
   return (
@@ -560,7 +565,7 @@ const CheckoutPageContent: React.FC = () => {
                 className="mt-5 flex flex-row justify-around gap-3 p-1 px-4 xs:flex-col"
               >
                 <div id="shopPayButton"
-                  className="inline-flex h-10 w-1/3  items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue xs:h-12 xs:w-full">
+                     className="inline-flex h-10 w-1/3  items-center justify-center rounded border-2 border-solid bg-shopify-blue border-shopify-blue xs:h-12 xs:w-full">
                   <svg
                     className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
                     version="1.0"
@@ -643,7 +648,7 @@ const CheckoutPageContent: React.FC = () => {
                   </svg>
                 </div>
                 <div id="amazonPayButton"
-                  className={`inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full`}
+                     className={`inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full`}
                 >
                   <svg
                     className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
@@ -718,7 +723,7 @@ const CheckoutPageContent: React.FC = () => {
                   </svg>
                 </div>
                 <div id="paypalButton"
-                  className="inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full">
+                     className="inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full">
                   <svg
                     className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
                     xmlns="http://www.w3.org/2000/svg"
@@ -789,7 +794,7 @@ const CheckoutPageContent: React.FC = () => {
                       <div className="flex text-sm">
                         <div>Have an account?</div>
                         <div className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} pl-1 font-bold`}>
-                        Log in</div>
+                          Log in</div>
                       </div>
                     </div>
                   </div>
@@ -830,41 +835,18 @@ const CheckoutPageContent: React.FC = () => {
                   </div>
                   <div id="contactBottomSection">
                     <div id="shippingAddressDetails"
-                         className={`${!isBillingAddress ? 'block' : 'hidden'}`}
+                         className={``}
                     >
                       <div id="contactShippingHeader"
                            className="flex flex-row border-b border-solid border-foreground">
                         <div className="flex w-1/2 pb-2 text-xl font-bold">
-                          <div className={`
-                          ${shippingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} `}>
+                          <div>
                             Shipping Address
                           </div>
                         </div>
-                        <div className="flex pb-2 text-xl text-greyed-out text-underline font-bold cursor-pointer">
-                          <div className={`${isSameAddress ? 'hidden' : 'block'}
-                          ${billingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} 
-                          cursor-pointer`}
-                               onClick={toggleBillingAddress}
-                          >
-                            Billing Address
-                          </div>
-                        </div>
                       </div>
-                      <div id="shippingBillingCheckbox" className="flex items-center py-4">
-                        <input
-                          id="checkboxSameAddress"
-                          type="checkbox"
-                          disabled={isReviewed}
-                          className="accent-foreground"
-                          checked={isSameAddress}
-                          onChange={toggleSameAddress}
-                        />
-                        <div className="pl-2 text-sm">
-                          Billing address is the same as shipping address
-                        </div>
-                      </div>
-                      <div id="contactDetails">
-                        <div id="shippingCountrySelect"
+                      <div id="contactDetails" className="flex flex-col gap-3">
+                        <div id="shippingDetailsCountrySelect"
                              className="relative w-full border border-solid border-foreground">
                           <label htmlFor="country"
                                  className="absolute top-2 left-3 text-sm">Country/region
@@ -880,95 +862,150 @@ const CheckoutPageContent: React.FC = () => {
                             </svg>
                           </div>
                           <select id="country"
-                                  disabled={isReviewed}
+                            // disabled={isReviewed}
                                   className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
                                   value={shippingDetails.country}
-                                  onChange={handleCountryChange}
-                          >
+                                  onChange={handleCountryChange}>
                             {countries.map(({isoCode, name}) => (
                               <option
                                 key={isoCode}
-                                value={isoCode}
-                              >
+                                value={isoCode}>
                                 {name}
                               </option>
                             ))}
                           </select>
                         </div>
+
                         <div id="contactNames"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text"
-                                 placeholder="First Name"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.firstName}
-                                 onChange={handleFirstNameChange}
-                                 onBlur={handleFirstNameBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${shippingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                          <input type="text"
-                                 placeholder="Last Name"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.lastName}
-                                 onChange={handleLastNameChange}
-                                 onBlur={handleLastNameBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${shippingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                        </div>
-                        <div id="contactCompany"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text"
-                                 placeholder="Company (required for business addresses)"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.companyName}
-                                 onChange={handleCompanyNameChange}
-                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                        </div>
-                        <div id="contactAddressLineOne"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text"
-                                 placeholder="Address"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.addressLineOne}
-                                 onChange={handleAddressLineOneChange}
-                                 onBlur={handleAddressLineOneBlur}
-                                 className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${shippingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                        </div>
-                        <div id="contactAddressLineTwo"
-                             className="flex w-full justify-between pt-4">
-                          <input type="text" placeholder="Apartment, suite, etc. (optional)"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.addressLineTwo}
-                                 onChange={handleAddressLineTwoChange}
-                                 className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                        </div>
-                        <div id="contactAddressLineThree"
-                             className="flex justify-between gap-1 pt-4">
-                          <input type="text"
-                                 placeholder="City"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.city}
-                                 onChange={handleCityChange}
-                                 onBlur={handleCityBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${shippingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                          <div className="relative border border-solid w-32% border-foreground">
-                            <label htmlFor="state"
-                                   className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
-                            >
-                              State/Province
+                             className="flex w-full justify-between gap-3">
+                          <div id="firstNameInputContainer"
+                               className={`${shippingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} 
+                           relative flex flex-col border border-solid w-full`}>
+                            <label
+                              className={`transition-opacity duration-500 ${showFirstNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              First Name
                             </label>
-                            <label htmlFor="state"
-                                   className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
-                            >
+                            <input type="text"
+                                   placeholder={showFirstNameLabel ? '' : 'First Name'}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.firstName}
+                                   onChange={handleFirstNameChange}
+                                   onFocus={handleFirstNameFocused}
+                                   onBlur={handleFirstNameBlur}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                               ${showFirstNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                            />
+                          </div>
+                          <div id="lastNameInputContainer"
+                               className={`${shippingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                            <label
+                              className={`transition-opacity duration-500 ${showLastNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              Last Name
+                            </label>
+                            <input type="text"
+                                   placeholder={showLastNameLabel ? '' : 'Last Name'}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.lastName}
+                                   onChange={handleLastNameChange}
+                                   onFocus={handleLastNameFocused}
+                                   onBlur={handleLastNameBlur}
+                              // className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out`}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showLastNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+
+                            />
+                          </div>
+                        </div>
+
+                        <div id="companyNameInputContainer"
+                             className={`w-full`}>
+                          <div className="border border-solid border-foreground">
+                            <label
+                              className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'}
+                          flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              Company (optional)
+                            </label>
+                            <input type="text"
+                                   placeholder={showCompanyNameLabel ? '' : 'Company (optional)'}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.companyName}
+                                   onChange={handleCompanyNameChange}
+                                   onFocus={handleCompanyNameFocused}
+                                   onBlur={handleCompanyNameBlur}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showCompanyNameLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                            />
+                          </div>
+                        </div>
+
+                        <div id="addressLineOneInputContainer"
+                             className={`relative w-full`}>
+                          <div
+                            className={`${shippingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
+                            <label
+                              className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              Address
+                            </label>
+                            <input type="text"
+                                   placeholder={showAddressLineOneLabel ? '' : 'Address'}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.addressLineOne}
+                                   onChange={handleAddressLineOneChange}
+                                   onFocus={handleAddressLineOneFocused}
+                                   onBlur={handleAddressLineOneBlur}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showAddressLineOneLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                            />
+                          </div>
+                        </div>
+                        <div id="addressLineTwoInputContainer"
+                             className={`relative w-full`}>
+                          <div className="border border-solid border-foreground">
+                            <label
+                              className={`transition-opacity duration-500 ${showAddressLineTwoLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              Apartment, suite, etc. (optional)
+                            </label>
+                            <input type="text"
+                                   placeholder={showAddressLineTwoLabel ? '' : 'Apartment, suite, etc. (optional)'}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.addressLineTwo}
+                                   onChange={handleAddressLineTwoChange}
+                                   onFocus={handleAddressLineTwoFocused}
+                                   onBlur={handleAddressLineTwoBlur}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                             ${showAddressLineTwoLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
+                            />
+                          </div>
+                        </div>
+
+                        <div id="contactCityStateCode"
+                             className="flex w-full justify-between gap-3">
+                          <div id="cityInputContainer"
+                               className={`${shippingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                            <label
+                              className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                           flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              City
+                            </label>
+                            <input id="cityInput"
+                                   type="text"
+                                   placeholder={showCityLabel ? "" : "City"}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.city}
+                                   onChange={handleCityChange}
+                                   onFocus={handleCityFocused}
+                                   onBlur={handleCityBlur}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                               ${showCityLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
+                               `}
+                            />
+                          </div>
+
+                          <div id="stateInput" className="relative border border-solid w-full border-foreground">
+                            <label className="xs:hidden flex items-end pt-1 px-3 text-xs font-bold text-greyed-out">
+                              State/territory
+                            </label>
+                            <label className="hidden xs:flex items-end pt-1 px-3 text-xs font-bold text-greyed-out">
                               State
                             </label>
                             <div id="selectArrow"
@@ -980,11 +1017,11 @@ const CheckoutPageContent: React.FC = () => {
                                       d="M19 9l-7 7-7-7"></path>
                               </svg>
                             </div>
-                            <select id="state"
+                            <select id="stateSelect"
                                     disabled={isReviewed}
                                     value={shippingDetails.state}
                                     onChange={handleStateChange}
-                                    className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
+                                    className="block text-sm w-full overflow-hidden appearance-none px-3 pb-2 bg-background focus:border-blue-500 focus:outline-none"
                             >
                               {shippingStates.map(({isoCode, name}) => (
                                 <option
@@ -996,202 +1033,50 @@ const CheckoutPageContent: React.FC = () => {
                               ))}
                             </select>
                           </div>
-                          <input type="text"
-                                 placeholder="ZIP code"
-                                 readOnly={isReviewed}
-                                 value={shippingDetails.zipcode}
-                                 onChange={handleZipcodeChange}
-                                 onBlur={handleZipcodeBlur}
-                                 className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${shippingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div id="billingAddressDetails"
-                         className={`${isBillingAddress ? 'block' : 'hidden'}`}
-                    >
-                      <div id="contactShippingHeader"
-                           className="flex flex-row border-b border-solid border-foreground">
-                        <div className="flex w-1/2 pb-2 text-xl font-bold text-greyed-out">
-                          <div className={`border-b cursor-pointer
-                          ${shippingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} `}
-                            onClick={toggleShippingAddress}>
-                            Shipping Address
-                          </div>
-
-                        </div>
-                        <div className="flex pb-2 text-xl text-underline font-bold w-1/2">
-                          <div className={`${isSameAddress ? 'hidden' : 'block'}
-                          ${billingError && !isFormValid ? 'border-solid border-b border-custom-red' : ''} 
-                          cursor-pointer`}
-                          >
-                            Billing Address
-                          </div>
-                        </div>
-                      </div>
-                      <div className="border-red">
-                        <div id="shippingBillingCheckbox" className="flex items-center py-4">
-                          <input
-                            type="checkbox"
-                            disabled={isReviewed}
-                            className="accent-foreground"
-                            checked={isSameAddress}
-                            onChange={toggleSameAddress}
-                            onClick={toggleShippingAddress}
-                          />
-                          <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
-                        </div>
-                        <div id="contactDetails">
-                          <div id="billingDetailsCountrySelect"
-                               className="relative w-full border border-solid border-foreground">
-                            <label htmlFor="country"
-                                   className="absolute top-2 left-3 text-sm">Country/region
+                          <div id="zipcodeInputContainer"
+                               className={`${shippingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                            <label
+                              className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
+                                flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              Postcode
                             </label>
-                            <div id="selectArrow"
-                                 className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-                              <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                                   viewBox="0 0 24 24"
-                                   xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round"
-                                      strokeWidth="2"
-                                      d="M19 9l-7 7-7-7"></path>
-                              </svg>
-                            </div>
-                            <select id="country"
-                                    disabled={isReviewed}
-                                    className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
-                                    value={billingDetails.country}
-                                    onChange={handleCountryChange}
-                            >
-                              {countries.map(({isoCode, name}) => (
-                                <option
-                                  key={isoCode}
-                                  value={isoCode}
-                                >
-                                  {name}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                          <div id="contactNames"
-                               className="flex w-full justify-between pt-4">
-                            <input type="text"
-                                   placeholder="First Name"
+                            <input id="zipcodeInput"
+                                   type="text"
+                                   placeholder={showZipcodeLabel ? '' : 'Postcode'}
                                    readOnly={isReviewed}
-                                   value={billingDetails.firstName}
-                                   onChange={handleFirstNameChange}
-                                   onBlur={handleFirstNameBlur}
-                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${billingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                            />
-                            <input type="text"
-                                   placeholder="Last Name"
-                                   readOnly={isReviewed}
-                                   value={billingDetails.lastName}
-                                   onChange={handleLastNameChange}
-                                   onBlur={handleLastNameBlur}
-                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-49% placeholder-greyed-out
-                               ${billingDetails.lastNameError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                            />
-                          </div>
-                          <div id="contactCompany"
-                               className="flex w-full justify-between pt-4">
-                            <input type="text"
-                                   placeholder="Company (required for business addresses)"
-                                   readOnly={isReviewed}
-                                   value={billingDetails.companyName}
-                                   onChange={handleCompanyNameChange}
-                                   className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                          </div>
-                          <div id="contactAddressLineOne"
-                               className="flex w-full justify-between pt-4">
-                            <input type="text"
-                                   placeholder="Address"
-                                   readOnly={isReviewed}
-                                   value={billingDetails.addressLineOne}
-                                   onChange={handleAddressLineOneChange}
-                                   onBlur={handleAddressLineOneBlur}
-                                   className={`w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none placeholder-greyed-out
-                               ${billingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                            />
-                          </div>
-                          <div id="contactAddressLineTwo"
-                               className="flex w-full justify-between pt-4">
-                            <input type="text" placeholder="Apartment, suite, etc. (optional)"
-                                   readOnly={isReviewed}
-                                   value={billingDetails.addressLineTwo}
-                                   onChange={handleAddressLineTwoChange}
-                                   className="w-full items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"/>
-                          </div>
-                          <div id="contactAddressLineThree"
-                               className="flex justify-between gap-1 pt-4">
-                            <input type="text"
-                                   placeholder="City"
-                                   readOnly={isReviewed}
-                                   value={billingDetails.city}
-                                   onChange={handleCityChange}
-                                   onBlur={handleCityBlur}
-                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${billingDetails.cityError ? 'border-custom-red' : 'border-foreground'}
-                               `}
-                            />
-                            <div className="relative border border-solid w-32% border-foreground">
-                              <label htmlFor="state"
-                                     className="absolute xs:hidden top-1 left-3 text-sm font-bold text-greyed-out"
-                              >
-                                State/Province
-                              </label>
-                              <label htmlFor="state"
-                                     className="hidden xs:block absolute top-1 left-3 text-sm font-bold text-greyed-out"
-                              >
-                                State
-                              </label>
-                              <div id="selectArrow"
-                                   className="pointer-events-none absolute inset-y-0 right-3 top-1 flex ">
-                                <svg className="h-4 w-4" fill="none" stroke="currentColor"
-                                     viewBox="0 0 24 24"
-                                     xmlns="http://www.w3.org/2000/svg">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                        d="M19 9l-7 7-7-7"></path>
-                                </svg>
-                              </div>
-                              <select id="billingDetailsstate"
-                                      disabled={isReviewed}
-                                      value={billingDetails.state}
-                                      onChange={handleStateChange}
-                                      className="block text-sm w-full appearance-none px-3 pt-6 pb-1 bg-background focus:border-blue-500 focus:outline-none"
-                              >
-                                {billingStates.map(({isoCode, name}) => (
-                                  <option
-                                    key={isoCode}
-                                    value={isoCode}
-                                  >
-                                    {name}
-                                  </option>
-                                ))}
-                              </select>
-                            </div>
-                            <input type="text"
-                                   placeholder="ZIP code"
-                                   readOnly={isReviewed}
-                                   value={billingDetails.zipcode}
+                                   value={shippingDetails.zipcode}
+                                   onFocus={handleZipcodeFocused}
                                    onChange={handleZipcodeChange}
                                    onBlur={handleZipcodeBlur}
-                                   className={`items-center border border-solid bg-transparent p-3 py-4 text-sm placeholder:font-bold outline-none w-32% placeholder-greyed-out
-                               ${billingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'}
+                                   className={`placeholder:transition-opacity placeholder:duration-700
+                               ${showZipcodeLabel ? 'h-auto placeholder:opacity-0 overflow-hidden pb-2' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out
                                `}
+                            />
+                          </div>
+                        </div>
+                        <div id="phoneInputContainer"
+                             className={`relative w-full`}>
+                          <div className="border border-solid border-foreground">
+                            <label
+                              className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
+                              Phone (optional)
+                            </label>
+                            <input type="text"
+                                   placeholder={showPhoneLabel ? '' : 'Phone (optional)'}
+                                   readOnly={isReviewed}
+                                   value={shippingDetails.phone}
+                                   onChange={handlePhoneChange}
+                                   onFocus={handlePhoneFocused}
+                                   onBlur={handlePhoneBlur}
+                                   className={`placeholder:transition-opacity placeholder:duration-500
+                             ${showPhoneLabel ? 'h-auto placeholder:opacity-0 pb-2 overflow-hidden' : 'h-full placeholder:opacity-100 py-4'} block text-sm appearance-none px-3 bg-background placeholder:font-bold outline-none w-full placeholder-greyed-out `}
                             />
                           </div>
                         </div>
                       </div>
                     </div>
-                   <div
-                        className={`${isReviewed ? 'pt-6 md:hidden lg:hidden xl:hidden' : 'hidden'} ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+                    <div
+                      className={`${isReviewed ? 'pt-6 md:hidden lg:hidden xl:hidden' : 'hidden'} ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
                       <div className="flex justify-between">
                         <div className="flex">
                           <div className="text-lg font-medium">Total</div>
@@ -1235,7 +1120,7 @@ const CheckoutPageContent: React.FC = () => {
                           ) : !isReviewed ? (
                             <button id="reviewOrderButton"
                                     className={`border-2 rounded font-bold p-4 border-solid
-                              ${!isFormValid ? 'border-foreground bg-greyed-out cursor-default'
+                              ${!isShippingValid ? 'border-foreground bg-greyed-out cursor-default'
                                       : 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent'}
                               `}
                                     type="button"

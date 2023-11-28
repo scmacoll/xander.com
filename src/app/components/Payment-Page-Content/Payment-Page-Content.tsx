@@ -66,7 +66,7 @@ const PaymentPageContent: React.FC = () => {
     addressLineOneError: false,
     cityError: false,
     zipcodeError: false,
-    phoneError: false,
+    phoneError: false
   });
 
   const [initCardDetails, setInitCardDetails] = useState(cardDetails);
@@ -334,6 +334,7 @@ const PaymentPageContent: React.FC = () => {
       state: newState,
     }));
   };
+
   const handleFirstNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     let newFirstName = event ? event.target.value : '';
     newFirstName = newFirstName.substring(0, 30);
@@ -377,6 +378,7 @@ const PaymentPageContent: React.FC = () => {
     }));
     setReviewButtonClicked(false);
   };
+
   const handleLastNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     let newLastName = event ? event.target.value : '';
     newLastName = newLastName.substring(0, 30);
@@ -420,6 +422,7 @@ const PaymentPageContent: React.FC = () => {
       lastName: true
     }));
   }
+
   const handleCompanyNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     let newCompanyName = event ? event.target.value : '';
     newCompanyName = newCompanyName.substring(0, 60);
@@ -446,6 +449,7 @@ const PaymentPageContent: React.FC = () => {
       companyName: true
     }));
   };
+
   const handleAddressLineOneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     let newAddressLineOne = event ? event.target.value : '';
     newAddressLineOne = newAddressLineOne.substring(0, 60);
@@ -512,6 +516,7 @@ const PaymentPageContent: React.FC = () => {
       addressLineTwo: true
     }));
   };
+
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
   const handlePhoneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     let newPhone = event ? event.target.value : '';
@@ -601,6 +606,7 @@ const PaymentPageContent: React.FC = () => {
     }))
     setReviewButtonClicked(false);
   };
+
   const handleZipcodeFocused = () => {
     setIsFocused(prevState => ({
       ...prevState,
@@ -646,12 +652,14 @@ const PaymentPageContent: React.FC = () => {
     }));
     setReviewButtonClicked(false);
   };
+
   const handleDiscountCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newCode = event.target.value;
     setDiscountCode(newCode);
     setIsCodeValid(newCode.trim().length !== 0);
     setDisplayInvalidCodeMessage(false);
   }
+
   const toggleOrderSummary = useCallback(() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
@@ -1415,14 +1423,6 @@ const PaymentPageContent: React.FC = () => {
             <div className="py-5"></div>
 
             <div className="">
-              <div className="pb-6">
-                <div className="w-1/2 text-xl font-bold">
-                  Billing Address
-                </div>
-                <div className="text-sm">
-                  Select the address that matches your card or payment method.
-                </div>
-              </div>
               <div className="border border-solid border-foreground">
                 <div className="flex flex-col">
                   <div className="flex text-sm">
