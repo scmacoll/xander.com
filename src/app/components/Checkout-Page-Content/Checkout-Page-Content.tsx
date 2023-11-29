@@ -84,7 +84,7 @@ const CheckoutPageContent: React.FC = () => {
   };
 
   const handleCountryChange = (eventOrValue?: React.ChangeEvent<HTMLSelectElement> | string) => {
-    const newCountry = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'AU';
+    const newCountry = typeof eventOrValue === 'string' ? eventOrValue : eventOrValue?.target.value || 'Australia';
     setShippingDetails(prevDetails => ({
       ...prevDetails,
       country: newCountry,
