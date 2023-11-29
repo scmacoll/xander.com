@@ -1092,62 +1092,6 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
 
-
-          {/*<div className="pt-8 pb-10">*/}
-          {/*  <div className="border border-solid border-foreground grid grid-rows-3 grid-cols-3 text-sm">*/}
-          {/*    <div className="row-border p-4">Contact</div>*/}
-          {/*    <div className="row-border p-4">bobby@gmail.com</div>*/}
-          {/*    <div className="row-border p-4">Change</div>*/}
-
-          {/*    <div className="border p-4">Ship to</div>*/}
-          {/*    <div className="border p-4">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia</div>*/}
-          {/*    <div className="border p-4">Change</div>*/}
-
-          {/*    <div className="border-t border-solid border-foreground p-4">Shipping method</div>*/}
-          {/*    <div className="border-t border-solid border-foreground p-4">Standard Shipping (5-14 business days) - Free</div>*/}
-          {/*    <div className="border-t border-solid border-foreground p-4"></div>*/}
-          {/*  </div>*/}
-
-          {/*  <div className="pt-12"></div>*/}
-          {/*  <div className="grid grid-cols-3 grid-rows-3 border border-solid border-foreground text-sm items-center">*/}
-          {/*    <div className="border-green w-32 p-4">Contact</div>*/}
-          {/*    <div className="p-4 border-red w-full">bobby@gmail.com</div>*/}
-          {/*    <div className="flex justify-end w-fit p-4 border-green">Change</div>*/}
-          {/*    <div>Item 4</div>*/}
-          {/*    <div>Item 5</div>*/}
-          {/*    <div>Item 6</div>*/}
-          {/*    <div className="w-32 border-green">Shipping Method</div>*/}
-          {/*    <div>Item 8</div>*/}
-          {/*    <div>Item 9</div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
-          {/*<div className="pt-8 pb-10">*/}
-          {/*  <div className="border border-solid border-foreground">*/}
-          {/*    <div className="flex flex-col p-4">*/}
-          {/*      <div className="flex justify-between text-sm">*/}
-          {/*        <div className="flex xs:flex-col">*/}
-          {/*          <div className="flex border-green text-gray-400 w-fit pb-2">Contact</div>*/}
-          {/*          <div className="border-red pr-8">bobby@gmail.com</div>*/}
-          {/*        </div>*/}
-          {/*        <div className="flex font-bold cursor-pointer">Change</div>*/}
-          {/*      </div>*/}
-          {/*      <div>*/}
-          {/*        <div className="pt-2 xs:pt-4"></div>*/}
-          {/*        <div className="border-solid border-b border-foreground"></div>*/}
-          {/*        <div className="pb-4"></div>*/}
-          {/*      </div>*/}
-          {/*      <div className="flex justify-between text-sm">*/}
-          {/*        <div className="flex xs:flex-col">*/}
-          {/*          <div className="text-gray-400 border-green w-10 pb-2">Ship to</div>*/}
-          {/*          <div className="border-red pr-8">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia</div>*/}
-          {/*        </div>*/}
-          {/*        <div className="flex font-bold cursor-pointer">Change</div>*/}
-          {/*      </div>*/}
-          {/*    </div>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-
           <div className="pt-8 pb-10">
             <div className="border border-solid border-foreground">
               <div className="flex flex-col py-3 px-4">
@@ -1156,7 +1100,9 @@ const PaymentPageContent: React.FC = () => {
                     <div className="flex text-gray-400 w-20">Contact</div>
                     <div className="pr-8 flex w-full flex-1">bobby@gmail.com</div>
                   </div>
-                  <div className="flex font-bold cursor-pointer">Change</div>
+                  <div className="flex font-bold cursor-pointer">
+                    <a href="/checkout">Change</a>
+                  </div>
                 </div>
                 <div>
                   <div className="pt-3 xs:pt-3"></div>
@@ -1168,7 +1114,9 @@ const PaymentPageContent: React.FC = () => {
                     <div className="text-gray-400 flex-start w-20">Ship to</div>
                     <div className="w-full flex flex-1 pr-8">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia</div>
                   </div>
-                  <div className="flex font-bold cursor-pointer">Change</div>
+                  <div className="flex font-bold cursor-pointer">
+                    <a href="/checkout">Change</a>
+                  </div>
                 </div>
 
                 <div
