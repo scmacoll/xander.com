@@ -532,7 +532,7 @@ const CheckoutPageContent: React.FC = () => {
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div id="pageContainer"
            className={`${styles.pageContainer}
-           mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
+           mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
       >
         <div id="leftContentWrapper"
              className="flex flex-col sm:w-full md:w-51.5% lg:w-51.5%">
@@ -831,7 +831,7 @@ const CheckoutPageContent: React.FC = () => {
                          className={``}
                     >
                       <div id="contactShippingHeader"
-                           className="flex flex-row border-b border-solid border-foreground">
+                           className="flex flex-row">
                         <div className="flex w-1/2 pb-2 text-xl font-bold">
                           <div>
                             Shipping Address
