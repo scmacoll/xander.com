@@ -17,6 +17,7 @@ const ConfirmPageContent: React.FC = () => {
   const [shippingState, setShippingState] = useState('');
   const [shippingCountry, setShippingCountry] = useState('');
   const [shippingZipcode, setShippingZipcode] = useState('');
+  const [shippingPhone, setShippingPhone] = useState('');
   const [billingFirstName, setBillingFirstName] = useState('');
   const [billingLastName, setBillingLastName] = useState('');
   const [billingCompanyName, setBillingCompanyName] = useState('');
@@ -26,6 +27,7 @@ const ConfirmPageContent: React.FC = () => {
   const [billingState, setBillingState] = useState('');
   const [billingCountry, setBillingCountry] = useState('');
   const [billingZipcode, setBillingZipcode] = useState('');
+  const [billingPhone, setBillingPhone] = useState('');
   const [cardNumber, setCardNumber] = useState('');
 
   useEffect(() => {
@@ -40,6 +42,7 @@ const ConfirmPageContent: React.FC = () => {
     const storedShippingState = localStorage.getItem('shippingState');
     const storedShippingCountry = localStorage.getItem('shippingCountry');
     const storedShippingZipcode = localStorage.getItem('shippingZipcode');
+    const storedShippingPhone = localStorage.getItem('shippingPhone');
 
     const storedBillingFirstName = localStorage.getItem('billingFirstName');
     const storedBillingLastName = localStorage.getItem('billingLastName');
@@ -50,6 +53,7 @@ const ConfirmPageContent: React.FC = () => {
     const storedBillingState = localStorage.getItem('billingState');
     const storedBillingCountry = localStorage.getItem('billingCountry');
     const storedBillingZipcode = localStorage.getItem('billingZipcode');
+    const storedBillingPhone = localStorage.getItem('billingPhone');
 
     const storedCardNumber = localStorage.getItem('cardNumber');
 
@@ -83,6 +87,9 @@ const ConfirmPageContent: React.FC = () => {
     if (storedShippingZipcode) {
       setShippingZipcode(storedShippingZipcode);
     }
+    if (storedShippingPhone) {
+      setShippingPhone(storedShippingPhone);
+    }
     if (storedBillingFirstName) {
       setBillingFirstName(storedBillingFirstName);
     }
@@ -109,6 +116,9 @@ const ConfirmPageContent: React.FC = () => {
     }
     if (storedBillingZipcode) {
       setBillingZipcode(storedBillingZipcode);
+    }
+    if (storedBillingPhone) {
+      setBillingPhone(storedBillingPhone);
     }
     if (storedCardNumber) {
       const lastFourDigits = storedCardNumber.slice(-4);
@@ -248,6 +258,10 @@ const ConfirmPageContent: React.FC = () => {
                             <div className="flex">
                               <li className="flex w-1/2 pr-10" id="shippingCountry">{shippingCountry}</li>
                               <li className="flex w-1/2 pr-10" id="billingCountry">{billingCountry}</li>
+                            </div>
+                            <div className="flex">
+                              <li className="flex w-1/2 pr-10" id="shippingPhone">{shippingPhone}</li>
+                              <li className="flex w-1/2 pr-10" id="billingPhone">{billingPhone}</li>
                             </div>
                           </ul>
                         </div>
