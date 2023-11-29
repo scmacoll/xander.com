@@ -41,7 +41,7 @@ export type TileCard = {
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
 
-const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
+const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -142,7 +142,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     console.log("rightDataIndex: ", rightDataIndex);
     console.log("right Data: ", rightData);
 
-    return { leftData, middleData, rightData };
+    return {leftData, middleData, rightData};
   };
 
   const mergeData = (leftData: any, middleData: any, rightData: any) => {
@@ -153,19 +153,19 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
     for (let i = 0; i < numberOfCards; i++) {
       // Add the cards from each column in the correct order
       if (leftData[i]) {
-        mergedData.push({ ...leftData[i], column: 'left' });
+        mergedData.push({...leftData[i], column: 'left'});
       }
       if (middleData[i]) {
-        mergedData.push({ ...middleData[i], column: 'middle' });
+        mergedData.push({...middleData[i], column: 'middle'});
       }
       if (rightData[i]) {
-        mergedData.push({ ...rightData[i], column: 'right' });
+        mergedData.push({...rightData[i], column: 'right'});
       }
     }
     return mergedData;
   }
 
-  const { leftData, middleData, rightData } = getColumnData(indexNumber);
+  const {leftData, middleData, rightData} = getColumnData(indexNumber);
   const combinedData = mergeData(leftData, middleData, rightData);
 
   useEffect(() => {
@@ -305,7 +305,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
 
           return (
             <div key={index}
-                 // onClick={() => setSelectedCard(card)}
+              // onClick={() => setSelectedCard(card)}
                  className={classNames(styles.card, {
                    [styles.leftCard]: isFirstColumn,
                    [styles.middleCard]: isSecondColumn,
@@ -324,28 +324,40 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
           <Lightbox
             card={selectedCard}
             onClose={() => setSelectedCard(null)}
-            numColumns={numColumns} />
+            numColumns={numColumns}/>
         )}
-        
+
       </section>
 
-      <div className={styles.pagination}>
-        {(() => {
-          const currentPageNumbers = getPageNumbersSubset();
-          // Render the page numbers
-          return currentPageNumbers.map((num, index) => (
-            <a
-              key={index}
-              className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
-              onClick={() => {
-                togglePageNumber(num);
-              }}
-            >
-              {num}
-            </a>
-          ));
-        })()}
-
+      <div id="paginationMenu"
+           className="flex mx-auto justify-center items-center gap-1">
+        <div id="leftArrow"
+             className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
+             onClick={() => shiftColumn('right')}>
+          <FontAwesomeIcon icon={faChevronLeft} size="xl" className="text-fg-06 hover:text-foreground"/>
+        </div>
+        <div className={styles.pagination}>
+          {(() => {
+            const currentPageNumbers = getPageNumbersSubset();
+            // Render the page numbers
+            return currentPageNumbers.map((num, index) => (
+              <a
+                key={index}
+                className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
+                onClick={() => {
+                  togglePageNumber(num);
+                }}
+              >
+                {num}
+              </a>
+            ));
+          })()}
+        </div>
+        <div id="rightArrow"
+             className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
+             onClick={() => shiftColumn('left')}>
+          <FontAwesomeIcon icon={faChevronRight} size="xl" className="text-fg-06 hover:text-foreground"/>
+        </div>
       </div>
 
     </div>
