@@ -27,21 +27,25 @@
   ); /* Assuming 1.2em as line-height and showing up to 4 lines */
   overflow-y: auto; /* Show vertical scrollbar if the content exceeds max-height */
   scrollbar-width: thin;
-  scrollbar-color: rgba(71, 81, 108, 0) rgba(0, 0, 0, 0);
+  scrollbar-color: transparent transparent;
   margin: 0; /* Removing default margins from paragraph */
   padding: 0 0.5em; /* Optional: You may want to give a little horizontal padding */
 }
-
+.cardTitle:hover {
+  scrollbar-color: rgba(71, 81, 108, 0.5) transparent;
+}
 .cardTitle::-webkit-scrollbar {
-  width: 8px; /* Adjust the width as desired */
+  width: 6px;
+  background-color: transparent;
 }
-
+.cardTitle:hover::-webkit-scrollbar {
+  background-color: rgba(71, 81, 108, 0.5);
+}
 .cardTitle::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.5); /* Adjust the color as desired */
+  background-color: transparent;
 }
-
 .cardTitle::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0); /* Remove the background color */
+  background-color: transparent; /* Remove the background color */
 }
 
 .cardAuthor {
@@ -98,8 +102,4 @@
 }
 .cardIcon:hover path {
   fill: #b5b19b;
-}
-
-.cardTitle:hover {
-  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
 }
