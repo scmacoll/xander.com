@@ -249,8 +249,8 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
   }, []);
 
   return (
-    <div id="sectionWrapper">
-      <section className={styles.contentLayout}>
+    <div id="sectionWrapper" className="">
+      <section className={`${styles.contentLayout} `}>
 
         <div id="arrowButtons" className="absolute">
           <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
@@ -271,11 +271,7 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             </div>
             <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
           </div>
-          {/*<div className={`${styles.similarDarrow}`}>*/}
-          {/*  <a href="/">*/}
-          {/*    <FontAwesomeIcon icon={faChevronDown} size="xl"/>*/}
-          {/*  </a>*/}
-          {/*</div>*/}
+
         </div>
 
         {combinedData.map((card, index) => {
@@ -349,50 +345,6 @@ const Content: React.FC<ContentProps> = ({ isCardButtonClicked }) => {
             </a>
           ));
         })()}
-
-        {/*{pageNumber.map((num, index) => {*/}
-        {/*  // const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
-        {/*  return (*/}
-        {/*    <a*/}
-        {/*      key={index}*/}
-        {/*      href={`#page-${index + 1}`}*/}
-        {/*      className={styles.pageNumber}*/}
-        {/*    >*/}
-        {/*      {num}*/}
-        {/*    </a>*/}
-        {/*  );*/}
-        {/*})}*/}
-
-        {/*{(() => {*/}
-        {/*  const currentPageWindow = calculatePaginationWindow(displayedPageNumber);*/}
-
-        {/*  // Render the page numbers*/}
-        {/*  return currentPageWindow.map((num, index) => (*/}
-        {/*    <a*/}
-        {/*      key={index}*/}
-        {/*      href={`#page-${num}`}*/}
-        {/*      className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.active : ''}`}*/}
-        {/*      onClick={() => {*/}
-        {/*        setDisplayedPageNumber(num);*/}
-        {/*      }}*/}
-        {/*    >*/}
-        {/*      {num}*/}
-        {/*    </a>*/}
-        {/*  ));*/}
-        {/*})()}*/}
-
-        {/*{Array.from({length: 5}, (_, index) => {*/}
-        {/*  const currentPage = pageNumber.indexOf(displayedPageNumber);*/}
-        {/*  return (*/}
-        {/*    <a*/}
-        {/*      key={index}*/}
-        {/*      href={`#page-${index + 1}`}*/}
-        {/*      className={styles.pageNumber}*/}
-        {/*    >*/}
-        {/*      {index + 2}*/}
-        {/*    </a>*/}
-        {/*  );*/}
-        {/*})}*/}
 
       </div>
 

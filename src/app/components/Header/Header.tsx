@@ -67,22 +67,24 @@ const Header: React.FC<HeaderProps> = ({
         </svg>
         <div
           className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
-                                                                                                          <span className="cursor-pointer text-sm pr-2" onClick={handleClick}>
+                                                                                                          <span
+                                                                                                            className="cursor-pointer text-sm pr-2"
+                                                                                                            onClick={handleClick}>
                                                                                                           Focus
                                                                                                           </span>
-                                                                                                          <label
-                                                                                                          className={`${styles.switch} ${
-                                                                                                          isFocusMode ? styles.active : ''
-                                                                                                          }`}>
-                                                                                                          <input
-                                                                                                          type="checkbox"
-                                                                                                          onClick={handleFocusModeToggle}
-                                                                                                          defaultChecked={true}
-                                                                                                          ref={inputRef}
-                                                                                                          />
-                                                                                                          <span className={styles.slider}></span>
-                                                                                                          </label>
-                                                                                                          </div>
+          <label
+            className={`${styles.switch} ${
+              isFocusMode ? styles.active : ''
+            }`}>
+            <input
+              type="checkbox"
+              onClick={handleFocusModeToggle}
+              defaultChecked={true}
+              ref={inputRef}
+            />
+            <span className={styles.slider}></span>
+          </label>
+        </div>
       </div>
 
       <div className={`${styles.heartIcon} hidden xs:flex`}>
