@@ -326,10 +326,10 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
             <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>${ totalPrice.toFixed(2) }</span></div>
           </div>
           <div className={`${styles.checkoutWrapper}`}>
-            <div className={`${styles.checkoutAddToCart}`}>
+            <div className={`${styles.checkoutAddToCart} cursor-pointer bg-amazon-yellow font-bold text-xs hover:bg-transparent hover:border-foreground`}>
               <button>Add To Cart</button>
             </div>
-            <div className={`${styles.checkoutBuyNow}`}>
+            <div className={`${styles.checkoutBuyNow} cursor-pointer bg-custom-red opacity-90 font-bold text-xs hover:bg-transparent hover:border-transparent`}>
               <button>BUY NOW</button>
             </div>
           </div>

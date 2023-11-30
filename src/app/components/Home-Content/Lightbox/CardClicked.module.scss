@@ -424,7 +424,6 @@
 
 .checkoutAddToCart {
   display: inline-flex;
-  border: .1px solid rgb(var(--everforest-gold));
   border-radius: 4px;
   padding: .75em;
   width: 100px;
@@ -432,7 +431,6 @@
   margin-right: 2em;
   justify-content: center;
   align-items: center;
-  color: rgb(var(--everforest-gold));
 }
 .checkoutAddToCart:hover {
   border: .1px solid #d2cfca;
@@ -441,14 +439,12 @@
 
 .checkoutBuyNow {
   display: inline-flex;
-  border: .1px solid rgb(169, 57, 57);  
   border-radius: 4px;
   padding: .75em;
   width: 100px;
   height: 50px;
   justify-content: center;
   align-items: center;
-  color: rgb(169, 57, 57);
 }
 .checkoutBuyNow:hover {
   border: .1px solid #d2cfca;
