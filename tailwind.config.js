@@ -56,6 +56,12 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        'alliance': ["Alliance Neue"],
+        'alliance-1': ["Alliance No.1"],
+        'alliance-2': ["Alliance No.2"],
+        'alliance-mono': ["Alliance Mono"]
+      },
       width: {
         '32%': '32%',
         '38%': '38%',

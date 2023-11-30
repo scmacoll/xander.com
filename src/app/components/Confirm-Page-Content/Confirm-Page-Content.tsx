@@ -1,7 +1,7 @@
 import styles from './Confirm-Page-Content.module.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from "next/image";
-import masterandemissarry from '../../assets/book-jpegs/master_and_emissarry.jpg';
+import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 

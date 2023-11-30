@@ -318,20 +318,6 @@
   font-size: 1rem; 
 }
 
-.bookAuthor {
-  display: flex;
-  // font-size: .9rem;
-
-  @media (max-width: 749px) {
-    padding-top: 1em;
-  }
-}
-.bookAuthor span {
-  @media (max-width: 600px) {
-    display: block;
-  }
-}
-
 .itemButtons {
   display: block;
   width: 85%;
@@ -468,3 +454,11 @@
   border: .1px solid #d2cfca;
   color: #d2cfca;
 }
+
+.largerPipe {
+  font-size: 1.3em; /* Adjust as needed */
+  vertical-align: middle;
+  transform: translateY(9px);
+  line-height: 0; /* This keeps the parent's line height unaffected */
+}
+

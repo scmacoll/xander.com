@@ -278,21 +278,6 @@
   font-size: 1rem;
 }
 
-.bookAuthor {
-  display: flex;
-}
-@media (max-width: 749px) {
-  .bookAuthor {
-    padding-top: 1em;
-  }
-}
-
-@media (max-width: 600px) {
-  .bookAuthor span {
-    display: block;
-  }
-}
-
 .itemButtons {
   display: block;
   width: 85%;
@@ -431,6 +416,13 @@
 .checkoutBuyNow:hover {
   border: 0.1px solid #d2cfca;
   color: #d2cfca;
+}
+
+.largerPipe {
+  font-size: 1.3em; /* Adjust as needed */
+  vertical-align: middle;
+  transform: translateY(9px);
+  line-height: 0; /* This keeps the parent's line height unaffected */
 }
 
 /*# sourceMappingURL=CardClicked.module.css.map */

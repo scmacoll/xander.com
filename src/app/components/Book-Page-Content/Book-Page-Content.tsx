@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Book-Page-Content.module.scss';
 import BookPageFeatures from './Book-Page-Features/Book-Page-Features';
 import Image from 'next/image';
-import masterandemissarry from '../../assets/book-jpegs/master_and_emissarry.jpg';
+import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';

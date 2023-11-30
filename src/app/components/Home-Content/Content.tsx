@@ -36,6 +36,11 @@ export type TileCard = {
   cell_name: string;
   quote: string;
   author: string;
+  book_authors: string;
+  book_date: string;
+  book_price: string;
+  book_title: string;
+  book_type: string;
 };
 
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Book-Page-Features.module.scss';
 import Image from 'next/image';
-import masterandemissarry from '../../../assets/book-jpegs/master_and_emissarry.jpg';
+import masterandemissarry from '../../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,

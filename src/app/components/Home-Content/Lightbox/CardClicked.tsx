@@ -3,7 +3,7 @@ import Content, { TileCard } from '../Content';
 import styles from './CardClicked.module.scss';
 import Image from 'next/image';
 import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
-import social_capital_book from '../../../assets/social_capital_book.jpg'
+import social_capital_book from '../../../assets/social_capital_book.jpg';
 
 interface CardProps {
   card: TileCard,
@@ -16,6 +16,7 @@ const Card: React.FC<CardProps> = ({
   numColumns
 }) => {
   const isOneColumn = numColumns === 1;
+  const imageUrl = `/${card.cell_name}.jpg`;
   return (
     <div className={`${styles.cardContent}`}>
       <div className={`${styles.contentWrapper}`}>
@@ -114,8 +115,8 @@ const Card: React.FC<CardProps> = ({
                 <a href="/book" target="_blank" rel="noopener noreferrer">
                   <img
                     className="w-20 pt-1"
-                    src={social_capital_book.src}
-                    alt="book"
+                    src={imageUrl}
+                    alt="book-image"
                   />
                 </a>
               </div>
@@ -125,7 +126,7 @@ const Card: React.FC<CardProps> = ({
                   <a href="/book" target="_blank" rel="noopener noreferrer">
                     <div id="bookName1">
                       <p className={`${styles.bookName} font-bold`}>
-                        Social Capital: A Multifaceted Perspective
+                        { card.book_title }
                       </p>
                     </div>
                   </a>
@@ -167,23 +168,31 @@ const Card: React.FC<CardProps> = ({
                   <a href="/book" target="_blank" rel="noopener noreferrer">
                     <div id="bookName2">
                       <p className={`${styles.bookName} font-bold`}>
-                                                                     Social Capital: A Multifaceted Perspective
+                        { card.book_title }
                                                                      </p>
                     </div>
                   </a>
                 </div>
               )}
 
-              <div className={`${styles.bookAuthor} w-fit text-gray-400`}>
+              <div className={`${styles.bookAuthor} w-full xs:pt-2 text-gray-400`}>
                 <a href="/book" target="_blank" rel="noopener noreferrer">
-                  <p>By: Ismail Serageldin | Paperback | <span>25 September 1999</span></p>
+                  <p className="flex gap-2 xs:flex-col xs:gap-0">
+                    <span className="flex gap-2">
+                      <span>By: {card.book_authors}</span>
+                      <span className={`${styles.largerPipe}`}>|</span>
+                      <span>{card.book_type}</span>
+                      <span className={`${styles.largerPipe} xs:hidden`}>|</span>
+                    </span>
+                    <span>{card.book_date}</span>
+                  </p>
                 </a>
               </div>
 
               {!isOneColumn && (
                 <div className={`${styles.itemToggles}`}>
                   <div className={`${styles.itemPrice}`}>
-                    <p className="font-bold">$46.58</p>
+                    <p className="font-bold">{ card.book_price }</p>
                   </div>
                   <div className={`${styles.itemQty}`}>
                     <div className="flex">
@@ -287,7 +296,7 @@ const Card: React.FC<CardProps> = ({
                     </div>
                   </div>
                   <div className={`${styles.itemPriceXs}`}>
-                    <p className="font-bold">$46.58</p>
+                    <p className="font-bold">{ card.book_price }</p>
                   </div>
                 </div>
               )}
@@ -297,7 +306,7 @@ const Card: React.FC<CardProps> = ({
         </div>
         <div className={`${styles.checkoutContainer}`}>
           <div className={`${styles.totalWrapper}`}>
-            <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>$46.58</span></div>
+            <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>{ card.book_price } * (qty) </span></div>
           </div>
           <div className={`${styles.checkoutWrapper}`}>
             <div className={`${styles.checkoutAddToCart}`}>
