@@ -3,7 +3,6 @@ import Content, { TileCard } from '../Content';
 import styles from './CardClicked.module.scss';
 import Image from 'next/image';
 import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
-import social_capital_book from '../../../assets/social_capital_book.jpg';
 
 interface CardProps {
   card: TileCard,
@@ -11,10 +10,7 @@ interface CardProps {
   numColumns: number;
 }
 
-const Card: React.FC<CardProps> = ({
-  card,
-  numColumns
-}) => {
+const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const isOneColumn = numColumns === 1;
   const imageUrl = `/${card.cell_name}.jpg`;
 
@@ -327,7 +323,7 @@ const Card: React.FC<CardProps> = ({
         </div>
         <div className={`${styles.checkoutContainer}`}>
           <div className={`${styles.totalWrapper}`}>
-            <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>{ card.book_price } * (qty) </span></div>
+            <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>${ totalPrice.toFixed(2) }</span></div>
           </div>
           <div className={`${styles.checkoutWrapper}`}>
             <div className={`${styles.checkoutAddToCart}`}>
