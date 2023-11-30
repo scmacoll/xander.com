@@ -33,7 +33,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     }
   };
   return (
-    <div className={`${styles.cardContent}`}>
+    <div className={`${styles.cardContent} select-none`}>
       <div className={`${styles.contentWrapper}`}>
         <div className={`${styles.topContent}`}>
           <div>
@@ -205,7 +205,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
               </div>
 
               {!isOneColumn && (
-                <div className={`${styles.itemToggles}`}>
+                <div className={`${styles.itemToggles} select-none`}>
                   <div className={`${styles.itemPrice}`}>
                     <p className="font-bold">{ card.book_price }</p>
                   </div>
