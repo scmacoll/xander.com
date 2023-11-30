@@ -1,7 +1,7 @@
 import styles from './Checkout-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from "next/image";
-import masterandemissarry from '../../assets/masterandemissarry.jpg';
+import masterandemissarry from '../../assets/book-jpegs/master_and_emissarry.jpg';
 import { Country, State, City } from 'country-state-city';
 
 

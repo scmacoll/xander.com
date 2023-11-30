@@ -23,6 +23,16 @@ module.exports = {
         'link-blue': 'rgb(var(--link-blue), .7)',
         'custom-red': 'rgb(var(--red))',
       },
+      fill: {
+        'foreground': `rgb(var(--foreground-rgb))`,
+        'fg-06': `rgb(var(--foreground-rgb), 0.6)`,
+        'creme': `rgb(var(--everforest-creme))`,
+        'greyed-out': '#d2cfca2b',
+        'gold': 'rgb(var(--everforest-gold), .3)',
+        'shopify-blue': 'rgb(var(--scroll-blue))',
+        'link-blue': 'rgb(var(--link-blue), .7)',
+        'custom-red': 'rgb(var(--red))',
+      },
       placeholderColor: {
         'greyed-out': '#d2cfca2b',
       },
