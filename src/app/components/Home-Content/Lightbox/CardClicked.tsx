@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Content, { TileCard } from '../Content';
 import styles from './CardClicked.module.scss';
 import Image from 'next/image';
@@ -17,6 +17,25 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const isOneColumn = numColumns === 1;
   const imageUrl = `/${card.cell_name}.jpg`;
+
+  // Initialize state
+  const [qty, setQty] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(parseFloat(card.book_price));
+
+  // Event handlers
+  const incrementQty = () => {
+    const newQty = qty + 1;
+    setQty(newQty);
+    setTotalPrice(newQty * parseFloat(card.book_price));
+  };
+
+  const decrementQty = () => {
+    if (qty > 1) {
+      const newQty = qty - 1;
+      setQty(newQty);
+      setTotalPrice(newQty * parseFloat(card.book_price));
+    }
+  };
   return (
     <div className={`${styles.cardContent}`}>
       <div className={`${styles.contentWrapper}`}>
@@ -168,8 +187,8 @@ const Card: React.FC<CardProps> = ({
                   <a href="/book" target="_blank" rel="noopener noreferrer">
                     <div id="bookName2">
                       <p className={`${styles.bookName} font-bold`}>
-                        { card.book_title }
-                                                                     </p>
+                        {card.book_title}
+                      </p>
                     </div>
                   </a>
                 </div>
@@ -198,6 +217,7 @@ const Card: React.FC<CardProps> = ({
                     <div className="flex">
                       <div className={`${styles.qtyMinus}`}>
                         <svg
+                          onClick={decrementQty}
                           version="1.0"
                           xmlns="http://www.w3.org/2000/svg"
                           width="4em"
@@ -217,6 +237,7 @@ const Card: React.FC<CardProps> = ({
                       </div>
                       <div className={`${styles.qtyPlus}`}>
                         <svg
+                          onClick={incrementQty}
                           version="1.0"
                           xmlns="http://www.w3.org/2000/svg"
                           width="4.25em"
@@ -238,7 +259,7 @@ const Card: React.FC<CardProps> = ({
                         </svg>
                       </div>
                       <div className={`${styles.itemQtyNumber}`}>
-                        <p>Qty: 1</p>
+                        <p>Qty: { qty }</p>
                       </div>
                     </div>
                   </div>
