@@ -1,4 +1,5 @@
 import './globals.scss';
+import { CartProvider } from "@/app/context/CartContext";
 
 export const metadata = {
   title: "Quote Reference Library",
@@ -11,8 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <CartProvider>
+      <html lang="en">
       <body>{children}</body>
-    </html>
+      </html>
+    </CartProvider>
   );
 }

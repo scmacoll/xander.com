@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Content, { TileCard } from '../Content';
 import styles from './CardClicked.module.scss';
 import Image from 'next/image';
 import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
+import { useCart } from "@/app/context/CartContext";
 
 interface CardProps {
   card: TileCard,
@@ -32,6 +33,38 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
       setTotalPrice(newQty * parseFloat(card.book_price));
     }
   };
+
+  const { cartItems, addToCart } = useCart();
+  const { clearCart } = useCart();
+
+  const handleAddToCart = () => {
+    const newItem = {
+      qty,
+      imageUrl: `/${card.cell_name}.jpg`,
+      totalPrice: totalPrice,
+      bookPrice: parseFloat(card.book_price),
+      bookTitle: card.book_title,
+      bookAuthors: card.book_authors,
+      bookType: card.book_type,
+      bookDate: card.book_date
+    };
+    console.log("Item to be added: ", newItem);
+    addToCart(newItem);
+  };
+
+  const handleClearCart = () => {
+    // @ts-ignore
+    clearCart();
+  };
+
+  const handleCheckCart = () => {
+    console.log("cartItems: ", cartItems);
+  };
+
+  useEffect(() => {
+    console.log("Cart items after update:", cartItems);
+  }, [cartItems]);
+
   return (
     <div className={`${styles.cardContent} select-none`}>
       <div className={`${styles.contentWrapper}`}>
@@ -141,7 +174,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                   <a href="/book" target="_blank" rel="noopener noreferrer">
                     <div id="bookName1">
                       <p className={`${styles.bookName} font-bold`}>
-                        { card.book_title }
+                        {card.book_title}
                       </p>
                     </div>
                   </a>
@@ -207,7 +240,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
               {!isOneColumn && (
                 <div className={`${styles.itemToggles} select-none`}>
                   <div className={`${styles.itemPrice}`}>
-                    <p className="font-bold">{ card.book_price }</p>
+                    <p className="font-bold">{card.book_price}</p>
                   </div>
                   <div className={`${styles.itemQty}`}>
                     <div className="flex">
@@ -255,7 +288,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                         </svg>
                       </div>
                       <div className={`${styles.itemQtyNumber}`}>
-                        <p>Qty: { qty }</p>
+                        <p>Qty: {qty}</p>
                       </div>
                     </div>
                   </div>
@@ -313,7 +346,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                     </div>
                   </div>
                   <div className={`${styles.itemPriceXs}`}>
-                    <p className="font-bold">{ card.book_price }</p>
+                    <p className="font-bold">{card.book_price}</p>
                   </div>
                 </div>
               )}
@@ -323,14 +356,19 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
         </div>
         <div className={`${styles.checkoutContainer}`}>
           <div className={`${styles.totalWrapper}`}>
-            <div className={`${styles.itemTotal}`}><span>Total:&nbsp;</span><span>${ totalPrice.toFixed(2) }</span></div>
+            <div className={`${styles.itemTotal}`}>
+              <span>Total:&nbsp;</span>
+              <span>${totalPrice.toFixed(2)}</span>
+            </div>
           </div>
           <div className={`${styles.checkoutWrapper}`}>
-            <div className={`${styles.checkoutAddToCart} cursor-pointer bg-amazon-yellow font-bold text-xs hover:bg-transparent hover:border-foreground`}>
-              <button>Add To Cart</button>
+            <div
+              className={`${styles.checkoutAddToCart} cursor-pointer bg-amazon-yellow font-bold text-xs hover:bg-transparent hover:border-foreground`}>
+              <button onClick={handleAddToCart}>Add To Cart</button>
             </div>
-            <div className={`${styles.checkoutBuyNow} cursor-pointer bg-custom-red opacity-90 font-bold text-xs hover:bg-transparent hover:border-transparent`}>
-              <button>BUY NOW</button>
+            <div
+              className={`${styles.checkoutBuyNow} cursor-pointer bg-custom-red opacity-90 font-bold text-xs hover:bg-transparent hover:border-transparent`}>
+              <button onClick={handleClearCart}>BUY NOW</button>
             </div>
           </div>
         </div>

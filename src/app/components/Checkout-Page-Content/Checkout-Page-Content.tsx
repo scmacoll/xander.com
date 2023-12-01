@@ -1,10 +1,19 @@
 import styles from './Checkout-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { TileCard } from '../Home-Content/Content';
 import Image from "next/image";
 import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { Country, State, City } from 'country-state-city';
+import { useCart } from "@/app/context/CartContext";
 
-const CheckoutPageContent: React.FC = () => {
+
+interface CardProps {
+  card: TileCard
+}
+
+const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
+  const { cartItems, removeFromCart } = useCart();
+  console.log("Cart Items:", cartItems);
   const [isFocused, setIsFocused] = useState({
     cardNumber: false,
     cardName: false,
@@ -482,6 +491,8 @@ const CheckoutPageContent: React.FC = () => {
     setReviewButtonClicked(true);
     saveToLocalStorage();
   };
+
+
 
   useEffect(() => {
     // @ts-ignore
@@ -1155,6 +1166,8 @@ const CheckoutPageContent: React.FC = () => {
                       <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
                         Sole)
                       </div>
+                      {/*<div className="flex font-medium">{ card.book_title } - { card.book_authors } ({ card.book_type })*/}
+                      {/*</div>*/}
                       <div className="flex font-light">13</div>
                     </div>
                   </div>
@@ -1165,6 +1178,28 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
               </div>
               {/* <boughtItem /> */}
+
+              <div className="border-red">
+                {/* Map over the cart items and display them */}
+                {cartItems.map((item, index) => (
+                  <div key={index} id="boughtItem" className="border-blue">
+                    {/* Render each cart item here */}
+                    <div className="flex">
+                      {/* Image and details */}
+                      <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60" />
+                      <div>
+                        <div>{item.bookTitle} - {item.bookAuthors} ({item.bookType})</div>
+                        <div>Quantity: {item.qty}</div>
+                      </div>
+                    </div>
+                    <div>
+                      Total Price: ${item.totalPrice.toFixed(2)}
+                    </div>
+                    {/* Optionally, add a remove button */}
+                    <button onClick={() => removeFromCart(item.bookTitle)}>Remove</button>
+                  </div>
+                ))}
+              </div>
 
               <div className={`flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
                 <div className="relative inline-flex flex-grow">

@@ -140,12 +140,6 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
     const leftData = tileCards.filter(card => card.cell_name.endsWith(columns[leftDataIndex]));
     const middleData = tileCards.filter(card => card.cell_name.endsWith(columns[middleDataIndex]));
     const rightData = tileCards.filter(card => card.cell_name.endsWith(columns[rightDataIndex]));
-    console.log("leftDataIndex: ", leftDataIndex);
-    console.log("left Data: ", leftData);
-    console.log("middleDataIndex: ", middleDataIndex);
-    console.log("middle Data: ", middleData);
-    console.log("rightDataIndex: ", rightDataIndex);
-    console.log("right Data: ", rightData);
 
     return {leftData, middleData, rightData};
   };
