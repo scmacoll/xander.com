@@ -12,8 +12,12 @@ interface CardProps {
 }
 
 const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
+  const cartData = localStorage.getItem('cart');
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
+
   const { cartItems, removeFromCart } = useCart();
   console.log("Cart Items:", cartItems);
+
   const [isFocused, setIsFocused] = useState({
     cardNumber: false,
     cardName: false,

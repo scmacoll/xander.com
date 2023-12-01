@@ -47,6 +47,8 @@ const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
 
 const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
+  const cartData = localStorage.getItem('cart');
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
 
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);

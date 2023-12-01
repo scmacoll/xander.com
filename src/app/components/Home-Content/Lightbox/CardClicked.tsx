@@ -363,11 +363,11 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           </div>
           <div className={`${styles.checkoutWrapper}`}>
             <div
-              className={`${styles.checkoutAddToCart} cursor-pointer bg-amazon-yellow font-bold text-xs hover:bg-transparent hover:border-foreground`}>
+              className={`${styles.checkoutAddToCart} cursor-pointer border-solid bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
               <button onClick={handleAddToCart}>Add To Cart</button>
             </div>
             <div
-              className={`${styles.checkoutBuyNow} cursor-pointer bg-custom-red opacity-90 font-bold text-xs hover:bg-transparent hover:border-transparent`}>
+              className={`${styles.checkoutBuyNow} cursor-pointer bg-custom-red border-solid border-foreground opacity-90 font-bold text-xs hover:bg-transparent hover:border-2`}>
               <button onClick={handleClearCart}>BUY NOW</button>
             </div>
           </div>

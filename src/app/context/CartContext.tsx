@@ -8,6 +8,7 @@ export type CartItem = {
   bookType: string;
   bookDate: string;
   imageUrl: string;
+  bookPrice: number;
   qty: number;
   totalPrice: number;
 };
@@ -36,10 +37,33 @@ export const useCart = () => {
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (item: CartItem) => {
-    setCartItems(currentItems => [...currentItems, item]);
-    console.log("Adding to cart: ", item);
-    // Implementation of adding to cart
+  const addToCart = (newItem: any) => {
+    setCartItems(currentItems => {
+      const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
+
+      let updatedItems;
+      if (existingItemIndex !== -1) {
+        // Update the item if it already exists
+        updatedItems = currentItems.map((item, index) => {
+          if (index === existingItemIndex) {
+            return {
+              ...item,
+              qty: item.qty + newItem.qty, // Increment quantity
+              totalPrice: (item.qty + newItem.qty) * item.bookPrice // Update total price
+            };
+          }
+          return item;
+        });
+      } else {
+        // Add the new item if it doesn't exist in the cart
+        updatedItems = [...currentItems, newItem];
+      }
+
+      // Save the updated cart to local storage
+      localStorage.setItem('cart', JSON.stringify(updatedItems));
+
+      return updatedItems;
+    });
   };
 
   const removeFromCart = (item: CartItem) => {
