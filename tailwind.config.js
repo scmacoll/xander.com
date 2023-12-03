@@ -23,6 +23,9 @@ module.exports = {
         'link-blue': 'rgb(var(--link-blue), .7)',
         'custom-red': 'rgb(var(--red))',
       },
+      stroke: {
+        'custom-red': 'rgb(var(--red))',
+      },
       fill: {
         'foreground': `rgb(var(--foreground-rgb))`,
         'fg-06': `rgb(var(--foreground-rgb), 0.6)`,
@@ -151,6 +154,7 @@ module.exports = {
       'sm': {'min': '750px', 'max': '999px'},   // For 750px ≤ width ≤ 999px
       'xs': {'max': '749px'},
     },
+    display: ['group-hover'],
   },
   variants: {
     extend: {

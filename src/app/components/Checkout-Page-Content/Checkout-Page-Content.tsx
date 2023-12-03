@@ -571,7 +571,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
             </div>
           </div>
           <div id="checkoutExpressContainer"
-               className="flex flex-col pt-8 pb-6">
+               className="flex flex-col pt-4 pb-6">
             <div
               id="checkoutExpressButtonsWrapper"
               className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
@@ -1130,7 +1130,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
             </div>
 
             <div id="orderSummaryBanner"
-                 className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
+                 className={`relative select-none z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
               <div id="orderSummaryLabel">
                 <button className={styles.orderSummaryButton}
                         onClick={toggleOrderSummary}>
@@ -1155,45 +1155,37 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                 </button>
               </div>
-              <div className="font-bold text-lg">
-                <svg className="fill-fg-06 w-12 h-12 object-cover"
-                     version="1.0" xmlns="http://www.w3.org/2000/svg"
-                     width="1024.000000pt" height="1024.000000pt" viewBox="0 0 1024.000000 1024.000000"
-                     preserveAspectRatio="xMidYMid meet">
-
-                  <g transform="translate(0.000000,1024.000000) scale(0.100000,-0.100000)"
-                     fill="#d2cfca2b" stroke="none">
-                    <path d="M4630 8284 c-108 -29 -193 -105 -231 -204 -16 -43 -19 -78 -19 -240
-                      l0 -190 -737 -2 -738 -3 -55 -26 c-79 -37 -125 -81 -159 -152 -39 -80 -43
-                      -127 -33 -387 9 -239 13 -258 80 -325 59 -60 104 -77 210 -83 80 -4 92 -7 92
-                      -23 0 -25 35 -513 65 -894 14 -176 34 -455 45 -620 11 -165 27 -383 35 -485
-                      56 -694 121 -1607 131 -1830 3 -80 12 -175 19 -211 36 -181 180 -349 343 -399
-                      53 -16 149 -18 1437 -21 l1380 -3 65 23 c153 54 272 171 327 321 28 74 30 97
-                      53 470 21 334 52 789 70 1010 5 69 17 229 25 355 8 127 22 320 30 430 8 110
-                      33 472 55 805 22 333 47 697 55 810 8 113 15 217 15 231 0 26 0 27 93 31 102
-                      5 155 25 215 82 67 62 75 90 84 306 11 237 5 328 -26 395 -30 65 -93 127 -164
-                      162 l-57 28 -737 3 -736 2 -2 185 c-1 196 -7 229 -53 301 -37 59 -85 100 -152
-                      131 l-60 28 -455 2 c-377 2 -464 0 -510 -13z m828 -396 c8 -8 12 -50 12 -125
-                      l0 -113 -345 0 -345 0 -1 98 c-2 113 -1 123 13 140 15 17 648 18 666 0z m1708
-                      -695 c-3 -21 -6 -64 -6 -95 l0 -58 -2039 0 c-1850 0 -2039 1 -2045 16 -8 20
-                      -8 122 0 152 l6 22 2045 0 2046 0 -7 -37z m-3261 -803 c52 -32 85 -81 95 -142
-                      4 -29 9 -816 9 -1749 l2 -1695 -24 -35 c-31 -47 -82 -60 -128 -33 -44 26 -58
-                      67 -59 179 -1 94 -8 205 -90 1415 -27 410 -57 855 -65 990 -8 135 -20 309 -25
-                      387 -5 79 -13 234 -16 345 -7 223 -3 246 53 302 67 68 172 83 248 36z m886 -4
-                      c20 -13 44 -41 55 -63 18 -37 19 -89 22 -1748 2 -1254 0 -1721 -9 -1752 -12
-                      -45 -58 -96 -102 -112 -79 -30 -176 5 -217 79 l-25 45 0 1725 c0 1906 -5 1749
-                      62 1811 58 54 145 60 214 15z m843 9 c21 -10 50 -36 64 -58 l27 -41 0 -1735
-                      c0 -1733 0 -1736 -21 -1771 -68 -117 -240 -117 -308 0 -21 35 -21 40 -24 1744
-                      -1 1156 1 1720 8 1747 14 50 54 97 105 121 46 21 94 19 149 -7z m912 -11 c31
-                      -19 56 -45 72 -74 24 -44 24 -48 18 -225 -3 -99 -15 -313 -26 -475 -10 -162
-                      -26 -419 -35 -570 -8 -151 -22 -365 -30 -475 -8 -110 -24 -351 -35 -535 -11
-                      -184 -30 -474 -40 -645 -11 -170 -23 -366 -26 -435 -3 -69 -10 -140 -16 -158
-                      -11 -37 -58 -72 -96 -72 -35 0 -77 25 -90 55 -17 37 -17 3440 -1 3496 40 132
-                      187 186 305 113z"/>
-                  </g>
-                </svg>
-
-                $135.00
+              <div id="summaryBannerLeftSection"
+                   className="font-bold text-lg">
+                <div id="summaryBannerBinButton"
+                  className={`${isOrderSummaryHidden ? 'hidden' : ''} relative group flex items-center`}>
+                  <div className="absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
+                         style={{stroke: '#d2cfca2b'}}
+                         fill="none">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M4 7l16 0"/>
+                      <path d="M10 11l0 6"/>
+                      <path d="M14 11l0 6"/>
+                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                    </svg>
+                  </div>
+                  <div className="absolute -translate-x-6 inset-0 w-fit h-fit">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
+                         viewBox="00 24 24"
+                         fill="none">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M4 7h16"/>
+                      <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                      <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                      <path d="M10 12l4 4m0 -4l-4 4"/>
+                    </svg>
+                  </div>
+                </div>
+                <span className="pl-4">$135.00</span>
               </div>
             </div>
           </div>
@@ -1339,10 +1331,36 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end">
-                  {/*<div className="flex pt-3">*/}
-                  {/*  <div className="text-xs text-custom-red font-medium">Clear Cart</div>*/}
-                  {/*</div>*/}
+                <div className="py-1"></div>
+                <div className="flex justify-end items-center">
+                  <div id="totalOrderPriceBinButton"
+                       className={`group`}>
+                    <div className="w-fit h-fit group-hover:hidden">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
+                           style={{stroke: '#d2cfca2b'}}
+                           fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7l16 0"/>
+                        <path d="M10 11l0 6"/>
+                        <path d="M14 11l0 6"/>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                      </svg>
+                    </div>
+                    <div className="w-fit h-fit">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
+                           viewBox="00 24 24"
+                           fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7h16"/>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                        <path d="M10 12l4 4m0 -4l-4 4"/>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
