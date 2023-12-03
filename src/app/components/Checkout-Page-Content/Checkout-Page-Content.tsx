@@ -1186,21 +1186,14 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <div className="border-red">
                 {/* Map over the cart items and display them */}
                 {cartItems.map((item, index) => (
-                  <div key={index} id="boughtItem" className="border-blue">
-                    {/* Render each cart item here */}
-                    <div className="flex">
-                      {/* Image and details */}
-                      <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60" />
-                      <div>
-                        <div>{item.bookTitle} - {item.bookAuthors} ({item.bookType})</div>
-                        <div>Quantity: {item.qty}</div>
-                      </div>
-                    </div>
+                  <div key={index} className="cart-item">
+                    <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60" />
                     <div>
-                      Total Price: ${item.totalPrice.toFixed(2)}
+                      <div>{item.bookTitle} - {item.bookAuthors} ({item.bookType})</div>
+                      <div>Quantity: {item.qty}</div>
+                      <div>Total Price: ${item.totalPrice.toFixed(2)}</div>
+                      <button>Remove</button>
                     </div>
-                    {/* Optionally, add a remove button */}
-                    <button onClick={() => removeFromCart(item.bookTitle)}>Remove</button>
                   </div>
                 ))}
               </div>

@@ -35,8 +35,10 @@ export const useCart = () => {
 };
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
-
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const localData = localStorage.getItem('cart');
+    return localData ? JSON.parse(localData) : [];
+  });
   const addToCart = (newItem: any) => {
     setCartItems(currentItems => {
       const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
