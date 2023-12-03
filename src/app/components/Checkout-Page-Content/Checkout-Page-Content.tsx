@@ -1148,7 +1148,13 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
           </div>
           <div id="borderSummary"
                className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
-            <div className="pt-6"></div>
+            <div className="pt-3"></div>
+            <div className="flex justify-end">
+              <div className="flex">
+                <div className="text-xs text-custom-red font-medium">Clear Cart</div>
+              </div>
+            <div className="pt-3"></div>
+            </div>
             <div
               className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
@@ -1177,26 +1183,62 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                   <div className="inline-flex text-sm flex-end">$135.00</div>
                 </div>
-                <div id="borderGap" className="py-6 pb-6">
+                <div className="py-6 pb-6">
                   <div className="border-b border-solid border-foreground"></div>
                 </div>
               </div>
               {/* <boughtItem /> */}
 
-              <div className="border-red">
-                {/* Map over the cart items and display them */}
+              <div id="cartItems">
                 {cartItems.map((item, index) => (
-                  <div key={index} className="cart-item">
-                    <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60" />
-                    <div>
-                      <div>{item.bookTitle} - {item.bookAuthors} ({item.bookType})</div>
-                      <div>Quantity: {item.qty}</div>
-                      <div>Total Price: ${item.totalPrice.toFixed(2)}</div>
-                      <button>Remove</button>
+                  <div key={index} className="">
+                    <div className="mx-auto flex w-full items-center justify-between">
+                      {/* Map over the cart items and display them */}
+                      <div className="cart-item flex h-full items-center flex-start">
+                        <div className="inline-flex h-full pr-3">
+                          <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60"/>
+                        </div>
+                        <div
+                          className="inline-flex h-full flex-col justify-center text-sm w-full">
+                          <div>{item.bookTitle}</div>
+                          <div>{item.bookAuthors}</div>
+                          <div>{item.bookType}</div>
+                          <div className="flex font-light">Qty: {item.qty}</div>
+                        </div>
+                      </div>
+                      <div className="text-sm flex-end">
+                        ${item.totalPrice.toFixed(2)}
+                      </div>
+                    </div>
+                    <div id="cartItemBorderGap" className="py-6 pb-6">
+                      <div className="border-b border-solid border-foreground"></div>
                     </div>
                   </div>
                 ))}
               </div>
+
+              {/*<div className="border-red mx-auto flex w-full items-center justify-between">*/}
+              {/*  /!* Map over the cart items and display them *!/*/}
+              {/*  {cartItems.map((item, index) => (*/}
+              {/*    <div key={index}>*/}
+              {/*      <div className="cart-item flex h-full items-center flex-start">*/}
+              {/*        <div className="inline-flex h-full pr-3">*/}
+              {/*          <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60"/>*/}
+              {/*        </div>*/}
+              {/*        <div*/}
+              {/*          className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">*/}
+              {/*          <div>{item.bookTitle}</div>*/}
+              {/*          <div>{item.bookAuthors}</div>*/}
+              {/*          <div>{item.bookType}</div>*/}
+              {/*          <div className="flex font-light">Qty: {item.qty}</div>*/}
+              {/*        </div>*/}
+              {/*      </div>*/}
+              {/*        <div className="text-sm flex-end">*/}
+              {/*          ${item.totalPrice.toFixed(2)}*/}
+              {/*        </div>*/}
+              {/*    </div>*/}
+              {/*  ))}*/}
+              {/*</div>*/}
 
               <div className={`flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
                 <div className="relative inline-flex flex-grow">
@@ -1238,6 +1280,26 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 <div className="flex justify-between">
                   <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
                   <div className="inline-flex text-xs font-medium flex-end">Free</div>
+                </div>
+                <div className="py-6">
+                  <div className="border-t border-solid border-foreground"></div>
+                </div>
+                <div className="flex justify-between">
+                  <div className="flex">
+                    <div className="text-lg font-medium">Total</div>
+                  </div>
+                  <div className="flex items-center">
+                    <div ref={bottomRef}
+                         className={`${styles.smoothScroll}
+                     inline-flex text-2xl font-bold`}>
+                      $135.00
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  {/*<div className="flex pt-3">*/}
+                  {/*  <div className="text-xs text-custom-red font-medium">Clear Cart</div>*/}
+                  {/*</div>*/}
                 </div>
               </div>
             </div>
