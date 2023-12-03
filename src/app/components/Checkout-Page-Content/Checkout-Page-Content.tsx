@@ -15,7 +15,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
 
-  const { cartItems, removeFromCart } = useCart();
+  const {cartItems, removeFromCart} = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isFocused, setIsFocused] = useState({
@@ -136,7 +136,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: {firstName: string;}) => ({
+      const commonUpdate: any = (prevDetails: {
+        firstName: string;
+      }) => ({
         ...prevDetails,
         firstNameError: prevDetails.firstName.trim() === ''
       });
@@ -174,7 +176,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: {lastName: string;}) => ({
+      const commonUpdate: any = (prevDetails: {
+        lastName: string;
+      }) => ({
         ...prevDetails,
         lastNameError: prevDetails.lastName.trim() === ''
       });
@@ -244,7 +248,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: {addressLineOne: string;}) => ({
+      const commonUpdate: any = (prevDetails: {
+        addressLineOne: string;
+      }) => ({
         ...prevDetails,
         addressLineOneError: prevDetails.addressLineOne.trim() === ''
       });
@@ -314,7 +320,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: {phone: string;}) => ({
+      const commonUpdate: any = (prevDetails: {
+        phone: string;
+      }) => ({
         ...prevDetails,
         phoneError: prevDetails.phone.trim() !== '' && !phoneRegex.test(prevDetails.phone)
       });
@@ -364,7 +372,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: {city: string;}) => ({
+      const commonUpdate: any = (prevDetails: {
+        city: string;
+      }) => ({
         ...prevDetails,
         cityError: prevDetails.city.trim() === ''
       });
@@ -410,7 +420,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     const shouldValidate = wasReviewButtonClicked || reviewButtonClicked;
 
     if (shouldValidate) {
-      const commonUpdate: any = (prevDetails: {zipcode: string;}) => ({
+      const commonUpdate: any = (prevDetails: {
+        zipcode: string;
+      }) => ({
         ...prevDetails,
         zipcodeError: prevDetails.zipcode.trim() === ''
       });
@@ -495,7 +507,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     setReviewButtonClicked(true);
     saveToLocalStorage();
   };
-
 
 
   useEffect(() => {
@@ -804,7 +815,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       <div className="flex text-sm">
                         <div>Have an account?</div>
                         <div className={`pl-1 font-bold`}>
-                          Log in</div>
+                          Log in
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1079,7 +1091,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                         <div id="incompleteError"
                              className="flex text-sm pr-16 text-custom-red xs:w-1/2">
                           <button disabled={displayIncompleteMessage}>
-                            Please fill out all required fields.
+                            Please fill out all the required fields.
                           </button>
                         </div>
                       )}
@@ -1153,7 +1165,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <div className="flex">
                 <div className="text-xs text-custom-red font-medium">Clear Cart</div>
               </div>
-            <div className="pt-3"></div>
+              <div className="pt-3"></div>
             </div>
             <div
               className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
@@ -1176,8 +1188,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
                         Sole)
                       </div>
-                      {/*<div className="flex font-medium">{ card.book_title } - { card.book_authors } ({ card.book_type })*/}
-                      {/*</div>*/}
                       <div className="flex font-light">13</div>
                     </div>
                   </div>
@@ -1192,7 +1202,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <div id="cartItems">
                 {cartItems.map((item, index) => (
                   <div key={index} className="">
-                    <div className="mx-auto flex w-full items-center justify-between">
+                    <div className="mx-auto flex w-full justify-between">
                       {/* Map over the cart items and display them */}
                       <div className="cart-item flex h-full items-center flex-start">
                         <div className="inline-flex h-full pr-3">
@@ -1206,8 +1216,33 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <div className="flex font-light">Qty: {item.qty}</div>
                         </div>
                       </div>
-                      <div className="text-sm flex-end">
-                        ${item.totalPrice.toFixed(2)}
+                      <div className="relative text-sm flex flex-col flex-end">
+                        <button className={`flex absolute translate-x-2 -translate-y-1.5 right-0 top-0`}>
+                          <svg
+                            version="1.0"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32px"
+                            height="32px"
+                            viewBox="0 0 752.000000 752.000000"
+                            preserveAspectRatio="xMidYMid meet">
+                            <g
+                              transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                              fill="rgba(210, 207, 202, 0.6)"
+                              stroke="none">
+                              <path
+                                d="M2743 4838 c-41 -11 -65 -46 -65 -94 0 -35 21 -58 473 -510 l474
+                -474 -474 -474 c-445 -445 -473 -475 -473 -508 0 -66 34 -100 100 -100 33 0
+                63 28 508 473 l474 474 474 -474 c445 -445 475 -473 508 -473 66 0 100 34 100
+                100 0 33 -28 63 -473 508 l-474 474 474 474 c445 445 473 475 473 508 0 66
+                -34 100 -100 100 -33 0 -63 -28 -508 -473 l-474 -474 -472 471 c-260 260 -482
+                474 -493 476 -11 3 -35 1 -52 -4z"
+                              />
+                            </g>
+                          </svg>
+                        </button>
+                        <div className="h-full flex items-end">
+                          ${item.totalPrice.toFixed(2)}
+                        </div>
                       </div>
                     </div>
                     <div id="cartItemBorderGap" className="py-6 pb-6">
@@ -1264,7 +1299,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   `}
                   onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
                 >
-                {isLoading ? (
+                  {isLoading ? (
                     <button className={styles.loader}></button>
                   ) : (
                     <button disabled={!isCodeValid}>APPLY</button>
