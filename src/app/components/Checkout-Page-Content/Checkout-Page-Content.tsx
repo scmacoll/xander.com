@@ -1,8 +1,7 @@
 import styles from './Checkout-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { TileCard } from '../Home-Content/Content';
-import Image from "next/image";
-import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
+import Modal from "@/app/components/shared/Modal";
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 
@@ -10,6 +9,7 @@ import { useCart } from "@/app/context/CartContext";
 interface CardProps {
   card: TileCard
 }
+
 
 const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const cartData = localStorage.getItem('cart');
@@ -78,7 +78,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
   const [shippingError, setShippingError] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
@@ -506,6 +506,17 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const handleSaveToLocalStorage = (event: React.MouseEvent) => {
     setReviewButtonClicked(true);
     saveToLocalStorage();
+  };
+
+
+  const handleClearCart = () => {
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleConfirmModal = () => {
+    window.location.href = "/href";
   };
 
 
@@ -1158,8 +1169,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <div id="summaryBannerLeftSection"
                    className="font-bold text-lg">
                 <div id="summaryBannerBinButton"
-                  className={`${isOrderSummaryHidden ? 'hidden' : ''} relative group flex items-center`}>
-                  <div className="absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden">
+                     className={`${isOrderSummaryHidden ? 'hidden' : ''} relative group flex items-center`}
+                     onClick={handleClearCart}>
+                  <div id="binButtonDefault" className="absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
                          style={{stroke: '#d2cfca2b'}}
@@ -1172,7 +1184,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
                     </svg>
                   </div>
-                  <div className="absolute -translate-x-6 inset-0 w-fit h-fit">
+                  <div id="binButtonHover" className="absolute -translate-x-6 inset-0 w-fit h-fit">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
                          viewBox="00 24 24"
@@ -1187,6 +1199,11 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 </div>
                 <span className="pl-4">$135.00</span>
               </div>
+              <Modal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onConfirm={handleConfirmModal}
+              />
             </div>
           </div>
           <div id="borderSummary"
@@ -1216,8 +1233,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                         </div>
                       </div>
                       <div className="relative text-sm flex flex-col flex-end">
-                        <button className={`flex absolute translate-x-2 -translate-y-1.5 right-0 top-0`}>
+                        <button className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
                           <svg
+                            className={``}
                             version="1.0"
                             xmlns="http://www.w3.org/2000/svg"
                             width="32px"
@@ -1226,7 +1244,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                             preserveAspectRatio="xMidYMid meet">
                             <g
                               transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                              fill="rgba(210, 207, 202, 0.4)"
                               stroke="none">
                               <path
                                 d="M2743 4838 c-41 -11 -65 -46 -65 -94 0 -35 21 -58 473 -510 l474
@@ -1239,9 +1256,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                             </g>
                           </svg>
                         </button>
-                        {/*<div className="h-full flex items-center">*/}
-                        {/*  ${item.totalPrice.toFixed(2)}*/}
-                        {/*</div>*/}
                       </div>
                     </div>
                     <div id="cartItemBorderGap" className="py-6 pb-6">
@@ -1250,29 +1264,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                 ))}
               </div>
-
-              {/*<div className="border-red mx-auto flex w-full items-center justify-between">*/}
-              {/*  /!* Map over the cart items and display them *!/*/}
-              {/*  {cartItems.map((item, index) => (*/}
-              {/*    <div key={index}>*/}
-              {/*      <div className="cart-item flex h-full items-center flex-start">*/}
-              {/*        <div className="inline-flex h-full pr-3">*/}
-              {/*          <img src={item.imageUrl} alt={item.bookTitle} width="60" height="60"/>*/}
-              {/*        </div>*/}
-              {/*        <div*/}
-              {/*          className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">*/}
-              {/*          <div>{item.bookTitle}</div>*/}
-              {/*          <div>{item.bookAuthors}</div>*/}
-              {/*          <div>{item.bookType}</div>*/}
-              {/*          <div className="flex font-light">Qty: {item.qty}</div>*/}
-              {/*        </div>*/}
-              {/*      </div>*/}
-              {/*        <div className="text-sm flex-end">*/}
-              {/*          ${item.totalPrice.toFixed(2)}*/}
-              {/*        </div>*/}
-              {/*    </div>*/}
-              {/*  ))}*/}
-              {/*</div>*/}
 
               <div className={`flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
                 <div className="relative inline-flex flex-grow">
@@ -1334,7 +1325,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 <div className="py-1"></div>
                 <div className="flex justify-end items-center">
                   <div id="totalOrderPriceBinButton"
-                       className={`group`}>
+                       className={`group`}
+                       onClick={handleClearCart}>
                     <div className="w-fit h-fit group-hover:hidden">
                       <svg xmlns="http://www.w3.org/2000/svg"
                            className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
