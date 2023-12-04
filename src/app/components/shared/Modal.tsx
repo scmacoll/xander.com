@@ -1,34 +1,41 @@
 import React, { useEffect, useRef } from 'react';
-import styles from './Modal.module.scss'; // Your styles here
+import styles from './Modal.module.scss';
 
-function Modal({isOpen, onClose, onConfirm}) {
-  const modalRef = useRef();
+function Modal({ isOpen, onClose, onConfirm }: { isOpen: boolean, onClose: () => void, onConfirm: () => void }) {
+  // Specify the type of the ref as HTMLDivElement
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  const handleClickOutside = (event: any) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
       onClose(); // Close the modal if the click is outside
     }
   };
 
   useEffect(() => {
-    // Add when the component mounts
-    document.addEventListener("mousedown", handleClickOutside);
-    // Remove when the component unmounts
+    // Attach the click listener
+    document.addEventListener('mousedown', handleClickOutside);
+
     // Attach the resize listener
     const handleResize = () => {
       onClose(); // Close the modal on window resize
     };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
       window.removeEventListener('resize', handleResize);
     };
-  }, [onClose]);
+  }, [onClose]); // Add onClose to the dependency array
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
       <div
-        className={`absolute z-20 flex left-0 bottom-0 xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
+        className={`absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0 xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
           border-foreground border rounded-md bg-background
           xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent
           xs:before:border-r-transparent xs:before:border-b-gray-300

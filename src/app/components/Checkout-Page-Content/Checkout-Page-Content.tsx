@@ -519,8 +519,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-  const handleConfirmModal = () => {
-    window.location.href = "/href";
+  const handleConfirmAndClose = () => {
+    handleCloseModal(); // This function closes the modal
+    window.location.href = "/"; // Redirects to the root path
   };
 
 
@@ -1209,7 +1210,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <Modal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
-                onConfirm={handleConfirmModal}
+                onConfirm={handleConfirmAndClose}
               />
             </div>
           </div>
@@ -1315,9 +1316,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   <div className="inline-flex text-xs font-medium flex-end">Free</div>
                 </div>
                 <div className="py-6">
-                  <div className={`${isModalOpen ? 'border-transparent' : 'border-foreground'} border-t border-solid`}></div>
+                  <div className={`border-foreground border-t border-solid`}></div>
                 </div>
-                <div className={`${isModalOpen ? 'text-transparent' : ''} flex justify-between`}>
+                <div className={`${isModalOpen ? 'md:text-transparent lg:text-transparent xl:text-transparent' : ''} flex justify-between`}>
                   <div className={` flex`}>
                     <div className="text-lg font-medium">Total</div>
                   </div>
@@ -1363,11 +1364,13 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       </svg>
                     </div>
                   </div>
+                  <div className="xs:hidden sm:hidden">
                     <Modal
-                      isOpen={isModalOpen}
-                      onClose={handleCloseModal}
-                      onConfirm={handleConfirmModal}
-                    />
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    onConfirm={handleConfirmAndClose}
+                  />
+                  </div>
                 </div>
               </div>
             </div>
