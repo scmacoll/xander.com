@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './Modal.module.scss'; // Your styles here
 
-function Modal({ isOpen, onClose, onConfirm }) {
+function Modal({isOpen, onClose, onConfirm}) {
   const modalRef = useRef();
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: any) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       onClose(); // Close the modal if the click is outside
     }
@@ -14,23 +14,46 @@ function Modal({ isOpen, onClose, onConfirm }) {
     // Add when the component mounts
     document.addEventListener("mousedown", handleClickOutside);
     // Remove when the component unmounts
+    // Attach the resize listener
+    const handleResize = () => {
+      onClose(); // Close the modal on window resize
+    };
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className={`z-20 flex right-0 bottom-0 translate-y-20 translate-x-11 px-4 py-3 h-20 border-solid border-foreground border-2 rounded-md bg-background absolute`}>
-      <div className={`flex flex-col`} ref={modalRef}>
-        <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
-        <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
-          <button className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white" onClick={onConfirm}>Yes</button>
-          <button className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full" onClick={onClose}>No</button>
+      <div
+        className={`absolute z-20 flex left-0 bottom-0 xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
+          border-foreground border rounded-md bg-background
+          xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent
+          xs:before:border-r-transparent xs:before:border-b-gray-300
+          xs:before:border-t-transparent xs:before:border-l-8 xs:before:border-r-8 xs:before:border-b-8
+          xs:before:border-solid xs:before:content-[''] xs:before:absolute
+          sm:before:-top-2 sm:before:left-1/2 sm:before:-translate-x-1/2 sm:before:border-l-transparent
+          sm:before:border-r-transparent sm:before:border-b-gray-300
+          sm:before:border-t-transparent sm:before:border-l-8 sm:before:border-r-8 sm:before:border-b-8
+          sm:before:border-solid sm:before:content-[''] sm:before:absolute
+          `}
+      >
+        <div className={`flex flex-col`} ref={modalRef}>
+          <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
+          <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
+            <button
+              className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
+              onClick={onConfirm}>Yes
+            </button>
+            <button
+              className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
+              onClick={onClose}>No
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
 

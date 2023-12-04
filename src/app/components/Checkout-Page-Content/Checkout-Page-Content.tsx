@@ -510,7 +510,11 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
 
 
   const handleClearCart = () => {
-    setIsModalOpen(true);
+    if (!isModalOpen) {
+      setIsModalOpen(true);
+    } else {
+      return;
+    }
   };
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -565,6 +569,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   }, [shippingDetails, email]);
 
 
+  console.log("is modal Open?", isModalOpen);
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div id="pageContainer"
@@ -1169,8 +1174,10 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <div id="summaryBannerLeftSection"
                    className="font-bold text-lg">
                 <div id="summaryBannerBinButton"
-                     className={`${isOrderSummaryHidden ? 'hidden' : ''} relative group flex items-center`}
-                     onClick={handleClearCart}>
+                     className={`${isOrderSummaryHidden ? 'hidden' : ''}
+                      ${isModalOpen ? 'opacity-50 pointer-events-none' : ''}
+                      relative group flex items-center`}
+                     onClick={!isModalOpen ? handleClearCart : undefined}>
                   <div id="binButtonDefault" className="absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg"
                          className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
@@ -1308,10 +1315,10 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   <div className="inline-flex text-xs font-medium flex-end">Free</div>
                 </div>
                 <div className="py-6">
-                  <div className="border-t border-solid border-foreground"></div>
+                  <div className={`${isModalOpen ? 'border-transparent' : 'border-foreground'} border-t border-solid`}></div>
                 </div>
-                <div className="flex justify-between">
-                  <div className="flex">
+                <div className={`${isModalOpen ? 'text-transparent' : ''} flex justify-between`}>
+                  <div className={` flex`}>
                     <div className="text-lg font-medium">Total</div>
                   </div>
                   <div className="flex items-center">
@@ -1321,13 +1328,15 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       $135.00
                     </div>
                   </div>
+
                 </div>
                 <div className="py-1"></div>
-                <div className="flex justify-end items-center">
+                <div className="relative flex justify-end items-center">
                   <div id="totalOrderPriceBinButton"
-                       className={`group`}
+                       className={`${isModalOpen ? 'opacity-50 pointer-events-none' : ''} group xs:hidden sm:hidden`}
                        onClick={handleClearCart}>
-                    <div className="w-fit h-fit group-hover:hidden">
+                    <div id="binButtonDefaultRightSide"
+                      className="w-fit h-fit group-hover:hidden">
                       <svg xmlns="http://www.w3.org/2000/svg"
                            className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
                            style={{stroke: '#d2cfca2b'}}
@@ -1340,7 +1349,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                         <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
                       </svg>
                     </div>
-                    <div className="w-fit h-fit">
+                    <div id="binButtonHoverRightSide"
+                      className="w-fit h-fit">
                       <svg xmlns="http://www.w3.org/2000/svg"
                            className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
                            viewBox="00 24 24"
@@ -1353,6 +1363,11 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       </svg>
                     </div>
                   </div>
+                    <Modal
+                      isOpen={isModalOpen}
+                      onClose={handleCloseModal}
+                      onConfirm={handleConfirmModal}
+                    />
                 </div>
               </div>
             </div>
