@@ -1021,7 +1021,7 @@ const PaymentPageContent: React.FC = () => {
                     <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
                       <p>Hide Order Summary</p>
                     </div>
-                    <div id="summaryArrowButton"
+                    <div id="summaryUpArrowButton"
                          className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
                       <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -1913,8 +1913,15 @@ const PaymentPageContent: React.FC = () => {
                       <p>Hide Order Summary</p>
                     </div>
                     <div id="summaryArrowButton"
-                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
                       <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                      </svg>
+                    </div>
+                    <div id="summaryArrowButton"
+                         className={`${styles.summaryArrowIcon} ${!isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
+                      <svg className="rotate-180" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                       </svg>
