@@ -741,6 +741,7 @@ const PaymentPageContent: React.FC = () => {
       const shippingState: any = localStorage.getItem('shippingState');
       const shippingCountry: any = localStorage.getItem('shippingCountry');
       const shippingZipcode: any = localStorage.getItem('shippingZipcode');
+      const shippingPhone: any = localStorage.getItem('shippingPhone');
       localStorage.setItem('billingFirstName', shippingFirstName);
       localStorage.setItem('billingLastName', shippingLastName);
       localStorage.setItem('billingCompanyName', shippingCompanyName);
@@ -750,7 +751,7 @@ const PaymentPageContent: React.FC = () => {
       localStorage.setItem('billingState', shippingState);
       localStorage.setItem('billingCountry', shippingCountry);
       localStorage.setItem('billingZipcode', shippingZipcode);
-      // localStorage.setItem('billingPhone', shippingPhone);
+      localStorage.setItem('billingPhone', shippingPhone);
     } else {
       // Save billingDetails to localStorage
       localStorage.setItem('billingFirstName', billingDetails.firstName);
