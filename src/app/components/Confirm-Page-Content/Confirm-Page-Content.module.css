@@ -12,7 +12,7 @@
 .borderSummary {
   width: calc(100% + 15px);
 }
-@media (max-width: 999x) {
+@media (max-width: 999px) {
   .borderSummary {
     transition: opacity 0.3s ease, max-height 0.3s ease;
     overflow: hidden;

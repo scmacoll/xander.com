@@ -4,9 +4,16 @@ import Image from "next/image";
 import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "@/app/context/CartContext";
 
 
 const ConfirmPageContent: React.FC = () => {
+  const cartData = localStorage.getItem('cart');
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
+
+  const {cartItems, removeFromCart} = useCart();
+  console.log("Cart Items:", cartItems);
+
   const [email, setEmail] = useState('');
   const [shippingFirstName, setShippingFirstName] = useState('');
   const [shippingLastName, setShippingLastName] = useState('');
@@ -29,6 +36,13 @@ const ConfirmPageContent: React.FC = () => {
   const [billingZipcode, setBillingZipcode] = useState('');
   const [billingPhone, setBillingPhone] = useState('');
   const [cardNumber, setCardNumber] = useState('');
+  const bottomRef = useRef<null | HTMLDivElement>(null);
+  const [numItems, setNumItems] = useState(5);
+  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
+
+  const toggleOrderSummary = useCallback(() => {
+    setOrderSummaryHidden(prevState => !prevState);
+  }, []);
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -126,13 +140,7 @@ const ConfirmPageContent: React.FC = () => {
     }
 
   }, []);
-  const bottomRef = useRef<null | HTMLDivElement>(null);
-  const [numItems, setNumItems] = useState(5);
-  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
-  const toggleOrderSummary = useCallback (() => {
-    setOrderSummaryHidden(prevState => !prevState);
-  }, []);
   useEffect(() => {
     if (bottomRef.current) {
       bottomRef.current.scrollIntoView(false);
@@ -164,160 +172,165 @@ const ConfirmPageContent: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+    <div
+      className="relative select-none mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div
         id="pageContainer"
         className={`${styles.pageContainer} mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}>
 
         <div id="leftContentWrapper"
              className="flex mx-auto flex-col sm:w-full md:w-51.5% lg:w-51.5%">
-            <div id="checkoutTitle"
-                 className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
-              <div className="flex pb-1">
-                <h1 className="py-3 text-3xl"><a href="/">Xandria</a></h1>
+          <div id="checkoutTitle"
+               className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
+            <div className="flex pb-1">
+              <h1 className="py-3 text-3xl"><a href="/">Xandria</a></h1>
+            </div>
+          </div>
+          <div className="xs:py-3 sm:py-3"></div>
+          <div id="orderTitleNumber"
+               className="flex items-center">
+            <div className="pr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+                <path
+                  fill="rgb(185, 161, 111)"
+                  d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 34.988281 14.988281 A 1.0001 1.0001 0 0 0 34.171875 15.439453 L 23.970703 30.476562 L 16.679688 23.710938 A 1.0001 1.0001 0 1 0 15.320312 25.177734 L 24.316406 33.525391 L 35.828125 16.560547 A 1.0001 1.0001 0 0 0 34.988281 14.988281 z"/>
+              </svg>
+            </div>
+            <div>
+              <div className="text-sm text-gray-400">
+                <p>Order #1494</p>
               </div>
-              <div id="orderTitleNumber"
-                   className="flex items-center">
-                <div className="pr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
-                    <path
-                      fill="rgb(185, 161, 111)"
-                      d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 34.988281 14.988281 A 1.0001 1.0001 0 0 0 34.171875 15.439453 L 23.970703 30.476562 L 16.679688 23.710938 A 1.0001 1.0001 0 1 0 15.320312 25.177734 L 24.316406 33.525391 L 35.828125 16.560547 A 1.0001 1.0001 0 0 0 34.988281 14.988281 z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-sm text-gray-400">
-                    <p>Order #1494</p>
-                  </div>
-                  <div className="font-bold text-lg">
-                    <h4>Thank you {shippingFirstName}!</h4>
-                  </div>
+              <div className="font-bold text-lg">
+                <h4>Thank you {shippingFirstName}!</h4>
+              </div>
+            </div>
+          </div>
+          <div id="confirmationContainer"
+               className="flex flex-col">
+            <div className="xl:pt-3 lg:pt-3 md:pt-3 sm:pt-6 xs:pt-6 pb-3">
+              <div className="border rounded border-solid border-foreground p-4">
+                <div className="text-lg font-bold pb-1">Your order is confirmed</div>
+                <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation email
+                  has been sent to
+                  <span className="font-bold"> {email}</span> Come back to this page for updates on your order status.
                 </div>
               </div>
             </div>
-            <div id="confirmationContainer"
-                 className="flex flex-col">
-              <div className="xl:pt-3 lg:pt-3 md:pt-3 sm:pt-6 xs:pt-6 pb-3">
-                <div className="border rounded border-solid border-foreground p-4">
-                  <div className="text-lg font-bold pb-1">Your order is confirmed</div>
-                  <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation email
-                    has been sent to
-                    <span className="font-bold"> {email}</span> Come back to this page for updates on your order status.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="customerInformationContainer"
-                 className="pt-3">
-              <div
-                className="mx-auto flex w-full flex-col border rounded border-solid p-4 border-foreground">
-                <div id="contactWrapper"
-                     className="">
-                  <div id="contactTopSection">
+          </div>
+          <div id="customerInformationContainer"
+               className="pt-3">
+            <div
+              className="mx-auto flex w-full flex-col border rounded border-solid p-4 border-foreground">
+              <div id="contactWrapper"
+                   className="">
+                <div id="contactTopSection">
 
-                    <div className="pb-4">
-                      <div className="flex flex-row items-center justify-between">
-                        <div className="flex text-xl font-bold">Customer Information</div>
+                  <div className="pb-4">
+                    <div className="flex flex-row items-center justify-between">
+                      <div className="flex text-xl font-bold">Customer Information</div>
+                    </div>
+                  </div>
+                  {/*TODO*/}
+                  <div id="customerInformationLists">
+                    <div id="addressLists"
+                         className="flex flex-col"
+                    >
+                      <div className="flex flex-row">
+                        <h4 className="flex w-1/2 pr-10 font-bold">Shipping Address</h4>
+                        <h4 className="flex w-1/2 pr-10 font-bold">Billing Address</h4>
+                      </div>
+                      <div className="">
+                        <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10" id="shippingFullName">
+                              {shippingFirstName} {shippingLastName}
+                            </li>
+                            <li className="flex w-1/2 pr-10" id="billingFullName">
+                              {billingFirstName} {billingLastName}
+                            </li>
+                          </div>
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10" id="shippingCompanyName">{shippingCompanyName}</li>
+                            <li className="flex w-1/2 pr-10" id="billingCompanyName">{billingCompanyName}</li>
+                          </div>
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10" id="shippingAddressLineOne">{shippingAddressLineOne}</li>
+                            <li className="flex w-1/2 pr-10" id="billingAddressLineOne">{billingAddressLineOne}</li>
+                          </div>
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>
+                            <li className="flex w-1/2 pr-10" id="billingAddressLineTwo">{billingAddressLineTwo}</li>
+                          </div>
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10"
+                                id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
+                            <li className="flex w-1/2 pr-10"
+                                id="billingCityStateZipcode">{billingCity} {billingState} {billingZipcode}</li>
+                          </div>
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10" id="shippingCountry">{shippingCountry}</li>
+                            <li className="flex w-1/2 pr-10" id="billingCountry">{billingCountry}</li>
+                          </div>
+                          <div className="flex">
+                            <li className="flex w-1/2 pr-10" id="shippingPhone">{shippingPhone}</li>
+                            <li className="flex w-1/2 pr-10" id="billingPhone">{billingPhone}</li>
+                          </div>
+                        </ul>
                       </div>
                     </div>
-                    {/*TODO*/}
-                    <div id="customerInformationLists">
-                      <div id="addressLists"
-                           className="flex flex-col"
-                      >
-                          <div className="flex flex-row">
-                            <h4 className="flex w-1/2 pr-10 font-bold">Shipping Address</h4>
-                            <h4 className="flex w-1/2 pr-10 font-bold">Billing Address</h4>
-                          </div>
-                        <div className="">
-                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingFullName">
-                                {shippingFirstName} {shippingLastName}
-                              </li>
-                              <li className="flex w-1/2 pr-10" id="billingFullName">
-                                {billingFirstName} {billingLastName}
-                              </li>
-                            </div>
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingCompanyName">{shippingCompanyName}</li>
-                              <li className="flex w-1/2 pr-10" id="billingCompanyName">{billingCompanyName}</li>
-                            </div>
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingAddressLineOne">{shippingAddressLineOne}</li>
-                              <li className="flex w-1/2 pr-10" id="billingAddressLineOne">{billingAddressLineOne}</li>
-                            </div>
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>
-                              <li className="flex w-1/2 pr-10" id="billingAddressLineTwo">{billingAddressLineTwo}</li>
-                            </div>
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>
-                              <li className="flex w-1/2 pr-10" id="billingCityStateZipcode">{billingCity} {billingState} {billingZipcode}</li>
-                            </div>
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingCountry">{shippingCountry}</li>
-                              <li className="flex w-1/2 pr-10" id="billingCountry">{billingCountry}</li>
-                            </div>
-                            <div className="flex">
-                              <li className="flex w-1/2 pr-10" id="shippingPhone">{shippingPhone}</li>
-                              <li className="flex w-1/2 pr-10" id="billingPhone">{billingPhone}</li>
-                            </div>
-                          </ul>
-                        </div>
+                    {/*<div id="addressLists"*/}
+                    {/*     className="flex"*/}
+                    {/*>*/}
+                    {/*  <div className="w-1/2">*/}
+                    {/*    <h4 className="font-bold">Shipping Address</h4>*/}
+                    {/*    <ul className="flex w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">*/}
+                    {/*      <li id="shippingFullName">*/}
+                    {/*        {shippingFirstName} {shippingLastName}*/}
+                    {/*      </li>*/}
+                    {/*      <li id="shippingCompanyName">{shippingCompanyName}</li>*/}
+                    {/*      <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>*/}
+                    {/*      <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>*/}
+                    {/*      <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>*/}
+                    {/*      <li id="shippingCountry">{shippingCountry}</li>*/}
+                    {/*    </ul>*/}
+                    {/*  </div>*/}
+                    {/*  <div className="w-1/2">*/}
+                    {/*    <h4 className="font-bold">Billing Address</h4>*/}
+                    {/*    <ul className="flex flex-col  w-5/6 gap-1 text-gray-400 text-sm pt-2">*/}
+                    {/*      <li id="billingFullName">*/}
+                    {/*        {billingFirstName} {billingLastName}*/}
+                    {/*      </li>*/}
+                    {/*      <li id="">{billingCompanyName}</li>*/}
+                    {/*      <li id="billingAddressLineOne">{billingAddressLineOne}</li>*/}
+                    {/*      <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>*/}
+                    {/*      <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>*/}
+                    {/*      <li id="billingCountry">{billingCountry}</li>*/}
+                    {/*    </ul>*/}
+                    {/*  </div>*/}
+                    {/*</div>*/}
+                    <div id="methodLists"
+                         className="flex"
+                    >
+                      <div className="w-1/2 pt-4">
+                        <h4 className="font-bold">Shipping method</h4>
+                        <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
+                          <li>Standard Delivery</li>
+                          <li>5-14 business days</li>
+                        </ul>
                       </div>
-                      {/*<div id="addressLists"*/}
-                      {/*     className="flex"*/}
-                      {/*>*/}
-                      {/*  <div className="w-1/2">*/}
-                      {/*    <h4 className="font-bold">Shipping Address</h4>*/}
-                      {/*    <ul className="flex w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">*/}
-                      {/*      <li id="shippingFullName">*/}
-                      {/*        {shippingFirstName} {shippingLastName}*/}
-                      {/*      </li>*/}
-                      {/*      <li id="shippingCompanyName">{shippingCompanyName}</li>*/}
-                      {/*      <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>*/}
-                      {/*      <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>*/}
-                      {/*      <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>*/}
-                      {/*      <li id="shippingCountry">{shippingCountry}</li>*/}
-                      {/*    </ul>*/}
-                      {/*  </div>*/}
-                      {/*  <div className="w-1/2">*/}
-                      {/*    <h4 className="font-bold">Billing Address</h4>*/}
-                      {/*    <ul className="flex flex-col  w-5/6 gap-1 text-gray-400 text-sm pt-2">*/}
-                      {/*      <li id="billingFullName">*/}
-                      {/*        {billingFirstName} {billingLastName}*/}
-                      {/*      </li>*/}
-                      {/*      <li id="">{billingCompanyName}</li>*/}
-                      {/*      <li id="billingAddressLineOne">{billingAddressLineOne}</li>*/}
-                      {/*      <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>*/}
-                      {/*      <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>*/}
-                      {/*      <li id="billingCountry">{billingCountry}</li>*/}
-                      {/*    </ul>*/}
-                      {/*  </div>*/}
-                      {/*</div>*/}
-                      <div id="methodLists"
-                           className="flex"
-                      >
-                        <div className="w-1/2 pt-4">
-                          <h4 className="font-bold">Shipping method</h4>
-                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li>Standard Delivery</li>
-                          </ul>
-                        </div>
-                        <div className="w-1/2 pt-4">
-                          <h4 className="font-bold">Payment method</h4>
-                          <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
-                            <li>VISA ending with {cardNumber} --</li>
-                            <li>$129.46</li>
-                          </ul>
-                        </div>
+                      <div className="w-1/2 pt-4">
+                        <h4 className="font-bold">Payment method</h4>
+                        <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
+                          <li>VISA ending with {cardNumber} --</li>
+                          <li>$129.46</li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           <div id="lowerContainer" className="xl:pb-14 lg:pb-14 md:pb-14 sm:pb-10 xs:pb-10 ">
             <div className="xl:pt-10 lg:pt-10 md:pt-10 sm:pt-10 xs:pt-6">
               <div className="flex justify-between xs:flex-col-reverse">
@@ -366,17 +379,20 @@ const ConfirmPageContent: React.FC = () => {
         </div>
 
         <div id="rightContentWrapper"
-             className="relative mx-auto flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
-              <h1 className="py-3 text-3xl">Xandria</h1>
+              <h1 className="py-3 text-3xl">
+                <a href="/">Xandria</a>
+              </h1>
             </div>
 
             <div id="orderSummaryBanner"
-                 className="relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10">
+                 className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
               <div id="orderSummaryLabel">
-                <button className={styles.orderSummaryButton} onClick={toggleOrderSummary}>
+                <button className={styles.orderSummaryButton}
+                        onClick={toggleOrderSummary}>
                   <div className="fill-foreground pr-2">
                     <svg width="20" height="19" xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -390,78 +406,90 @@ const ConfirmPageContent: React.FC = () => {
                     <p>Hide Order Summary</p>
                   </div>
                   <div id="summaryArrowButton"
-                       className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                       className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
                     <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                    </svg>
+                  </div>
+                  <div id="summaryArrowButton"
+                       className={`${styles.summaryArrowIcon} ${!isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
+                    <svg className="rotate-180" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                       <path
                         d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                     </svg>
                   </div>
                 </button>
               </div>
-              <div className="font-bold text-lg">$135.00</div>
+              <div id="summaryBannerLeftSection"
+                   className="font-bold text-lg">
+                <span className="pl-4">$135.00</span>
+              </div>
             </div>
           </div>
-
           <div id="borderSummary"
                className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
             <div className="pt-6"></div>
-            <div className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
-              {/* <boughtItem> */}
-              <div id="boughtItem">
-                <div id="boughtItemContainer"
-                     className="mx-auto flex w-full items-center justify-between">
-                  <div className="flex h-full items-center flex-start">
-                    <div className="inline-flex h-full pr-3">
-                      <Image
-                        src={masterandemissarry.src}
-                        alt="yuko"
-                        width="60"
-                        height="60"
-                      />
-                    </div>
-                    <div
-                      className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                      <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                        Sole)
+            <div
+              className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
+              {/* right padding is for space between scroll bar && content */}
+              <div id="cartItems">
+                {cartItems.map((item, index) => (
+                  <div key={index} className="select-none">
+                    <div className="mx-auto flex w-full justify-between">
+                      {/* Map over the cart items and display them */}
+                      <div className="cart-item w-full flex h-full items-center flex-start">
+                        <div className="inline-flex pr-3 w-20 h-20">
+                          <img src={item.imageUrl} alt={item.bookTitle} draggable="false"/>
+                        </div>
+                        <div id="itemDetailsLeftSide"
+                             className="flex h-full flex-col justify-center text-sm w-full">
+                          <div className="pr-8">{item.bookTitle}</div>
+                          <div className="pr-8">{item.bookAuthors}</div>
+                          <div className="flex justify-between w-full">
+                            <div className="flex">{item.bookType}</div>
+                            <div className="flex">${item.totalPrice.toFixed(2)}</div>
+                          </div>
+                          <div className="flex font-light pr-8">Qty: {item.qty}</div>
+                        </div>
                       </div>
-                      <div className="flex text-gray-400">13</div>
+                    </div>
+                    <div id="cartItemBorderGap" className="py-6 pb-6">
+                      <div className="border-b border-solid border-foreground"></div>
                     </div>
                   </div>
-                  <div className="inline-flex text-sm flex-end">$135.00</div>
-                </div>
-                <div id="borderGap" className="py-6 pb-6">
-                  <div className="border-b border-solid border-foreground"></div>
-                </div>
+                ))}
               </div>
-              {/* <boughtItem /> */}
-              <div className="flex flex-col border-b border-solid pb-6 border-foreground">
+
+              <div className={`flex flex-col border-solid border-foreground`}>
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                  <div className="inline-flex text-sm font-bold flex-end">$130.96</div>
-                </div>
-                <div className="flex justify-between pb-4">
-                  <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-                  <div className="inline-flex text-sm font-medium flex-end">Free</div>
-                </div>
-                <div className="flex justify-between pb-4">
-                  <div className="inline-flex text-sm font-bold flex-start">Discount</div>
-                  <div className="inline-flex text-sm font-medium flex-end">0.00</div>
+                  <div className="inline-flex text-sm flex-end font-bold">
+                    $135.00
+                  </div>
                 </div>
                 <div className="flex justify-between">
-                  <div className="inline-flex text-sm font-bold flex-start">Taxes</div>
-                  <div className="inline-flex text-xs font-medium flex-end">$14.04</div>
+                  <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                  <div className="inline-flex text-xs font-medium flex-end">Free</div>
                 </div>
-              </div>
-              <div className="flex justify-between pt-6 ">
-                <div className="flex">
-                  <div className="text-lg font-medium">Total</div>
+                <div className="py-6">
+                  <div className={`border-foreground border-t border-solid`}></div>
                 </div>
-                <div className="flex items-center">
-                  <div className="inline-flex pr-3 text-xs">AUD</div>
-                  <div ref={bottomRef}
-                       className={`${styles.smoothScroll}
+                <div className={`flex justify-between`}>
+                  <div className={` flex`}>
+                    <div className="text-lg font-medium">Total</div>
+                  </div>
+                  <div className="flex items-center">
+                    <div ref={bottomRef}
+                         className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
-                    $135.00
+                      $135.00
+                    </div>
+                  </div>
+                </div>
+                <div className="py-1"></div>
+                <div className="relative flex justify-end items-center">
+                  <div className="xs:hidden sm:hidden">
                   </div>
                 </div>
               </div>
