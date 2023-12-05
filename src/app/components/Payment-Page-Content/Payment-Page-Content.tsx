@@ -1,7 +1,5 @@
 import styles from './Payment-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import Image from "next/image";
-import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 
@@ -93,12 +91,13 @@ const PaymentPageContent: React.FC = () => {
   const [shippingError, setShippingError] = useState(false);
   const [billingError, setBillingError] = useState(false);
   const [cardDetailsError, setCardDetailsError] = useState(false);
+  const [isClearCartWindowOpen, setIsClearCartWindowOpen] = React.useState(false);
+  const clearCartWindowRef = useRef<null | HTMLDivElement>(null);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [useShippingAddress, setUseShippingAddress] = useState(true);
   const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
-
 
   const handleCardNumberChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     const cardNumberDigitRegex = /^\d+$/;
@@ -864,6 +863,56 @@ const PaymentPageContent: React.FC = () => {
     // }
   }
 
+
+  const handleOpenClearCartWindow = () => {
+    setIsClearCartWindowOpen(true);
+  };
+  const handleCloseClearCartWindow = () => {
+    setIsClearCartWindowOpen(false);
+  };
+  const handleNavigateHome = () => {
+    window.location.href = '/';
+  }
+
+  useEffect(() => {
+    let timerId: NodeJS.Timeout;
+
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (clearCartWindowRef.current && !clearCartWindowRef.current.contains(event.target as Node)) {
+        console.log("mouse click trigger √");
+        handleCloseClearCartWindow();
+      }
+    };
+
+    if (isClearCartWindowOpen) {
+      // Set a timeout for 1 second (1000 milliseconds)
+      timerId = setTimeout(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+      }, 750);
+    } else {
+      // If the cart window is closed, immediately remove the event listener
+      document.removeEventListener('mousedown', handleOutsideClick);
+    }
+
+    return () => {
+      // Cleanup: remove the event listener and clear the timeout
+      document.removeEventListener('mousedown', handleOutsideClick);
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
+  }, [isClearCartWindowOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      handleCloseClearCartWindow()
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
   useEffect(() => {
     // @ts-ignore
     setCountries(Country.getAllCountries());
@@ -1199,7 +1248,7 @@ const PaymentPageContent: React.FC = () => {
                        type="button"
                   >
                     {isNavigating ? (
-                      <button className={styles.loader}></button>
+                      <button className={`${styles.loader} flex`}></button>
                     ) : (
                       <button className="flex mx-auto">CONTINUE TO PAYMENT</button>
                     )}
@@ -1844,7 +1893,6 @@ const PaymentPageContent: React.FC = () => {
                 </h1>
               </div>
 
-
               <div id="orderSummaryBanner"
                    className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
                 <div id="orderSummaryLabel">
@@ -1871,7 +1919,74 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                   </button>
                 </div>
-                <div className="font-bold text-lg">$135.00</div>
+                <div id="summaryBannerLeftSection"
+                     className="font-bold text-lg">
+                  <div id="summaryBannerBinButton"
+                       className={`${isOrderSummaryHidden ? 'hidden' : ''}
+                      relative group flex items-center`}
+                       onClick={handleOpenClearCartWindow}
+                  >
+                    <div id="binButtonDefault"
+                         className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden`}>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
+                           style={{stroke: '#d2cfca2b'}}
+                           fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7l16 0"/>
+                        <path d="M10 11l0 6"/>
+                        <path d="M14 11l0 6"/>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                      </svg>
+                    </div>
+                    <div id="binButtonHover" className="absolute -translate-x-6 inset-0 w-fit h-fit">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
+                           viewBox="00 24 24"
+                           fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7h16"/>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                        <path d="M10 12l4 4m0 -4l-4 4"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="pl-4">$135.00</span>
+                </div>
+                <div id="clearCartWindow"
+                     ref={clearCartWindowRef}
+                     className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0
+                    xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
+                    border-foreground border rounded-md bg-background
+                    xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent
+                    xs:before:border-r-transparent xs:before:border-b-gray-300
+                    xs:before:border-t-transparent xs:before:border-l-8 xs:before:border-r-8 xs:before:border-b-8
+                    xs:before:border-solid xs:before:content-[''] xs:before:absolute
+                    sm:before:-top-2 sm:before:left-1/2 sm:before:-translate-x-1/2 sm:before:border-l-transparent
+                    sm:before:border-r-transparent sm:before:border-b-gray-300
+                    sm:before:border-t-transparent sm:before:border-l-8 sm:before:border-r-8 sm:before:border-b-8
+                    sm:before:border-solid sm:before:content-[''] sm:before:absolute`}
+                >
+                  <div className={`flex flex-col`}>
+                    <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
+                    <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
+                      <button
+                        className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
+                        onClick={handleNavigateHome}
+                      >
+                        Yes
+                      </button>
+                      <button
+                        className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
+                        onClick={handleCloseClearCartWindow}
+                      >
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
