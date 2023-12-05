@@ -174,7 +174,7 @@ const ConfirmPageContent: React.FC = () => {
             <div id="checkoutTitle"
                  className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
               <div className="flex pb-1">
-                <h1 className="py-3 text-3xl">Xandria</h1>
+                <h1 className="py-3 text-3xl"><a href="/">Xandria</a></h1>
               </div>
               <div id="orderTitleNumber"
                    className="flex items-center">

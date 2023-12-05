@@ -91,6 +91,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const handleEmailBlur = () => {
     if (emailRegex.test(email)) {
       setEmailError('');
+    } else if (email.length === 0) {
+      setEmailError('');
     } else {
       setEmailError('Invalid email address');
     }
@@ -533,7 +535,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
       // Set a timeout for 1 second (1000 milliseconds)
       timerId = setTimeout(() => {
         document.addEventListener('mousedown', handleOutsideClick);
-      }, 1000);
+      }, 750);
     } else {
       // If the cart window is closed, immediately remove the event listener
       document.removeEventListener('mousedown', handleOutsideClick);
@@ -555,8 +557,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-  }
-    }, []);
+    }
+  }, []);
 
   useEffect(() => {
     // @ts-ignore
@@ -1211,7 +1213,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       relative group flex items-center`}
                      onClick={handleOpenClearCartWindow}
                 >
-                  <div id="binButtonDefault" className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden`}>
+                  <div id="binButtonDefault"
+                       className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden`}>
                     <svg xmlns="http://www.w3.org/2000/svg"
                          className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
                          style={{stroke: '#d2cfca2b'}}
@@ -1274,11 +1277,11 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
             </div>
           </div>
           <div id="borderSummary"
-               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
+               className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
             <div className="pt-6"></div>
             <div
-              className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
-
+              className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
+              {/* right padding is for space between scroll bar && content */}
               <div id="cartItems">
                 {cartItems.map((item, index) => (
                   <div key={index} className="select-none">
@@ -1289,7 +1292,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <img src={item.imageUrl} alt={item.bookTitle}/>
                         </div>
                         <div id="itemDetailsLeftSide"
-                          className="flex h-full flex-col justify-center text-sm w-full">
+                             className="flex h-full flex-col justify-center text-sm w-full">
                           <div className="pr-8">{item.bookTitle}</div>
                           <div className="pr-8">{item.bookAuthors}</div>
                           <div className="flex justify-between w-full">
@@ -1300,7 +1303,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                         </div>
                       </div>
                       <div className="relative text-sm flex flex-col flex-end">
-                        <button className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
+                        <button
+                          className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
                           <svg
                             className={``}
                             version="1.0"
@@ -1388,16 +1392,15 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       $135.00
                     </div>
                   </div>
-
                 </div>
                 <div className="py-1"></div>
                 <div className="relative flex justify-end items-center">
                   <div id="totalOrderPriceBinButton"
                        className={`group xs:hidden sm:hidden`}
-                       // onClick={handleClearCart}
+                       onClick={handleOpenClearCartWindow}
                   >
                     <div id="binButtonDefaultRightSide"
-                      className="w-fit h-fit group-hover:hidden">
+                         className="w-fit h-fit group-hover:hidden">
                       <svg xmlns="http://www.w3.org/2000/svg"
                            className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
                            style={{stroke: '#d2cfca2b'}}
@@ -1411,7 +1414,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       </svg>
                     </div>
                     <div id="binButtonHoverRightSide"
-                      className="w-fit h-fit">
+                         className="w-fit h-fit">
                       <svg xmlns="http://www.w3.org/2000/svg"
                            className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
                            viewBox="00 24 24"
@@ -1425,11 +1428,36 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     </div>
                   </div>
                   <div className="xs:hidden sm:hidden">
-                  {/*  <Modal*/}
-                  {/*  isOpen={isModalOpen}*/}
-                  {/*  onClose={handleCloseModal}*/}
-                  {/*  onConfirm={handleConfirmAndClose}*/}
-                  {/*/>*/}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="flex w-full justify-center">
+              <div id="clearCartWindow"
+                   ref={clearCartWindowRef}
+                   className={`
+                         ${isClearCartWindowOpen ? '' : 'hidden'} 
+                          absolute z-20 flex mx-auto
+                          px-4 py-3 h-20 border-solid
+                          border-foreground border rounded-md bg-background
+                          `}
+              >
+                <div className={`flex flex-col`}>
+                  <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
+                  <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
+                    <button
+                      className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
+                      onClick={handleNavigateHome}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
+                      onClick={handleCloseClearCartWindow}
+                    >
+                      No
+                    </button>
                   </div>
                 </div>
               </div>
