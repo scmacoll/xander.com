@@ -2178,7 +2178,7 @@ const PaymentPageContent: React.FC = () => {
                   <div id="clearCartWindow"
                        ref={clearCartWindowRef}
                        className={`
-                         ${isClearCartWindowOpen ? 'md:flex lg:flex xl:flex xs:hidden sm:hidden' : 'hidden'} 
+                         ${isClearCartWindowOpen ? 'flex xs:hidden sm:hidden' : 'hidden'} 
                           absolute z-20 mx-auto px-4 py-3 h-20 border-solid border-foreground border rounded-md bg-background
                           `}
                   >

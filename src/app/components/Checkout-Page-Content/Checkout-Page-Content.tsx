@@ -1443,8 +1443,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               <div id="clearCartWindow"
                    ref={clearCartWindowRef}
                    className={`
-                         ${isClearCartWindowOpen ? '' : 'hidden'} 
-                          absolute z-20 flex mx-auto
+                         ${isClearCartWindowOpen ? 'flex xs:hidden sm:hidden' : 'hidden'} 
+                          absolute z-20 mx-auto
                           px-4 py-3 h-20 border-solid
                           border-foreground border rounded-md bg-background
                           `}
