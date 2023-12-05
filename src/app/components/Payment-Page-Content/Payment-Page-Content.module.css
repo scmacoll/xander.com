@@ -79,4 +79,12 @@
   height: 24px;
 }
 
+.closeButton svg path {
+  fill: rgba(210, 207, 202, 0.4);
+}
+
+.closeButton:hover svg path {
+  fill: #d2cfca;
+}
+
 /*# sourceMappingURL=Payment-Page-Content.module.css.map */
