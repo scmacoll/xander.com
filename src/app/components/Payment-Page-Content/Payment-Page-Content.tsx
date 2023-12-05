@@ -773,6 +773,7 @@ const PaymentPageContent: React.FC = () => {
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
+    handleCloseClearCartWindow()
     if (showValidatedContent) {
       saveToLocalStorage();
       setIsReviewing(true);
@@ -781,6 +782,7 @@ const PaymentPageContent: React.FC = () => {
         setIsReviewing(false);
         setIsReviewed(true);
         setOrderSummaryHidden(false);
+        handleCloseClearCartWindow()
       }, 2000);
     } else {
       handleCardNameBlur(true);
@@ -2105,9 +2107,10 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                <div className="py-1"></div>
                 <div id="shippingButton">
-                  <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
-                    {isReviewed && (
+                  <div className={`${isReviewed ? 'pt-5' : ''} sm:hidden xs:hidden flex justify-end`}>
+                    {isReviewed ? (
                       <div id="incompleteError"
                            className="flex text-sm pr-16 text-custom-red xs:w-1/2">
                         <button className="underline hover:no-underline"
@@ -2115,6 +2118,44 @@ const PaymentPageContent: React.FC = () => {
                         >
                           Cancel
                         </button>
+                      </div>
+                    ) : (
+                      <div className="relative flex justify-end items-center">
+                        <div id="totalOrderPriceBinButton"
+                             className={`group xs:hidden sm:hidden`}
+                             onClick={handleOpenClearCartWindow}
+                        >
+                          <div id="binButtonDefaultRightSide"
+                               className="w-fit h-fit group-hover:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
+                                 style={{stroke: '#d2cfca2b'}}
+                                 fill="none">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                              <path d="M4 7l16 0"/>
+                              <path d="M10 11l0 6"/>
+                              <path d="M14 11l0 6"/>
+                              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                            </svg>
+                          </div>
+                          <div id="binButtonHoverRightSide"
+                               className="w-fit h-fit">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
+                                 viewBox="00 24 24"
+                                 fill="none">
+                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                              <path d="M4 7h16"/>
+                              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                              <path d="M10 12l4 4m0 -4l-4 4"/>
+                            </svg>
+                          </div>
+                        </div>
+                        <div className="xs:hidden sm:hidden">
+
+                        </div>
                       </div>
                     )}
                     <a
@@ -2124,6 +2165,33 @@ const PaymentPageContent: React.FC = () => {
                     >
                       PLACE ORDER
                     </a>
+                  </div>
+                </div>
+                <div className="flex w-full justify-center">
+                  <div id="clearCartWindow"
+                       ref={clearCartWindowRef}
+                       className={`
+                         ${isClearCartWindowOpen ? 'md:flex lg:flex xl:flex xs:hidden sm:hidden' : 'hidden'} 
+                          absolute z-20 mx-auto px-4 py-3 h-20 border-solid border-foreground border rounded-md bg-background
+                          `}
+                  >
+                    <div className={`flex flex-col`}>
+                      <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
+                      <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
+                        <button
+                          className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
+                          onClick={handleNavigateHome}
+                        >
+                          Yes
+                        </button>
+                        <button
+                          className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
+                          onClick={handleCloseClearCartWindow}
+                        >
+                          No
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
