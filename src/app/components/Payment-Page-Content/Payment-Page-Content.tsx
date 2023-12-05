@@ -3,8 +3,14 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from "next/image";
 import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { Country, State, City } from 'country-state-city';
+import { useCart } from "@/app/context/CartContext";
 
 const PaymentPageContent: React.FC = () => {
+  const cartData = localStorage.getItem('cart');
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
+  const {cartItems, removeFromCart} = useCart();
+  console.log("Cart Items:", cartItems);
+
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
   const [isFocused, setIsFocused] = useState({
@@ -981,34 +987,59 @@ const PaymentPageContent: React.FC = () => {
                 <div
                   className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
-                  {/* <boughtItem> */}
-                  <div id="boughtItem">
-                    <div id="boughtItemContainer"
-                         className="mx-auto flex w-full items-center justify-between">
-                      <div className="flex h-full items-center flex-start">
-                        <div className="inline-flex h-full pr-3">
-                          <Image
-                            src={masterandemissarry.src}
-                            alt="yuko"
-                            width="60"
-                            height="60"
-                          />
-                        </div>
-                        <div
-                          className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                          <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                            Sole)
+                  <div id="cartItems">
+                    {cartItems.map((item, index) => (
+                      <div key={index} className="select-none">
+                        <div className="mx-auto flex w-full justify-between">
+                          {/* Map over the cart items and display them */}
+                          <div className="cart-item w-full flex h-full items-center flex-start">
+                            <div className="inline-flex pr-3 w-20 h-20 object-cover">
+                              <img src={item.imageUrl} alt={item.bookTitle}/>
+                            </div>
+                            <div id="itemDetailsLeftSide"
+                                 className="flex h-full flex-col justify-center text-sm w-full">
+                              <div className="pr-8">{item.bookTitle}</div>
+                              <div className="pr-8">{item.bookAuthors}</div>
+                              <div className="flex justify-between w-full">
+                                <div className="flex">{item.bookType}</div>
+                                <div className="flex">${item.totalPrice.toFixed(2)}</div>
+                              </div>
+                              <div className="flex font-light pr-8">Qty: {item.qty}</div>
+                            </div>
                           </div>
-                          <div className="flex font-light">13</div>
+                          <div className="relative text-sm flex flex-col flex-end">
+                            <button
+                              className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
+                              <svg
+                                className={``}
+                                version="1.0"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32px"
+                                height="32px"
+                                viewBox="0 0 752.000000 752.000000"
+                                preserveAspectRatio="xMidYMid meet">
+                                <g
+                                  transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                                  stroke="none">
+                                  <path
+                                    d="M2743 4838 c-41 -11 -65 -46 -65 -94 0 -35 21 -58 473 -510 l474
+                -474 -474 -474 c-445 -445 -473 -475 -473 -508 0 -66 34 -100 100 -100 33 0
+                63 28 508 473 l474 474 474 -474 c445 -445 475 -473 508 -473 66 0 100 34 100
+                100 0 33 -28 63 -473 508 l-474 474 474 474 c445 445 473 475 473 508 0 66
+                -34 100 -100 100 -33 0 -63 -28 -508 -473 l-474 -474 -472 471 c-260 260 -482
+                474 -493 476 -11 3 -35 1 -52 -4z"
+                                  />
+                                </g>
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                        <div id="cartItemBorderGap" className="py-6 pb-6">
+                          <div className="border-b border-solid border-foreground"></div>
                         </div>
                       </div>
-                      <div className="inline-flex text-sm flex-end">$135.00</div>
-                    </div>
-                    <div id="borderGap" className="py-6 pb-6">
-                      <div className="border-b border-solid border-foreground"></div>
-                    </div>
+                    ))}
                   </div>
-                  {/* <boughtItem /> */}
 
                   <div
                     className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
@@ -1848,36 +1879,61 @@ const PaymentPageContent: React.FC = () => {
                  className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
               <div className="pt-6"></div>
               <div
-                className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
+                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
 
-                {/* <boughtItem> */}
-                <div id="boughtItem">
-                  <div id="boughtItemContainer"
-                       className="mx-auto flex w-full items-center justify-between">
-                    <div className="flex h-full items-center flex-start">
-                      <div className="inline-flex h-full pr-3">
-                        <Image
-                          src={masterandemissarry.src}
-                          alt="yuko"
-                          width="60"
-                          height="60"
-                        />
-                      </div>
-                      <div
-                        className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                        <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
-                          Sole)
+                <div id="cartItems">
+                  {cartItems.map((item, index) => (
+                    <div key={index} className="select-none">
+                      <div className="mx-auto flex w-full justify-between">
+                        {/* Map over the cart items and display them */}
+                        <div className="cart-item w-full flex h-full items-center flex-start">
+                          <div className="inline-flex pr-3 w-20 h-20 object-cover">
+                            <img src={item.imageUrl} alt={item.bookTitle}/>
+                          </div>
+                          <div id="itemDetailsLeftSide"
+                               className="flex h-full flex-col justify-center text-sm w-full">
+                            <div className="pr-8">{item.bookTitle}</div>
+                            <div className="pr-8">{item.bookAuthors}</div>
+                            <div className="flex justify-between w-full">
+                              <div className="flex">{item.bookType}</div>
+                              <div className="flex">${item.totalPrice.toFixed(2)}</div>
+                            </div>
+                            <div className="flex font-light pr-8">Qty: {item.qty}</div>
+                          </div>
                         </div>
-                        <div className="flex font-light">13</div>
+                        <div className="relative text-sm flex flex-col flex-end">
+                          <button
+                            className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
+                            <svg
+                              className={``}
+                              version="1.0"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="32px"
+                              height="32px"
+                              viewBox="0 0 752.000000 752.000000"
+                              preserveAspectRatio="xMidYMid meet">
+                              <g
+                                transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                                stroke="none">
+                                <path
+                                  d="M2743 4838 c-41 -11 -65 -46 -65 -94 0 -35 21 -58 473 -510 l474
+                -474 -474 -474 c-445 -445 -473 -475 -473 -508 0 -66 34 -100 100 -100 33 0
+                63 28 508 473 l474 474 474 -474 c445 -445 475 -473 508 -473 66 0 100 34 100
+                100 0 33 -28 63 -473 508 l-474 474 474 474 c445 445 473 475 473 508 0 66
+                -34 100 -100 100 -33 0 -63 -28 -508 -473 l-474 -474 -472 471 c-260 260 -482
+                474 -493 476 -11 3 -35 1 -52 -4z"
+                                />
+                              </g>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      <div id="cartItemBorderGap" className="py-6 pb-6">
+                        <div className="border-b border-solid border-foreground"></div>
                       </div>
                     </div>
-                    <div className="inline-flex text-sm flex-end">$135.00</div>
-                  </div>
-                  <div id="borderGap" className="py-6 pb-6">
-                    <div className="border-b border-solid border-foreground"></div>
-                  </div>
+                  ))}
                 </div>
-                {/* <boughtItem /> */}
 
                 <div
                   className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
@@ -1899,7 +1955,7 @@ const PaymentPageContent: React.FC = () => {
                     )}
                   </div>
                   <div
-                    className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                    className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded py-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                     onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
@@ -1911,8 +1967,7 @@ const PaymentPageContent: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
-              flex flex-col border-solid border-foreground`}>
+                <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'} flex flex-col border-solid border-foreground`}>
                   <div className="flex justify-between pb-4">
                     <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                     <div className="inline-flex text-sm flex-end font-bold">$135.00

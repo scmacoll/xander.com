@@ -1,7 +1,6 @@
 import styles from './Checkout-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { TileCard } from '../Home-Content/Content';
-import Modal from "@/app/components/shared/Modal";
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 
@@ -1344,7 +1343,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     value={discountCode}
                     onChange={handleDiscountCodeChange}
                     maxLength={16}
-                    className="w-full items-center border border-solid bg-transparent px-2 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
+                    className="w-full items-center border border-solid bg-transparent px-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
                   />
                   {displayInvalidCodeMessage && (
                     <span
@@ -1355,7 +1354,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   )}
                 </div>
                 <div
-                  className={`${styles.applyButton}  inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
+                  className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded py-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                   onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
