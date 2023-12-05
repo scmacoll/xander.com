@@ -78,7 +78,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const [displayIncompleteMessage, setDisplayIncompleteMessage] = useState(false);
   const [shippingError, setShippingError] = useState(false);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isClearCartWindowOpen, setIsClearCartWindowOpen] = React.useState(false);
+  const clearCartWindowRef = useRef<null | HTMLDivElement>(null);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
 
@@ -508,22 +509,54 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     saveToLocalStorage();
   };
 
+  const handleOpenClearCartWindow = () => {
+    setIsClearCartWindowOpen(true);
+  };
+  const handleCloseClearCartWindow = () => {
+    setIsClearCartWindowOpen(false);
+  };
+  const handleNavigateHome = () => {
+    window.location.href = '/';
+  }
 
-  const handleClearCart = () => {
-    if (!isModalOpen) {
-      setIsModalOpen(true);
+  useEffect(() => {
+    let timerId: NodeJS.Timeout;
+
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (clearCartWindowRef.current && !clearCartWindowRef.current.contains(event.target as Node)) {
+        console.log("mouse click trigger √");
+        handleCloseClearCartWindow();
+      }
+    };
+
+    if (isClearCartWindowOpen) {
+      // Set a timeout for 1 second (1000 milliseconds)
+      timerId = setTimeout(() => {
+        document.addEventListener('mousedown', handleOutsideClick);
+      }, 1000);
     } else {
-      return;
+      // If the cart window is closed, immediately remove the event listener
+      document.removeEventListener('mousedown', handleOutsideClick);
     }
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-  const handleConfirmAndClose = () => {
-    handleCloseModal(); // This function closes the modal
-    window.location.href = "/"; // Redirects to the root path
-  };
 
+    return () => {
+      // Cleanup: remove the event listener and clear the timeout
+      document.removeEventListener('mousedown', handleOutsideClick);
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
+  }, [isClearCartWindowOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      handleCloseClearCartWindow()
+    }
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+  }
+    }, []);
 
   useEffect(() => {
     // @ts-ignore
@@ -570,7 +603,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   }, [shippingDetails, email]);
 
 
-  console.log("is modal Open?", isModalOpen);
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div id="pageContainer"
@@ -1176,10 +1208,10 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                    className="font-bold text-lg">
                 <div id="summaryBannerBinButton"
                      className={`${isOrderSummaryHidden ? 'hidden' : ''}
-                      ${isModalOpen ? 'opacity-50 pointer-events-none' : ''}
                       relative group flex items-center`}
-                     onClick={!isModalOpen ? handleClearCart : undefined}>
-                  <div id="binButtonDefault" className="absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden">
+                     onClick={handleOpenClearCartWindow}
+                >
+                  <div id="binButtonDefault" className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden`}>
                     <svg xmlns="http://www.w3.org/2000/svg"
                          className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
                          style={{stroke: '#d2cfca2b'}}
@@ -1207,11 +1239,38 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 </div>
                 <span className="pl-4">$135.00</span>
               </div>
-              <Modal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-                onConfirm={handleConfirmAndClose}
-              />
+              <div id="clearCartWindow"
+                   ref={clearCartWindowRef}
+                   className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0
+                    xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
+                    border-foreground border rounded-md bg-background
+                    xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent
+                    xs:before:border-r-transparent xs:before:border-b-gray-300
+                    xs:before:border-t-transparent xs:before:border-l-8 xs:before:border-r-8 xs:before:border-b-8
+                    xs:before:border-solid xs:before:content-[''] xs:before:absolute
+                    sm:before:-top-2 sm:before:left-1/2 sm:before:-translate-x-1/2 sm:before:border-l-transparent
+                    sm:before:border-r-transparent sm:before:border-b-gray-300
+                    sm:before:border-t-transparent sm:before:border-l-8 sm:before:border-r-8 sm:before:border-b-8
+                    sm:before:border-solid sm:before:content-[''] sm:before:absolute`}
+              >
+                <div className={`flex flex-col`}>
+                  <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
+                  <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
+                    <button
+                      className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
+                      onClick={handleNavigateHome}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
+                      onClick={handleCloseClearCartWindow}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div id="borderSummary"
@@ -1318,7 +1377,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 <div className="py-6">
                   <div className={`border-foreground border-t border-solid`}></div>
                 </div>
-                <div className={`${isModalOpen ? 'md:text-transparent lg:text-transparent xl:text-transparent' : ''} flex justify-between`}>
+                <div className={`flex justify-between`}>
                   <div className={` flex`}>
                     <div className="text-lg font-medium">Total</div>
                   </div>
@@ -1334,8 +1393,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 <div className="py-1"></div>
                 <div className="relative flex justify-end items-center">
                   <div id="totalOrderPriceBinButton"
-                       className={`${isModalOpen ? 'opacity-50 pointer-events-none' : ''} group xs:hidden sm:hidden`}
-                       onClick={handleClearCart}>
+                       className={`group xs:hidden sm:hidden`}
+                       // onClick={handleClearCart}
+                  >
                     <div id="binButtonDefaultRightSide"
                       className="w-fit h-fit group-hover:hidden">
                       <svg xmlns="http://www.w3.org/2000/svg"
@@ -1365,11 +1425,11 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     </div>
                   </div>
                   <div className="xs:hidden sm:hidden">
-                    <Modal
-                    isOpen={isModalOpen}
-                    onClose={handleCloseModal}
-                    onConfirm={handleConfirmAndClose}
-                  />
+                  {/*  <Modal*/}
+                  {/*  isOpen={isModalOpen}*/}
+                  {/*  onClose={handleCloseModal}*/}
+                  {/*  onConfirm={handleConfirmAndClose}*/}
+                  {/*/>*/}
                   </div>
                 </div>
               </div>
