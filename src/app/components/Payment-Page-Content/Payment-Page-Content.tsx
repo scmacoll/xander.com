@@ -1889,13 +1889,12 @@ const PaymentPageContent: React.FC = () => {
              className={`${isContinuedToPayment ? 'xs:hidden sm:hidden' : ''} relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
           <div className="">
             <div id="checkoutTitle"
-                 className="pt-1 xs:block sm:block md:hidden lg:hidden">
-              <div className="flex pb-1">
+                 className="pt-1 border-yellow xs:block sm:block md:hidden lg:hidden">
+              <div className="flex h-full border-red pb-1">
                 <h1 className="py-3 text-3xl">
                   <a href="/">Xandria</a>
                 </h1>
               </div>
-
               <div id="orderSummaryBanner"
                    className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
                 <div id="orderSummaryLabel">
@@ -2092,7 +2091,8 @@ const PaymentPageContent: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'} flex flex-col border-solid border-foreground`}>
+                <div
+                  className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'} flex flex-col border-solid border-foreground`}>
                   <div className="flex justify-between pb-4">
                     <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                     <div className="inline-flex text-sm flex-end font-bold">$135.00

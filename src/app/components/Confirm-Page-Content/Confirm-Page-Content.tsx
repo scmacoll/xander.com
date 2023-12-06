@@ -369,6 +369,7 @@ const ConfirmPageContent: React.FC = () => {
                   <a href="/"
                      className="border-2 bg-shopify-blue font-bold border-solid hover:border-foreground rounded border-shopify-blue  p-4"
                   >
+                    {/*TODO: Continue browsing should fully clear cart*/}
                     CONTINUE BROWSING
                   </a>
                 </div>

@@ -240,7 +240,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
               {!isOneColumn && (
                 <div className={`${styles.itemToggles} select-none`}>
                   <div className={`${styles.itemPrice}`}>
-                    <p className="font-bold">{card.book_price}</p>
+                    <p className="font-bold">${card.book_price}</p>
                   </div>
                   <div className={`${styles.itemQty}`}>
                     <div className="flex">
