@@ -620,6 +620,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
               </h1>
             </div>
           </div>
+          <div className={`${isOrderSummaryHidden ? 'py-2' : ''} `}></div>
           <div id="checkoutExpressContainer"
                className="flex flex-col pt-4 pb-6">
             <div

@@ -1,5 +1,7 @@
 import styles from './Payment-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
+import Image from "next/image";
+import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 
@@ -91,13 +93,14 @@ const PaymentPageContent: React.FC = () => {
   const [shippingError, setShippingError] = useState(false);
   const [billingError, setBillingError] = useState(false);
   const [cardDetailsError, setCardDetailsError] = useState(false);
-  const [isClearCartWindowOpen, setIsClearCartWindowOpen] = React.useState(false);
-  const clearCartWindowRef = useRef<null | HTMLDivElement>(null);
   const [displayInvalidCodeMessage, setDisplayInvalidCodeMessage] = useState(false);
   const [useShippingAddress, setUseShippingAddress] = useState(true);
   const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
+  const [isClearCartWindowOpen, setIsClearCartWindowOpen] = React.useState(false);
+  const clearCartWindowRef = useRef<null | HTMLDivElement>(null);
+
 
   const handleCardNumberChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     const cardNumberDigitRegex = /^\d+$/;
@@ -774,7 +777,6 @@ const PaymentPageContent: React.FC = () => {
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
-    handleCloseClearCartWindow()
     if (showValidatedContent) {
       saveToLocalStorage();
       setIsReviewing(true);
@@ -783,7 +785,6 @@ const PaymentPageContent: React.FC = () => {
         setIsReviewing(false);
         setIsReviewed(true);
         setOrderSummaryHidden(false);
-        handleCloseClearCartWindow()
       }, 2000);
     } else {
       handleCardNameBlur(true);
@@ -865,8 +866,6 @@ const PaymentPageContent: React.FC = () => {
     //   });
     // }
   }
-
-
   const handleOpenClearCartWindow = () => {
     setIsClearCartWindowOpen(true);
   };
@@ -915,7 +914,6 @@ const PaymentPageContent: React.FC = () => {
       window.removeEventListener('resize', handleResize);
     }
   }, []);
-
   useEffect(() => {
     // @ts-ignore
     setCountries(Country.getAllCountries());
@@ -987,7 +985,7 @@ const PaymentPageContent: React.FC = () => {
   console.log("is same address?: ", isSameAddress);
 
   return (
-    <div className="mx-auto flex h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+    <div className="select-none mx-auto flex h-screen flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
       <div id="pageContainer"
            className={`${styles.pageContainer} pb-16 h-screen
            mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:max-w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}>
@@ -1003,7 +1001,7 @@ const PaymentPageContent: React.FC = () => {
             </div>
           </div>
           <div id="rightContentWrapper"
-               className={`${isContinuedToPayment ? 'md:hidden lg:hidden xl:hidden' : 'hidden'} relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
+               className={`${isContinuedToPayment ? 'md:hidden lg:hidden xl:hidden' : 'hidden'} relative flex flex-col xs:w-full sm:w-full md:w-39% lg:w-39%`}>
             <div className="">
               <div id="orderSummaryBanner"
                    className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
@@ -1022,8 +1020,15 @@ const PaymentPageContent: React.FC = () => {
                     <div className={`${styles.orderSummaryText} ${isOrderSummaryHidden ? 'hidden' : 'flex'}`}>
                       <p>Hide Order Summary</p>
                     </div>
-                    <div id="summaryUpArrowButton"
-                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
+                    <div id="summaryArrowButton"
+                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
+                      <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
+                      </svg>
+                    </div>
+                    <div id="summaryArrowButton"
+                         className={`${styles.summaryArrowIcon} ${!isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2 rotate-180`}>
                       <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
@@ -1031,67 +1036,76 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                   </button>
                 </div>
-                <div className="font-bold text-lg">$135.00</div>
-              </div>
+                <div id="summaryBannerLeftSection"
+                     className="font-bold text-lg">
+                  <div id="summaryBannerBinButton"
+                       className={`${isOrderSummaryHidden ? 'hidden' : ''}
+                      relative group flex items-center`}
+                       onClick={handleOpenClearCartWindow}
+                  >
+                    <div id="binButtonDefault"
+                         className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} absolute -translate-x-6 inset-0 w-fit h-fit group-hover:hidden`}>
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
+                           style={{stroke: '#d2cfca2b'}}
+                           fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7l16 0"/>
+                        <path d="M10 11l0 6"/>
+                        <path d="M14 11l0 6"/>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                      </svg>
+                    </div>
+                    <div id="binButtonHover" className="absolute -translate-x-6 inset-0 w-fit h-fit">
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                           className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
+                           viewBox="00 24 24"
+                           fill="none">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M4 7h16"/>
+                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
+                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
+                        <path d="M10 12l4 4m0 -4l-4 4"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="pl-4">$135.00</span>
+                </div>              </div>
               <div id="borderSummary"
                    className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
                 <div className="pt-6"></div>
                 <div
                   className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
-                  <div id="cartItems">
-                    {cartItems.map((item, index) => (
-                      <div key={index} className="select-none">
-                        <div className="mx-auto flex w-full justify-between">
-                          {/* Map over the cart items and display them */}
-                          <div className="cart-item w-full flex h-full items-center flex-start">
-                            <div className="inline-flex pr-3 w-20 h-20 object-cover">
-                              <img src={item.imageUrl} alt={item.bookTitle}/>
-                            </div>
-                            <div id="itemDetailsLeftSide"
-                                 className="flex h-full flex-col justify-center text-sm w-full">
-                              <div className="pr-8">{item.bookTitle}</div>
-                              <div className="pr-8">{item.bookAuthors}</div>
-                              <div className="flex justify-between w-full">
-                                <div className="flex">{item.bookType}</div>
-                                <div className="flex">${item.totalPrice.toFixed(2)}</div>
-                              </div>
-                              <div className="flex font-light pr-8">Qty: {item.qty}</div>
-                            </div>
-                          </div>
-                          <div className="relative text-sm flex flex-col flex-end">
-                            <button
-                              className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
-                              <svg
-                                className={``}
-                                version="1.0"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="32px"
-                                height="32px"
-                                viewBox="0 0 752.000000 752.000000"
-                                preserveAspectRatio="xMidYMid meet">
-                                <g
-                                  transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                                  stroke="none">
-                                  <path
-                                    d="M2743 4838 c-41 -11 -65 -46 -65 -94 0 -35 21 -58 473 -510 l474
-                -474 -474 -474 c-445 -445 -473 -475 -473 -508 0 -66 34 -100 100 -100 33 0
-                63 28 508 473 l474 474 474 -474 c445 -445 475 -473 508 -473 66 0 100 34 100
-                100 0 33 -28 63 -473 508 l-474 474 474 474 c445 445 473 475 473 508 0 66
-                -34 100 -100 100 -33 0 -63 -28 -508 -473 l-474 -474 -472 471 c-260 260 -482
-                474 -493 476 -11 3 -35 1 -52 -4z"
-                                  />
-                                </g>
-                              </svg>
-                            </button>
-                          </div>
+                  {/* <boughtItem> */}
+                  <div id="boughtItem">
+                    <div id="boughtItemContainer"
+                         className="mx-auto flex w-full items-center justify-between">
+                      <div className="flex h-full items-center flex-start">
+                        <div className="inline-flex h-full pr-3">
+                          <Image
+                            src={masterandemissarry.src}
+                            alt="yuko"
+                            width="60"
+                            height="60"
+                          />
                         </div>
-                        <div id="cartItemBorderGap" className="py-6 pb-6">
-                          <div className="border-b border-solid border-foreground"></div>
+                        <div
+                          className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                          <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                            Sole)
+                          </div>
+                          <div className="flex font-light">13</div>
                         </div>
                       </div>
-                    ))}
+                      <div className="inline-flex text-sm flex-end">$135.00</div>
+                    </div>
+                    <div id="borderGap" className="py-6 pb-6">
+                      <div className="border-b border-solid border-foreground"></div>
+                    </div>
                   </div>
+                  {/* <boughtItem /> */}
 
                   <div
                     className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
@@ -1251,7 +1265,7 @@ const PaymentPageContent: React.FC = () => {
                        type="button"
                   >
                     {isNavigating ? (
-                      <button className={`${styles.loader} flex`}></button>
+                      <button className={styles.loader}></button>
                     ) : (
                       <button className="flex mx-auto">CONTINUE TO PAYMENT</button>
                     )}
@@ -1889,12 +1903,14 @@ const PaymentPageContent: React.FC = () => {
              className={`${isContinuedToPayment ? 'xs:hidden sm:hidden' : ''} relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%`}>
           <div className="">
             <div id="checkoutTitle"
-                 className="pt-1 border-yellow xs:block sm:block md:hidden lg:hidden">
-              <div className="flex h-full border-red pb-1">
+                 className="pt-1 xs:block sm:block md:hidden lg:hidden">
+              <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">
                   <a href="/">Xandria</a>
                 </h1>
               </div>
+
+
               <div id="orderSummaryBanner"
                    className={`relative z-10 flex py-4 text-sm font-medium justify-between items-center before:content-[''] before:absolute before:top-0 before:bottom-0 before:bg-translucent before:border-y before:border-foreground before:left-[calc(50%-50vw)] before:right-[calc(50%-50vw)] before:-z-10`}>
                 <div id="orderSummaryLabel">
@@ -1913,15 +1929,15 @@ const PaymentPageContent: React.FC = () => {
                       <p>Hide Order Summary</p>
                     </div>
                     <div id="summaryArrowButton"
-                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
+                         className={`${styles.summaryArrowIcon} ${isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground pl-2`}>
                       <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                       </svg>
                     </div>
                     <div id="summaryArrowButton"
-                         className={`${styles.summaryArrowIcon} ${!isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2`}>
-                      <svg className="rotate-180" width="11" height="7" xmlns="http://www.w3.org/2000/svg">
+                         className={`${styles.summaryArrowIcon} ${!isOrderSummaryHidden ? 'hidden' : 'flex'} fill-foreground px-2 rotate-180`}>
+                      <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                       </svg>
@@ -1964,100 +1980,44 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                   <span className="pl-4">$135.00</span>
                 </div>
-                <div id="clearCartWindow"
-                     ref={clearCartWindowRef}
-                     className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0
-                    xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
-                    border-foreground border rounded-md bg-background
-                    xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent
-                    xs:before:border-r-transparent xs:before:border-b-gray-300
-                    xs:before:border-t-transparent xs:before:border-l-8 xs:before:border-r-8 xs:before:border-b-8
-                    xs:before:border-solid xs:before:content-[''] xs:before:absolute
-                    sm:before:-top-2 sm:before:left-1/2 sm:before:-translate-x-1/2 sm:before:border-l-transparent
-                    sm:before:border-r-transparent sm:before:border-b-gray-300
-                    sm:before:border-t-transparent sm:before:border-l-8 sm:before:border-r-8 sm:before:border-b-8
-                    sm:before:border-solid sm:before:content-[''] sm:before:absolute`}
-                >
-                  <div className={`flex flex-col`}>
-                    <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
-                    <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
-                      <button
-                        className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
-                        onClick={handleNavigateHome}
-                      >
-                        Yes
-                      </button>
-                      <button
-                        className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
-                        onClick={handleCloseClearCartWindow}
-                      >
-                        No
-                      </button>
-                    </div>
-                  </div>
-                </div>
               </div>
+
             </div>
 
             <div id="borderSummary"
                  className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
               <div className="pt-6"></div>
               <div
-                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
+                className={` ${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
 
-                <div id="cartItems">
-                  {cartItems.map((item, index) => (
-                    <div key={index} className="select-none">
-                      <div className="mx-auto flex w-full justify-between">
-                        {/* Map over the cart items and display them */}
-                        <div className="cart-item w-full flex h-full items-center flex-start">
-                          <div className="inline-flex pr-3 w-20 h-20 object-cover">
-                            <img src={item.imageUrl} alt={item.bookTitle}/>
-                          </div>
-                          <div id="itemDetailsLeftSide"
-                               className="flex h-full flex-col justify-center text-sm w-full">
-                            <div className="pr-8">{item.bookTitle}</div>
-                            <div className="pr-8">{item.bookAuthors}</div>
-                            <div className="flex justify-between w-full">
-                              <div className="flex">{item.bookType}</div>
-                              <div className="flex">${item.totalPrice.toFixed(2)}</div>
-                            </div>
-                            <div className="flex font-light pr-8">Qty: {item.qty}</div>
-                          </div>
-                        </div>
-                        <div className="relative text-sm flex flex-col flex-end">
-                          <button
-                            className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
-                            <svg
-                              className={``}
-                              version="1.0"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="32px"
-                              height="32px"
-                              viewBox="0 0 752.000000 752.000000"
-                              preserveAspectRatio="xMidYMid meet">
-                              <g
-                                transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                                stroke="none">
-                                <path
-                                  d="M2743 4838 c-41 -11 -65 -46 -65 -94 0 -35 21 -58 473 -510 l474
-                -474 -474 -474 c-445 -445 -473 -475 -473 -508 0 -66 34 -100 100 -100 33 0
-                63 28 508 473 l474 474 474 -474 c445 -445 475 -473 508 -473 66 0 100 34 100
-                100 0 33 -28 63 -473 508 l-474 474 474 474 c445 445 473 475 473 508 0 66
-                -34 100 -100 100 -33 0 -63 -28 -508 -473 l-474 -474 -472 471 c-260 260 -482
-                474 -493 476 -11 3 -35 1 -52 -4z"
-                                />
-                              </g>
-                            </svg>
-                          </button>
-                        </div>
+                {/* <boughtItem> */}
+                <div id="boughtItem">
+                  <div id="boughtItemContainer"
+                       className="mx-auto flex w-full items-center justify-between">
+                    <div className="flex h-full items-center flex-start">
+                      <div className="inline-flex h-full pr-3">
+                        <Image
+                          src={masterandemissarry.src}
+                          alt="yuko"
+                          width="60"
+                          height="60"
+                        />
                       </div>
-                      <div id="cartItemBorderGap" className="py-6 pb-6">
-                        <div className="border-b border-solid border-foreground"></div>
+                      <div
+                        className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
+                        <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                          Sole)
+                        </div>
+                        <div className="flex font-light">13</div>
                       </div>
                     </div>
-                  ))}
+                    <div className="inline-flex text-sm flex-end">$135.00</div>
+                  </div>
+                  <div id="borderGap" className="py-6 pb-6">
+                    <div className="border-b border-solid border-foreground"></div>
+                  </div>
                 </div>
+                {/* <boughtItem /> */}
 
                 <div
                   className={`${isReviewed ? 'hidden' : ''} flex justify-between border-b-gray-50 pb-6 xs:gap-2 sm:gap-2 md:gap-4 lg:gap-4`}>
@@ -2079,7 +2039,7 @@ const PaymentPageContent: React.FC = () => {
                     )}
                   </div>
                   <div
-                    className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded py-2 px-5 font-bold border-transparent
+                    className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
                     onClick={isCodeValid && !isLoading ? handleApplyButtonClick : undefined}
@@ -2091,8 +2051,8 @@ const PaymentPageContent: React.FC = () => {
                     )}
                   </div>
                 </div>
-                <div
-                  className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'} flex flex-col border-solid border-foreground`}>
+                <div className={`${isReviewed ? 'border-b pb-6' : 'border-y py-6'}
+              flex flex-col border-solid border-foreground`}>
                   <div className="flex justify-between pb-4">
                     <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                     <div className="inline-flex text-sm flex-end font-bold">$135.00
@@ -2115,10 +2075,9 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                   </div>
                 </div>
-                <div className="py-1"></div>
                 <div id="shippingButton">
-                  <div className={`${isReviewed ? 'pt-5' : ''} sm:hidden xs:hidden flex justify-end`}>
-                    {isReviewed ? (
+                  <div className={`sm:hidden xs:hidden flex justify-end pt-8`}>
+                    {isReviewed && (
                       <div id="incompleteError"
                            className="flex text-sm pr-16 text-custom-red xs:w-1/2">
                         <button className="underline hover:no-underline"
@@ -2126,44 +2085,6 @@ const PaymentPageContent: React.FC = () => {
                         >
                           Cancel
                         </button>
-                      </div>
-                    ) : (
-                      <div className="relative flex justify-end items-center">
-                        <div id="totalOrderPriceBinButton"
-                             className={`group xs:hidden sm:hidden`}
-                             onClick={handleOpenClearCartWindow}
-                        >
-                          <div id="binButtonDefaultRightSide"
-                               className="w-fit h-fit group-hover:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
-                                 style={{stroke: '#d2cfca2b'}}
-                                 fill="none">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M4 7l16 0"/>
-                              <path d="M10 11l0 6"/>
-                              <path d="M14 11l0 6"/>
-                              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
-                              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
-                            </svg>
-                          </div>
-                          <div id="binButtonHoverRightSide"
-                               className="w-fit h-fit">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
-                                 viewBox="00 24 24"
-                                 fill="none">
-                              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                              <path d="M4 7h16"/>
-                              <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
-                              <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
-                              <path d="M10 12l4 4m0 -4l-4 4"/>
-                            </svg>
-                          </div>
-                        </div>
-                        <div className="xs:hidden sm:hidden">
-
-                        </div>
                       </div>
                     )}
                     <a
@@ -2173,33 +2094,6 @@ const PaymentPageContent: React.FC = () => {
                     >
                       PLACE ORDER
                     </a>
-                  </div>
-                </div>
-                <div className="flex w-full justify-center">
-                  <div id="clearCartWindow"
-                       ref={clearCartWindowRef}
-                       className={`
-                         ${isClearCartWindowOpen ? 'flex xs:hidden sm:hidden' : 'hidden'} 
-                          absolute z-20 mx-auto px-4 py-3 h-20 border-solid border-foreground border rounded-md bg-background
-                          `}
-                  >
-                    <div className={`flex flex-col`}>
-                      <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
-                      <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
-                        <button
-                          className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
-                          onClick={handleNavigateHome}
-                        >
-                          Yes
-                        </button>
-                        <button
-                          className="text-foreground hover:text-white py-0.5 border border-solid border-foreground rounded-md w-full hover:border-gray-500"
-                          onClick={handleCloseClearCartWindow}
-                        >
-                          No
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
