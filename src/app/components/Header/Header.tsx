@@ -19,8 +19,8 @@ const Header: React.FC<HeaderProps> = ({
   isBookPage = false,
 }) => {
 
-  const cartData = localStorage.getItem('cart');
-  const {cartItems, removeFromCart} = useCart();
+  // @ts-ignore
+  const { totalQty } = useCart();
 
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
@@ -187,6 +187,13 @@ const Header: React.FC<HeaderProps> = ({
                 />
               </g>
             </svg>
+            <div>
+              {totalQty > 0 && (
+                <div>
+                  {totalQty}
+                </div>
+              )}
+            </div>
           </a>
         </div>
       </div>

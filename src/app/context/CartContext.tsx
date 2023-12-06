@@ -20,6 +20,8 @@ type CartContextType = {
   addToCart: (item: CartItem) => void;
   removeFromCart: (item: CartItem) => void;
   clearCart: (item: CartItem) => void;
+  totalPrice: number;
+  totalQty: number;
 };
 
 type CartProviderProps = {
@@ -38,10 +40,30 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    // instead of simply parsing the data, we need to also set it to an array for .map
     const localData = localStorage.getItem('cart');
-    return localData ? JSON.parse(localData) : [];
+    const parsedData = localData ? JSON.parse(localData) : null;
+    return parsedData ? parsedData.items : [];
   });
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQty, setTotalQty] = useState(0);
 
+  useEffect(() => {
+    // Whenever cartItems changes, update totalPrice and totalQty
+    const newTotalPrice = cartItems.reduce((acc, item) => acc + item.qtyPrice, 0);
+    const newTotalQty = cartItems.reduce((acc, item) => acc + item.qty, 0);
+
+    setTotalPrice(newTotalPrice);
+    setTotalQty(newTotalQty);
+
+    // Update local storage
+    const cartData = {
+      items: cartItems,
+      totalPrice: newTotalPrice,
+      totalQty: newTotalQty
+    };
+    localStorage.setItem('cart', JSON.stringify(cartData));
+  }, [cartItems]);
 
   const addToCart = (newItem: any) => {
     setCartItems(currentItems => {
@@ -65,18 +87,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         updatedItems = [...currentItems, newItem];
       }
 
-      // Calculate totals
-      const totalPrice = updatedItems.reduce((acc, item) => acc + item.qtyPrice, 0);
-      const totalQty = updatedItems.reduce((acc, item) => acc + item.qty, 0);
-
-      // Save the updated cart with totals to local storage
-      const cartData = {
-        items: updatedItems,
-        totalPrice: totalPrice,
-        totalQty: totalQty
-      };
-      localStorage.setItem('cart', JSON.stringify(cartData));
-
       return updatedItems;
     });
   };
@@ -93,7 +103,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, totalQty, totalPrice, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

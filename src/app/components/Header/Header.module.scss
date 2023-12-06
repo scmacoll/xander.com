@@ -159,3 +159,18 @@
     display: none;
   }
 }
+
+.cartNotificationBubble {
+  position: absolute; /* Adjust as necessary to position correctly */
+  top: -5px; /* Adjust as necessary */
+  right: -5px; /* Adjust as necessary */
+  background-color: red; /* Choose a color that stands out */
+  color: white;
+  border-radius: 50%;
+  width: 20px; /* Adjust as necessary */
+  height: 20px; /* Adjust as necessary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
