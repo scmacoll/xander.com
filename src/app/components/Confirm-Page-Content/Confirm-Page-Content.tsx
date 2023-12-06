@@ -449,7 +449,7 @@ const ConfirmPageContent: React.FC = () => {
                           <div className="pr-8">{item.bookAuthors}</div>
                           <div className="flex justify-between w-full">
                             <div className="flex">{item.bookType}</div>
-                            <div className="flex">${item.totalPrice.toFixed(2)}</div>
+                            <div className="flex">${item.qtyPrice.toFixed(2)}</div>
                           </div>
                           <div className="flex font-light pr-8">Qty: {item.qty}</div>
                         </div>

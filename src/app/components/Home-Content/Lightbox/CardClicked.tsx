@@ -17,20 +17,20 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
 
   // Initialize state
   const [qty, setQty] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(parseFloat(card.book_price));
+  const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price));
 
   // Event handlers
   const incrementQty = () => {
     const newQty = qty + 1;
     setQty(newQty);
-    setTotalPrice(newQty * parseFloat(card.book_price));
+    setQtyPrice(newQty * parseFloat(card.book_price));
   };
 
   const decrementQty = () => {
     if (qty > 1) {
       const newQty = qty - 1;
       setQty(newQty);
-      setTotalPrice(newQty * parseFloat(card.book_price));
+      setQtyPrice(newQty * parseFloat(card.book_price));
     }
   };
 
@@ -38,10 +38,10 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const { clearCart } = useCart();
 
   const handleAddToCart = () => {
-    const newItem = {
+    const newItem: any = {
       qty,
       imageUrl: `/${card.cell_name}.jpg`,
-      totalPrice: totalPrice,
+      qtyPrice: qtyPrice,
       bookPrice: parseFloat(card.book_price),
       bookTitle: card.book_title,
       bookAuthors: card.book_authors,
@@ -57,13 +57,6 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     clearCart();
   };
 
-  const handleCheckCart = () => {
-    console.log("cartItems: ", cartItems);
-  };
-
-  useEffect(() => {
-    console.log("Cart items after update:", cartItems);
-  }, [cartItems]);
 
   return (
     <div className={`${styles.cardContent} select-none`}>
@@ -358,10 +351,14 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           <div className={`${styles.totalWrapper}`}>
             <div className={`${styles.itemTotal}`}>
               <span>Total:&nbsp;</span>
-              <span>${totalPrice.toFixed(2)}</span>
+              <span>${qtyPrice.toFixed(2)}</span>
             </div>
           </div>
           <div className={`${styles.checkoutWrapper}`}>
+            <div
+              className={`${styles.checkoutAddToCart} cursor-pointer border-solid bg-shopify-blue border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
+              <button>Reset</button>
+            </div>
             <div
               className={`${styles.checkoutAddToCart} cursor-pointer border-solid bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
               <button onClick={handleAddToCart}>Add To Cart</button>

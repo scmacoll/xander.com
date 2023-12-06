@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styles from './Header.module.scss';
 import SearchForm from '../Search/SearchForm';
+import { useCart } from "@/app/context/CartContext";
 
 interface HeaderProps {
   onFocusModeToggle: () => void;
@@ -17,6 +18,10 @@ const Header: React.FC<HeaderProps> = ({
   shortenTitle = false,
   isBookPage = false,
 }) => {
+
+  const cartData = localStorage.getItem('cart');
+  const {cartItems, removeFromCart} = useCart();
+
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
   };
@@ -151,7 +156,7 @@ const Header: React.FC<HeaderProps> = ({
             </g>
           </svg>
         </div>
-        <div className={`${styles.shoppingBagIcon}`}>
+        <div id="cartShoppingBag" className={`${styles.shoppingBagIcon}`}>
           <a href="/checkout">
             <svg id="checkoutBagIcon"
               // className={svgClass}
