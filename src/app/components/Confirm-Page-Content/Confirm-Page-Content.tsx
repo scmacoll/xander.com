@@ -435,12 +435,12 @@ const ConfirmPageContent: React.FC = () => {
               {/* right padding is for space between scroll bar && content */}
               <div id="cartItems">
                 {cartItems.map((item, index) => (
-                  <div key={index} className="select-none">
+                  <div key={index} className="select-none pointer-events-none">
                     <div className="mx-auto flex w-full justify-between">
                       {/* Map over the cart items and display them */}
                       <div className="cart-item w-full flex h-full items-center flex-start">
                         <div className="inline-flex pr-3 w-20 h-20">
-                          <img src={item.imageUrl} alt={item.bookTitle} draggable="false"/>
+                          <img className={styles.unselectable} src={item.imageUrl} alt={item.bookTitle} draggable="false"/>
                         </div>
                         <div id="itemDetailsLeftSide"
                              className="flex h-full flex-col justify-center text-sm w-full">
