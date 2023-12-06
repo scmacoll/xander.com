@@ -1171,7 +1171,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
           </div>
         </div>
         <div id="rightContentWrapper"
-             className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
+             className="relative border-red flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
           <div id="checkoutTitle"
                className="pt-1 xs:block sm:block md:hidden lg:hidden">
             <div className="flex pb-1">
@@ -1213,6 +1213,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                 </button>
               </div>
+
               <div id="summaryBannerLeftSection"
                    className="font-bold text-lg">
                 <div id="summaryBannerBinButton"
@@ -1281,6 +1282,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
           <div id="borderSummary"
