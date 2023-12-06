@@ -156,7 +156,7 @@ const Header: React.FC<HeaderProps> = ({
             </g>
           </svg>
         </div>
-        <div id="cartShoppingBag" className={`${styles.shoppingBagIcon}`}>
+        <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
           <a href="/checkout">
             <svg id="checkoutBagIcon"
               // className={svgClass}
