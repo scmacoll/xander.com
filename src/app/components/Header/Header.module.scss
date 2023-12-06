@@ -160,17 +160,32 @@
   }
 }
 
+.wholeBubble {
+  position: absolute;
+  top: 0px;
+  right: 8px;
+}
+
 .cartNotificationBubble {
   position: absolute; /* Adjust as necessary to position correctly */
-  top: -5px; /* Adjust as necessary */
-  right: -5px; /* Adjust as necessary */
+  top: 7px; /* Adjust as necessary */
+  right: 12px; /* Adjust as necessary */
   background-color: red; /* Choose a color that stands out */
   color: white;
-  border-radius: 50%;
+  border-radius: 45%;
   width: 20px; /* Adjust as necessary */
   height: 20px; /* Adjust as necessary */
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
+}
+.bubbleTail {
+  position: absolute;
+  bottom: -5px; /* Adjust as necessary */
+  left: -0px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: red transparent transparent transparent;
+  transform: translateX(-50%) rotate(45deg);
 }

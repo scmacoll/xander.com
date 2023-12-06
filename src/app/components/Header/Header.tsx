@@ -189,8 +189,11 @@ const Header: React.FC<HeaderProps> = ({
             </svg>
             <div>
               {totalQty > 0 && (
-                <div>
-                  {totalQty}
+                <div className={styles.wholeBubble}>
+                  <div className={styles.cartNotificationBubble}>
+                    {totalQty}
+                    <span className={styles.bubbleTail}></span>
+                </div>
                 </div>
               )}
             </div>
