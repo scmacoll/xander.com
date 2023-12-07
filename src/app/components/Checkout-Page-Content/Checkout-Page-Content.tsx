@@ -13,7 +13,7 @@ interface CardProps {
 const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, removeFromCart} = useCart();
+  const {cartItems, totalPrice, orderNumber} = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isFocused, setIsFocused] = useState({
@@ -602,6 +602,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     }
   }, [shippingDetails, email]);
 
+  console.log("order number is : ", orderNumber);
 
   return (
     <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -864,7 +865,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       <div className="flex text-xl font-bold">Contact</div>
                       <div className="flex text-sm">
                         <div>Have an account?</div>
-                        <div className={`pl-1 font-bold`}>
+                        <div className={`cursor-pointer pl-1 font-bold`}>
                           Log in
                         </div>
                       </div>
@@ -1247,7 +1248,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     </svg>
                   </div>
                 </div>
-                <span className="pl-4">$135.00</span>
+                <span className="pl-4">${totalPrice}</span>
               </div>
               <div id="clearCartWindow"
                    ref={clearCartWindowRef}
@@ -1379,7 +1380,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                   <div className="inline-flex text-sm flex-end font-bold">
-                    $135.00
+                    ${totalPrice}
                   </div>
                 </div>
                 <div className="flex justify-between">
@@ -1397,7 +1398,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     <div ref={bottomRef}
                          className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
-                      $135.00
+                      ${totalPrice}
                     </div>
                   </div>
                 </div>

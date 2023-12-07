@@ -10,8 +10,7 @@ import { useCart } from "@/app/context/CartContext";
 const ConfirmPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-
-  const {cartItems, removeFromCart} = useCart();
+  const {cartItems, totalPrice, orderNumber} = useCart();
   console.log("Cart Items:", cartItems);
 
   const [email, setEmail] = useState('');
@@ -171,6 +170,8 @@ const ConfirmPageContent: React.FC = () => {
     return () => window.removeEventListener('resize', updateNumItems);
   }, []);
 
+  console.log("order number: ", orderNumber);
+
   return (
     <div
       className="relative select-none mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -198,7 +199,7 @@ const ConfirmPageContent: React.FC = () => {
             </div>
             <div>
               <div className="text-sm text-gray-400">
-                <p>Order #1494</p>
+                <p>Order #{orderNumber}</p>
               </div>
               <div className="font-bold text-lg">
                 <h4>Thank you {shippingFirstName}!</h4>
@@ -424,7 +425,7 @@ const ConfirmPageContent: React.FC = () => {
               </div>
               <div id="summaryBannerLeftSection"
                    className="font-bold text-lg">
-                <span className="pl-4">$135.00</span>
+                <span className="pl-4">${totalPrice}</span>
               </div>
             </div>
           </div>
@@ -466,7 +467,7 @@ const ConfirmPageContent: React.FC = () => {
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                   <div className="inline-flex text-sm flex-end font-bold">
-                    $135.00
+                    ${totalPrice}
                   </div>
                 </div>
                 <div className="flex justify-between">
@@ -484,7 +485,7 @@ const ConfirmPageContent: React.FC = () => {
                     <div ref={bottomRef}
                          className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
-                      $135.00
+                      ${totalPrice}
                     </div>
                   </div>
                 </div>

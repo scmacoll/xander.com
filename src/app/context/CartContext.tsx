@@ -13,6 +13,7 @@ export type CartItem = {
   qtyPrice: number;
   totalPrice: number;
   totalQty: number;
+  orderNumber: number;
 };
 
 type CartContextType = {
@@ -20,8 +21,11 @@ type CartContextType = {
   addToCart: (item: CartItem) => void;
   removeFromCart: (item: CartItem) => void;
   clearCart: (item: CartItem) => void;
+  generateOrderNumber: (item: CartItem) => void;
+  clearOrderNumber: (item: CartItem) => void;
   totalPrice: number;
   totalQty: number;
+  orderNumber: number | null;
 };
 
 type CartProviderProps = {
@@ -45,6 +49,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const parsedData = localData ? JSON.parse(localData) : null;
     return parsedData ? parsedData.items : [];
   });
+  const [orderNumber, setOrderNumber] = useState<number | null>(() => {
+    const localData = localStorage.getItem('cart');
+    if (localData) {
+      const parsedData = JSON.parse(localData);
+      return parsedData.orderNumber ?? null;  // Use null coalescing to default to null if orderNumber is not present
+    }
+    return null;
+  });
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
 
@@ -60,10 +72,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const cartData = {
       items: cartItems,
       totalPrice: newTotalPrice,
-      totalQty: newTotalQty
+      totalQty: newTotalQty,
+      orderNumber: orderNumber,
     };
     localStorage.setItem('cart', JSON.stringify(cartData));
-  }, [cartItems]);
+  }, [cartItems, orderNumber]);
 
   const addToCart = (newItem: CartItem) => {
     setCartItems(currentItems => {
@@ -72,7 +85,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         console.warn("Cannot add more items to the cart. Total quantity limit reached.");
         return currentItems;
       }
-
       const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
       let updatedItems;
       if (existingItemIndex !== -1) {
@@ -109,9 +121,19 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     console.log("Cart cleared");
   }
 
+  const generateOrderNumber = () => {
+    console.log("random number is being generated via context");
+    const randomNumber = Math.floor(1000 + Math.random() * 9000);
+    setOrderNumber(randomNumber);
+  };
+  const clearOrderNumber = () => {
+    console.log("order number is being cleared via context");
+    setOrderNumber(null);
+  };
+
 
   return (
-    <CartContext.Provider value={{ cartItems, totalQty, totalPrice, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, totalQty, totalPrice, orderNumber, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber }}>
       {children}
     </CartContext.Provider>
   );

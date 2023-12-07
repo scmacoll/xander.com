@@ -6,7 +6,7 @@ import { useCart } from "@/app/context/CartContext";
 const PaymentPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, removeFromCart} = useCart();
+  const {cartItems, totalPrice, orderNumber, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
@@ -780,7 +780,6 @@ const PaymentPageContent: React.FC = () => {
 
     // Save other details
     localStorage.setItem('cardNumber', cardDetails.cardNumber);
-    console.log(localStorage.getItem('billingFirstName'));
   }
 
   const handleReviewButtonClick = (event: React.MouseEvent) => {
@@ -789,9 +788,11 @@ const PaymentPageContent: React.FC = () => {
     handleCloseClearCartWindow()
     if (showValidatedContent) {
       saveToLocalStorage();
+      handleClearOrderNumber();
       setIsReviewing(true);
       setIsReviewed(false);
       setTimeout(() => {
+        handleGenerateOrderNumber();
         setIsReviewing(false);
         setIsReviewed(true);
         setOrderSummaryHidden(false);
@@ -878,6 +879,16 @@ const PaymentPageContent: React.FC = () => {
     // }
   }
 
+  const handleGenerateOrderNumber = () => {
+    console.log("handle generate random number invoked")
+    // @ts-ignore
+    generateOrderNumber();
+  };
+  const handleClearOrderNumber = () => {
+    console.log("handle clear order number invoked")
+    // @ts-ignore
+    clearOrderNumber();
+  }
 
   const handleOpenClearCartWindow = () => {
     setIsClearCartWindowOpen(true);
@@ -894,7 +905,6 @@ const PaymentPageContent: React.FC = () => {
 
     const handleOutsideClick = (event: MouseEvent) => {
       if (clearCartWindowRef.current && !clearCartWindowRef.current.contains(event.target as Node)) {
-        console.log("mouse click trigger √");
         handleCloseClearCartWindow();
       }
     };
@@ -995,9 +1005,7 @@ const PaymentPageContent: React.FC = () => {
     }
   }, [cardDetails]);
 
-  console.log("is card details valid: ", isCardValid);
-  console.log("is same address?: ", isSameAddress);
-  console.log("is continued to payment?", isContinuedToPayment);
+  console.log("order number is:  ", orderNumber);
 
   return (
     <div className="h-screen mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
@@ -1608,7 +1616,7 @@ const PaymentPageContent: React.FC = () => {
               <div className="flex items-center">
                 <div ref={bottomRef}
                      className={`${styles.smoothScroll} inline-flex text-2xl font-bold`}>
-                  $135.00
+                  ${totalPrice}
                 </div>
               </div>
             </div>
@@ -1656,6 +1664,7 @@ const PaymentPageContent: React.FC = () => {
                         <a
                           href="/confirm"
                           id="placeOrderButton"
+                          // onClick={handleGenerateOrderNumber}
                           className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
                               ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : ''}
                               `}
@@ -1804,7 +1813,7 @@ const PaymentPageContent: React.FC = () => {
                     </svg>
                   </div>
                 </div>
-                <span className="pl-4">$135.00</span>
+                <span className="pl-4">${totalPrice}</span>
               </div>
               <div id="clearCartWindow"
                    ref={clearCartWindowRef}
@@ -1936,7 +1945,7 @@ const PaymentPageContent: React.FC = () => {
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                   <div className="inline-flex text-sm flex-end font-bold">
-                    $135.00
+                    ${totalPrice}
                   </div>
                 </div>
                 <div className="flex justify-between">
@@ -1954,7 +1963,7 @@ const PaymentPageContent: React.FC = () => {
                     <div ref={bottomRef}
                          className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
-                      $135.00
+                      ${totalPrice}
                     </div>
                   </div>
                 </div>
@@ -2013,6 +2022,7 @@ const PaymentPageContent: React.FC = () => {
                     )}
                     <a
                       href="/confirm"
+                      // onClick={handleGenerateOrderNumber}
                       className={`border-2 rounded font-bold py-3 px-4 border-solid
                     ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : 'hidden'}`}
                     >
