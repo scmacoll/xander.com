@@ -34,29 +34,32 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     }
   };
 
-  const { cartItems, addToCart } = useCart();
-  const { clearCart } = useCart();
+  const { addToCart, clearCart } = useCart();
 
   const handleAddToCart = () => {
-    const newItem: any = {
-      qty,
-      imageUrl: `/${card.cell_name}.jpg`,
-      qtyPrice: qtyPrice,
-      bookPrice: parseFloat(card.book_price),
-      bookTitle: card.book_title,
-      bookAuthors: card.book_authors,
-      bookType: card.book_type,
-      bookDate: card.book_date
-    };
-    console.log("Item to be added: ", newItem);
-    addToCart(newItem);
+    console.log("add to cart invoked")
+    // const newItem: any = {
+    //   qty: 1,
+    //   imageUrl: `/${card.cell_name}.jpg`,
+    //   qtyPrice: parseFloat(card.book_price),
+    //   bookPrice: parseFloat(card.book_price),
+    //   bookTitle: card.book_title,
+    //   bookAuthors: card.book_authors,
+    //   bookType: card.book_type,
+    //   bookDate: card.book_date
+    // };
+    // console.log("Item to be added: ", newItem);
+    // addToCart(newItem);
   };
 
   const handleClearCart = () => {
-    // @ts-ignore
-    clearCart();
+    console.log("clear cart invoked")
+    // const item: any = [];
+    // // @ts-ignore
+    // clearCart(item);
   };
 
+  console.log("cycle rendered");
 
   return (
     <div className={`${styles.cardContent} select-none`}>
@@ -354,20 +357,20 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
               <span>${qtyPrice.toFixed(2)}</span>
             </div>
           </div>
-          <div className={`${styles.checkoutWrapper}`}>
-            <div
-              className={`${styles.checkoutAddToCart} cursor-pointer border-solid bg-shopify-blue border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
-              <button>Reset</button>
-            </div>
-            <div
-              className={`${styles.checkoutAddToCart} cursor-pointer border-solid bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
-              <button onClick={handleAddToCart}>Add To Cart</button>
-            </div>
-            <div
-              className={`${styles.checkoutBuyNow} cursor-pointer bg-custom-red border-solid border-foreground opacity-90 font-bold text-xs hover:bg-transparent hover:border-2`}>
-              <button onClick={handleClearCart}>BUY NOW</button>
-            </div>
+
+          <div className={`${styles.checkoutWrapper} gap-x-8`}>
+            <button
+              onClick={handleAddToCart}
+              className={`flex border-solid items-center justify-center p-3 w-100px h-50px  rounded bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
+              Add To Cart
+            </button>
+            <button
+              onClick={handleAddToCart}
+              className={`flex rounded p-3 w-100px h-50px justify-center items-center cursor-pointer bg-custom-red border-solid border-foreground opacity-90 font-bold text-xs hover:bg-transparent hover:border-2`}>
+              BUY NOW
+            </button>
           </div>
+
         </div>
       </div>
     </div>

@@ -65,7 +65,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cartData));
   }, [cartItems]);
 
-  const addToCart = (newItem: any) => {
+  const addToCart = (newItem: CartItem) => {
     setCartItems(currentItems => {
       const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
 
@@ -96,8 +96,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     // Implementation of removing from cart
   };
 
-  const clearCart = (item: CartItem) => {
+  const clearCart = () => {
     setCartItems([]);
+    setTotalQty(0);
+    setTotalPrice(0);
+    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0 }));
     console.log("Cart cleared");
   }
 
