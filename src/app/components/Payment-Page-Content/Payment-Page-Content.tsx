@@ -1616,7 +1616,7 @@ const PaymentPageContent: React.FC = () => {
               <div className="flex items-center">
                 <div ref={bottomRef}
                      className={`${styles.smoothScroll} inline-flex text-2xl font-bold`}>
-                  ${totalPrice}
+                  ${totalPrice.toFixed(2)}
                 </div>
               </div>
             </div>
@@ -1813,7 +1813,7 @@ const PaymentPageContent: React.FC = () => {
                     </svg>
                   </div>
                 </div>
-                <span className="pl-4">${totalPrice}</span>
+                <span className="pl-4">${totalPrice.toFixed(2)}</span>
               </div>
               <div id="clearCartWindow"
                    ref={clearCartWindowRef}
@@ -1945,7 +1945,7 @@ const PaymentPageContent: React.FC = () => {
                 <div className="flex justify-between pb-4">
                   <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
                   <div className="inline-flex text-sm flex-end font-bold">
-                    ${totalPrice}
+                    ${totalPrice.toFixed(2)}
                   </div>
                 </div>
                 <div className="flex justify-between">
@@ -1963,7 +1963,7 @@ const PaymentPageContent: React.FC = () => {
                     <div ref={bottomRef}
                          className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
-                      ${totalPrice}
+                      ${totalPrice.toFixed(2)}
                     </div>
                   </div>
                 </div>
