@@ -53,7 +53,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const newTotalPrice = cartItems.reduce((acc, item) => acc + item.qtyPrice, 0);
     const newTotalQty = cartItems.reduce((acc, item) => acc + item.qty, 0);
 
-    setTotalPrice(newTotalPrice);
+    setTotalPrice(parseFloat(newTotalPrice.toFixed(2)));
     setTotalQty(newTotalQty);
 
     // Update local storage
@@ -67,8 +67,13 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = (newItem: CartItem) => {
     setCartItems(currentItems => {
-      const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
+      const currentTotalQty = currentItems.reduce((acc, item) => acc + item.qty, 0);
+      if (currentTotalQty + newItem.qty > 30) {
+        console.warn("Cannot add more items to the cart. Total quantity limit reached.");
+        return currentItems;
+      }
 
+      const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
       let updatedItems;
       if (existingItemIndex !== -1) {
         // Update the item if it already exists
@@ -77,7 +82,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             return {
               ...item,
               qty: item.qty + newItem.qty, // Increment quantity
-              qtyPrice: (item.qty + newItem.qty) * item.bookPrice // Update total price
+              qtyPrice: parseFloat(((item.qty + newItem.qty) * item.bookPrice).toFixed(2)) // Update total price
             };
           }
           return item;

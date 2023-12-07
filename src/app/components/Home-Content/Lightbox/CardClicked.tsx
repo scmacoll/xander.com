@@ -21,16 +21,20 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
 
   // Event handlers
   const incrementQty = () => {
-    const newQty = qty + 1;
-    setQty(newQty);
-    setQtyPrice(newQty * parseFloat(card.book_price));
+    if (qty >= 10 ) {
+      return;
+    } else {
+      const newQty = qty + 1;
+      setQty(newQty);
+      setQtyPrice(parseFloat((newQty * parseFloat(card.book_price)).toFixed(2))); // format qtyPrice
+    }
   };
 
   const decrementQty = () => {
     if (qty > 1) {
       const newQty = qty - 1;
       setQty(newQty);
-      setQtyPrice(newQty * parseFloat(card.book_price));
+      setQtyPrice(parseFloat((newQty * parseFloat(card.book_price)).toFixed(2))); // format qtyPrice
     }
   };
 
@@ -41,8 +45,8 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     const newItem: any = {
       qty,
       imageUrl: `/${card.cell_name}.jpg`,
-      qtyPrice: parseFloat(card.book_price),
-      bookPrice: parseFloat(card.book_price),
+      qtyPrice: parseFloat((qty * parseFloat(card.book_price)).toFixed(2)), // format qtyPrice
+      bookPrice: parseFloat(card.book_price).toFixed(2),
       bookTitle: card.book_title,
       bookAuthors: card.book_authors,
       bookType: card.book_type,
