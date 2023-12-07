@@ -14,10 +14,9 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const isOneColumn = numColumns === 1;
   const imageUrl = `/${card.cell_name}.jpg`;
-
-  // Initialize state
   const [qty, setQty] = useState(1);
-  const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price));
+  const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price).toFixed(2));
+  const { addToCart, clearCart } = useCart();
 
   // Event handlers
   const incrementQty = () => {
@@ -26,7 +25,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     } else {
       const newQty = qty + 1;
       setQty(newQty);
-      setQtyPrice(parseFloat((newQty * parseFloat(card.book_price)).toFixed(2))); // format qtyPrice
+      setQtyPrice((newQty * parseFloat(card.book_price)).toFixed(2)); // format qtyPrice
     }
   };
 
@@ -34,11 +33,10 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     if (qty > 1) {
       const newQty = qty - 1;
       setQty(newQty);
-      setQtyPrice(parseFloat((newQty * parseFloat(card.book_price)).toFixed(2))); // format qtyPrice
+      setQtyPrice((newQty * parseFloat(card.book_price)).toFixed(2)); // format qtyPrice
     }
   };
 
-  const { addToCart, clearCart } = useCart();
 
   const handleAddToCart = () => {
     console.log("add to cart invoked")
@@ -357,7 +355,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           <div className={`${styles.totalWrapper}`}>
             <div className={`${styles.itemTotal}`}>
               <span>Total:&nbsp;</span>
-              <span>${qtyPrice.toFixed(2)}</span>
+              <span>${qtyPrice}</span>
             </div>
           </div>
 
