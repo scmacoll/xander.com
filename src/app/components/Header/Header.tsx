@@ -12,15 +12,15 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-  onFocusModeToggle,
-  isFocusMode = true,
-  showSearch,
-  shortenTitle = false,
-  isBookPage = false,
-}) => {
+                                         onFocusModeToggle,
+                                         isFocusMode = true,
+                                         showSearch,
+                                         shortenTitle = false,
+                                         isBookPage = false,
+                                       }) => {
 
   // @ts-ignore
-  const { totalQty } = useCart();
+  const {totalQty} = useCart();
 
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
@@ -37,21 +37,22 @@ const Header: React.FC<HeaderProps> = ({
       ${styles.header}
       ${shortenTitle ? styles.shortenTitle : ''} 
       ${showSearch ? 'pb-4' : ''} 
-      flex justify-between items-center mx-auto p-1
+      relative flex justify-between items-center mx-auto p-1
       `}>
+
 
       <div
         id="focusButton"
         className="text-3xl xs:hidden"
-        style={{ transform: 'translateX(4px)' }}
+        style={{transform: 'translateX(4px)'}}
       >
         <svg id="dropdownIcon" className="hidden"
-          version="1.0"
-          xmlns="http://www.w3.org/2000/svg"
-          width="2.2rem"
-          height="2.2rem"
-          viewBox="0 0 752.000000 752.000000"
-          preserveAspectRatio="xMidYMid meet">
+             version="1.0"
+             xmlns="http://www.w3.org/2000/svg"
+             width="2.2rem"
+             height="2.2rem"
+             viewBox="0 0 752.000000 752.000000"
+             preserveAspectRatio="xMidYMid meet">
           <g
             transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
             fill="rgba(210, 207, 202, 0.8)"
@@ -125,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({
           <h1>Xandria</h1>
         </a>
       </div>
-      {showSearch && <SearchForm isBookPage={isBookPage} />}
+      {showSearch && <SearchForm isBookPage={isBookPage}/>}
       <div id="headerIcons"
            className="flex cursor-pointer mx-auto justify-end align-center h-fit">
         <div className={`${styles.heartIcon} xs:hidden`}>
@@ -193,7 +194,7 @@ const Header: React.FC<HeaderProps> = ({
                   <div className={styles.cartNotificationBubble}>
                     {totalQty}
                     <span className={styles.bubbleTail}></span>
-                </div>
+                  </div>
                 </div>
               )}
             </div>

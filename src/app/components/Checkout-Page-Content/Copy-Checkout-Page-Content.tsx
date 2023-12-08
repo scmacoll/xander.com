@@ -455,7 +455,7 @@ const CheckoutPageContent: React.FC = () => {
                             Billing Address</div>
                         </div>
                       </div>
-                      <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                      <div id="shippingBillingCheckbox" className="flex items-center py-4">
                         <input type="checkbox" className="accent-foreground"
                         />
                         <div className="pl-2 text-sm">
@@ -615,7 +615,7 @@ const CheckoutPageContent: React.FC = () => {
                             <div>Billing Address</div>
                         </div>
                       </div>
-                      <div id="shippingBillingCheckbox" className="flex items-centerborder-red py-4">
+                      <div id="shippingBillingCheckbox" className="flex items-center py-4">
                         <input type="checkbox" className="accent-foreground"
                         />
                         <div className="pl-2 text-sm">Billing address is the same as shipping address</div>
