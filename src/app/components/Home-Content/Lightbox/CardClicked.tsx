@@ -365,25 +365,24 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           </div>
 
           <div className={`${styles.checkoutWrapper} gap-x-8`}>
-            {!isConfirmAddToCart ? (
+
+            <div className="relative flex items-center justify-center p-3 w-100px h-50px border">
               <button
                 onClick={handleAddToCart}
-                className={`flex border-solid items-center justify-center p-3 w-100px h-50px  rounded bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2`}>
+                className={`absolute inset-0 flex items-center justify-center p-3 w-100px h-50px rounded bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2 transition-opacity duration-500 ${isConfirmAddToCart ? 'hover:border-transparent border-transparent text-transparent bg-transparent opacity-0' : 'opacity-100'}`}>
                 Add To Cart
               </button>
-            ) : (
               <span
                 id="confirmTickButton"
-                className={`flex items-center pointer-events-none cursor-default justify-center p-3 w-100px h-50px rounded bg-transparent font-bold text-xs `}>
+                className={`absolute inset-0 flex items-center pointer-events-none cursor-default justify-center p-3 w-100px h-50px rounded bg-transparent font-bold text-xs transition-opacity duration-500 ${isConfirmAddToCart ? 'opacity-100' : 'opacity-0'}`}>
                 <svg id="confirmTickIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="40px"
                      height="40px">
                   <path
                     // fill="rgb(185, 161, 111)"
-                    fill="rgba(185, 165, 111)"
+                    style={{ fill: !isConfirmAddToCart ? 'transparent' : 'rgba(185, 165, 111)' }}
                     d="M 25 2 C 12.309534 2 2 12.309534 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z M 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 13.390466 13.390466 4 25 4 z M 34.988281 14.988281 A 1.0001 1.0001 0 0 0 34.171875 15.439453 L 23.970703 30.476562 L 16.679688 23.710938 A 1.0001 1.0001 0 1 0 15.320312 25.177734 L 24.316406 33.525391 L 35.828125 16.560547 A 1.0001 1.0001 0 0 0 34.988281 14.988281 z"/>
                   </svg>
-              </span>
-            )}
+              </span></div>
             <button
               onClick={handleClearCart}
               className={`flex rounded p-3 w-100px h-50px justify-center items-center cursor-pointer bg-custom-red border-solid border-foreground opacity-90 font-bold text-xs hover:bg-transparent hover:border-2`}>
