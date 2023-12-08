@@ -72,7 +72,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
       <div className={`${styles.contentWrapper}`}>
         <div className={`${styles.topContent}`}>
           <div>
-            <p className={`${styles.cardTitle}`}>{'"' + card.quote + '"'}</p>
+            <p className={`${styles.cardTitle} select-text`}>{'"' + card.quote + '"'}</p>
           </div>
           <div className={`${styles.cardAuthor} cursor-pointer`}>
             <div className={`${styles.authorName}`}>

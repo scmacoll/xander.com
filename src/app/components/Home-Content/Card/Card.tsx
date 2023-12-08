@@ -10,10 +10,34 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
+
+  const handleInteraction = (event: React.MouseEvent) => {
+    // List of classes to ignore
+    const ignoredClasses = [
+      styles.cardAuthor,
+      styles.authorName,
+      styles.dp,
+      styles.cardUserClick,
+      styles.cardHeart
+    ];
+
+    // Check if any of the ignored classes are part of the event's path
+    // @ts-ignore
+    const isIgnored = event.nativeEvent.composedPath().some((element: Element) => {
+      return ignoredClasses.some(ignoredClass => element.classList?.contains(ignoredClass));
+    });
+
+    // Call onInteraction if the click was not on an ignored element
+    if (!isIgnored) {
+      onInteraction();
+    }
+  };
+
   return (
-    <div className={`${styles.cardContent}`}>
-      <div className={`${styles.topContent}`}>
-        <div onClick={onInteraction}>
+    <div className={`${styles.cardContent} select-none`}>
+      <div onClick={handleInteraction}
+        className={`${styles.topContent}`}>
+        <div  className="">
           <p className={`${styles.cardTitle}`}>{card.quote}</p>
         </div>
         <div className={`${styles.cardAuthor}`}>
