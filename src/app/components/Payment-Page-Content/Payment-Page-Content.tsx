@@ -1862,7 +1862,7 @@ const PaymentPageContent: React.FC = () => {
                     <div className="mx-auto flex w-full justify-between">
                       {/* Map over the cart items and display them */}
                       <div className="cart-item w-full flex h-full items-center flex-start">
-                        <div className="inline-flex pr-3 w-20 h-20 object-cover">
+                        <div className="inline-flex pr-3 w-20 h-24 object-cover">
                           <img src={item.imageUrl} alt={item.bookTitle}/>
                         </div>
                         <div id="itemDetailsLeftSide"
