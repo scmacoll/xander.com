@@ -1301,14 +1301,32 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <img src={item.imageUrl} alt={item.bookTitle}/>
                         </div>
                         <div id="itemDetailsLeftSide"
-                             className="flex h-full flex-col justify-center text-sm w-full">
+                             className="flex h-full flex-col justify-center text-sm w-2/3">
                           <div className="pr-8">{item.bookTitle}</div>
                           <div className="pr-8">{item.bookAuthors}</div>
-                          <div className="flex justify-between w-full">
+                          <div className="flex justify-between">
                             <div className="flex">{item.bookType}</div>
-                            <div className="flex">${item.qtyPrice.toFixed(2)}</div>
                           </div>
-                          <div className="flex font-light pr-8">Qty: {item.qty}</div>
+                          <div className="py-0.5"></div>
+                          <div id="itemQtyContainer"
+                               className="flex items-center w-fit border border-solid border-foreground rounded">
+                            <svg className="h-3 px-2" focusable="false" data-icon="trash" role="img"
+                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                              <path fill="currentColor"
+                                    d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
+                            </svg>
+                            <div
+                              className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{item.qty}</div>
+                            <div id="qtyPlusButton">
+                              <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
+                                   xmlns="http://www.w3.org/2000/svg"
+                                   viewBox="0 0 448 512">
+                                <path fill="rgb(210, 207, 202)"
+                                      d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                </path>
+                              </svg>
+                            </div>
+                            </div>
                         </div>
                       </div>
                       <div className="relative text-sm flex flex-col flex-end">
@@ -1336,6 +1354,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                             </g>
                           </svg>
                         </button>
+                        <div className="absolute right-0 bottom-0">
+                            <div className="flex">${item.qtyPrice.toFixed(2)}</div>
+                        </div>
                       </div>
                     </div>
                     <div id="cartItemBorderGap" className="py-6 pb-6">

@@ -368,13 +368,13 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
 
             <div className="relative flex items-center justify-center p-3 w-100px h-50px border">
               <button
-                onClick={handleAddToCart}
-                className={`absolute inset-0 flex items-center justify-center p-3 w-100px h-50px rounded bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2 transition-opacity duration-500 ${isConfirmAddToCart ? 'hover:border-transparent border-transparent text-transparent bg-transparent opacity-0' : 'opacity-100'}`}>
+                onClick={!isConfirmAddToCart ? handleAddToCart : undefined}
+                className={`absolute inset-0 flex items-center justify-center p-3 w-100px h-50px rounded bg-amazon-yellow border-foreground font-bold text-xs hover:bg-transparent hover:border-2 transition-opacity duration-500 ${isConfirmAddToCart ? 'hover:border-transparent border-transparent text-transparent bg-transparent opacity-0 select-none cursor-default' : 'opacity-100'}`}>
                 Add To Cart
               </button>
               <span
                 id="confirmTickButton"
-                className={`absolute inset-0 flex items-center pointer-events-none cursor-default justify-center p-3 w-100px h-50px rounded bg-transparent font-bold text-xs transition-opacity duration-500 ${isConfirmAddToCart ? 'opacity-100' : 'opacity-0'}`}>
+                className={`absolute inset-0 flex items-center pointer-events-none cursor-default justify-center p-3 w-100px h-50px rounded bg-transparent font-bold text-xs transition-opacity duration-500 select-none ${isConfirmAddToCart ? 'opacity-100' : 'opacity-0'}`}>
                 <svg id="confirmTickIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="40px"
                      height="40px">
                   <path
