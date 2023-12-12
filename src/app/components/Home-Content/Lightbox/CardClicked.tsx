@@ -157,66 +157,75 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           </div>
         </div>
         <div className={`${styles.middleBorder}`}></div>
-        <div className={`${styles.bottomContent} `}>
+        <div className={`${styles.bottomContent}`}>
           <div className={`${styles.cardIcons} `}>
-            <div className="flex">
-              <div className={`${styles.cardIcon} `}>
-                <a href="/book" target="_blank" rel="noopener noreferrer">
-                  <img
-                    className="min-w-20 w-20 pt-1"
-                    src={imageUrl}
-                    alt="book-image"
-                  />
-                </a>
+            <div className="flex flex-col">
+              <div className="flex flex-row h-fit">
+                <div className={`${styles.cardIcon} h-fit`}>
+                  <a href="/book" target="_blank" rel="noopener noreferrer">
+                    <img
+                      className="min-w-20 w-20 pt-1"
+                      src={imageUrl}
+                      alt="book-image"
+                    />
+                  </a>
+                </div>
+                <div className="hidden xs:block sm:block md:hidden lg:hidden xl:hidden">
+                  <div className="flex flex-col w-full">
+                    <div className={`${styles.bookTitleOne}`}>
+                      <a href="/book" target="_blank" rel="noopener noreferrer">
+                        <div id="bookName1">
+                          <p className={`${styles.bookName} font-bold`}>
+                            {card.book_title}
+                          </p>
+                        </div>
+                      </a>
+                    </div>
+                    <div className={`${styles.bookAuthor} w-full xs:pt-2 text-gray-400`}>
+                      <a href="/book" target="_blank" rel="noopener noreferrer">
+                        <p className="flex gap-2 xs:flex-col xs:gap-0">
+                          <span>{card.book_authors}</span>
+                          <span>{card.book_type}</span>
+                          <span>{card.book_date}</span>
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {isOneColumn && (
-                <div className="flex flex-col w-full">
-                  <div className={`${styles.bookTitleOne}`}>
-                    <a href="/book" target="_blank" rel="noopener noreferrer">
-                      <div id="bookName1">
-                        <p className={`${styles.bookName} font-bold`}>
-                          {card.book_title}
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                  <div className={`${styles.itemPriceXs} h-full`}>
-                    <div className={`${styles.itemToggles} flex justify-between select-none pt-5`}>
-                      <div id="itemQtyContainer"
-                           className="flex flex-start items-center w-fit border border-solid border-foreground rounded">
-                        <div>
-                          <button className="h-6" onClick={decrementQty}>
-                            <svg className="h-3 px-2" focusable="false" data-icon="minus" role="img"
-                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                              <path fill="currentColor"
-                                    d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"></path>
-                            </svg>
-                          </button>
-                        </div>
-                        <div
-                          className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{qty}</div>
-                        <button id="qtyPlusButton" onClick={incrementQty} className="h-6"
-                        >
-                          <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
-                               xmlns="http://www.w3.org/2000/svg"
-                               viewBox="0 0 448 512">
-                            <path fill="rgb(210, 207, 202)"
-                                  d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
-                            </path>
+                <div className={`${styles.itemPriceXs}`}>
+                  <div className={`${styles.itemToggles} flex justify-between select-none pt-2`}>
+                    <div id="itemQtyContainer"
+                         className="flex flex-start items-center w-fit border border-solid border-foreground rounded">
+                      <div>
+                        <button className="h-6" onClick={decrementQty}>
+                          <svg className="h-3 px-2" focusable="false" data-icon="minus" role="img"
+                               xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                            <path fill="currentColor"
+                                  d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"></path>
                           </svg>
                         </button>
                       </div>
-                      <div className={`flex flex-end items-end text-base`}>
-                        <p className="font-bold">${card.book_price}</p>
-                      </div>
-
+                      <div
+                        className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{qty}</div>
+                      <button id="qtyPlusButton" onClick={incrementQty} className="h-6"
+                      >
+                        <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
+                             xmlns="http://www.w3.org/2000/svg"
+                             viewBox="0 0 448 512">
+                          <path fill="rgb(210, 207, 202)"
+                                d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                          </path>
+                        </svg>
+                      </button>
+                    </div>
+                    <div className={`flex flex-end items-end text-base`}>
+                      <p className="font-bold">${card.book_price}</p>
                     </div>
                   </div>
 
-                </div>
-
-              )}
+              </div>
 
               <div className={`${styles.cardHeartTwo}`}>
                 <svg
@@ -246,123 +255,9 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                 </svg>
               </div>
             </div>
-            <div className={`${styles.itemButtons} h-full pt-4`}>
-
-              {!isOneColumn && (
-                <div className={`${styles.bookTitleTwo}`}>
-                  <a href="/book" target="_blank" rel="noopener noreferrer">
-                    <div id="bookName2">
-                      <p className={`${styles.bookName} font-bold`}>
-                        {card.book_title}
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              )}
-
-              <div className={`${styles.bookAuthor} w-full xs:pt-2 text-gray-400`}>
-                <a href="/book" target="_blank" rel="noopener noreferrer">
-                  <p className="flex gap-2 xs:flex-col xs:gap-0">
-                    <span className="flex gap-2">
-                      <span>By: {card.book_authors}</span>
-                      <span className={`${styles.largerPipe}`}>|</span>
-                      <span>{card.book_type}</span>
-                      <span className={`${styles.largerPipe} xs:hidden`}>|</span>
-                    </span>
-                    <span>{card.book_date}</span>
-                  </p>
-                </a>
-              </div>
-              {!isOneColumn && (
-                <div className={`${styles.itemToggles} flex select-none pt-5`}>
-                  <div className={`${styles.itemPrice}`}>
-                    <p className="font-bold">${card.book_price}</p>
-                  </div>
-                  <div id="itemQtyContainer"
-                       className="flex items-center w-fit border border-solid border-foreground rounded">
-                    <div>
-                      <button className="h-6" onClick={decrementQty}>
-                        <svg className="h-3 px-2" focusable="false" data-icon="minus" role="img"
-                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                          <path fill="currentColor"
-                                d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"></path>
-                        </svg>
-                      </button>
-                    </div>
-                    <div
-                      className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{qty}</div>
-                    <button id="qtyPlusButton" onClick={incrementQty} className="h-6"
-                    >
-                      <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
-                           xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 448 512">
-                        <path fill="rgb(210, 207, 202)"
-                              d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
-                        </path>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-                )}
-
-              {isOneColumn && (
-                <div className={`${styles.itemToggles} flex items-end`}>
-
-                  {/*<div className={`${styles.itemQtyXs}`}>*/}
-                  {/*  <div className="flex">*/}
-                  {/*    <div className={`${styles.itemQtyNumberXs}`}>*/}
-                  {/*      <p>Qty: 1</p>*/}
-                  {/*    </div>*/}
-                  {/*    <div className={`${styles.qtyPlusXs}`}>*/}
-                  {/*      <svg*/}
-                  {/*        version="1.0"*/}
-                  {/*        xmlns="http://www.w3.org/2000/svg"*/}
-                  {/*        width="2.25em"*/}
-                  {/*        height="3em"*/}
-                  {/*        viewBox="0 0 752.000000 752.000000"*/}
-                  {/*        preserveAspectRatio="xMidYMid meet">*/}
-                  {/*        <g*/}
-                  {/*          transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"*/}
-                  {/*          fill="#d2cfcaba"*/}
-                  {/*          stroke="none">*/}
-                  {/*          <path*/}
-                  {/*            d="M3701 5584 l-31 -26 -2 -851 -3 -852 -852 -5 c-787 -5 -854 -6 -872*/}
-                  {/*            -22 -39 -33 -39 -103 0 -136 18 -16 85 -17 872 -22 l852 -5 3 -851 2 -851 26*/}
-                  {/*            -24 c35 -32 93 -32 128 0 l26 24 2 851 3 851 851 3 851 2 24 26 c32 35 32 93*/}
-                  {/*            0 128 l-24 26 -851 2 -851 3 -3 852 -2 851 -31 26 c-17 15 -43 26 -59 26 -16*/}
-                  {/*            0 -42 -11 -59 -26z"*/}
-                  {/*          />*/}
-                  {/*        </g>*/}
-                  {/*      </svg>*/}
-                  {/*    </div>*/}
-                  {/*    <div className={`${styles.qtyMinusXs}`}>*/}
-                  {/*      <svg*/}
-                  {/*        version="1.0"*/}
-                  {/*        xmlns="http://www.w3.org/2000/svg"*/}
-                  {/*        width="2.25em"*/}
-                  {/*        height="3em"*/}
-                  {/*        viewBox="0 0 752.000000 752.000000"*/}
-                  {/*        preserveAspectRatio="xMidYMid meet">*/}
-                  {/*        <g*/}
-                  {/*          transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"*/}
-                  {/*          fill="#d2cfca"*/}
-                  {/*          stroke="none">*/}
-                  {/*          <path*/}
-                  {/*            d="M2016 3809 c-17 -13 -26 -30 -26 -49 0 -19 9 -36 26 -49 l27 -21*/}
-                  {/*            1717 0 1717 0 27 21 c35 28 35 70 0 98 l-27 21 -1717 0 -1717 0 -27 -21z"*/}
-                  {/*          />*/}
-                  {/*        </g>*/}
-                  {/*      </svg>*/}
-                  {/*    </div>*/}
-                  {/*  </div>*/}
-                  {/*</div>*/}
-
-                </div>
-              )}
-
-            </div>
           </div>
         </div>
+
         <div className={`${styles.checkoutContainer}`}>
           <div className={`${styles.totalWrapper}`}>
             <div className={`${styles.itemTotal}`}>
