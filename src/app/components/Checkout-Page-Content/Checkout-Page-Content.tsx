@@ -543,13 +543,14 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   };
 
   const handleRemoveFromCart = (itemTitle: string | any) => {
-    if (totalQty === 1) {
+    if (cartItems.length === 1) {
       handleOpenClearCartWindow()
     } else {
       removeFromCart(itemTitle);
     }
   };
 
+  console.log("cart items length: ", cartItems.length);
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;

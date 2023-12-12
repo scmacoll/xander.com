@@ -6,7 +6,7 @@ import { useCart } from "@/app/context/CartContext";
 const PaymentPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, totalPrice, orderNumber, generateOrderNumber, clearOrderNumber} = useCart();
+  const {cartItems, totalPrice, totalQty, orderNumber, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
@@ -898,7 +898,39 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleNavigateHome = () => {
     window.location.href = '/';
+    // @ts-ignore
+    clearCart();
   }
+
+  const handleIncreaseQty = (itemTitle: string) => {
+    const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
+    if (itemToUpdate) {
+      // Create a new CartItem with qty set to 1
+      const updatedItem = { ...itemToUpdate, qty: 1 };
+      addToCart(updatedItem); // Call addToCart with the updated item
+    }
+  };
+
+  const handleDecreaseQty = (itemTitle: string | any) => {
+    const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
+    if (itemToUpdate) {
+      if (itemToUpdate.qty > 1) {
+        // Decrease the quantity by 1
+        addToCart({ ...itemToUpdate, qty: -1 });
+      } else {
+        return;
+      }
+    }
+  };
+
+  const handleRemoveFromCart = (itemTitle: string | any) => {
+    if (cartItems.length === 1) {
+      handleOpenClearCartWindow()
+    } else {
+      removeFromCart(itemTitle);
+    }
+  };
+
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -1856,7 +1888,7 @@ const PaymentPageContent: React.FC = () => {
             <div
               className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
               {/* right padding is for space between scroll bar && content */}
-              <div id="cartItems">
+              <div id="cartItems" className="">
                 {cartItems.map((item, index) => (
                   <div key={index} className="select-none">
                     <div className="mx-auto flex w-full justify-between">
@@ -1867,17 +1899,57 @@ const PaymentPageContent: React.FC = () => {
                         </div>
                         <div id="itemDetailsLeftSide"
                              className="flex h-full flex-col justify-center text-sm w-full">
-                          <div className="pr-8">{item.bookTitle}</div>
-                          <div className="pr-8">{item.bookAuthors}</div>
-                          <div className="flex justify-between w-full">
+                          <div className="w-3/4">
+                            <div className="">{item.bookTitle}</div>
+                            <div className="pr-8">{item.bookAuthors}</div>
                             <div className="flex">{item.bookType}</div>
-                            <div className="flex">${item.qtyPrice.toFixed(2)}</div>
                           </div>
-                          <div className="flex font-light pr-8">Qty: {item.qty}</div>
+                          <div className="py-0.5"></div>
+                          <div className="flex items-center justify-between">
+                            <div id="itemQtyContainer"
+                                 className="flex items-center w-fit border border-solid border-foreground rounded">
+                              <div>
+                                {item.qty === 1 ? (
+                                  <button className="h-6" onClick={() => handleRemoveFromCart(item.bookTitle)}>
+                                    <svg id="itemQtyBin" className="h-3 px-2" focusable="false" data-icon="trash"
+                                         role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                      <path fill="currentColor"
+                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
+                                    </svg>
+                                  </button>
+                                ) : (
+                                  <button className="h-6" onClick={() => handleDecreaseQty(item.bookTitle)}>
+                                    <svg className="h-3 px-2" focusable="false" data-icon="minus" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                      <path fill="currentColor"
+                                            d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"></path>
+                                    </svg>
+                                  </button>
+                                )}
+                              </div>
+                              <div
+                                className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{item.qty}</div>
+                              <button id="qtyPlusButton" className="h-6"
+                                      onClick={() => handleIncreaseQty(item.bookTitle)}>
+                                <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
+                                     xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 448 512">
+                                  <path fill="rgb(210, 207, 202)"
+                                        d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
+                                  </path>
+                                </svg>
+                              </button>
+                            </div>
+                            <div className="inline-flex text-sm flex-end font-bold">
+                              ${item.qtyPrice.toFixed(2)}
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div className="relative text-sm flex flex-col flex-end">
                         <button
+                          onClick={() => {handleRemoveFromCart(item.bookTitle)}}
                           className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
                           <svg
                             className={``}
