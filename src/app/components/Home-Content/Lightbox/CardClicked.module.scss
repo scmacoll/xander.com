@@ -140,24 +140,8 @@
 }
 
 .bottomContent {
-  // position: absolute;
-  // top: 50%;
   display: flex;
-  //justify-content: center;
-  //align-items: center;
-  //align-content: center;
-  //justify-items: center;
-  // border-top: 0.01px solid rgb(var(--foreground-rgb), 0.7);
-  //margin-top: 1em;
   padding-top: 2em;
-  @media (max-width: 2000px) and (min-width: 1424px) {
-  }
-  @media (max-width: 1425px) and (min-width: 1200px) {
-  }
-  @media (max-width: 1199px) and (min-width: 1000px) {
-  }
-  @media (max-width: 999px) and (min-width: 750px) {
-  }
   @media (max-width: 749px) {
     padding-top: 0;
   }
