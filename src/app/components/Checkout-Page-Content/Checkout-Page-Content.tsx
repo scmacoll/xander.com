@@ -535,10 +535,13 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
         // Decrease the quantity by 1
         addToCart({ ...itemToUpdate, qty: -1 });
       } else {
-        // If qty becomes 1, remove the item from the cart
-        removeFromCart(itemTitle); // Pass itemTitle instead of the whole item object
+        return;
       }
     }
+  };
+
+  const handleRemoveFromCart = (itemTitle: string | any) => {
+    removeFromCart(itemTitle);
   };
 
 
@@ -1316,16 +1319,29 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <div className="flex items-center justify-between">
                             <div id="itemQtyContainer"
                                  className="flex items-center w-fit border border-solid border-foreground rounded">
-                              <div onClick={() => handleDecreaseQty(item.bookTitle)}>
-                                <svg id="itemQtyBin" className="h-3 px-2" focusable="false" data-icon="trash" role="img"
-                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                  <path fill="currentColor"
-                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
-                                </svg>
+                              <div>
+                                {item.qty === 1 ? (
+                                  <button className="h-6" onClick={() => handleRemoveFromCart(item.bookTitle)}>
+                                    <svg id="itemQtyBin" className="h-3 px-2" focusable="false" data-icon="trash"
+                                         role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                      <path fill="currentColor"
+                                            d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
+                                    </svg>
+                                  </button>
+                                ) : (
+                                  <button className="h-6" onClick={() => handleDecreaseQty(item.bookTitle)}>
+                                    <svg className="h-3 px-2" focusable="false" data-icon="minus" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                      <path fill="currentColor"
+                                            d="M424 318.2c13.3 0 24-10.7 24-24v-76.4c0-13.3-10.7-24-24-24H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h400z"></path>
+                                    </svg>
+                                  </button>
+                                )}
                               </div>
                               <div
                                 className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{item.qty}</div>
-                              <div id="qtyPlusButton"
+                              <button id="qtyPlusButton" className="h-6"
                                    onClick={() => handleIncreaseQty(item.bookTitle)}>
                                 <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
                                      xmlns="http://www.w3.org/2000/svg"
@@ -1334,7 +1350,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                                         d="M448 294.2v-76.4c0-13.3-10.7-24-24-24H286.2V56c0-13.3-10.7-24-24-24h-76.4c-13.3 0-24 10.7-24 24v137.8H24c-13.3 0-24 10.7-24 24v76.4c0 13.3 10.7 24 24 24h137.8V456c0 13.3 10.7 24 24 24h76.4c13.3 0 24-10.7 24-24V318.2H424c13.3 0 24-10.7 24-24z">
                                   </path>
                                 </svg>
-                              </div>
+                              </button>
                             </div>
 
                             <div className="inline-flex text-sm flex-end font-bold">
