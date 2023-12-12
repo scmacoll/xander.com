@@ -210,9 +210,6 @@
 }
 
 .itemPriceXs {
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
   font-size: 1rem;
 }
 
@@ -258,7 +255,7 @@
   align-items: center;
   justify-content: flex-start;
   padding-top: 0.5em;
-  width: 50%;
+  width: 80%;
 }
 
 .bookTitleTwo {
