@@ -181,12 +181,19 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                         </div>
                       </a>
                     </div>
-                    <div className={`${styles.bookAuthor} w-full text-gray-400`}>
+                    <div className={`${styles.bookAuthor} hidden xs:block w-full text-gray-400`}>
                       <a href="/book" target="_blank" rel="noopener noreferrer">
                         <p className="flex flex-col xs:gap-0">
                           <span>{card.book_authors}</span>
-                          <span>{card.book_type}</span>
+                        </p>
+                      </a>
+                    </div>
+                    <div className={`${styles.bookAuthor} xs:hidden w-full text-gray-400`}>
+                      <a href="/book" target="_blank" rel="noopener noreferrer">
+                        <p className="flex flex-col xs:gap-0">
+                          <span>{card.book_authors}</span>
                           <span>{card.book_date}</span>
+                          <span>{card.book_type}</span>
                         </p>
                       </a>
                     </div>
@@ -288,7 +295,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           </div>
         </div>
 
-        <div className={`${styles.checkoutContainer}`}>
+        <div className={`${styles.checkoutContainer} xs:pt-2`}>
           <div className={`${styles.totalWrapper}`}>
             <div className={`${styles.itemTotal}`}>
               <span>Total:&nbsp;</span>
