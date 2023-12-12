@@ -108,9 +108,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
   };
 
-  const removeFromCart = (item: CartItem) => {
-    console.log("Removing from cart: ", item);
-    // Implementation of removing from cart
+  const removeFromCart = (itemTitle: string) => {
+    setCartItems(currentItems => currentItems.filter(item => item.bookTitle !== itemTitle));
+    // You might also want to update totalPrice and totalQty here, similar to how it's done in useEffect
   };
 
   const clearCart = () => {

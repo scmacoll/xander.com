@@ -38,7 +38,6 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     }
   };
 
-
   const handleAddToCart = () => {
     console.log("add to cart invoked")
     const newItem: any = {

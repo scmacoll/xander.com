@@ -13,7 +13,7 @@ interface CardProps {
 const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, totalPrice, orderNumber} = useCart();
+  const { cartItems, totalPrice, orderNumber, addToCart, removeFromCart } = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isFocused, setIsFocused] = useState({
@@ -518,6 +518,29 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const handleNavigateHome = () => {
     window.location.href = '/';
   }
+
+  const handleIncreaseQty = (itemTitle: string) => {
+    const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
+    if (itemToUpdate) {
+      // Create a new CartItem with qty set to 1
+      const updatedItem = { ...itemToUpdate, qty: 1 };
+      addToCart(updatedItem); // Call addToCart with the updated item
+    }
+  };
+
+  const handleDecreaseQty = (itemTitle: string | any) => {
+    const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
+    if (itemToUpdate) {
+      if (itemToUpdate.qty > 1) {
+        // Decrease the quantity by 1
+        addToCart({ ...itemToUpdate, qty: -1 });
+      } else {
+        // If qty becomes 1, remove the item from the cart
+        removeFromCart(itemTitle); // Pass itemTitle instead of the whole item object
+      }
+    }
+  };
+
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
@@ -1293,14 +1316,17 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <div className="flex items-center justify-between">
                             <div id="itemQtyContainer"
                                  className="flex items-center w-fit border border-solid border-foreground rounded">
-                              <svg className="h-3 px-2" focusable="false" data-icon="trash" role="img"
-                                   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                <path fill="currentColor"
-                                      d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
-                              </svg>
+                              <div onClick={() => handleDecreaseQty(item.bookTitle)}>
+                                <svg id="itemQtyBin" className="h-3 px-2" focusable="false" data-icon="trash" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                  <path fill="currentColor"
+                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
+                                </svg>
+                              </div>
                               <div
                                 className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{item.qty}</div>
-                              <div id="qtyPlusButton">
+                              <div id="qtyPlusButton"
+                                   onClick={() => handleIncreaseQty(item.bookTitle)}>
                                 <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
                                      xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 448 512">
@@ -1312,7 +1338,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                             </div>
 
                             <div className="inline-flex text-sm flex-end font-bold">
-                              ${totalPrice.toFixed(2)}
+                              ${item.qtyPrice.toFixed(2)}
                             </div>
                           </div>
                        </div>

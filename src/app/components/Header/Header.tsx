@@ -40,7 +40,6 @@ const Header: React.FC<HeaderProps> = ({
       relative flex justify-between items-center mx-auto p-1
       `}>
 
-
       <div
         id="focusButton"
         className="text-3xl xs:hidden"
@@ -73,11 +72,7 @@ const Header: React.FC<HeaderProps> = ({
         </svg>
         <div
           className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
-                                                                                                          <span
-                                                                                                            className="cursor-pointer text-sm pr-2"
-                                                                                                            onClick={handleClick}>
-                                                                                                          Focus
-                                                                                                          </span>
+          <span className="cursor-pointer text-sm pr-2" onClick={handleClick}>Focus</span>
           <label
             className={`${styles.switch} ${
               isFocusMode ? styles.active : ''
