@@ -79,7 +79,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const [isClearCartWindowOpen, setIsClearCartWindowOpen] = React.useState(false);
   const clearCartWindowRef = useRef<null | HTMLDivElement>(null);
   const bottomRef = useRef<null | HTMLDivElement>(null);
-  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
+  const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(false);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const handleEmailChange = (event: any) => {
@@ -1358,7 +1358,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                                 </svg>
                               </button>
                             </div>
-
                             <div className="inline-flex text-sm flex-end font-bold">
                               ${item.qtyPrice.toFixed(2)}
                             </div>
