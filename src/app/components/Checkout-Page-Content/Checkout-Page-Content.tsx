@@ -13,7 +13,7 @@ interface CardProps {
 const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const { cartItems, totalPrice, orderNumber, addToCart, removeFromCart } = useCart();
+  const { cartItems, totalPrice, totalQty, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isFocused, setIsFocused] = useState({
@@ -517,6 +517,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   };
   const handleNavigateHome = () => {
     window.location.href = '/';
+    // @ts-ignore
+    clearCart();
   }
 
   const handleIncreaseQty = (itemTitle: string) => {
@@ -541,7 +543,11 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   };
 
   const handleRemoveFromCart = (itemTitle: string | any) => {
-    removeFromCart(itemTitle);
+    if (totalQty === 1) {
+      handleOpenClearCartWindow()
+    } else {
+      removeFromCart(itemTitle);
+    }
   };
 
 
@@ -1248,7 +1254,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                      onClick={handleOpenClearCartWindow}
                 >
                   <div id="binButtonDefault"
-                       className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} inset-0 w-fit h-fit`}>
+                       className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} w-fit h-fit`}>
                     <svg className="flex h-3 px-0.5 fill-foreground hover:fill-custom-red" focusable="false" data-icon="trash" role="img"
                          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                       <path fill=""
@@ -1256,7 +1262,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     </svg>
                   </div>
                 </div>
-                <span className="pl-4">${totalPrice.toFixed(2)}</span>
+                <span id="orderSummaryBannerPrice" className="pl-4">${totalPrice.toFixed(2)}</span>
               </div>
               <div id="clearCartWindow"
                    ref={clearCartWindowRef}
@@ -1361,6 +1367,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       </div>
                       <div className="relative text-sm flex flex-col flex-end">
                         <button
+                          onClick={() => {handleRemoveFromCart(item.bookTitle)}}
                           className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
                           <svg
                             className={``}
