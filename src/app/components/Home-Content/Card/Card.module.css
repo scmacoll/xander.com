@@ -68,22 +68,6 @@
   margin-right: 0.7em;
 }
 
-.cardUserClick {
-  display: flex;
-}
-
-.cardHeart {
-  display: flex;
-}
-
-.cardHeart:hover svg path {
-  fill: rgb(112, 45, 45);
-}
-
-.cardInfo:hover svg path {
-  fill: #d2cfca;
-}
-
 .bottomContent {
   display: flex;
   position: relative;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Content, { TileCard } from '../Content';
 import styles from './Card.module.scss';
 import Image from 'next/image';
@@ -10,6 +10,12 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
+
+  const [isQuoteHeartClicked, setIsQuoteHeartClicked] = useState(false);
+
+  const handleQuoteHeartClick = () => {
+    setIsQuoteHeartClicked(prevState => !prevState);
+  };
 
   const handleInteraction = (event: React.MouseEvent) => {
     // List of classes to ignore
@@ -53,8 +59,11 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
               <div>{card.author}</div>
             </h3>
           </div>
-          <div className={`${styles.cardUserClick}`}>
-            <div className={`${styles.cardHeart}`}>
+          <div className={`flex`}>
+            <button
+              id="quoteHeart"
+              onClick={handleQuoteHeartClick}
+              className={`z-20`}>
               <svg
                 version="1.0"
                 xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +73,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
                 preserveAspectRatio="xMidYMid meet">
                 <g
                   transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                  fill="#d2cfca2b"
+                  className={`${isQuoteHeartClicked ? 'fill-custom-red' : 'fill-greyed-out'}`}
                   stroke="none">
                   <path
                     d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
@@ -80,7 +89,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
                   />
                 </g>
               </svg>
-            </div>
+            </button>
             <div onClick={onInteraction} className={`${styles.cardInfo}`}>
               <svg
                 version="1.0"
