@@ -6,6 +6,7 @@ const HeartContext = createContext<{
   bookHearts: { [key: string]: boolean };
   toggleQuoteHeart: (quote: string) => void;
   toggleBookHeart: (bookTitle: string) => void;
+  clearAllHearts: () => void;  // Add this line
 } | undefined>(undefined);
 
 export const HeartsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -35,8 +36,15 @@ export const HeartsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     });
   };
 
+  const clearAllHearts = () => {
+    setQuoteHearts({});
+    setBookHearts({});
+    localStorage.removeItem('quoteHearts');
+    localStorage.removeItem('bookHearts');
+  };
+
   return (
-    <HeartContext.Provider value={{ quoteHearts, bookHearts, toggleQuoteHeart, toggleBookHeart }}>
+    <HeartContext.Provider value={{ quoteHearts, bookHearts, toggleQuoteHeart, toggleBookHeart, clearAllHearts }}>
       {children}
     </HeartContext.Provider>
   );

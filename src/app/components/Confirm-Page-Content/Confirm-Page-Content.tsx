@@ -5,13 +5,13 @@ import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/app/context/CartContext";
+import Router from 'next/router';
+import { useHearts } from "@/app/context/HeartContext";
 
 
 const ConfirmPageContent: React.FC = () => {
-  const cartData = localStorage.getItem('cart');
-  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, totalPrice, orderNumber} = useCart();
-  console.log("Cart Items:", cartItems);
+  const { cartItems, totalPrice, orderNumber, clearCart } = useCart();
+  const { clearAllHearts } = useHearts();
 
   const [email, setEmail] = useState('');
   const [shippingFirstName, setShippingFirstName] = useState('');
@@ -41,6 +41,34 @@ const ConfirmPageContent: React.FC = () => {
 
   const toggleOrderSummary = useCallback(() => {
     setOrderSummaryHidden(prevState => !prevState);
+  }, []);
+
+  const handleClearCart = () => {
+    console.log('Cart cleared');
+    // @ts-ignore
+    clearCart();
+  };
+
+  const handleClearAllHearts = () => {
+    console.log('All hearts cleared');
+    clearAllHearts();
+  };
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (url !== '/confirm') {
+        clearCart();
+        clearAllHearts();
+      }
+    };
+
+    // Add the event listener on mount
+    Router.events.on('routeChangeStart', handleRouteChange);
+
+    // Remove the event listener on cleanup
+    return () => {
+      Router.events.off('routeChangeStart', handleRouteChange);
+    };
   }, []);
 
   useEffect(() => {
@@ -279,36 +307,7 @@ const ConfirmPageContent: React.FC = () => {
                         </ul>
                       </div>
                     </div>
-                    {/*<div id="addressLists"*/}
-                    {/*     className="flex"*/}
-                    {/*>*/}
-                    {/*  <div className="w-1/2">*/}
-                    {/*    <h4 className="font-bold">Shipping Address</h4>*/}
-                    {/*    <ul className="flex w-5/6 flex-col gap-1 text-gray-400 text-sm pt-2">*/}
-                    {/*      <li id="shippingFullName">*/}
-                    {/*        {shippingFirstName} {shippingLastName}*/}
-                    {/*      </li>*/}
-                    {/*      <li id="shippingCompanyName">{shippingCompanyName}</li>*/}
-                    {/*      <li id="shippingAddressLineOne">{shippingAddressLineOne}</li>*/}
-                    {/*      <li className="" id="shippingAddressLineTwo">{shippingAddressLineTwo}</li>*/}
-                    {/*      <li id="shippingCityStateZipCode">{shippingCity} {shippingState} {shippingZipcode}</li>*/}
-                    {/*      <li id="shippingCountry">{shippingCountry}</li>*/}
-                    {/*    </ul>*/}
-                    {/*  </div>*/}
-                    {/*  <div className="w-1/2">*/}
-                    {/*    <h4 className="font-bold">Billing Address</h4>*/}
-                    {/*    <ul className="flex flex-col  w-5/6 gap-1 text-gray-400 text-sm pt-2">*/}
-                    {/*      <li id="billingFullName">*/}
-                    {/*        {billingFirstName} {billingLastName}*/}
-                    {/*      </li>*/}
-                    {/*      <li id="">{billingCompanyName}</li>*/}
-                    {/*      <li id="billingAddressLineOne">{billingAddressLineOne}</li>*/}
-                    {/*      <li id="billingAddressLineTwo">{billingAddressLineTwo}</li>*/}
-                    {/*      <li id="billingCityStateZipcode">{billingCity}  {billingState} {billingZipcode}</li>*/}
-                    {/*      <li id="billingCountry">{billingCountry}</li>*/}
-                    {/*    </ul>*/}
-                    {/*  </div>*/}
-                    {/*</div>*/}
+
                     <div id="methodLists"
                          className="flex"
                     >

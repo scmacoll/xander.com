@@ -13,7 +13,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { TileCard } from "@/app/components/Home-Content/Content";
 
-
 interface CardProps {
   card: TileCard,
 }
@@ -35,9 +34,7 @@ const BookPageContent: React.FC<CardProps> = ({card}) => {
         window.removeEventListener('resize', handleResize);
       };
     }, []);
-  
-  
-  
+
   return (
     <div className={`${styles.contentLayout}`}>
       <div className={`${styles.contentWrapper}`}>
@@ -110,7 +107,7 @@ const BookPageContent: React.FC<CardProps> = ({card}) => {
                 >
                   <g
                     transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                    className={`${bookHearts[card.book_title] ? 'fill-custom-red' : 'fill-greyed-out'}`}
+                    className={`fill-greyed-out`}
                     stroke="none"
                   >
                     <path
@@ -268,9 +265,9 @@ const BookPageContent: React.FC<CardProps> = ({card}) => {
                     </div>
                   </div>
 
-                  <div className={`${styles.bookRewards}`}>
-                    Booklovers earn $1.70 in rewards
-                  </div>
+                  {/*<div className={`${styles.bookRewards}`}>*/}
+                  {/*  Booklovers earn $1.70 in rewards*/}
+                  {/*</div>*/}
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import styles from './Header.module.scss';
-import SearchForm from '../Search/SearchForm';
 import { useCart } from "@/app/context/CartContext";
 
 interface HeaderProps {
@@ -121,7 +120,6 @@ const Header: React.FC<HeaderProps> = ({
           <h1>Xandria</h1>
         </a>
       </div>
-      {showSearch && <SearchForm isBookPage={isBookPage}/>}
       <div id="headerIcons"
            className="flex cursor-pointer mx-auto justify-end align-center h-fit">
         <div className={`${styles.heartIcon} xs:hidden`}>
