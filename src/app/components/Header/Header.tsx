@@ -3,11 +3,13 @@ import styles from './Header.module.scss';
 import { useCart } from "@/app/context/CartContext";
 
 interface HeaderProps {
-  onFocusModeToggle: () => void;
-  isFocusMode: boolean;
-  showSearch: boolean;
-  shortenTitle: boolean;
-  isBookPage: boolean;
+  onFocusModeToggle: () => void,
+  isFocusMode: boolean,
+  showSearch: boolean,
+  shortenTitle: boolean,
+  isBookPage: boolean,
+  isCheckoutButtonClicked: boolean,
+  handleCheckoutButtonClick: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -16,7 +18,10 @@ const Header: React.FC<HeaderProps> = ({
                                          showSearch,
                                          shortenTitle = false,
                                          isBookPage = false,
+                                         isCheckoutButtonClicked,
+                                         handleCheckoutButtonClick, // Receive the prop here
                                        }) => {
+
 
   // @ts-ignore
   const {totalQty} = useCart();
@@ -151,7 +156,10 @@ const Header: React.FC<HeaderProps> = ({
           </svg>
         </div>
         <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
-          <a href="/checkout">
+          <button
+            onClick={handleCheckoutButtonClick}
+            className={`${isCheckoutButtonClicked ? 'cursor-default select-none' : ''}`}
+          >
             <svg id="checkoutBagIcon"
               // className={svgClass}
                  version="1.0"
@@ -191,7 +199,7 @@ const Header: React.FC<HeaderProps> = ({
                 </div>
               )}
             </div>
-          </a>
+          </button>
         </div>
       </div>
 

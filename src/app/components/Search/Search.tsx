@@ -3,14 +3,20 @@ import SearchForm from './SearchForm';
 import React from "react";
 
 
-const Search = () => {
+interface SearchProps {
+  isCheckoutButtonClicked: boolean
+}
+
+const Search: React.FC<SearchProps> = ({isCheckoutButtonClicked}) => {
 
   return (
     <div className={`${styles.search} relative`}>
       {/*<SearchForm className={`${styles.relative}`} isBookPage/>*/}
       <h2 className={`${styles.h2TagLine} `}>Browse the world's quote reference library</h2>
+
       <div id="clearCartWindow"
-           className={`absolute z-20 flex right-0 top-0 px-4 py-3 h-fit border-solid border-white border-2
+           className={`${isCheckoutButtonClicked ? '' : 'hidden'}
+           absolute z-20 flex right-0 top-0 px-4 py-3 h-fit border-solid border-white border-2
            rounded-md bg-background -translate-y-0.5 translate-x-1
            before:-top-2 before:right-3.5 before:-translate-x-1/2 before:border-l-transparent
            before:border-r-transparent before:border-b-gray-300
@@ -20,7 +26,7 @@ const Search = () => {
            `}
       >
         <div className={`flex flex-col`}>
-          <p className="font-bold h-full flex">Your Cart is <span className="text-custom-red">&nbsp;Empty!</span></p>
+          <p className="select-none font-bold h-full flex">Your Cart is <span className="text-custom-red">&nbsp;Empty!</span></p>
         </div>
       </div>
 
