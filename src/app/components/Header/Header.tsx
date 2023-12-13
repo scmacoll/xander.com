@@ -9,7 +9,8 @@ interface HeaderProps {
   shortenTitle: boolean,
   isBookPage: boolean,
   isCheckoutButtonClicked: boolean,
-  handleCheckoutButtonClick: () => void;
+  handleCheckoutButtonClick: () => void,
+  isEmptyCartWindowOpen: boolean
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -19,7 +20,8 @@ const Header: React.FC<HeaderProps> = ({
                                          shortenTitle = false,
                                          isBookPage = false,
                                          isCheckoutButtonClicked,
-                                         handleCheckoutButtonClick, // Receive the prop here
+                                         handleCheckoutButtonClick,
+                                         isEmptyCartWindowOpen,
                                        }) => {
 
 
@@ -158,7 +160,7 @@ const Header: React.FC<HeaderProps> = ({
         <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
           <button
             onClick={handleCheckoutButtonClick}
-            className={`${isCheckoutButtonClicked ? 'cursor-default select-none' : ''}`}
+            className={`${isEmptyCartWindowOpen ? 'cursor-default select-none' : ''}`}
           >
             <svg id="checkoutBagIcon"
               // className={svgClass}

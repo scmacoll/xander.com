@@ -19,7 +19,7 @@ export default function Home() {
     setCardButtonClicked((prevState) => !prevState);
   };
   const handleCheckoutButtonClick = () => {
-    if (!isCheckoutButtonClicked) {
+    if (!isCheckoutButtonClicked && totalQty === 0) {
       setCheckoutButtonClicked(true);
       setEmptyCartWindowOpen(true);
 
@@ -27,14 +27,16 @@ export default function Home() {
         setCheckoutButtonClicked(false);
         setEmptyCartWindowOpen(false);
       }, 2000);
+    } else if (totalQty > 0) {
+      window.location.href = "/checkout";
     }
   };
 
   useEffect(() => {
     if (totalQty > 0) {
       setEmptyCartWindowOpen(false);
+      setCheckoutButtonClicked(false);
     }
-
   }, [totalQty]);
 
 
@@ -49,9 +51,11 @@ export default function Home() {
         isBookPage={false}
         handleCheckoutButtonClick={handleCheckoutButtonClick} // Pass the handler here
         isCheckoutButtonClicked={isCheckoutButtonClicked}
+        isEmptyCartWindowOpen={isEmptyCartWindowOpen}
       />
       <Search
         isCheckoutButtonClicked={isCheckoutButtonClicked}
+        isEmptyCartWindowOpen={isEmptyCartWindowOpen}
       />
       <Content
         isCardButtonClicked={isCardButtonClicked}
