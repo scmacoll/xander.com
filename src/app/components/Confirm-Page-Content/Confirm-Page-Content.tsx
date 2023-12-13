@@ -44,14 +44,27 @@ const ConfirmPageContent: React.FC = () => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
 
-  const clearFunctions = () => {
-    console.log('Cart cleared');
-    // @ts-ignore
-    clearCart();
+  const handleClearCart = () => {
+    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0 }));
+  };
+
+  const handleClearAllHearts = () => {
     clearAllHearts();
   };
 
-  useClearOnRouteChange(clearFunctions);
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      handleClearCart();
+      handleClearAllHearts();
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -346,7 +359,7 @@ const ConfirmPageContent: React.FC = () => {
                     <div className="cursor-pointer text-link-blue">Contact us</div>
                   </div>
                 </div>
-                <div id="browsingButtonContainer"
+                <button id="browsingButtonContainer"
                      className="flex justify-end xs:justify-center">
                   <a href="/"
                      className="border-2 bg-shopify-blue font-bold border-solid hover:border-foreground rounded border-shopify-blue  p-4"
@@ -354,7 +367,7 @@ const ConfirmPageContent: React.FC = () => {
                     {/*TODO: Continue browsing should fully clear cart*/}
                     CONTINUE BROWSING
                   </a>
-                </div>
+                </button>
               </div>
             </div>
           </div>
