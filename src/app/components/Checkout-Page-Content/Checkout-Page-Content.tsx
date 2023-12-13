@@ -517,6 +517,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   };
   const handleNavigateHome = () => {
     window.location.href = '/';
+    handleCloseClearCartWindow();
     // @ts-ignore
     clearCart();
   }

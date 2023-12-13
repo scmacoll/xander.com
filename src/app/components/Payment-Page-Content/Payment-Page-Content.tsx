@@ -898,10 +898,10 @@ const PaymentPageContent: React.FC = () => {
   };
   const handleNavigateHome = () => {
     window.location.href = '/';
+    handleCloseClearCartWindow();
     // @ts-ignore
     clearCart();
   }
-
   const handleIncreaseQty = (itemTitle: string) => {
     const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
     if (itemToUpdate) {
@@ -923,7 +923,7 @@ const PaymentPageContent: React.FC = () => {
     }
   };
 
-  const handleRemoveFromCart = (itemTitle: string | any) => {
+  const handleRemoveFromCart = (itemTitle: any) => {
     if (cartItems.length === 1) {
       handleOpenClearCartWindow()
     } else {

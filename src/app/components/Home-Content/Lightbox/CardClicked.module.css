@@ -149,10 +149,6 @@
   z-index: 500;
 }
 
-.cardHeart:hover svg path {
-  fill: rgb(112, 45, 45);
-}
-
 .cardHeartTwo {
   display: flex;
   justify-content: end;

@@ -1,5 +1,6 @@
 import './globals.scss';
 import { CartProvider } from "@/app/context/CartContext";
+import { HeartsProvider } from "@/app/context/HeartContext";
 
 export const metadata = {
   title: "Quote Reference Library",
@@ -13,9 +14,11 @@ export default function RootLayout({
 }) {
   return (
     <CartProvider>
-      <html lang="en">
-      <body>{children}</body>
-      </html>
+      <HeartsProvider>
+        <html lang="en">
+        <body>{children}</body>
+        </html>
+      </HeartsProvider>
     </CartProvider>
   );
 }

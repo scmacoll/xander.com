@@ -108,7 +108,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     });
   };
 
-  const removeFromCart = (itemTitle: string) => {
+  const removeFromCart = (itemTitle: any) => {
     setCartItems(currentItems => currentItems.filter(item => item.bookTitle !== itemTitle));
     // You might also want to update totalPrice and totalQty here, similar to how it's done in useEffect
   };

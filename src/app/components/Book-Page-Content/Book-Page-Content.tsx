@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Book-Page-Content.module.scss';
 import BookPageFeatures from './Book-Page-Features/Book-Page-Features';
 import Image from 'next/image';
+import { useHearts } from "@/app/context/HeartContext";
 import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -10,10 +11,19 @@ import {
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
+import { TileCard } from "@/app/components/Home-Content/Content";
 
-const BookPageContent: React.FC = () => {
+
+interface CardProps {
+  card: TileCard,
+}
+
+const BookPageContent: React.FC<CardProps> = ({card}) => {
     const [width, setWidth] = useState(window.innerWidth);
-    
+    const { bookHearts, toggleBookHeart } = useHearts();
+    const handleBookHeartClick = () => {
+      toggleBookHeart(card.book_title);
+    };
     useEffect(() => {
       const handleResize = () => {
         setWidth(window.innerWidth);
@@ -86,7 +96,10 @@ const BookPageContent: React.FC = () => {
                   <div>1 February 2019</div>
                 </div>
               </div>
-              <div className={`${styles.cardHeart}`}>
+              <div
+                id="bookHeart"
+                onClick={handleBookHeartClick}
+                className={`${styles.cardHeart}`}>
                 <svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +110,7 @@ const BookPageContent: React.FC = () => {
                 >
                   <g
                     transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                    fill="#d2cfca2b"
+                    className={`${bookHearts[card.book_title] ? 'fill-custom-red' : 'fill-greyed-out'}`}
                     stroke="none"
                   >
                     <path

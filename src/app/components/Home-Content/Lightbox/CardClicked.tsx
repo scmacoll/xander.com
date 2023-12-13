@@ -4,6 +4,7 @@ import styles from './CardClicked.module.scss';
 import Image from 'next/image';
 import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
 import { useCart } from "@/app/context/CartContext";
+import { useHearts } from "@/app/context/HeartContext";
 
 interface CardProps {
   card: TileCard,
@@ -18,6 +19,14 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price).toFixed(2));
   const { addToCart, clearCart } = useCart();
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
+
+  const { quoteHearts, bookHearts, toggleQuoteHeart, toggleBookHeart } = useHearts();
+  const handleQuoteHeartClick = () => {
+    toggleQuoteHeart(card.quote);
+  };
+  const handleBookHeartClick = () => {
+    toggleBookHeart(card.book_title);
+  };
 
   // Event handlers
   const incrementQty = () => {
@@ -126,7 +135,10 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                   </g>
                 </svg>
               </div>
-              <div className={`${styles.cardHeart}`}>
+              <button
+                id="quoteHeart"
+                onClick={handleQuoteHeartClick}
+                className={`${styles.cardHeart}`}>
                 <svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +148,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                   preserveAspectRatio="xMidYMid meet">
                   <g
                     transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                    fill="#d2cfca2b"
+                    className={`${quoteHearts[card.quote] ? 'fill-custom-red' : 'fill-greyed-out'}`}
                     stroke="none">
                     <path
                       d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
@@ -152,7 +164,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                     />
                   </g>
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -264,7 +276,10 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                 </div>
               </div>
 
-              <div className={`${styles.cardHeartTwo}`}>
+              <div
+                id="bookHeart"
+                onClick={handleBookHeartClick}
+                className={`${styles.cardHeartTwo}`}>
                 <svg
                   version="1.0"
                   xmlns="http://www.w3.org/2000/svg"
@@ -274,7 +289,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                   preserveAspectRatio="xMidYMid meet">
                   <g
                     transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                    fill="#d2cfca2b"
+                    className={`${bookHearts[card.book_title] ? 'fill-custom-red' : 'fill-greyed-out'}`}
                     stroke="none">
                     <path
                       d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274

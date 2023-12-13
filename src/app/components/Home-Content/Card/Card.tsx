@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Content, { TileCard } from '../Content';
+import { useHearts } from "@/app/context/HeartContext";
 import styles from './Card.module.scss';
 import Image from 'next/image';
 import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
@@ -11,10 +12,9 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
 
-  const [isQuoteHeartClicked, setIsQuoteHeartClicked] = useState(false);
-
+  const { quoteHearts, toggleQuoteHeart } = useHearts();
   const handleQuoteHeartClick = () => {
-    setIsQuoteHeartClicked(prevState => !prevState);
+    toggleQuoteHeart(card.quote);
   };
 
   const handleInteraction = (event: React.MouseEvent) => {
@@ -73,7 +73,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
                 preserveAspectRatio="xMidYMid meet">
                 <g
                   transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                  className={`${isQuoteHeartClicked ? 'fill-custom-red' : 'fill-greyed-out'}`}
+                  className={`${quoteHearts[card.quote] ? 'fill-custom-red' : 'fill-greyed-out'}`}
                   stroke="none">
                   <path
                     d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
