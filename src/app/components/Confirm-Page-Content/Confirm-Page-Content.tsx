@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/app/context/CartContext";
 import Router from 'next/router';
+import useClearOnRouteChange from '@/app/hooks/useClearOnRouteChange';
 import { useHearts } from "@/app/context/HeartContext";
 
 
@@ -43,33 +44,14 @@ const ConfirmPageContent: React.FC = () => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
 
-  const handleClearCart = () => {
+  const clearFunctions = () => {
     console.log('Cart cleared');
     // @ts-ignore
     clearCart();
-  };
-
-  const handleClearAllHearts = () => {
-    console.log('All hearts cleared');
     clearAllHearts();
   };
 
-  useEffect(() => {
-    const handleRouteChange = (url) => {
-      if (url !== '/confirm') {
-        clearCart();
-        clearAllHearts();
-      }
-    };
-
-    // Add the event listener on mount
-    Router.events.on('routeChangeStart', handleRouteChange);
-
-    // Remove the event listener on cleanup
-    return () => {
-      Router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, []);
+  useClearOnRouteChange(clearFunctions);
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
