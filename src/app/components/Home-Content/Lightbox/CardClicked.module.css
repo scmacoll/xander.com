@@ -159,10 +159,6 @@
   z-index: 500;
 }
 
-.cardHeartTwo:hover svg path {
-  fill: rgb(112, 45, 45);
-}
-
 .itemPrice {
   display: flex;
   flex: 1;
