@@ -90,10 +90,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = (newItem: CartItem) => {
     setCartItems(currentItems => {
-      if (currentItems.length === 0) {
-        const newCartId = uuidv4();
+
+      let newCartId = cartId;
+      if (currentItems.length === 0 && !cartId) {
+        newCartId = uuidv4();
         setCartId(newCartId);
-        localStorage.setItem('cart', JSON.stringify({ ...cartData, cartId: newCartId }));
       }
 
       const currentTotalQty = currentItems.reduce((acc, item) => acc + item.qty, 0);
@@ -101,6 +102,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         console.warn("Cannot add more items to the cart. Total quantity limit reached.");
         return currentItems;
       }
+
       const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
       let updatedItems;
       if (existingItemIndex !== -1) {
@@ -119,6 +121,15 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         // Add the new item if it doesn't exist in the cart
         updatedItems = [...currentItems, newItem];
       }
+
+      const cartData = {
+        items: updatedItems,
+        totalPrice: totalPrice, // These values might need to be recalculated if they depend on cartItems
+        totalQty: totalQty,
+        orderNumber: orderNumber,
+        cartId: newCartId,
+      };
+      localStorage.setItem('cart', JSON.stringify(cartData));
 
       return updatedItems;
     });
