@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import styles from './Header.module.scss';
+import Link from 'next/Link';
 import { useCart } from "@/app/context/CartContext";
 
 interface HeaderProps {
@@ -26,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({
 
 
   // @ts-ignore
-  const {totalQty} = useCart();
+  const { totalQty, cartId } = useCart();
 
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
@@ -157,25 +158,27 @@ const Header: React.FC<HeaderProps> = ({
             </g>
           </svg>
         </div>
+
         <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
-          <button
-            onClick={handleCheckoutButtonClick}
-            className={`${isEmptyCartWindowOpen ? 'cursor-default select-none' : ''}`}
-          >
-            <svg id="checkoutBagIcon"
-              // className={svgClass}
-                 version="1.0"
-                 xmlns="http://www.w3.org/2000/svg"
-                 width="3.2em"
-                 height="3.2em"
-                 viewBox="0 0 752.000000 752.000000"
-                 preserveAspectRatio="xMidYMid meet">
-              <g
-                transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
-                fill="rgb(210, 207, 202)"
-                stroke="none">
-                <path
-                  d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
+          <Link href={totalQty > 0 ? `/checkout/${cartId}` : '#'} passHref>
+            <button
+              onClick={handleCheckoutButtonClick}
+              className={`${isEmptyCartWindowOpen ? 'cursor-default select-none' : ''}`}
+            >
+              <svg id="checkoutBagIcon"
+                // className={svgClass}
+                   version="1.0"
+                   xmlns="http://www.w3.org/2000/svg"
+                   width="3.2em"
+                   height="3.2em"
+                   viewBox="0 0 752.000000 752.000000"
+                   preserveAspectRatio="xMidYMid meet">
+                <g
+                  transform="translate(0.000000,752.000000) scale(0.100000,-0.100000)"
+                  fill="rgb(210, 207, 202)"
+                  stroke="none">
+                  <path
+                    d="M3664 5870 c-248 -36 -468 -221 -548 -461 -23 -66 -30 -109 -34 -201
                 l-5 -118 -347 0 -347 0 -21 -23 c-21 -22 -23 -49 -88 -1422 -65 -1358 -67
                 -1402 -51 -1480 46 -226 216 -402 442 -460 89 -23 2098 -22 2194 0 95 23 187
                 72 260 140 128 119 191 259 191 428 1 171 -121 2742 -131 2768 -18 47 -37 49
@@ -188,21 +191,23 @@ const Header: React.FC<HeaderProps> = ({
                 -1389 -21 -136 -119 -265 -248 -329 l-75 -37 -1076 0 -1076 0 -76 38 c-126 62
                 -211 172 -241 312 -9 47 -2 271 46 1338 32 705 60 1310 64 1345 l5 62 299 0
                 299 0 0 -163z"
-                />
-              </g>
-            </svg>
-            <div>
-              {totalQty > 0 && (
-                <div className={styles.wholeBubble}>
-                  <div className={styles.cartNotificationBubble}>
-                    {totalQty}
-                    <span className={styles.bubbleTail}></span>
+                  />
+                </g>
+              </svg>
+              <div>
+                {totalQty > 0 && (
+                  <div className={styles.wholeBubble}>
+                    <div className={styles.cartNotificationBubble}>
+                      {totalQty}
+                      <span className={styles.bubbleTail}></span>
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          </button>
+                )}
+              </div>
+            </button>
+          </Link>
         </div>
+
       </div>
 
     </header>
