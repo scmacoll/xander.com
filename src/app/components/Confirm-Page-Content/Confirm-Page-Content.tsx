@@ -5,8 +5,6 @@ import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/app/context/CartContext";
-import Router from 'next/router';
-import useClearOnRouteChange from '@/app/hooks/useClearOnRouteChange';
 import { useHearts } from "@/app/context/HeartContext";
 
 
