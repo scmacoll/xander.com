@@ -45,7 +45,7 @@ const ConfirmPageContent: React.FC = () => {
   }, []);
 
   const handleClearCart = () => {
-    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0 }));
+    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
   };
 
   const handleClearAllHearts = () => {

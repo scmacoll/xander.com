@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 export type CartItem = {
   bookTitle: string;
@@ -14,6 +15,7 @@ export type CartItem = {
   totalPrice: number;
   totalQty: number;
   orderNumber: number;
+  cartId: string;
 };
 
 type CartContextType = {
@@ -26,6 +28,7 @@ type CartContextType = {
   totalPrice: number;
   totalQty: number;
   orderNumber: number | null;
+  cartId: string | null;
 };
 
 type CartProviderProps = {
@@ -60,6 +63,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQty, setTotalQty] = useState(0);
 
+  const [cartId, setCartId] = useState<string | null>(() => {
+    const localData = localStorage.getItem('cart');
+    return localData ? JSON.parse(localData).cartId : null;
+  });
+
   useEffect(() => {
     // Whenever cartItems changes, update totalPrice and totalQty
     const newTotalPrice = cartItems.reduce((acc, item) => acc + item.qtyPrice, 0);
@@ -74,12 +82,20 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       totalPrice: newTotalPrice,
       totalQty: newTotalQty,
       orderNumber: orderNumber,
+      cartId: cartId,
     };
     localStorage.setItem('cart', JSON.stringify(cartData));
-  }, [cartItems, orderNumber]);
+  }, [cartItems, orderNumber, cartId]);
+
 
   const addToCart = (newItem: CartItem) => {
     setCartItems(currentItems => {
+      if (currentItems.length === 0) {
+        const newCartId = uuidv4();
+        setCartId(newCartId);
+        localStorage.setItem('cart', JSON.stringify({ ...cartData, cartId: newCartId }));
+      }
+
       const currentTotalQty = currentItems.reduce((acc, item) => acc + item.qty, 0);
       if (currentTotalQty + newItem.qty > 30) {
         console.warn("Cannot add more items to the cart. Total quantity limit reached.");
@@ -117,7 +133,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     setCartItems([]);
     setTotalQty(0);
     setTotalPrice(0);
-    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0 }));
+    setCartId(null);
+    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
     console.log("Cart cleared");
   }
 
@@ -133,7 +150,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 
   return (
-    <CartContext.Provider value={{ cartItems, totalQty, totalPrice, orderNumber, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber }}>
+    <CartContext.Provider value={{ cartItems, totalQty, totalPrice, orderNumber, cartId, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber }}>
       {children}
     </CartContext.Provider>
   );
