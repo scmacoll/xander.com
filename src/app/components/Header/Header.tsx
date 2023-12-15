@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styles from './Header.module.scss';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { useCart } from "@/app/context/CartContext";
 
 interface HeaderProps {
@@ -28,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({
 
   // @ts-ignore
   const { totalQty, cartId } = useCart();
+  console.log("Cart ID in Header:", cartId);
 
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
@@ -160,9 +161,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
-          <Link href={totalQty > 0 ? `/checkout/${cartId}` : '#'} passHref>
+          {/*<Link href={totalQty > 0 ? `/checkout/${cartId}` : '#'} passHref>*/}
+          <Link href={`/checkout/${cartId}`}>
             <button
-              onClick={handleCheckoutButtonClick}
+              // onClick={handleCheckoutButtonClick}
               className={`${isEmptyCartWindowOpen ? 'cursor-default select-none' : ''}`}
             >
               <svg id="checkoutBagIcon"
