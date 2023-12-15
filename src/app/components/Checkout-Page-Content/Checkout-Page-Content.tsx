@@ -3,6 +3,7 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { TileCard } from '../Home-Content/Content';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
+import Link from "next/link";
 
 
 interface CardProps {
@@ -13,7 +14,7 @@ interface CardProps {
 const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const { cartItems, totalPrice, totalQty, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
+  const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isFocused, setIsFocused] = useState({
@@ -1183,8 +1184,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       <div id="orderButton" className="flex">
                         <div id="loadingBorder"
                         >
-                          <a id="reviewOrderButton"
-                             href={isShippingValid ? "/payment" : ""}
+                          <Link id="reviewOrderButton"
+                             href={isShippingValid ? `/payment/${cartId}` : ""}
                              className={`border-2 rounded font-bold py-3 px-4 border-solid
                               ${!isShippingValid ? 'border-transparent bg-greyed-out cursor-default'
                                : 'border-transparent hover:border-foreground bg-shopify-blue hover:bg-transparent'}
@@ -1193,7 +1194,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                              onClick={!isShippingValid ? handleReviewButtonClick : handleSaveToLocalStorage}
                           >
                             CONTINUE TO SHIPPING
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </div>

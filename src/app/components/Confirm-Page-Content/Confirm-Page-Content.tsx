@@ -192,6 +192,7 @@ const ConfirmPageContent: React.FC = () => {
   }, []);
 
   console.log("order number: ", orderNumber);
+  console.log("cart items:", cartItems);
 
   return (
     <div
