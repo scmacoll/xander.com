@@ -3,12 +3,19 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
+import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
+import { router } from "next/client";
+
 
 const PaymentPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const {cartItems, totalPrice, totalQty, orderNumber, cartId, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
+
+  const { orderCompleted } = useConfirmedOrder();
+  console.log("is order completed?: ", orderCompleted);
+
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
@@ -932,6 +939,11 @@ const PaymentPageContent: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (orderCompleted && cartId) {
+      router.push(`/confirm/${cartId}`); // Redirect to confirmation page with cartId
+    }
+  }, [orderCompleted, cartId, router]);
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;

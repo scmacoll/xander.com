@@ -6,11 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
+import { useConfirmedOrder } from '@/app/context/ConfirmedOrderContext';
 
 
 const ConfirmPageContent: React.FC = () => {
   const { cartItems, totalPrice, orderNumber, clearCart } = useCart();
   const { clearAllHearts } = useHearts();
+
+  const { orderCompleted, completeOrder } = useConfirmedOrder();
+  console.log("is order completed?: ", orderCompleted);
 
   const [email, setEmail] = useState('');
   const [shippingFirstName, setShippingFirstName] = useState('');
@@ -49,6 +53,10 @@ const ConfirmPageContent: React.FC = () => {
   const handleClearAllHearts = () => {
     clearAllHearts();
   };
+
+  useEffect(() => {
+    completeOrder();
+  }, []);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
