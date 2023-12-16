@@ -2,11 +2,12 @@ import styles from './Payment-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
+import Link from "next/link";
 
 const PaymentPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, totalPrice, totalQty, orderNumber, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
+  const {cartItems, totalPrice, totalQty, orderNumber, cartId, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
@@ -1693,8 +1694,8 @@ const PaymentPageContent: React.FC = () => {
                             Cancel
                           </button>
                         </div>
-                        <a
-                          href="/confirm"
+                        <Link
+                          href={`/confirm/${cartId}`}
                           id="placeOrderButton"
                           // onClick={handleGenerateOrderNumber}
                           className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
@@ -1702,7 +1703,7 @@ const PaymentPageContent: React.FC = () => {
                               `}
                         >
                           PLACE ORDER
-                        </a>
+                        </Link>
                       </div>
                     )}
                   </div>
@@ -2092,14 +2093,14 @@ const PaymentPageContent: React.FC = () => {
                         </div>
                       </div>
                     )}
-                    <a
-                      href="/confirm"
+                    <Link
+                      href={`/confirm/${cartId}`}
                       // onClick={handleGenerateOrderNumber}
                       className={`border-2 rounded font-bold py-3 px-4 border-solid
                     ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : 'hidden'}`}
                     >
                       PLACE ORDER
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
