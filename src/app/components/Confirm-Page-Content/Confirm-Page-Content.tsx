@@ -1,3 +1,4 @@
+"use client";
 import styles from './Confirm-Page-Content.module.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Image from "next/image";

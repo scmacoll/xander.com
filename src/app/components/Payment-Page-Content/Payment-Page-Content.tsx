@@ -1,10 +1,11 @@
+"use client";
 import styles from './Payment-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
-import { router } from "next/client";
+import { useRouter } from 'next/navigation'; // Import useRouter
 
 
 const PaymentPageContent: React.FC = () => {
@@ -15,7 +16,7 @@ const PaymentPageContent: React.FC = () => {
 
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
-
+  const router = useRouter(); // Use the useRouter hook
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
@@ -940,10 +941,10 @@ const PaymentPageContent: React.FC = () => {
   };
 
   useEffect(() => {
-    if (orderCompleted && cartId) {
+    if (orderCompleted) {
       router.push(`/confirm/${cartId}`); // Redirect to confirmation page with cartId
     }
-  }, [orderCompleted, cartId, router]);
+  }, []);
 
   useEffect(() => {
     let timerId: NodeJS.Timeout;
