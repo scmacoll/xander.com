@@ -6,19 +6,27 @@ import { useCart } from "@/app/context/CartContext";
 import Link from "next/link";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
 import ExpiredPage from "@/app/components/Expired-Page/Expired-Page";
+import { useRouter } from "next/navigation";
 
 
 const PaymentPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, totalPrice, orderNumber, cartId, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
+  const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
+  const router = useRouter();
 
   // TODO: conditions
   // If cart is empty or contact details is empty than 404. If cart is not empty and session is expired than expiry page.
-
+  useEffect(() => {
+    if (totalQty === 0 || cartData === null || cartData === undefined) {
+      router.push('/404');
+    } else {
+      return;
+    }
+  }, []);
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
@@ -2162,7 +2170,6 @@ const PaymentPageContent: React.FC = () => {
         </div>
       )}
     </div>
-
       );
       };
 

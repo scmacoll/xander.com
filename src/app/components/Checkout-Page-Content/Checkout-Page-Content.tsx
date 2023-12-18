@@ -24,6 +24,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const [isSessionExpired, setSessionExpired] = useState(false);
+  const router = useRouter();
 
   // const router = useRouter();
   // TODO: Need to make 404 for page. Page render timing needs edit.
@@ -35,6 +36,13 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   //   }
   // },[])
 
+  useEffect(() => {
+    if (totalQty === 0 ) {
+      router.push('/404');
+    } else {
+      return;
+    }
+ }, []);
 
   // Conditions - if cart is empty then 404. if cart is not empty but session is expired then expiry page. Make sure that contact details are empty upon render so that user cannot go from payment -> checkout -> payment. without filling out all details properly.
 
