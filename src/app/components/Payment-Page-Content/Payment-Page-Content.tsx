@@ -11,7 +11,7 @@ import ExpiredPage from "@/app/components/Expired-Page/Expired-Page";
 const PaymentPageContent: React.FC = () => {
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const {cartItems, totalPrice, totalQty, orderNumber, cartId, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
+  const {cartItems, totalPrice, orderNumber, cartId, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
@@ -1714,7 +1714,7 @@ const PaymentPageContent: React.FC = () => {
                             <Link
                               href={`/confirm/${cartId}`}
                               id="placeOrderButton"
-                              // onClick={handleGenerateOrderNumber}
+                              onClick={handleGenerateOrderNumber}
                               className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
                               ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : ''}
                               `}
@@ -2114,7 +2114,7 @@ const PaymentPageContent: React.FC = () => {
                         )}
                         <Link
                           href={`/confirm/${cartId}`}
-                          // onClick={handleGenerateOrderNumber}
+                          onClick={handleGenerateOrderNumber}
                           className={`border-2 rounded font-bold py-3 px-4 border-solid
                     ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : 'hidden'}`}
                         >

@@ -14,6 +14,8 @@ import {
   faChevronRight,
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
+import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
+import { useCart } from "@/app/context/CartContext";
 
 
 interface ContentProps {
@@ -51,7 +53,9 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   // console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const cartId = cartData ? JSON.parse(cartData).cartId : null;
   console.log("Cart ID: ", cartId ? cartId : 'No cart ID');
-
+  const { orderCompleted, completeOrder } = useConfirmedOrder();
+  console.log("is order completed?: ", orderCompleted);
+  const { totalQty } = useCart();
 
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -171,6 +175,12 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
   const {leftData, middleData, rightData} = getColumnData(indexNumber);
   const combinedData = mergeData(leftData, middleData, rightData);
+
+  useEffect(() => {
+    if (totalQty === 0 ) {
+      completeOrder(false);
+    }
+  },[])
 
   useEffect(() => {
     const elements = document.querySelectorAll(

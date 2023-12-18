@@ -6,7 +6,7 @@ import React, { createContext, useState, useContext, useEffect, ReactNode } from
 // Define the shape of the context value
 interface ConfirmedOrderContextType {
   orderCompleted: boolean;
-  completeOrder: () => void;
+  completeOrder: (b: boolean) => void;
 }
 
 // Create the context with the specified type
@@ -30,9 +30,9 @@ export const ConfirmedOrderProvider: React.FC<ConfirmedOrderProviderProps> = ({ 
     return storedValue ? JSON.parse(storedValue) : false;
   });
 
-  const completeOrder = () => {
-    setOrderCompleted(true);
-    localStorage.setItem('orderCompleted', JSON.stringify(true));
+  const completeOrder = (isOrderCompleted: boolean) => {
+    setOrderCompleted(isOrderCompleted);
+    localStorage.setItem('orderCompleted', JSON.stringify(isOrderCompleted));
   };
 
   useEffect(() => {

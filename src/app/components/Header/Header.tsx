@@ -161,10 +161,10 @@ const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
-          {/*<Link href={totalQty > 0 ? `/checkout/${cartId}` : '#'} passHref>*/}
-          <Link href={`/checkout/${cartId}`}>
+          <Link href={totalQty > 0 ? `/checkout/${cartId}` : '#'} passHref>
+          {/*<Link href={`/checkout/${cartId}`}>*/}
             <button
-              // onClick={handleCheckoutButtonClick}
+              onClick={handleCheckoutButtonClick}
               className={`${isEmptyCartWindowOpen ? 'cursor-default select-none' : ''}`}
             >
               <svg id="checkoutBagIcon"
