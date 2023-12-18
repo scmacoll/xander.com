@@ -5,8 +5,9 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { TileCard } from '../Home-Content/Content';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
-import Link from "next/link";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
+import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 
 interface CardProps {
@@ -19,9 +20,23 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   console.log("Cart Items:", cartItems);
+  console.log("total Qty: ", totalQty);
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const [isSessionExpired, setSessionExpired] = useState(false);
+
+  // const router = useRouter();
+  // TODO: Need to make 404 for page. Page render timing needs edit.
+  // useEffect(() => {
+  //   if (totalQty === 0 ) {
+  //     router.push('/404');
+  //   } else {
+  //     return;
+  //   }
+  // },[])
+
+
+  // Conditions - if cart is empty then 404. if cart is not empty but session is expired then expiry page. Make sure that contact details are empty upon render so that user cannot go from payment -> checkout -> payment. without filling out all details properly.
 
   const [isFocused, setIsFocused] = useState({
     cardNumber: false,
@@ -652,8 +667,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   console.log("order number is : ", orderNumber);
 
   return (
-
-
     <div>
       {isSessionExpired ? (
         <ExpiredPage/>

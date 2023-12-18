@@ -16,6 +16,10 @@ const PaymentPageContent: React.FC = () => {
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
 
+  // TODO: conditions
+  // If cart is empty or contact details is empty than 404. If cart is not empty and session is expired than expiry page.
+
+
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
   const [isFocused, setIsFocused] = useState({
