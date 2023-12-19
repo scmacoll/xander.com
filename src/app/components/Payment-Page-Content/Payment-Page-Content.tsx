@@ -118,7 +118,7 @@ const PaymentPageContent: React.FC = () => {
   const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
-  const [isSessionExpired, setSessionExpired] = useState(false);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
 
   const handleCardNumberChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
     const cardNumberDigitRegex = /^\d+$/;
@@ -955,7 +955,7 @@ const PaymentPageContent: React.FC = () => {
 
   useEffect(() => {
     if (orderCompleted) {
-      setSessionExpired(true);
+      setIsSessionExpired(true);
     }
   }, []);
 
@@ -1063,6 +1063,16 @@ const PaymentPageContent: React.FC = () => {
       setDisplayIncompleteMessage(false);
     }
   }, [cardDetails]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSessionExpired(true);
+    }, 450000); // 7.5 minutes = 450000 milliseconds
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   console.log("order number is:  ", orderNumber);
   console.log('Email stored in local storage:', storedEmail);

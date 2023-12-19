@@ -1,5 +1,4 @@
 import styles from './Search.module.scss';
-import SearchForm from './SearchForm';
 import React from "react";
 
 
@@ -11,7 +10,7 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({isCheckoutButtonClicked, isEmptyCartWindowOpen}) => {
 
   return (
-    <div className={`${styles.search} relative`}>
+    <div className={`${styles.search} relative select-none`}>
       {/*<SearchForm className={`${styles.relative}`} isBookPage/>*/}
       <h2 className={`${styles.h2TagLine} `}>Browse the world's quote reference library</h2>
 

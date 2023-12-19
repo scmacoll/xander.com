@@ -124,10 +124,10 @@ const Header: React.FC<HeaderProps> = ({
           </g>
         </svg>
       </div>
-      <div className={`${styles.xandria} `}>
-        <a href="/">
-          <h1>Xandria</h1>
-        </a>
+      <div className={`${styles.xandria}`}>
+        <h1>
+          <a href="/">Xandria</a>
+        </h1>
       </div>
       <div id="headerIcons"
            className="flex cursor-pointer mx-auto justify-end align-center h-fit">

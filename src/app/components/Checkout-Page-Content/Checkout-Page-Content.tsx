@@ -23,7 +23,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   console.log("total Qty: ", totalQty);
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
-  const [isSessionExpired, setSessionExpired] = useState(false);
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -36,7 +36,6 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     return null; // or a small placeholder/loading component until the redirect kicks in
   }
 
-  // Conditions - if cart is empty then 404. if cart is not empty but session is expired then expiry page. Make sure that contact details are empty upon render so that user cannot go from payment -> checkout -> payment. without filling out all details properly.
 
   const [isFocused, setIsFocused] = useState({
     cardNumber: false,
@@ -592,7 +591,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
 
   useEffect(() => {
     if (orderCompleted) {
-      setSessionExpired(true);
+      setIsSessionExpired(true);
     }
   }, []);
 
@@ -678,6 +677,16 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
       }
     }
   }, [shippingDetails, email]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSessionExpired(true);
+    }, 450000); // 7.5 minutes = 450000 milliseconds
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   console.log("order number is : ", orderNumber);
   const storedEmail = localStorage.getItem('email');
