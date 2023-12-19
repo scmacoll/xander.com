@@ -57,20 +57,29 @@ const ConfirmPageContent: React.FC = () => {
   };
 
   useEffect(() => {
-    completeOrder(true);
+    if (orderNumber === undefined || orderNumber === null) {
+      return;
+    } else {
+      completeOrder(true);
+    }
   }, []);
 
   useEffect(() => {
-    const handleBeforeUnload = () => {
-      handleClearCart();
-      handleClearAllHearts();
-    };
+    if (orderNumber === undefined || orderNumber === null) {
+      return;
+    } else {
+      const handleBeforeUnload = () => {
+        handleClearCart();
+        handleClearAllHearts();
+      };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+      window.addEventListener('beforeunload', handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+
+    }
   }, []);
 
 
