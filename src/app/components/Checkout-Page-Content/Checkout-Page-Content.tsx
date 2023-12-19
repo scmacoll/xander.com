@@ -26,23 +26,15 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const [isSessionExpired, setSessionExpired] = useState(false);
   const router = useRouter();
 
-  // const router = useRouter();
-  // TODO: Need to make 404 for page. Page render timing needs edit.
-  // useEffect(() => {
-  //   if (totalQty === 0 ) {
-  //     router.push('/404');
-  //   } else {
-  //     return;
-  //   }
-  // },[])
-
   useEffect(() => {
-    if (totalQty === 0 ) {
+    if ((totalQty === 0 || cartData === null || cartData === undefined)) {
       router.push('/404');
-    } else {
-      return;
     }
- }, []);
+  }, []);
+
+  if ((totalQty === 0 || cartItems.length === 0)) {
+    return null; // or a small placeholder/loading component until the redirect kicks in
+  }
 
   // Conditions - if cart is empty then 404. if cart is not empty but session is expired then expiry page. Make sure that contact details are empty upon render so that user cannot go from payment -> checkout -> payment. without filling out all details properly.
 
@@ -548,8 +540,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const handleNavigateHome = () => {
     window.location.href = '/';
     handleCloseClearCartWindow();
-    // @ts-ignore
-    clearCart();
+    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+    // // @ts-ignore
+    // clearCart();
   }
 
   const handleIncreaseQty = (itemTitle: string) => {
@@ -582,6 +575,20 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   };
 
   console.log("cart items length: ", cartItems.length);
+
+  useEffect(() => {
+    localStorage.removeItem('email');
+    localStorage.removeItem('shippingFirstName');
+    localStorage.removeItem('shippingLastName');
+    localStorage.removeItem('shippingCompanyName');
+    localStorage.removeItem('shippingAddressLineOne');
+    localStorage.removeItem('shippingAddressLineTwo');
+    localStorage.removeItem('shippingCity');
+    localStorage.removeItem('shippingState');
+    localStorage.removeItem('shippingCountry');
+    localStorage.removeItem('shippingZipcode');
+    localStorage.removeItem('shippingPhone');
+  }, []);
 
   useEffect(() => {
     if (orderCompleted) {
@@ -673,6 +680,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   }, [shippingDetails, email]);
 
   console.log("order number is : ", orderNumber);
+  const storedEmail = localStorage.getItem('email');
+  console.log('Email stored in local storage:', storedEmail);
 
   return (
     <div>

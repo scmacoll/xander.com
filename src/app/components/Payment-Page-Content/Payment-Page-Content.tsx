@@ -17,16 +17,17 @@ const PaymentPageContent: React.FC = () => {
   const { orderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const router = useRouter();
+  const storedEmail = localStorage.getItem('email');
 
-  // TODO: conditions
-  // If cart is empty or contact details is empty than 404. If cart is not empty and session is expired than expiry page.
   useEffect(() => {
-    if (totalQty === 0 || cartData === null || cartData === undefined) {
+    if (totalQty === 0 || cartData === null || cartData === undefined || storedEmail === null) {
       router.push('/404');
-    } else {
-      return;
     }
   }, []);
+
+  if (totalQty === 0 || cartItems.length === 0 || storedEmail === null) {
+    return null; // or a small placeholder/loading component until the redirect kicks in
+  }
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
@@ -919,8 +920,9 @@ const PaymentPageContent: React.FC = () => {
   const handleNavigateHome = () => {
     window.location.href = '/';
     handleCloseClearCartWindow();
-    // @ts-ignore
-    clearCart();
+    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+    // // @ts-ignore
+    // clearCart();
   }
   const handleIncreaseQty = (itemTitle: string) => {
     const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
@@ -1063,6 +1065,7 @@ const PaymentPageContent: React.FC = () => {
   }, [cardDetails]);
 
   console.log("order number is:  ", orderNumber);
+  console.log('Email stored in local storage:', storedEmail);
 
   return (
     <div>
@@ -1094,7 +1097,7 @@ const PaymentPageContent: React.FC = () => {
                         <div className="pr-8 flex w-full flex-1">bobby@gmail.com</div>
                       </div>
                       <div className="flex font-bold cursor-pointer">
-                        <a href="/checkout">Change</a>
+                        <Link href={`/checkout/${cartId}`}>Change</Link>
                       </div>
                     </div>
                     <div>
@@ -1109,7 +1112,7 @@ const PaymentPageContent: React.FC = () => {
                         </div>
                       </div>
                       <div className="flex font-bold cursor-pointer">
-                        <a href="/checkout">Change</a>
+                        <Link href={`/checkout/${cartId}`}>Change</Link>
                       </div>
                     </div>
 

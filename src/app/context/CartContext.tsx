@@ -60,8 +60,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
     return null;
   });
+
   const [totalPrice, setTotalPrice] = useState(0);
-  const [totalQty, setTotalQty] = useState(0);
+  const initialTotalQty = cartItems.reduce((acc, item) => acc + item.qty, 0);
+  const [totalQty, setTotalQty] = useState(initialTotalQty);
 
   const [cartId, setCartId] = useState<string | null>(() => {
     const localData = localStorage.getItem('cart');

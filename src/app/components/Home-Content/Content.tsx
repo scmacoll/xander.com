@@ -56,6 +56,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const { totalQty, clearCart, clearOrderNumber } = useCart();
+  console.log("totalQty: ", totalQty);
 
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -177,9 +178,11 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const combinedData = mergeData(leftData, middleData, rightData);
 
   useEffect(() => {
-    if (totalQty === 0 || (orderCompleted && totalQty > 0)) {
+    if (totalQty === 0 || (orderCompleted === true && totalQty > 0)) {
       completeOrder(false);
+      // @ts-ignore
       clearCart();
+      // @ts-ignore
       clearOrderNumber();
     }
   },[])
