@@ -21,6 +21,7 @@ const PaymentPageContent: React.FC = () => {
   console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  const currentUrl = window.location.pathname;
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,7 +29,7 @@ const PaymentPageContent: React.FC = () => {
     }, 10)
   }, []);
   useEffect(() => {
-    if (totalQty === 0 || cartData === null || cartData === undefined || storedEmail === null) {
+    if (totalQty === 0 || cartData === null || cartData === undefined || storedEmail === null || currentUrl === '/payment') {
       setIs404Error(true);
     }
   }, []);

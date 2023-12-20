@@ -16,6 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
 import { useCart } from "@/app/context/CartContext";
+import { useHearts } from "@/app/context/HeartContext";
 
 
 interface ContentProps {
@@ -57,6 +58,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   console.log("is order completed?: ", orderCompleted);
   const { totalQty, clearCart, clearOrderNumber } = useCart();
   console.log("totalQty: ", totalQty);
+  const { clearAllHearts } = useHearts();
 
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -182,6 +184,8 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
       completeOrder(false);
       // @ts-ignore
       clearCart();
+      // @ts-ignore
+      clearAllHearts();
       // @ts-ignore
       clearOrderNumber();
     }

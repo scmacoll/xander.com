@@ -28,6 +28,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const [is404Error, setIs404Error] = useState(false);
   const router = useRouter();
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  const currentUrl = window.location.pathname;
 
   useEffect(() => {
     setTimeout(() => {
@@ -35,7 +36,8 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     },10)
   }, []);
   useEffect(() => {
-    if (totalQty === 0 || cartData === null || cartData === undefined) {
+    if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout')
+    {
       setIs404Error(true);
     }
   }, []);
