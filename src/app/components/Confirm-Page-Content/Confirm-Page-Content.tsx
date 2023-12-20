@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 
 
 const ConfirmPageContent: React.FC = () => {
-  const { cartItems, totalPrice, orderNumber, clearCart } = useCart();
+  const { cartItems, totalPrice, orderNumber, totalQty } = useCart();
   const { clearAllHearts } = useHearts();
 
   const { orderCompleted, completeOrder } = useConfirmedOrder();
@@ -57,7 +57,7 @@ const ConfirmPageContent: React.FC = () => {
     }, 10)
   }, []);
   useEffect(() => {
-    if (orderNumber === null || orderNumber === undefined || storedEmail === null || currentUrl === '/payment') {
+    if (orderNumber === null || orderNumber === undefined || storedEmail === null || currentUrl === '/confirm') {
       setIs404Error(true);
     }
   }, []);
@@ -235,7 +235,7 @@ const ConfirmPageContent: React.FC = () => {
     return null;
   }
   // Returns
-  if (!orderCompleted) {
+  if (totalQty === 0) {
     return <div><ExpiredPage/></div>
   } else if (is404Error) {
     router.push('/404');
