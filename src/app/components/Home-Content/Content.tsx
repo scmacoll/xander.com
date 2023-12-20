@@ -71,7 +71,13 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
+  const [hasPageLoaded, setHasPageLoaded] = useState(false);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setHasPageLoaded(true);
+    }, 10)
+  }, []);
 
   const handleCardInteraction = (card: TileCard) => {
     setSelectedCard(card);
@@ -180,7 +186,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const combinedData = mergeData(leftData, middleData, rightData);
 
   useEffect(() => {
-    if (totalQty === 0 || (orderCompleted === true && totalQty > 0)) {
+    if (orderCompleted && totalQty > 0) {
       completeOrder(false);
       // @ts-ignore
       clearCart();
@@ -270,6 +276,10 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
     };
     fetchData();
   }, []);
+
+  if (!hasPageLoaded) {
+    return null;
+  }
 
   return (
     <div id="sectionWrapper" className="">

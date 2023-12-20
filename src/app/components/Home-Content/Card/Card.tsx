@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Content, { TileCard } from '../Content';
 import { useHearts } from "@/app/context/HeartContext";
 import styles from './Card.module.scss';
@@ -11,7 +11,12 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
-
+  const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setHasPageLoaded(true);
+    }, 10)
+  }, []);
   const { quoteHearts, toggleQuoteHeart } = useHearts();
   const handleQuoteHeartClick = () => {
     toggleQuoteHeart(card.quote);
@@ -38,7 +43,9 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
       onInteraction();
     }
   };
-
+  if (!hasPageLoaded) {
+    return null;
+  }
   return (
     <div className={`${styles.cardContent} select-none`}>
       <div onClick={handleInteraction}

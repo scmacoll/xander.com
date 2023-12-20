@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './Header.module.scss';
 import Link from 'next/link';
 import { useCart } from "@/app/context/CartContext";
@@ -29,6 +29,12 @@ const Header: React.FC<HeaderProps> = ({
   // @ts-ignore
   const { totalQty, cartId } = useCart();
   console.log("Cart ID in Header:", cartId);
+  const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setHasPageLoaded(true);
+    }, 10)
+  }, []);
 
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
@@ -39,6 +45,9 @@ const Header: React.FC<HeaderProps> = ({
       inputRef.current.click();
     }
   };
+  if (!hasPageLoaded) {
+    return null;
+  }
 
   return (
     <header className={`
