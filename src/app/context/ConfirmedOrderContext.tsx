@@ -7,6 +7,7 @@ import React, { createContext, useState, useContext, useEffect, ReactNode } from
 interface ConfirmedOrderContextType {
   orderCompleted: boolean;
   completeOrder: (b: boolean) => void;
+  setOrderCompleted: (b: boolean) => void;
 }
 
 // Create the context with the specified type
@@ -40,7 +41,7 @@ export const ConfirmedOrderProvider: React.FC<ConfirmedOrderProviderProps> = ({ 
   }, [orderCompleted]);
 
   return (
-    <ConfirmedOrderContext.Provider value={{ orderCompleted, completeOrder }}>
+    <ConfirmedOrderContext.Provider value={{ orderCompleted, completeOrder, setOrderCompleted }}>
       {children}
     </ConfirmedOrderContext.Provider>
   );

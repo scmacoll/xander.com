@@ -14,7 +14,7 @@ const PaymentPageContent: React.FC = () => {
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
-  const {orderCompleted} = useConfirmedOrder();
+  const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const router = useRouter();
   const storedEmail = localStorage.getItem('email');
@@ -1072,6 +1072,7 @@ const PaymentPageContent: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsSessionExpired(true);
+      setOrderCompleted(true);
     }, 450000); // 7.5 minutes = 450000 milliseconds
 
     return () => {

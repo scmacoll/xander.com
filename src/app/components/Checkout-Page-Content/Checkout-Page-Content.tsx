@@ -21,7 +21,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   console.log("Cart Items:", cartItems);
   console.log("total Qty: ", totalQty);
-  const { orderCompleted } = useConfirmedOrder();
+  const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   console.log("is session expired?: ", isSessionExpired);
@@ -710,6 +710,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsSessionExpired(true);
+      setOrderCompleted(true);
     }, 450000); // 7.5 minutes = 450000 milliseconds
 
     return () => {
