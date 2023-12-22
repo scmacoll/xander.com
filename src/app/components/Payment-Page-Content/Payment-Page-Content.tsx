@@ -1905,15 +1905,22 @@ const PaymentPageContent: React.FC = () => {
                      className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0
                     xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid
                     border-foreground border rounded-md bg-background
-                    xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent
-                    xs:before:border-r-transparent xs:before:border-b-gray-300
-                    xs:before:border-t-transparent xs:before:border-l-8 xs:before:border-r-8 xs:before:border-b-8
-                    xs:before:border-solid xs:before:content-[''] xs:before:absolute
-                    sm:before:-top-2 sm:before:left-1/2 sm:before:-translate-x-1/2 sm:before:border-l-transparent
-                    sm:before:border-r-transparent sm:before:border-b-gray-300
-                    sm:before:border-t-transparent sm:before:border-l-8 sm:before:border-r-8 sm:before:border-b-8
-                    sm:before:border-solid sm:before:content-[''] sm:before:absolute`}
+                    `}
                 >
+                {/*<div id="clearCartWindow"*/}
+                {/*     ref={clearCartWindowRef}*/}
+                {/*     className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0*/}
+                {/*    xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 sm:translate-x-11 px-4 py-3 h-20 border-solid*/}
+                {/*    border-foreground border rounded-md bg-background*/}
+                {/*    xs:before:-top-2 xs:before:left-1/2 xs:before:-translate-x-1/2 xs:before:border-l-transparent*/}
+                {/*    xs:before:border-r-transparent xs:before:border-b-gray-300*/}
+                {/*    xs:before:border-t-transparent xs:before:border-l-8 xs:before:border-r-8 xs:before:border-b-8*/}
+                {/*    xs:before:border-solid xs:before:content-[''] xs:before:absolute*/}
+                {/*    sm:before:-top-2 sm:before:left-1/2 sm:before:-translate-x-1/2 sm:before:border-l-transparent*/}
+                {/*    sm:before:border-r-transparent sm:before:border-b-gray-300*/}
+                {/*    sm:before:border-t-transparent sm:before:border-l-8 sm:before:border-r-8 sm:before:border-b-8*/}
+                {/*    sm:before:border-solid sm:before:content-[''] sm:before:absolute`}*/}
+                {/*>*/}
                   <div className={`flex flex-col`}>
                     <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
                     <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
