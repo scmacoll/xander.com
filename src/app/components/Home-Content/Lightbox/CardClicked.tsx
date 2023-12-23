@@ -15,6 +15,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const isOneColumn = numColumns === 1;
   const imageUrl = `/${card.cell_name}.jpg`;
+  const portraitImageUrl = `P${card.cell_name}.png`;
   const [qty, setQty] = useState(1);
   const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price).toFixed(2));
   const { addToCart, clearCart } = useCart();
@@ -74,6 +75,8 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   };
 
   console.log("cycle rendered");
+  console.log("image url: ", imageUrl);
+  console.log("portrait url: ", portraitImageUrl);
 
   return (
     <div className={`${styles.cardContent} select-none`}>
@@ -84,12 +87,17 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
           </div>
           <div className={`${styles.cardAuthor} cursor-pointer`}>
             <div className={`${styles.authorName}`}>
-              <Image
-                className={`${styles.dp}`}
-                src={yukioMishimaImage.src}
-                alt="yuko"
-                width="100"
-                height="100"
+              {/*<Image*/}
+              {/*  className={`${styles.dp}`}*/}
+              {/*  src={yukioMishimaImage.src}*/}
+              {/*  alt="yuko"*/}
+              {/*  width="100"*/}
+              {/*  height="100"*/}
+              {/*/>*/}
+              <img
+                className={`${styles.dp} w-20 pt-1`}
+                src={portraitImageUrl}
+                alt="author-image"
               />
               <h3 className="font-bold pl-2">
                 <div>{card.author}</div>

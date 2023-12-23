@@ -65,7 +65,7 @@ const ConfirmPageContent: React.FC = () => {
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
   const currentUrl = window.location.pathname;
 
-  const pickRandomBooks = (books, n) => {
+  const pickRandomBooks = (books: any, n: any) => {
     const shuffled = books.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, n);
   };
@@ -76,7 +76,7 @@ const ConfirmPageContent: React.FC = () => {
         const response = await axios.get(apiURI);
         const booksFromDB = response.data;
         const booksNotInCart = booksFromDB.filter(
-          (book) => !cartItems.some((cartItem) => cartItem.bookTitle === book.book_title)
+          (book: any) => !cartItems.some((cartItem) => cartItem.bookTitle === book.book_title)
         );
 
         // Randomly pick 5 books from the booksNotInCart array
