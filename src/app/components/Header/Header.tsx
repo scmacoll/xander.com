@@ -59,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({
 
       <div
         id="focusButton"
-        className="text-3xl xs:hidden"
+        className="text-3xl xs:hidden flex flex-start justify-start"
         style={{transform: 'translateX(4px)'}}
       >
         <svg id="dropdownIcon" className="hidden"
@@ -133,13 +133,15 @@ const Header: React.FC<HeaderProps> = ({
           </g>
         </svg>
       </div>
-      <div className={`${styles.xandria}`}>
-        <h1>
+      <div className={`${styles.xandria} `}>
+        <div id="h1-wrapper" className="flex justify-center">
+          <h1>
           <a href="/">Xandria</a>
         </h1>
+        </div>
       </div>
       <div id="headerIcons"
-           className="flex cursor-pointer mx-auto justify-end align-center h-fit">
+           className="flex flex-end cursor-pointer mx-auto justify-end align-center h-fit">
         <div className={`${styles.heartIcon} xs:hidden`}>
           <svg
             id="headerHeartIcon"
