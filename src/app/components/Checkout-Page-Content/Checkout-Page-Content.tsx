@@ -1420,9 +1420,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <div id="itemDetailsLeftSide"
                                className="flex h-full flex-col justify-center text-sm w-full">
                             <div className="w-3/4">
-                              <div className="">{item.bookTitle}</div>
-                              <div className="pr-8">{item.bookAuthors}</div>
-                              <div className="flex">{item.bookType}</div>
+                              <div className="font-bold">{item.bookTitle}</div>
+                              <div className="pr-8 text-gray-400">{item.bookAuthors}</div>
+                              <div className="flex text-gray-400">{item.bookType}</div>
                             </div>
                             <div className="py-0.5"></div>
                             <div className="flex items-center justify-between">

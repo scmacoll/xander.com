@@ -552,13 +552,13 @@ const ConfirmPageContent: React.FC = () => {
                           </div>
                           <div id="itemDetailsLeftSide"
                                className="flex h-full flex-col justify-center text-sm w-full">
-                            <div className="pr-8">{item.bookTitle}</div>
-                            <div className="pr-8">{item.bookAuthors}</div>
+                            <div className="pr-8 font-bold">{item.bookTitle}</div>
+                            <div className="pr-8 text-gray-400">{item.bookAuthors}</div>
                             <div className="flex justify-between w-full">
-                              <div className="flex">{item.bookType}</div>
+                              <div className="flex text-gray-400">{item.bookType}</div>
                               <div className="flex">${item.qtyPrice.toFixed(2)}</div>
                             </div>
-                            <div className="flex font-light pr-8">Qty: {item.qty}</div>
+                            <div className="flex text-gray-400 pr-8">Qty: {item.qty}</div>
                           </div>
                         </div>
                       </div>
