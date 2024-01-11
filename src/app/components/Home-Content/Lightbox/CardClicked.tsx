@@ -245,7 +245,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                         </button>
                       </div>
                       <div className={`flex flex-end items-end text-base`}>
-                        <p className="font-bold">${card.book_price}</p>
+                        <p className="">${card.book_price}</p>
                       </div>
                     </div>
                   </div>

@@ -3,7 +3,7 @@ import Content, { TileCard } from '../Content';
 import { useHearts } from "@/app/context/HeartContext";
 import styles from './Card.module.scss';
 import Image from 'next/image';
-import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
+
 
 interface CardProps {
   card: TileCard;
@@ -12,6 +12,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  const portraitImageUrl = `P${card.cell_name}.png`;
   useEffect(() => {
     setTimeout(() => {
       setHasPageLoaded(true);
@@ -55,10 +56,10 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
         </div>
         <div className={`${styles.cardAuthor}`}>
           <div className={`${styles.authorName} flex items-center`}>
-            <Image
+            <img
               className={`${styles.dp}`}
-              src={yukioMishimaImage.src}
-              alt="yuko"
+              src={portraitImageUrl}
+              alt="profile image"
               width="100"
               height="100"
             />
