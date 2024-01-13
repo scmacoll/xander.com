@@ -3,15 +3,15 @@ import styles from './Footer.module.scss';
 const Footer = () => {
   return (
     <footer
-      className={`flex pt-10`}
+      className={`flex pt-10 select-none`}
     >
       {/* <div className="absolute inset-y-0 left-1/2 border-l-2 border-dashed border-grey"></div> */}
       <div className={`flex py-5 w-95% border-t border-solid border-foreground justify-center mx-auto`}>
         <div className={`flex items-center gap-4 flex-col justify-center w-full text-xs`}>
           <nav className="gap-4 flex text-fg-06 font-bold">
-            <a className="hover:underline" href="">About us</a>
-            <a className="hover:underline" href="">Contact</a>
-            <a className="hover:underline" href="">Services</a>
+            <a className="hover:underline cursor-pointer">About us</a>
+            <a className="hover:underline cursor-pointer">Contact</a>
+            <a className="hover:underline cursor-pointer">Services</a>
           </nav>
           <nav>
             <div className="grid grid-flow-col gap-4">

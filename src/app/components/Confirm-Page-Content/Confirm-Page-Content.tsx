@@ -298,7 +298,7 @@ const ConfirmPageContent: React.FC = () => {
             <div id="orderTitleNumber"
                  className="flex items-center">
               <div className="pr-3">
-                <svg id="confirmTickIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px"
+                <svg className="cursor-default" id="confirmTickIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px"
                      height="50px">
                   <path
                     fill="rgb(185, 161, 111)"

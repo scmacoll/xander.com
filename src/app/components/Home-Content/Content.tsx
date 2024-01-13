@@ -369,7 +369,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
              onClick={() => shiftColumn('right')}>
           <FontAwesomeIcon icon={faChevronLeft} size="xl" className="text-fg-06 hover:text-foreground"/>
         </div>
-        <div className={styles.pagination}>
+        <div className={`${styles.pagination} select-none`}>
           {(() => {
             const currentPageNumbers = getPageNumbersSubset();
             // Render the page numbers

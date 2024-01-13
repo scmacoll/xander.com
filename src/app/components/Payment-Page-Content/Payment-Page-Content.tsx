@@ -10,6 +10,14 @@ import { useRouter } from "next/navigation";
 
 
 const PaymentPageContent: React.FC = () => {
+
+  const [shippingAddressLineOne, setShippingAddressLineOne] = useState('');
+  const [shippingAddressLineTwo, setShippingAddressLineTwo] = useState('');
+  const [shippingCity, setShippingCity] = useState('');
+  const [shippingState, setShippingState] = useState('');
+  const [shippingCountry, setShippingCountry] = useState('');
+  const [shippingZipcode, setShippingZipcode] = useState('');
+
   const cartData = localStorage.getItem('cart');
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
@@ -959,6 +967,35 @@ const PaymentPageContent: React.FC = () => {
   };
 
   useEffect(() => {
+    const storedShippingAddressLineOne = localStorage.getItem('shippingAddressLineOne');
+    const storedShippingAddressLineTwo = localStorage.getItem('shippingAddressLineTwo');
+    const storedShippingCity = localStorage.getItem('shippingCity');
+    const storedShippingState = localStorage.getItem('shippingState');
+    const storedShippingCountry = localStorage.getItem('shippingCountry');
+    const storedShippingZipcode = localStorage.getItem('shippingZipcode');
+
+    if (storedShippingAddressLineOne) {
+      setShippingAddressLineOne(storedShippingAddressLineOne);
+    }
+    if (storedShippingAddressLineTwo) {
+      setShippingAddressLineTwo(storedShippingAddressLineTwo);
+    }
+    if (storedShippingCity) {
+      setShippingCity(storedShippingCity);
+    }
+    if (storedShippingState) {
+      setShippingState(storedShippingState);
+    }
+    if (storedShippingCountry) {
+      setShippingCountry(storedShippingCountry);
+    }
+    if (storedShippingZipcode) {
+      setShippingZipcode(storedShippingZipcode);
+    }
+
+  }, []);
+
+  useEffect(() => {
     if (orderCompleted) {
       setIsSessionExpired(true);
     }
@@ -1093,7 +1130,7 @@ const PaymentPageContent: React.FC = () => {
     router.push('/404');
   } else {
     return (
-      <div className="h-screen mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+      <div className="select-none h-screen mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
         <div id="pageContainer"
              className={`${styles.pageContainer}
            mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
@@ -1129,7 +1166,7 @@ const PaymentPageContent: React.FC = () => {
                   <div className="flex justify-between text-sm">
                     <div className="flex xs:flex-col">
                       <div className="text-gray-400 flex-start w-20">Ship to</div>
-                      <div className="w-full flex flex-1 pr-8">123 Wahroonga Avenue, Wahroonga NSW 2076, Australia
+                      <div className="w-full flex flex-1 pr-8">{shippingAddressLineOne}, {shippingCity} {shippingState} {shippingZipcode}, {shippingCountry}
                       </div>
                     </div>
                     <div className="flex font-bold cursor-pointer">
@@ -1195,8 +1232,8 @@ const PaymentPageContent: React.FC = () => {
 
                   <div className="pb-4">
                     <div>
-                      <a className="sm:px-4 xs:px-4 py-2"
-                         href="/checkout"
+                      <Link className="sm:px-4 xs:px-4 py-2"
+                         href={`/checkout/${cartId}`}
                       >
                         <div className="flex justify-center items-center text-sm font-bold cursor-pointer">
                           <div className="fill-white pr-1">
@@ -1207,7 +1244,7 @@ const PaymentPageContent: React.FC = () => {
                           </div>
                           <div className="flex">Return to information</div>
                         </div>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -1814,9 +1851,9 @@ const PaymentPageContent: React.FC = () => {
             <div id="checkoutFooter"
                  className="xl:h-full lg:h-full md:h-full xl:items-end lg:items-end md:items-end flex justify-start w-full sm:pt-16 xs:pt-6 py-3 text-xs font-bold text-gray-500 mx-auto">
               <div className="flex border-t border-solid border-foreground pt-3 w-full">
-                <div className="pr-4 cursor-pointer">Refund Policy</div>
-                <div className="pr-4 cursor-pointer">Privacy Policy</div>
-                <div className="pr-4 cursor-pointer">Terms of Service</div>
+                <div className="pr-4 hover:underline cursor-pointer">Refund Policy</div>
+                <div className="pr-4 hover:underline cursor-pointer">Privacy Policy</div>
+                <div className="pr-4 hover:underline cursor-pointer">Terms of Service</div>
               </div>
             </div>
           </div>

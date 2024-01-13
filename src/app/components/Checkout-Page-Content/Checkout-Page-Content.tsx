@@ -732,7 +732,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     router.push('/404');
   } else {
     return (
-      <div className="mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
+      <div className="select-none mx-auto flex flex-col w-full overflow-x-hidden xs:px-4 sm:px-8 md:px-8 lg:px-0">
         <div id="pageContainer"
              className={`${styles.pageContainer}
            mx-auto flex lg:pt-12 md:pt-12 sm:pt-2 xs:pt-2 xs:max-w-532px xs:flex-col-reverse sm:w-532px sm:flex-col-reverse md:w-full md:flex-row md:justify-between lg:w-1120px lg:flex-row lg:justify-between`}
@@ -1635,9 +1635,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
         </div>
         <div id="checkoutFooter"
              className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
-          <div className="pr-4 cursor-pointer">Refund Policy</div>
-          <div className="pr-4 cursor-pointer">Privacy Policy</div>
-          <div className="pr-4 cursor-pointer">Terms of Service</div>
+          <div className="pr-4 hover:underline cursor-pointer">Refund Policy</div>
+          <div className="pr-4 hover:underline cursor-pointer">Privacy Policy</div>
+          <div className="pr-4 hover:underline cursor-pointer">Terms of Service</div>
         </div>
 
       </div>
