@@ -552,7 +552,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
 
   const handleIncreaseQty = (itemTitle: string) => {
     const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
-    if (itemToUpdate) {
+    if (itemToUpdate && itemToUpdate.qty < 10) {
       // Create a new CartItem with qty set to 1
       const updatedItem = { ...itemToUpdate, qty: 1 };
       addToCart(updatedItem); // Call addToCart with the updated item

@@ -939,7 +939,7 @@ const PaymentPageContent: React.FC = () => {
   }
   const handleIncreaseQty = (itemTitle: string) => {
     const itemToUpdate = cartItems.find(item => item.bookTitle === itemTitle);
-    if (itemToUpdate) {
+    if (itemToUpdate && itemToUpdate.qty < 10) {
       // Create a new CartItem with qty set to 1
       const updatedItem = {...itemToUpdate, qty: 1};
       addToCart(updatedItem); // Call addToCart with the updated item
@@ -2027,7 +2027,7 @@ const PaymentPageContent: React.FC = () => {
                                   )}
                                 </div>
                                 <div
-                                  className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{item.qty}</div>
+                                  className="flex font-light border-x border-solid border-foreground px-4 py-0.5 ">{item.qty}</div>
                                 <button id="qtyPlusButton" className="h-6"
                                         onClick={() => handleIncreaseQty(item.bookTitle)}>
                                   <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
