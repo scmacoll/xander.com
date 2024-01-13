@@ -69,6 +69,12 @@ const ConfirmPageContent: React.FC = () => {
     const shuffled = books.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, n);
   };
+  const isCellInRange = (cellName: any) => {
+    const numberPart = parseInt(cellName, 10); // Extracts the numeric part
+    const letterPart = cellName.charAt(cellName.length - 1); // Extracts the letter part
+
+    return numberPart >= 1 && numberPart <= 8 && letterPart >= 'A' && letterPart <= 'I';
+  };
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -79,8 +85,11 @@ const ConfirmPageContent: React.FC = () => {
           (book: any) => !cartItems.some((cartItem) => cartItem.bookTitle === book.book_title)
         );
 
-        // Randomly pick 5 books from the booksNotInCart array
-        const randomBooks = pickRandomBooks(booksNotInCart, 5);
+        // Filter books within the specified cell range
+        const booksInCellRange = booksNotInCart.filter((book: { cell_name: any; }) => isCellInRange(book.cell_name));
+
+        // Randomly pick 5 books from the booksInCellRange array
+        const randomBooks = pickRandomBooks(booksInCellRange, 5);
         setBooks(randomBooks);
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -700,17 +709,15 @@ const ConfirmPageContent: React.FC = () => {
                 {/*  ))}*/}
 
                 {books.map((book, index) => (
-                  <div key={index} className={`${styles.bookBlock}`}>
-                    <div>
-                      <a>
+                  <div key={index} className={`${styles.bookBlock} min-w-20 w-56 border-green`}>
+                    <div className="border-red flex justify-center w-20 mx-auto">
                         <img
                           className={`${styles.responsiveImage}`}
                           src={`/${book.cell_name}.jpg`}
                           alt={`${book.book_title} ${book.cell_name}`}
-                          width="115"
-                          height="115"
+                          // width="115"
+                          // height="115"
                         />
-                      </a>
                     </div>
                     <div className="pt-3 pb-5 text-xs font-extrabold">{book.book_title}</div>
                     <div className="pb-6 text-xs">{book.book_authors}</div>
