@@ -702,11 +702,11 @@ const ConfirmPageContent: React.FC = () => {
                 {books.map((book, index) => (
                   <div key={index} className={`${styles.bookBlock}`}>
                     <div>
-                      <a href="/book">
-                        <Image
+                      <a>
+                        <img
                           className={`${styles.responsiveImage}`}
-                          src={masterandemissarry.src}
-                          alt="yuko"
+                          src={`/${book.cell_name}.jpg`}
+                          alt={`${book.book_title} ${book.cell_name}`}
                           width="115"
                           height="115"
                         />
