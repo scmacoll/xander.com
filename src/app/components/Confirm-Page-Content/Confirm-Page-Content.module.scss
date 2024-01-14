@@ -76,9 +76,9 @@
 }
 
 .bookBlock {
-  display: block;
-  //display: flex;
-  //flex-direction: column;
+  //display: block;
+  display: flex;
+  flex-direction: column;
   text-align: center;
   padding-top: 1em;
 }
@@ -86,19 +86,19 @@
 .responsiveImage {
   @media (min-width: 1200px) {
     width: 115px;
-    height: auto;
+    height: 176px;
   }
   @media (max-width: 1199px) and (min-width: 1000px) {
     width: 115px;
-    height: auto;
+    height: 176px;
   }
   @media (max-width: 999px) and (min-width: 750px) {
     width: 100px;
-    height: auto;
+    height: 176px;
   }
   @media (max-width: 749px) {
     width: 100px;
-    height: auto;
+    height: 176px;
   }
 }
 
