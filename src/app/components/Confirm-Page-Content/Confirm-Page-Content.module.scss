@@ -77,8 +77,10 @@
 
 .bookBlock {
   display: block;
+  //display: flex;
+  //flex-direction: column;
   text-align: center;
-  padding: 1em;
+  padding-top: 1em;
 }
 
 .responsiveImage {
@@ -158,6 +160,23 @@
 .similarRarrow:hover svg path,
 .similarLarrow:hover svg path {
   fill: #d2cfca;
+}
+
+.textFlowFour {
+  overflow: hidden;
+  /* Optional: to add '...' at the end of the visible text */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+.textFlowTwo {
+  overflow: hidden;
+  /* Optional: to add '...' at the end of the visible text */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .unselectable {
