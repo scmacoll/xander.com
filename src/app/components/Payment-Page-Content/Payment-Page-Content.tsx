@@ -546,6 +546,10 @@ const PaymentPageContent: React.FC = () => {
       addressLineTwo: newAddressLineTwo,
       addressLineTwoError: prevDetails.addressLineTwo.trim() === ''
     }));
+    setHasText(prevDetails => ({
+      ...prevDetails,
+      addressLineTwo: newAddressLineTwo.length > 0
+    }));
   };
   const handleAddressLineTwoBlur = () => {
     setIsFocused(prevDetails => ({
@@ -1155,7 +1159,8 @@ const PaymentPageContent: React.FC = () => {
                       <div className="pr-8 flex w-full flex-1">bobby@gmail.com</div>
                     </div>
                     <div className="flex font-bold cursor-pointer">
-                      <Link href={isNavigating || isReviewing ? '' : `/checkout/${cartId}`}>
+                      <Link href={isNavigating || isReviewing || isReviewed ? '' : `/checkout/${cartId}`}
+                            className={`${isNavigating || isReviewing || isReviewed ? 'cursor-default' : 'cursor-pointer'}`}>
                         Change</Link>
                     </div>
                   </div>
@@ -1171,7 +1176,9 @@ const PaymentPageContent: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex font-bold cursor-pointer">
-                      <Link href={isNavigating || isReviewing ? '' :  `/checkout/${cartId}`}>Change</Link>
+                      <Link href={isNavigating || isReviewing || isReviewed ? '' :  `/checkout/${cartId}`}
+                      className={`${isNavigating || isReviewing || isReviewed ? 'cursor-default' : 'cursor-pointer'}`}
+                      >Change</Link>
                     </div>
                   </div>
 
@@ -1284,7 +1291,7 @@ const PaymentPageContent: React.FC = () => {
                   {isLoading ? (
                     <button className={styles.loader}></button>
                   ) : (
-                    <button disabled={!isCodeValid}>APPLY</button>
+                    <button disabled={!isCodeValid || isNavigating || isReviewing || isReviewed}>APPLY</button>
                   )}
                 </div>
               </div>
@@ -1375,6 +1382,7 @@ const PaymentPageContent: React.FC = () => {
                             <input type="text"
                                    placeholder={showCardNumberLabel ? '' : "Card Number"}
                                    readOnly={isReviewed || isReviewing}
+                                   disabled={isReviewed || isReviewing}
                                    value={cardDetails.cardNumber}
                                    maxLength={19}
                                    onChange={handleCardNumberChange}
@@ -1396,6 +1404,7 @@ const PaymentPageContent: React.FC = () => {
                             <input type="text"
                                    placeholder={showCardNameLabel ? '' : "Name on card"}
                                    readOnly={isReviewed || isReviewing}
+                                   disabled={isReviewed || isReviewing}
                                    value={cardDetails.cardName}
                                    maxLength={60}
                                    onChange={handleCardNameChange}
@@ -1417,6 +1426,7 @@ const PaymentPageContent: React.FC = () => {
                             <input type="text"
                                    placeholder={showCardExpiryLabel ? '' : "Expiration date (MM/YY)"}
                                    readOnly={isReviewed || isReviewing}
+                                   disabled={isReviewed || isReviewing}
                                    value={cardDetails.cardExpiry}
                                    onChange={handleCardExpiryChange}
                                    onFocus={handleCardExpiryFocused}
@@ -1515,7 +1525,7 @@ const PaymentPageContent: React.FC = () => {
                           </svg>
                         </div>
                         <select id="country"
-                          // disabled={isReviewed}
+                                disabled={isLoading || isReviewing || isReviewed}
                                 className="block w-full appearance-none px-3 pt-7 pb-2 font-bold bg-background focus:border-blue-500 focus:outline-none"
                                 value={billingDetails.country}
                                 onChange={handleCountryChange}>
@@ -1540,7 +1550,8 @@ const PaymentPageContent: React.FC = () => {
                           </label>
                           <input type="text"
                                  placeholder={showFirstNameLabel ? '' : 'First Name'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.firstName}
                                  onChange={handleFirstNameChange}
                                  onFocus={handleFirstNameFocused}
@@ -1557,7 +1568,8 @@ const PaymentPageContent: React.FC = () => {
                           </label>
                           <input type="text"
                                  placeholder={showLastNameLabel ? '' : 'Last Name'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.lastName}
                                  onChange={handleLastNameChange}
                                  onFocus={handleLastNameFocused}
@@ -1580,7 +1592,8 @@ const PaymentPageContent: React.FC = () => {
                           </label>
                           <input type="text"
                                  placeholder={showCompanyNameLabel ? '' : 'Company (optional)'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.companyName}
                                  onChange={handleCompanyNameChange}
                                  onFocus={handleCompanyNameFocused}
@@ -1601,7 +1614,8 @@ const PaymentPageContent: React.FC = () => {
                           </label>
                           <input type="text"
                                  placeholder={showAddressLineOneLabel ? '' : 'Address'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.addressLineOne}
                                  onChange={handleAddressLineOneChange}
                                  onFocus={handleAddressLineOneFocused}
@@ -1620,7 +1634,8 @@ const PaymentPageContent: React.FC = () => {
                           </label>
                           <input type="text"
                                  placeholder={showAddressLineTwoLabel ? '' : 'Apartment, suite, etc. (optional)'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.addressLineTwo}
                                  onChange={handleAddressLineTwoChange}
                                  onFocus={handleAddressLineTwoFocused}
@@ -1643,7 +1658,8 @@ const PaymentPageContent: React.FC = () => {
                           <input id="cityInput"
                                  type="text"
                                  placeholder={showCityLabel ? "" : "City"}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.city}
                                  onChange={handleCityChange}
                                  onFocus={handleCityFocused}
@@ -1696,7 +1712,8 @@ const PaymentPageContent: React.FC = () => {
                           <input id="zipcodeInput"
                                  type="text"
                                  placeholder={showZipcodeLabel ? '' : 'Postcode'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.zipcode}
                                  onFocus={handleZipcodeFocused}
                                  onChange={handleZipcodeChange}
@@ -1716,7 +1733,8 @@ const PaymentPageContent: React.FC = () => {
                           </label>
                           <input type="text"
                                  placeholder={showPhoneLabel ? '' : 'Phone (optional)'}
-                                 readOnly={isReviewed}
+                                 readOnly={isLoading || isReviewing || isReviewed}
+                                 disabled={isLoading || isReviewing || isReviewed}
                                  value={billingDetails.phone}
                                  onChange={handlePhoneChange}
                                  onFocus={handlePhoneFocused}
@@ -1906,7 +1924,8 @@ const PaymentPageContent: React.FC = () => {
 
                 <div id="summaryBannerLeftSection"
                      className="font-bold text-lg">
-                  <div id="summaryBannerBinButton"
+                  <button id="summaryBannerBinButton"
+                       disabled={isLoading || isNavigating || isReviewing || isReviewed}
                        className={`${isOrderSummaryHidden ? 'hidden' : ''}
                       relative group flex items-center`}
                        onClick={handleOpenClearCartWindow}
@@ -1937,7 +1956,7 @@ const PaymentPageContent: React.FC = () => {
                         <path d="M10 12l4 4m0 -4l-4 4"/>
                       </svg>
                     </div>
-                  </div>
+                  </button>
                   <span className="pl-4">${totalPrice.toFixed(2)}</span>
                 </div>
                 <div id="clearCartWindow"
@@ -2010,7 +2029,11 @@ const PaymentPageContent: React.FC = () => {
                                    className="flex items-center w-fit border border-solid border-foreground rounded">
                                 <div>
                                   {item.qty === 1 ? (
-                                    <button className="h-6" onClick={() => handleRemoveFromCart(item.bookTitle)}>
+                                    <button
+                                      disabled={isLoading || isNavigating || isReviewing || isReviewed}
+                                      className="h-6"
+                                      onClick={() => handleRemoveFromCart(item.bookTitle)}
+                                    >
                                       <svg id="itemQtyBin" className="h-3 px-2" focusable="false" data-icon="trash"
                                            role="img"
                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -2019,7 +2042,10 @@ const PaymentPageContent: React.FC = () => {
                                       </svg>
                                     </button>
                                   ) : (
-                                    <button className="h-6" onClick={() => handleDecreaseQty(item.bookTitle)}>
+                                    <button
+                                      disabled={isLoading || isNavigating || isReviewing || isReviewed}
+                                      className="h-6"
+                                      onClick={() => handleDecreaseQty(item.bookTitle)}>
                                       <svg className="h-3 px-2" focusable="false" data-icon="minus" role="img"
                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                                         <path fill="currentColor"
@@ -2030,8 +2056,11 @@ const PaymentPageContent: React.FC = () => {
                                 </div>
                                 <div
                                   className="flex font-light border-x border-solid border-foreground px-4 py-0.5 ">{item.qty}</div>
-                                <button id="qtyPlusButton" className="h-6"
-                                        onClick={() => handleIncreaseQty(item.bookTitle)}>
+                                <button
+                                  disabled={isLoading || isNavigating || isReviewing || isReviewed}
+                                  id="qtyPlusButton"
+                                  className="h-6"
+                                  onClick={() => handleIncreaseQty(item.bookTitle)}>
                                   <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
                                        xmlns="http://www.w3.org/2000/svg"
                                        viewBox="0 0 448 512">
@@ -2052,6 +2081,7 @@ const PaymentPageContent: React.FC = () => {
                             onClick={() => {
                               handleRemoveFromCart(item.bookTitle)
                             }}
+                            disabled={isNavigating || isLoading || isReviewing || isReviewed}
                             className={`${styles.closeButton} flex absolute z-5 translate-x-2 -translate-y-1.5 right-0 top-0`}>
                             <svg
                               className={``}
@@ -2112,7 +2142,7 @@ const PaymentPageContent: React.FC = () => {
                     {isLoading ? (
                       <button className={styles.loader}></button>
                     ) : (
-                      <button disabled={!isCodeValid}>APPLY</button>
+                      <button disabled={!isCodeValid || isNavigating || isReviewing || isReviewed}>APPLY</button>
                     )}
                   </div>
                 </div>
@@ -2158,7 +2188,8 @@ const PaymentPageContent: React.FC = () => {
                         </div>
                       ) : (
                         <div className="relative flex justify-end items-center">
-                          <div id="totalOrderPriceBinButton"
+                          <button id="totalOrderPriceBinButton"
+                               disabled={isLoading || isNavigating || isReviewing || isReviewed}
                                className={`group xs:hidden sm:hidden`}
                                onClick={handleOpenClearCartWindow}
                           >
@@ -2189,7 +2220,7 @@ const PaymentPageContent: React.FC = () => {
                                 <path d="M10 12l4 4m0 -4l-4 4"/>
                               </svg>
                             </div>
-                          </div>
+                          </button>
                           <div className="xs:hidden sm:hidden">
 
                           </div>
