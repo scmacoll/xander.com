@@ -1155,7 +1155,8 @@ const PaymentPageContent: React.FC = () => {
                       <div className="pr-8 flex w-full flex-1">bobby@gmail.com</div>
                     </div>
                     <div className="flex font-bold cursor-pointer">
-                      <Link href={`/checkout/${cartId}`}>Change</Link>
+                      <Link href={isNavigating || isReviewing ? '' : `/checkout/${cartId}`}>
+                        Change</Link>
                     </div>
                   </div>
                   <div>
@@ -1170,7 +1171,7 @@ const PaymentPageContent: React.FC = () => {
                       </div>
                     </div>
                     <div className="flex font-bold cursor-pointer">
-                      <Link href={`/checkout/${cartId}`}>Change</Link>
+                      <Link href={isNavigating || isReviewing ? '' :  `/checkout/${cartId}`}>Change</Link>
                     </div>
                   </div>
 
@@ -1261,6 +1262,7 @@ const PaymentPageContent: React.FC = () => {
                     type="text"
                     placeholder="Discount code or gift card"
                     value={discountCode}
+                    readOnly={isLoading || isReviewing || isNavigating || isReviewed}
                     onChange={handleDiscountCodeChange}
                     maxLength={16}
                     className="w-full items-center border border-solid bg-transparent px-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"
@@ -1372,7 +1374,7 @@ const PaymentPageContent: React.FC = () => {
                             </label>
                             <input type="text"
                                    placeholder={showCardNumberLabel ? '' : "Card Number"}
-                                   readOnly={isReviewed}
+                                   readOnly={isReviewed || isReviewing}
                                    value={cardDetails.cardNumber}
                                    maxLength={19}
                                    onChange={handleCardNumberChange}
@@ -1393,7 +1395,7 @@ const PaymentPageContent: React.FC = () => {
                             </label>
                             <input type="text"
                                    placeholder={showCardNameLabel ? '' : "Name on card"}
-                                   readOnly={isReviewed}
+                                   readOnly={isReviewed || isReviewing}
                                    value={cardDetails.cardName}
                                    maxLength={60}
                                    onChange={handleCardNameChange}
@@ -1414,7 +1416,7 @@ const PaymentPageContent: React.FC = () => {
                             </label>
                             <input type="text"
                                    placeholder={showCardExpiryLabel ? '' : "Expiration date (MM/YY)"}
-                                   readOnly={isReviewed}
+                                   readOnly={isReviewed || isReviewing}
                                    value={cardDetails.cardExpiry}
                                    onChange={handleCardExpiryChange}
                                    onFocus={handleCardExpiryFocused}
@@ -1432,7 +1434,7 @@ const PaymentPageContent: React.FC = () => {
                             </label>
                             <input type="text"
                                    placeholder={showCardCodeLabel ? '' : "Security code"}
-                                   readOnly={isReviewed}
+                                   readOnly={isReviewed || isReviewing}
                                    value={cardDetails.cardCode}
                                    onChange={handleCardCodeChange}
                                    onFocus={handleCardCodeFocused}
@@ -1459,8 +1461,8 @@ const PaymentPageContent: React.FC = () => {
                         <div className="pr-2">
                           <input id="shipping"
                                  value="shipping"
-                                 disabled={isReviewed && !isSameAddress}
-                                 readOnly={isReviewed}
+                                 disabled={isReviewed || isReviewing && !isSameAddress}
+                                 readOnly={isReviewed || isReviewing}
                                  type="radio"
                                  name="addressType"
                                  className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} form-radio cursor-pointer accent-gray-600`}
@@ -1470,7 +1472,7 @@ const PaymentPageContent: React.FC = () => {
                           />
                         </div>
                         <label htmlFor="shipping"
-                               className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} `}>
+                               className={`${isReviewed || isReviewing ? 'cursor-default' : 'cursor-pointer'} `}>
                           Same as shipping address</label>
                       </div>
                     </div>
@@ -1480,8 +1482,8 @@ const PaymentPageContent: React.FC = () => {
                         <div className="pr-2">
                           <input id="billing"
                                  value="billing"
-                                 disabled={isReviewed && isSameAddress}
-                                 readOnly={isReviewed}
+                                 disabled={isReviewed || isReviewing && isSameAddress}
+                                 readOnly={isReviewed || isReviewing}
                                  type="radio"
                                  name="addressType"
                                  className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'}form-radio cursor-pointer accent-gray-600`}
@@ -1489,7 +1491,7 @@ const PaymentPageContent: React.FC = () => {
                                  onChange={handleAddressInputChange}
                           />
                         </div>
-                        <label htmlFor="billing" className={`${isReviewed ? 'cursor-default' : 'cursor-pointer'} `}
+                        <label htmlFor="billing" className={`${isReviewed || isReviewing ? 'cursor-default' : 'cursor-pointer'} `}
                         >Use a different billing address</label>
                       </div>
                     </div>
@@ -2088,6 +2090,7 @@ const PaymentPageContent: React.FC = () => {
                       type="text"
                       placeholder="Discount code or gift card"
                       value={discountCode}
+                      readOnly={isLoading || isReviewing || isNavigating || isReviewed}
                       onChange={handleDiscountCodeChange}
                       maxLength={16}
                       className="w-full items-center border border-solid bg-transparent px-3 py-4 text-sm placeholder:font-bold outline-none border-foreground placeholder-greyed-out"

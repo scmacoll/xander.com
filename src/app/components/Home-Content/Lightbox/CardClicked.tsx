@@ -182,40 +182,40 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
             <div className="flex flex-col w-full">
               <div className="flex flex-row items-center xs:items-stretch h-fit">
                 <div className={`${styles.cardIcon} h-fit`}>
-                  <a href="/book" target="_blank" rel="noopener noreferrer">
+                  <span>
                     <img
                       className="min-w-20 w-20 pt-1"
                       src={imageUrl}
                       alt="book-image"
                     />
-                  </a>
+                  </span>
                 </div>
                 <div className="flex flex-col justify-around w-full">
                   <div className="flex flex-col w-full">
                     <div className={`${styles.bookTitleOne}`}>
-                      <a href="/book" target="_blank" rel="noopener noreferrer">
+                      <span>
                         <div id="bookName1">
                           <p className={`${styles.bookName} font-bold`}>
                             {card.book_title}
                           </p>
                         </div>
-                      </a>
+                      </span>
                     </div>
                     <div className={`${styles.bookAuthor} hidden xs:block w-full text-gray-400`}>
-                      <a href="/book" target="_blank" rel="noopener noreferrer">
+                      <span>
                         <p className="flex flex-col xs:gap-0">
                           <span>{card.book_authors}</span>
                         </p>
-                      </a>
+                      </span>
                     </div>
                     <div className={`${styles.bookAuthor} xs:hidden w-full text-gray-400`}>
-                      <a href="/book" target="_blank" rel="noopener noreferrer">
+                      <span>
                         <p className="flex flex-col xs:gap-0">
                           <span>{card.book_authors}</span>
                           <span>{card.book_date}</span>
                           <span>{card.book_type}</span>
                         </p>
-                      </a>
+                      </span>
                     </div>
                   </div>
                   <div className={`${styles.itemPriceXs}`}>

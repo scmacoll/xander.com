@@ -620,7 +620,7 @@ const ConfirmPageContent: React.FC = () => {
              className="flex flex-col w-full mx-auto xl:px-6 sm:px-0 xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
           <div
             className={`${styles.featureSimilar} flex w-full`}>
-            <div className={`${styles.similarText}`}>SIMILAR BOOKS</div>
+            <div className={`${styles.similarText}`}>RECOMMENDED BOOKS</div>
             <div className={`${styles.similarContainer} border-y border-solid border-foreground`}>
               <div className={`${styles.similarBooks} `}>
 

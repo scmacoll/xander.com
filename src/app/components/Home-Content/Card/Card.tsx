@@ -142,7 +142,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
       </div>
       <div className={`${styles.bottomContent}`}>
         <div className={`${styles.cardIcons}`}>
-          <a href="/book" target="_blank" rel="noopener noreferrer">
+          <span>
             <svg id="bookIcon"
                  className={`${styles.cardIcon}`}
                  version="1.0"
@@ -173,7 +173,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
                 />
               </g>
             </svg>
-          </a>
+          </span>
           <svg id="globeIcon"
             className={`${styles.cardIcon} hidden`}
             version="1.0"
