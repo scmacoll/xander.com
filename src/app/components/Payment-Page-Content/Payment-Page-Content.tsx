@@ -1224,18 +1224,19 @@ const PaymentPageContent: React.FC = () => {
 
                 <div
                   className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
-                  <div className="pb-4">
+                  <div className="">
                     <div id="reviewOrderButton"
                          onClick={handleContinueToPaymentButtonClick}
-                         className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''}border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
+                         className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''} h-12 border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
                          type="button"
                     >
                       {isNavigating ? (
-                        <button className={`${styles.loader} flex`}></button>
+                        <button className={`${styles.loader} flex justify-center h-6`}></button>
                       ) : (
-                        <button className="flex mx-auto">CONTINUE TO PAYMENT</button>
+                        <button className="flex mx-auto h-6">CONTINUE TO PAYMENT</button>
                       )}
                     </div>
+                    <div className="pb-4"></div>
                   </div>
 
                   <div className="pb-4">
@@ -1778,7 +1779,7 @@ const PaymentPageContent: React.FC = () => {
                   {/*</div>*/}
                   <div id="orderButton" className="flex">
                     <div id="loadingBorder"
-                         className={`${isReviewing ? '' : ''} xs:w-full`}
+                         className={`${isReviewing ? 'h-12' : ''} xs:w-full md:h-6 lg:h-6 xl:h-6`}
                     >
                       {isReviewing ? (
                         <button id="loadingReviewButton"
@@ -1798,7 +1799,7 @@ const PaymentPageContent: React.FC = () => {
                         <div className="flex xs:flex-col-reverse">
                           <div id="incompleteError"
                                className="flex text-sm xs:pt-4 pr-16 xs:pr-0 text-custom-red xs:justify-center">
-                            <button className="underline hover:no-underline"
+                            <button className="underline hover:no-underline z-10"
                                     onClick={handleCancelButtonClick}
                             >
                               Cancel
@@ -1820,7 +1821,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                   <div className={`${isReviewed ? 'hidden' : ''} `}>
                     <div>
-                      <div className="sm:px-4 xs:px-4 py-2">
+                      <div className="sm:px-4 xs:px-4 py-2 h-12">
                         <div
                           className={`flex xs:pt-2 justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
                           <div className="fill-white pr-2">
@@ -1834,9 +1835,9 @@ const PaymentPageContent: React.FC = () => {
                                onClick={handleContinueToPaymentButtonClick}
                           >
                             {isNavigating ? (
-                              <button className={styles.loader}></button>
+                              <button className={`${styles.loader} flex h-6`}></button>
                             ) : (
-                              <button>Return to shipping</button>
+                              <button className="flex h-6">Return to shipping</button>
                             )}
                           </div>
                         </div>
