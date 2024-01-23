@@ -105,6 +105,7 @@
 .similarHeart {
   display: inline-flex;
   z-index: 2;
+  justify-content: center;
 }
 .similarHeart:hover svg path {
   fill: rgb(112, 45, 45);

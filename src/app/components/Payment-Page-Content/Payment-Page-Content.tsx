@@ -3,6 +3,7 @@ import styles from './Payment-Page-Content.module.scss';
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
+import {useHearts} from "@/app/context/HeartContext";
 import Link from "next/link";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
 import ExpiredPage from "@/app/components/Expired-Page/Expired-Page";
@@ -22,6 +23,7 @@ const PaymentPageContent: React.FC = () => {
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
+  const { clearAllHearts } = useHearts();
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const router = useRouter();
@@ -919,6 +921,8 @@ const PaymentPageContent: React.FC = () => {
 
   const handleGenerateOrderNumber = () => {
     console.log("handle generate random number invoked")
+    // @ts-ignore
+    clearAllHearts();
     // @ts-ignore
     generateOrderNumber();
   };

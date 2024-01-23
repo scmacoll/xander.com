@@ -191,8 +191,6 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
       // @ts-ignore
       clearCart();
       // @ts-ignore
-      clearAllHearts();
-      // @ts-ignore
       clearOrderNumber();
     }
   },[])

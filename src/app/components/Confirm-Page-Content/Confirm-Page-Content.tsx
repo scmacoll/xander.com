@@ -25,10 +25,12 @@ export type TileCard = {
 
 const ConfirmPageContent: React.FC = () => {
   const [books, setBooks] = useState<TileCard[]>([]);
+  const { bookHearts, toggleBookHeart } = useHearts(); // Ensure you have these from your context
   const apiURI = '/api/getCards';
-
+  const handleBookHeartClick = (bookTitle: string) => {
+    toggleBookHeart(bookTitle);
+  };
   const { cartItems, totalPrice, orderNumber, totalQty } = useCart();
-  const { clearAllHearts } = useHearts();
 
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
@@ -64,6 +66,7 @@ const ConfirmPageContent: React.FC = () => {
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
   const currentUrl = window.location.pathname;
+
 
   const pickRandomBooks = (books: any, n: any) => {
     const shuffled = books.sort(() => 0.5 - Math.random());
@@ -739,7 +742,11 @@ const ConfirmPageContent: React.FC = () => {
                         <div id="bookButtons"
                              className="flex flex-col justify-end">
                           <div className="flex w-40 mx-auto justify-evenly items-end">
-                            <div className={`${styles.similarHeart}`}>
+                            <div
+                              id="bookHeart"
+                              className={`${styles.similarHeart} `}
+                              onClick={() => handleBookHeartClick(book.book_title)} // Call the click handler here
+                            >
                               <svg
                                 version="1.0"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -750,7 +757,8 @@ const ConfirmPageContent: React.FC = () => {
                               >
                                 <g
                                   transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                                  fill="#d2cfca2b"
+                                  className={`${bookHearts[book.book_title] ? 'fill-custom-red' : 'fill-greyed-out'}`} // Set class based on the bookHearts state
+                                  // fill="#d2cfca2b"
                                   stroke="none"
                                 >
                                   <path
@@ -768,7 +776,7 @@ const ConfirmPageContent: React.FC = () => {
                                 </g>
                               </svg>
                             </div>
-                            <div className={`${styles.similarBag}`}>
+                            <div className={`${styles.similarBag} `}>
                               <svg
                                 version="1.0"
                                 xmlns="http://www.w3.org/2000/svg"
