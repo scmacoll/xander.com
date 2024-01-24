@@ -741,7 +741,7 @@ const ConfirmPageContent: React.FC = () => {
                 {books.map((book, index) => (
                   <div key={index} className={`${styles.bookBlock} min-w-20 w-full h-full`}>
                     <div id="bookImg"
-                      className="flex justify-center w-44 h-44 mx-auto object-fit">
+                      className="flex justify-center xs:w-16 sm:w-24 md:w-44 lg:w-44 xl:w-44 mx-auto object-fit">
                       <div className="flex-grow bg-white"></div>
                       {/* Left white fill */}
                       <img
@@ -755,7 +755,7 @@ const ConfirmPageContent: React.FC = () => {
                       {/* Right white fill */}
                     </div>
                     <div id="bookInfo"
-                         className="w-44 h-full flex flex-col mx-auto justify-between">
+                         className="xs:w-16 sm:w-24 w-44 h-full flex flex-col mx-auto justify-between">
                       <div className="flex flex-col">
                         <div
                           className={` ${styles.textFlowFour} pt-3 text-xs font-extrabold h-fit max-h-20 `}>{book.book_title}</div>
@@ -768,7 +768,7 @@ const ConfirmPageContent: React.FC = () => {
 
                         <div id="bookButtons"
                              className="flex flex-col justify-end">
-                          <div className="flex w-40 mx-auto justify-evenly items-end">
+                          <div className="flex w-40 xs:w-12 sm:w-20 mx-auto justify-evenly items-end">
                             <div>
                               <button
                                 id="bookHeart"
