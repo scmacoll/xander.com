@@ -36,7 +36,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
     },10)
   }, []);
   useEffect(() => {
-    if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout')
+    if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null')
     {
       setIs404Error(true);
     }

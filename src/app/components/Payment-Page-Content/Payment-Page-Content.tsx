@@ -1813,7 +1813,7 @@ const PaymentPageContent: React.FC = () => {
                             href={`/confirm/${cartId}`}
                             id="placeOrderButton"
                             onClick={handleGenerateOrderNumber}
-                            className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid
+                            className={`xs:w-full flex justify-center border-2 rounded font-bold py-3 px-4 border-solid z-20
                               ${isReviewed ? 'bg-amazon-yellow border-transparent hover:bg-transparent hover:border-foreground' : ''}
                               `}
                           >

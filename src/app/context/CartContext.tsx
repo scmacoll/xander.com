@@ -91,49 +91,51 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 
   const addToCart = (newItem: CartItem) => {
-    setCartItems(currentItems => {
+    return new Promise((resolve, reject) => {
+      setCartItems(currentItems => {
+        let newCartId = cartId;
+        if (currentItems.length === 0 && !cartId) {
+          newCartId = uuidv4();
+          setCartId(newCartId);
+        }
 
-      let newCartId = cartId;
-      if (currentItems.length === 0 && !cartId) {
-        newCartId = uuidv4();
-        setCartId(newCartId);
-      }
+        const currentTotalQty = currentItems.reduce((acc, item) => acc + item.qty, 0);
+        if (currentTotalQty + newItem.qty > 30) {
+          console.warn("Cannot add more items to the cart. Total quantity limit reached.");
+          reject("Total quantity limit reached.");
+          return currentItems;
+        }
 
-      const currentTotalQty = currentItems.reduce((acc, item) => acc + item.qty, 0);
-      if (currentTotalQty + newItem.qty > 30) {
-        console.warn("Cannot add more items to the cart. Total quantity limit reached.");
-        return currentItems;
-      }
+        const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
+        let updatedItems;
+        if (existingItemIndex !== -1) {
+          updatedItems = currentItems.map((item, index) => {
+            if (index === existingItemIndex) {
+              return {
+                ...item,
+                qty: item.qty + newItem.qty,
+                qtyPrice: parseFloat(((item.qty + newItem.qty) * item.bookPrice).toFixed(2))
+              };
+            }
+            return item;
+          });
+        } else {
+          updatedItems = [...currentItems, newItem];
+        }
 
-      const existingItemIndex = currentItems.findIndex(item => item.bookTitle === newItem.bookTitle);
-      let updatedItems;
-      if (existingItemIndex !== -1) {
-        // Update the item if it already exists
-        updatedItems = currentItems.map((item, index) => {
-          if (index === existingItemIndex) {
-            return {
-              ...item,
-              qty: item.qty + newItem.qty, // Increment quantity
-              qtyPrice: parseFloat(((item.qty + newItem.qty) * item.bookPrice).toFixed(2)) // Update total price
-            };
-          }
-          return item;
-        });
-      } else {
-        // Add the new item if it doesn't exist in the cart
-        updatedItems = [...currentItems, newItem];
-      }
+        const cartData = {
+          items: updatedItems,
+          totalPrice: totalPrice, // Ensure these values are correctly calculated or updated
+          totalQty: totalQty,
+          orderNumber: orderNumber,
+          cartId: newCartId,
+        };
+        localStorage.setItem('cart', JSON.stringify(cartData));
 
-      const cartData = {
-        items: updatedItems,
-        totalPrice: totalPrice, // These values might need to be recalculated if they depend on cartItems
-        totalQty: totalQty,
-        orderNumber: orderNumber,
-        cartId: newCartId,
-      };
-      localStorage.setItem('cart', JSON.stringify(cartData));
-
-      return updatedItems;
+        // Resolve the promise once the cart is updated
+        resolve(newCartId);
+        return updatedItems;
+      });
     });
   };
 
