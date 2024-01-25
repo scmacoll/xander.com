@@ -31,8 +31,11 @@ const ConfirmPageContent: React.FC = () => {
   const handleBookHeartClick = (bookTitle: string) => {
     toggleBookHeart(bookTitle);
   };
-  const { cartItems, totalPrice, orderNumber, totalQty, addToCart, clearCart, cartId } = useCart();
+  const { cartItems, totalPrice, orderNumber, totalQty, addToCart, clearCart, cartId, clearOrderNumber } = useCart();
+  const [selectedBook, setSelectedBook] = useState<TileCard | null>(null);
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
+  const [isCartAdded, setIsCartAdded] = useState(false);
+  const [isCartCleared, setIsCartCleared] = useState(false);
 
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
@@ -102,7 +105,7 @@ const ConfirmPageContent: React.FC = () => {
     };
 
     fetchBooks();
-  }, [cartItems]);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -119,31 +122,50 @@ const ConfirmPageContent: React.FC = () => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
 
-  const handleAddToCart = (book: TileCard) => {
-    console.log("add to cart invoked");
-    handleClearCart();
-    const newItem: any = {
-      qty: 1, // or any other logic to determine quantity
-      imageUrl: `/${book.cell_name}.jpg`,
-      qtyPrice: parseFloat((1 * parseFloat(book.book_price)).toFixed(2)), // format qtyPrice
-      bookPrice: parseFloat(book.book_price).toFixed(2),
-      bookTitle: book.book_title,
-      bookAuthors: book.book_authors,
-      bookType: book.book_type,
-      bookDate: book.book_date
-    };
-    console.log("Item to be added: ", newItem);
-    addToCart(newItem);
-    setIsConfirmAddToCart(true);
-    setTimeout(() => {
-      setIsConfirmAddToCart(false);
-    }, 2000);
-  };
+  // const handleAddToCart = (book: TileCard) => {
+  //   console.log("add to cart invoked");
+  //   handleClearCart();
+  //   const newItem: any = {
+  //     qty: 1, // or any other logic to determine quantity
+  //     imageUrl: `/${book.cell_name}.jpg`,
+  //     qtyPrice: parseFloat((1 * parseFloat(book.book_price)).toFixed(2)), // format qtyPrice
+  //     bookPrice: parseFloat(book.book_price).toFixed(2),
+  //     bookTitle: book.book_title,
+  //     bookAuthors: book.book_authors,
+  //     bookType: book.book_type,
+  //     bookDate: book.book_date
+  //   };
+  //   console.log("Item to be added: ", newItem);
+  //   addToCart(newItem);
+  //   setIsConfirmAddToCart(true);
+  //   setTimeout(() => {
+  //     setIsConfirmAddToCart(false);
+  //   }, 2000);
+  // };
+
   const handleBuyNow = async (event: React.MouseEvent, book: TileCard) => {
     event.preventDefault();
     console.log("buy now invoked")
     completeOrder(false);
-    handleClearCart();
+    setSelectedBook(book); // Set the book in state
+
+    // Clear the existing cart items and old cart ID
+    try {
+      const isCartClearedResult = await clearCart();
+      console.log("AFTER CLEARED CART, context cart id is === ", cartId);
+      console.log("AFTER CLEARED CART, local cart id is === ", localStorage.getItem('cart'));
+      if (!isCartClearedResult && cartId !== null) {
+        throw new Error('Failed to clear the existing cart.');
+      }
+      setIsCartCleared(isCartClearedResult); // Se
+    } catch (clearCartError) {
+      console.error("Error clearing the cart:", clearCartError);
+      return; // Stop further execution if clearing cart fails
+    }
+  }
+
+  const handleAddToCart = async (book: TileCard) => {
+    console.log("add to cart invoked");
     const newItem: any = {
       qty: 1, // or any other logic to determine quantity
       imageUrl: `/${book.cell_name}.jpg`,
@@ -156,32 +178,57 @@ const ConfirmPageContent: React.FC = () => {
     };
     console.log("Item to be added: ", newItem);
     try {
-      const cartId = await addToCart(newItem);
+      const updatedCart = await addToCart(newItem);
       // @ts-ignore
-      if (cartId) {
-        window.location.href = `/checkout/${cartId}`;
+      if (updatedCart) {
+        setIsCartAdded(true);
+        console.log('Updated local storage:', localStorage.getItem('cart'));
+        console.log("cart id = ", `${cartId}`)
       } else {
         throw new Error('Cart ID was not created.');
       }
     } catch (error) {
       console.error("Error in handleBuyNow:", error);
     }
+
   }
-  const handleClearCart = () => {
-    // @ts-ignore
-    clearCart();
-    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
-  };
+
+  useEffect(() => {
+    if (isCartCleared && cartId === null && totalQty === 0 && totalPrice === 0 && selectedBook) {
+      handleAddToCart(selectedBook);
+      setIsCartCleared(false);
+    }
+  }, [isCartCleared, selectedBook]); // Run this effect when `isCartCleared` changes
+
+  useEffect(() => {
+    if (isCartAdded && cartId !== null && totalQty > 0 && totalPrice > 0) {
+      setIsCartAdded(false);
+      window.location.href = `/checkout/${cartId}`;
+    }
+  }, [isCartAdded, cartId]); // Run this effect when `isCartCleared` changes
+
+  // const handleClearCart = () => {
+  //   return new Promise((resolve) => {
+  //     try {
+  //       localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+  //       console.log("Cart cleared");
+  //       resolve(true); // Resolve the promise with true
+  //     } catch (error) {
+  //       console.error("Error clearing the cart:", error);
+  //       resolve(false); // Resolve the promise with false in case of error
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     if (orderNumber === undefined || orderNumber === null) {
       return;
-    } else if (isConfirmAddToCart) {
-      completeOrder(false);
-    } else {
-      completeOrder(true);
     }
-  }, [isConfirmAddToCart]);
+  }, []);
+
+  useEffect(() => {
+    console.log("cart id first render: ", cartId);
+  }, [cartId]);
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('email');
@@ -317,7 +364,7 @@ const ConfirmPageContent: React.FC = () => {
     return null;
   }
   // Returns
-  if (totalQty === 0) {
+  if (totalQty === 0 && orderCompleted) {
     return <div><ExpiredPage/></div>
   } else if (is404Error) {
     router.push('/404');

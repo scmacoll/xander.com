@@ -22,9 +22,9 @@ type CartContextType = {
   cartItems: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (item: CartItem) => void;
-  clearCart: (item: CartItem) => void;
+  clearCart: () => Promise<boolean>;
   generateOrderNumber: (item: CartItem) => void;
-  clearOrderNumber: (item: CartItem) => void;
+  clearOrderNumber: () => Promise<boolean>;
   totalPrice: number;
   totalQty: number;
   orderNumber: number | null;
@@ -92,6 +92,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const addToCart = (newItem: CartItem) => {
     return new Promise((resolve, reject) => {
+
       setCartItems(currentItems => {
         let newCartId = cartId;
         if (currentItems.length === 0 && !cartId) {
@@ -130,14 +131,21 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           orderNumber: orderNumber,
           cartId: newCartId,
         };
+
         localStorage.setItem('cart', JSON.stringify(cartData));
 
+        console.log("context cart id is:", newCartId); // Use newCartId here.
+        console.log("context totalPrice is:", totalPrice); // Use totalPrice here.
+        console.log("context totalQty is:", totalQty); // Use totalQty.
         // Resolve the promise once the cart is updated
         resolve(newCartId);
         return updatedItems;
       });
+
     });
   };
+
+
 
   const removeFromCart = (itemTitle: any) => {
     setCartItems(currentItems => currentItems.filter(item => item.bookTitle !== itemTitle));
@@ -145,13 +153,22 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const clearCart = () => {
-    setCartItems([]);
-    setTotalQty(0);
-    setTotalPrice(0);
-    setCartId(null);
-    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
-    console.log("Cart cleared");
-  }
+    return new Promise((resolve) => {
+      try {
+        setCartItems([]);
+        setTotalQty(0);
+        setTotalPrice(0);
+        setCartId(null);
+        localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+        console.log("Cart cleared");
+        resolve(true); // Resolve the promise with true
+      } catch (error) {
+        console.error("Error clearing the cart:", error);
+        resolve(false); // Resolve the promise with false in case of error
+      }
+    });
+  };
+
 
   const generateOrderNumber = () => {
     console.log("random number is being generated via context");

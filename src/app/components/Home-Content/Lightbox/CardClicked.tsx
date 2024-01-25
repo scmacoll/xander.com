@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Content, { TileCard } from '../Content';
 import styles from './CardClicked.module.scss';
-import Link from 'next/Link';
-import Image from 'next/image';
-import yukioMishimaImage from '../../../assets/Yukio_Mishima,_1955_(cropped)-modified(1).png';
 import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
 

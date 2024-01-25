@@ -20,6 +20,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   console.log("Cart Items:", cartItems);
+  console.log("Cart Id:", cartId);
   console.log("total Qty: ", totalQty);
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
