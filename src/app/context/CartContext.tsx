@@ -24,7 +24,7 @@ type CartContextType = {
   removeFromCart: (item: CartItem) => void;
   clearCart: () => Promise<boolean>;
   generateOrderNumber: (item: CartItem) => void;
-  clearOrderNumber: () => Promise<boolean>;
+  clearOrderNumber: (item: CartItem) => void;
   totalPrice: number;
   totalQty: number;
   orderNumber: number | null;
@@ -91,7 +91,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
 
   const addToCart = (newItem: CartItem) => {
-    return new Promise((resolve, reject) => {
+    return new Promise<boolean>((resolve, reject) => {
 
       setCartItems(currentItems => {
         let newCartId = cartId;
@@ -135,9 +135,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify(cartData));
 
         console.log("context cart id is:", newCartId); // Use newCartId here.
-        console.log("context totalPrice is:", totalPrice); // Use totalPrice here.
-        console.log("context totalQty is:", totalQty); // Use totalQty.
-        // Resolve the promise once the cart is updated
+
         resolve(newCartId);
         return updatedItems;
       });
@@ -153,7 +151,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const clearCart = () => {
-    return new Promise((resolve) => {
+    return new Promise<boolean>((resolve) => {
       try {
         setCartItems([]);
         setTotalQty(0);

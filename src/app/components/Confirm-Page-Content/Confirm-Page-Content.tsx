@@ -152,9 +152,7 @@ const ConfirmPageContent: React.FC = () => {
     // Clear the existing cart items and old cart ID
     try {
       const isCartClearedResult = await clearCart();
-      console.log("AFTER CLEARED CART, context cart id is === ", cartId);
-      console.log("AFTER CLEARED CART, local cart id is === ", localStorage.getItem('cart'));
-      if (!isCartClearedResult && cartId !== null) {
+      if (!isCartClearedResult) {
         throw new Error('Failed to clear the existing cart.');
       }
       setIsCartCleared(isCartClearedResult); // Se
