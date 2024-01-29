@@ -10,7 +10,7 @@ interface SearchProps {
 const Search: React.FC<SearchProps> = ({isCheckoutButtonClicked, isEmptyCartWindowOpen}) => {
 
   return (
-    <div className={`${styles.search} relative select-none`}>
+    <header className={`${styles.search} relative select-none`}>
       {/*<SearchForm className={`${styles.relative}`} isBookPage/>*/}
       <h2 className={`${styles.h2TagLine} `}>Browse the world's quote reference library</h2>
 
@@ -30,7 +30,7 @@ const Search: React.FC<SearchProps> = ({isCheckoutButtonClicked, isEmptyCartWind
         </div>
       </div>
 
-    </div>
+    </header>
   );
 };
 

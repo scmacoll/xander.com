@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({
   }
 
   return (
-    <header className={`
+    <nav className={`
       ${styles.header}
       ${shortenTitle ? styles.shortenTitle : ''} 
       ${showSearch ? 'pb-4' : ''} 
@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({
             />
           </g>
         </svg>
-        <div
+        <button
           className={`pl-5 text-xs flex justify-center items-center text-align ${styles.hideOnSmallScreen}`}>
           <span className="cursor-pointer text-sm pr-2" onClick={handleClick}>Focus</span>
           <label
@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({
             />
             <span className={styles.slider}></span>
           </label>
-        </div>
+        </button>
       </div>
 
       <div className={`${styles.heartIcon} hidden xs:flex`}>
@@ -223,7 +223,7 @@ const Header: React.FC<HeaderProps> = ({
 
       </div>
 
-    </header>
+    </nav>
   );
 };
 

@@ -281,25 +281,25 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
   return (
     <div id="sectionWrapper" className="">
-      <section className={`${styles.contentLayout} `}>
+      <div className={`${styles.contentLayout} `}>
 
         <div id="arrowButtons" className="absolute">
           <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
           >
-            <div
+            <button
               className={styles.circleButton}
               onClick={() => shiftColumn('left')}
             >
-            </div>
+            </button>
             <FontAwesomeIcon icon={faChevronRight} size="xl"/>
           </div>
           <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
           >
-            <div
+            <button
               className={styles.circleButton}
               onClick={() => shiftColumn('right')}
             >
-            </div>
+            </button>
             <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
           </div>
 
@@ -358,38 +358,40 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
             numColumns={numColumns}/>
         )}
 
-      </section>
+      </div>
 
-      <div id="paginationMenu"
+      <nav aria-label="pageNavigation" id="paginationMenu"
            className="flex mx-auto justify-center items-center gap-1">
-        <div id="leftArrow"
+        <button id="leftArrow"
              className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
              onClick={() => shiftColumn('right')}>
           <FontAwesomeIcon icon={faChevronLeft} size="xl" className="text-fg-06 hover:text-foreground"/>
-        </div>
-        <div className={`${styles.pagination} select-none`}>
+        </button>
+        <li className={`${styles.pagination} select-none`}>
           {(() => {
             const currentPageNumbers = getPageNumbersSubset();
             // Render the page numbers
             return currentPageNumbers.map((num, index) => (
-              <a
-                key={index}
-                className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
-                onClick={() => {
-                  togglePageNumber(num);
-                }}
-              >
-                {num}
-              </a>
+              <ul>
+                <a
+                  key={index}
+                  className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
+                  onClick={() => {
+                    togglePageNumber(num);
+                  }}
+                >
+                  {num}
+                </a>
+              </ul>
             ));
           })()}
-        </div>
-        <div id="rightArrow"
+        </li>
+        <button id="rightArrow"
              className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
              onClick={() => shiftColumn('left')}>
           <FontAwesomeIcon icon={faChevronRight} size="xl" className="text-fg-06 hover:text-foreground"/>
-        </div>
-      </div>
+        </button>
+      </nav>
 
     </div>
   );

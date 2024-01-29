@@ -48,11 +48,11 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
     return null;
   }
   return (
-    <div className={`${styles.cardContent} select-none`}>
-      <div onClick={handleInteraction}
+    <article className={`${styles.cardContent} select-none`}>
+      <section onClick={handleInteraction}
         className={`${styles.topContent}`}>
         <div  className="">
-          <p className={`${styles.cardTitle}`}>{card.quote}</p>
+          <article className={`${styles.cardTitle}`}>{card.quote}</article>
         </div>
         <div className={`${styles.cardAuthor}`}>
           <div className={`${styles.authorName} flex items-center`}>
@@ -64,7 +64,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
               height="100"
             />
             <h3 className="font-bold">
-              <div>{card.author}</div>
+              {card.author}
             </h3>
           </div>
           <div className={`flex`}>
@@ -139,7 +139,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
       <div className={`${styles.bottomContent}`}>
         <div className={`${styles.cardIcons}`}>
           <span>
@@ -224,7 +224,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
 
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

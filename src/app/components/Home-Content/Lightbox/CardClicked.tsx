@@ -103,11 +103,11 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   console.log("portrait url: ", portraitImageUrl);
 
   return (
-    <div className={`${styles.cardContent} select-none`}>
+    <article className={`${styles.cardContent} select-none`}>
       <div className={`${styles.contentWrapper}`}>
-        <div className={`${styles.topContent}`}>
+        <section className={`${styles.topContent}`}>
           <div>
-            <p className={`${styles.cardTitle} select-text`}>{'"' + card.quote + '"'}</p>
+            <article className={`${styles.cardTitle} select-text`}>{'"' + card.quote + '"'}</article>
           </div>
           <div className={`${styles.cardAuthor} cursor-pointer`}>
             <div className={`${styles.authorName}`}>
@@ -199,9 +199,9 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
               </button>
             </div>
           </div>
-        </div>
+        </section>
         <div className={`${styles.middleBorder}`}></div>
-        <div className={`${styles.bottomContent}`}>
+        <section className={`${styles.bottomContent}`}>
           <div className={`${styles.cardIcons}`}>
             <div className="flex flex-col w-full">
               <div className="flex flex-row items-center xs:items-stretch h-fit">
@@ -215,34 +215,34 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                   </span>
                 </div>
                 <div className="flex flex-col justify-around w-full">
-                  <div className="flex flex-col w-full">
-                    <div className={`${styles.bookTitleOne}`}>
+                  <li className="flex flex-col w-full">
+                    <ul className={`${styles.bookTitleOne}`}>
                       <span>
                         <div id="bookName1">
-                          <p className={`${styles.bookName} font-bold`}>
+                          <h4 className={`${styles.bookName} font-bold`}>
                             {card.book_title}
-                          </p>
+                          </h4>
                         </div>
                       </span>
-                    </div>
-                    <div className={`${styles.bookAuthor} hidden xs:block w-full text-gray-400`}>
+                    </ul>
+                    <ul className={`${styles.bookAuthor} hidden xs:block w-full text-gray-400`}>
                       <span>
-                        <p className="flex flex-col xs:gap-0">
-                          <span>{card.book_authors}</span>
-                        </p>
+                        <h5 className="flex flex-col xs:gap-0">
+                          {card.book_authors}
+                        </h5>
                       </span>
-                    </div>
-                    <div className={`${styles.bookAuthor} xs:hidden w-full text-gray-400`}>
+                    </ul>
+                    <ul className={`${styles.bookAuthor} xs:hidden w-full text-gray-400`}>
                       <span>
-                        <p className="flex flex-col xs:gap-0">
-                          <span>{card.book_authors}</span>
-                          <span>{card.book_date}</span>
-                          <span>{card.book_type}</span>
-                        </p>
+                        <li className="flex flex-col xs:gap-0">
+                          <h5>{card.book_authors}</h5>
+                          <h5>{card.book_date}</h5>
+                          <h5>{card.book_type}</h5>
+                        </li>
                       </span>
-                    </div>
-                  </div>
-                  <div className={`${styles.itemPriceXs}`}>
+                    </ul>
+                  </li>
+                  <ul className={`${styles.itemPriceXs}`}>
                     <div className={`${styles.itemToggles} flex flex-row-reverse items-center justify-between select-none`}>
                       <div id="itemQtyContainer"
                            className="flex flex-start items-center w-fit border border-solid border-foreground rounded">
@@ -255,8 +255,9 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                             </svg>
                           </button>
                         </div>
-                        <div
-                          className="flex font-light border-x border-solid border-foreground px-4 py-0.5">{qty}</div>
+                        <label className="flex font-light border-x border-solid border-foreground px-4 py-0.5">
+                          {qty}
+                        </label>
                         <button id="qtyPlusButton" onClick={incrementQty} className="h-6"
                         >
                           <svg className="h-3 px-2" focusable="false" data-icon="plus" role="img"
@@ -269,14 +270,14 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                         </button>
                       </div>
                       <div className={`flex flex-end items-end text-base`}>
-                        <p className="">${card.book_price}</p>
+                        <h4 className="">${card.book_price}</h4>
                       </div>
                     </div>
-                  </div>
+                  </ul>
                 </div>
               </div>
 
-              <div
+              <button
                 id="bookHeart"
                 onClick={handleBookHeartClick}
                 className={`${styles.cardHeartTwo}`}>
@@ -305,17 +306,17 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                     />
                   </g>
                 </svg>
-              </div>
+              </button>
             </div>
           </div>
-        </div>
+        </section>
 
         <div className={`${styles.checkoutContainer} xs:pt-2`}>
           <div className={`${styles.totalWrapper}`}>
-            <div className={`${styles.itemTotal}`}>
+            <h3 className={`${styles.itemTotal}`}>
               <span>Total:&nbsp;</span>
               <span>${qtyPrice}</span>
-            </div>
+            </h3>
           </div>
 
           <div className={`${styles.checkoutWrapper} gap-x-8`}>
@@ -348,7 +349,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
 
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

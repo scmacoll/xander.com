@@ -740,14 +740,14 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
         >
           <div id="leftContentWrapper"
                className="flex flex-col sm:w-full md:w-51.5% lg:w-51.5%">
-            <div id="checkoutTitle"
+            <header id="checkoutTitle"
                  className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">
                   <a href="/">Xandria</a>
                 </h1>
               </div>
-            </div>
+            </header>
             <div className={`${isOrderSummaryHidden ? 'py-2' : ''} `}></div>
             <div id="checkoutExpressContainer"
                  className="flex flex-col pt-4 pb-6">
@@ -1344,7 +1344,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
 
                 <div id="summaryBannerLeftSection"
                      className="flex font-bold text-lg">
-                  <div id="summaryBannerBinButton"
+                  <button id="summaryBannerBinButton"
                        className={`${isOrderSummaryHidden ? 'hidden' : ''}
                       relative group flex items-center`}
                        onClick={handleOpenClearCartWindow}
@@ -1358,7 +1358,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                               d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
                       </svg>
                     </div>
-                  </div>
+                  </button>
                   <span id="orderSummaryBannerPrice" className="pl-4">${totalPrice.toFixed(2)}</span>
                 </div>
                 <div id="clearCartWindow"
@@ -1403,7 +1403,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
 
               </div>
             </div>
-            <div id="borderSummary"
+            <aside id="borderSummary"
                  className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
               <div className="pt-6"></div>
               <div
@@ -1411,7 +1411,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 {/* right padding is for space between scroll bar && content */}
                 <div id="cartItems">
                   {cartItems.map((item, index) => (
-                    <div key={index} className="select-none">
+                    <article key={index} className="select-none">
                       <div className="mx-auto flex w-full justify-between">
                         {/* Map over the cart items and display them */}
                         <div className="cart-item w-full flex h-full items-center flex-start">
@@ -1501,7 +1501,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                       <div id="cartItemBorderGap" className="py-6 pb-6">
                         <div className="border-b border-solid border-foreground"></div>
                       </div>
-                    </div>
+                    </article>
                   ))}
                 </div>
 
@@ -1523,7 +1523,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     </span>
                     )}
                   </div>
-                  <div
+                  <button
                     className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded py-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
@@ -1534,7 +1534,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     ) : (
                       <button disabled={!isCodeValid}>APPLY</button>
                     )}
-                  </div>
+                  </button>
                 </div>
                 <div className={`flex flex-col border-solid border-foreground`}>
                   <div className="flex justify-between pb-4">
@@ -1564,7 +1564,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                   <div className="py-1"></div>
                   <div className="relative flex justify-end items-center">
-                    <div id="totalOrderPriceBinButton"
+                    <button id="totalOrderPriceBinButton"
                          className={`group xs:hidden sm:hidden`}
                          onClick={handleOpenClearCartWindow}
                     >
@@ -1595,7 +1595,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                           <path d="M10 12l4 4m0 -4l-4 4"/>
                         </svg>
                       </div>
-                    </div>
+                    </button>
                     <div className="xs:hidden sm:hidden">
 
                     </div>
@@ -1631,15 +1631,15 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
-        <div id="checkoutFooter"
+        <footer id="checkoutFooter"
              className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
           <div className="pr-4 hover:underline cursor-pointer">Refund Policy</div>
           <div className="pr-4 hover:underline cursor-pointer">Privacy Policy</div>
           <div className="pr-4 hover:underline cursor-pointer">Terms of Service</div>
-        </div>
+        </footer>
 
       </div>
     );
