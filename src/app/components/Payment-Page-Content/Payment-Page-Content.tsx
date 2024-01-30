@@ -1145,21 +1145,21 @@ const PaymentPageContent: React.FC = () => {
         >
           <div id="leftContentWrapperPostContinue"
                className="flex h-full flex-col sm:w-full md:w-51.5% lg:w-51.5%">
-            <div id="checkoutTitle"
+            <header id="checkoutTitle"
                  className={`${isContinuedToPayment ? 'block' : 'hidden'} pt-1 xs:hidden sm:hidden md:block lg:block xl:block`}>
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">
                   <a href="/">Xandria</a>
                 </h1>
               </div>
-            </div>
+            </header>
 
             <div className="pt-8 pb-10">
               <div className="border border-solid border-foreground">
                 <div className="flex flex-col py-3 px-4">
                   <div className="flex justify-between text-sm">
                     <div className="flex xs:flex-col">
-                      <div className="flex text-gray-400 w-20">Contact</div>
+                      <h4 className="flex text-gray-400 w-20">Contact</h4>
                       <div className="pr-8 flex w-full flex-1">bobby@gmail.com</div>
                     </div>
                     <div className="flex font-bold cursor-pointer">
@@ -1175,7 +1175,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <div className="flex xs:flex-col">
-                      <div className="text-gray-400 flex-start w-20">Ship to</div>
+                      <h4 className="text-gray-400 flex-start w-20">Ship to</h4>
                       <div className="w-full flex flex-1 pr-8">{shippingAddressLineOne}, {shippingCity} {shippingState} {shippingZipcode}, {shippingCountry}
                       </div>
                     </div>
@@ -1195,7 +1195,7 @@ const PaymentPageContent: React.FC = () => {
                     </div>
                     <div className="flex justify-between text-sm">
                       <div className="flex xs:flex-col">
-                        <div className="text-gray-400 flex-start w-20">Shipping Method</div>
+                        <h4 className="text-gray-400 flex-start w-20">Shipping Method</h4>
                         <div className="w-full flex flex-1 pr-8">Standard Shipping (5-14 business days) · Free</div>
                       </div>
                       <div className="flex font-bold cursor-pointer"></div>
@@ -1210,9 +1210,9 @@ const PaymentPageContent: React.FC = () => {
               className={`transition-opacity duration-1000 ${isContinuedToPayment ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 h-auto'}`}>
               <div id="shippingReturnContinueContainer">
                 <div className="pb-6">
-                  <div className="flex w-1/2 pb-4 text-xl font-bold">
+                  <h4 className="flex w-1/2 pb-4 text-xl font-bold">
                     Shipping method
-                  </div>
+                  </h4>
                   <div className="border border-solid border-foreground">
                     <div className="p-4">
                       <div className="flex justify-between items-center text-sm">
@@ -1226,7 +1226,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                 </div>
 
-                <div
+                <nav
                   className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
                   <div className="">
                     <div id="reviewOrderButton"
@@ -1260,7 +1260,7 @@ const PaymentPageContent: React.FC = () => {
                       </Link>
                     </div>
                   </div>
-                </div>
+                </nav>
               </div>
 
             </div>
@@ -1287,7 +1287,7 @@ const PaymentPageContent: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <div
+                <button
                   className={`${styles.applyButton}  inline-flex items-center border-2 border-solid rounded p-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
@@ -1298,21 +1298,21 @@ const PaymentPageContent: React.FC = () => {
                   ) : (
                     <button disabled={!isCodeValid || isNavigating || isReviewing || isReviewed}>APPLY</button>
                   )}
-                </div>
+                </button>
               </div>
 
               <div className="p-2"></div>
 
               <div id="paymentContainer" className="">
                 <div className="pb-6">
-                  <div className="w-1/2 text-xl font-bold">
+                  <h2 className="w-1/2 text-xl font-bold">
                     Payment
-                  </div>
-                  <div className="text-sm">
+                  </h2>
+                  <p className="text-sm">
                     All transactions are secured and encrypted.
-                  </div>
+                  </p>
                 </div>
-                <div className="border border-solid border-foreground text-sm">
+                <form className="border border-solid border-foreground text-sm">
                   <div className="">
                     <div
                       className="flex justify-between mx-auto items-center p-4 border-b border-solid border-foreground">
@@ -1320,9 +1320,9 @@ const PaymentPageContent: React.FC = () => {
                         <div className="pr-2">
                           <input type="radio" className="form-radio accent-gray-600" checked/>
                         </div>
-                        <div className="pr-2">
+                        <label className="pr-2">
                           Credit card
-                        </div>
+                        </label>
                       </div>
                       <div className="flex items-center">
                         <div id="visa">
@@ -1463,12 +1463,12 @@ const PaymentPageContent: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
 
               <div className="py-5"></div>
 
-              <div className="">
+              <form className="">
                 <div className="border border-solid border-foreground">
                   <div className="flex flex-col">
                     <div className="flex text-sm">
@@ -1753,7 +1753,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
 
                 </div>
-              </div>
+              </form>
 
               <div className="py-3"></div>
 
@@ -1771,7 +1771,7 @@ const PaymentPageContent: React.FC = () => {
               <div className={`${isReviewed ? '' : 'hidden'} py-3`}></div>
 
               <div className="flex flex-col xs:flex-col-reverse">
-                <div
+                <nav
                   className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
                   {/*<div className="pb-4">*/}
                   {/*  <button id="reviewOrderButton"*/}
@@ -1835,7 +1835,7 @@ const PaymentPageContent: React.FC = () => {
                                 d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z"></path>
                             </svg>
                           </div>
-                          <div className="flex"
+                          <button className="flex"
                                onClick={handleContinueToPaymentButtonClick}
                           >
                             {isNavigating ? (
@@ -1843,12 +1843,12 @@ const PaymentPageContent: React.FC = () => {
                             ) : (
                               <button className="flex h-6">Return to shipping</button>
                             )}
-                          </div>
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </nav>
                 <div className="py-3"></div>
                 <div className="text-sm">
                   <div>
@@ -1873,19 +1873,19 @@ const PaymentPageContent: React.FC = () => {
             </div>
 
             <div className="pb-4"></div>
-            <div id="checkoutFooter"
+            <footer id="checkoutFooter"
                  className="xl:h-full lg:h-full md:h-full xl:items-end lg:items-end md:items-end flex justify-start w-full sm:pt-16 xs:pt-6 py-3 text-xs font-bold text-gray-500 mx-auto">
               <div className="flex border-t border-solid border-foreground pt-3 w-full">
                 <div className="pr-4 hover:underline cursor-pointer">Refund Policy</div>
                 <div className="pr-4 hover:underline cursor-pointer">Privacy Policy</div>
                 <div className="pr-4 hover:underline cursor-pointer">Terms of Service</div>
               </div>
-            </div>
+            </footer>
           </div>
 
           <div id="rightContentWrapper"
                className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
-            <div id="checkoutTitle"
+            <header id="checkoutTitle"
                  className="pt-1 xs:block sm:block md:hidden lg:hidden">
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">
@@ -2005,8 +2005,8 @@ const PaymentPageContent: React.FC = () => {
                 </div>
 
               </div>
-            </div>
-            <div id="borderSummary"
+            </header>
+            <aside id="borderSummary"
                  className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
               <div className="pt-6"></div>
               <div
@@ -2014,7 +2014,7 @@ const PaymentPageContent: React.FC = () => {
                 {/* right padding is for space between scroll bar && content */}
                 <div id="cartItems" className="">
                   {cartItems.map((item, index) => (
-                    <div key={index} className="select-none">
+                    <article key={index} className="select-none">
                       <div className="mx-auto flex w-full justify-between">
                         {/* Map over the cart items and display them */}
                         <div className="cart-item w-full flex h-full items-center flex-start">
@@ -2032,7 +2032,7 @@ const PaymentPageContent: React.FC = () => {
                             <div className="flex items-center justify-between">
                               <div id="itemQtyContainer"
                                    className="flex items-center w-fit border border-solid border-foreground rounded">
-                                <div>
+                                <button>
                                   {item.qty === 1 ? (
                                     <button
                                       disabled={isLoading || isNavigating || isReviewing || isReviewed}
@@ -2058,7 +2058,7 @@ const PaymentPageContent: React.FC = () => {
                                       </svg>
                                     </button>
                                   )}
-                                </div>
+                                </button>
                                 <div
                                   className="flex font-light border-x border-solid border-foreground px-4 py-0.5 ">{item.qty}</div>
                                 <button
@@ -2115,7 +2115,7 @@ const PaymentPageContent: React.FC = () => {
                       <div id="cartItemBorderGap" className="py-6 pb-6">
                         <div className="border-b border-solid border-foreground"></div>
                       </div>
-                    </div>
+                    </article>
                   ))}
                 </div>
 
@@ -2138,7 +2138,7 @@ const PaymentPageContent: React.FC = () => {
                     </span>
                     )}
                   </div>
-                  <div
+                  <button
                     className={`${styles.applyButton} inline-flex items-center border-2 border-solid rounded py-2 px-5 font-bold border-transparent
                   ${!isLoading ? (isCodeValid ? 'bg-shopify-blue cursor-pointer hover:border-foreground hover:bg-transparent transition duration-200' : 'bg-greyed-out cursor-default') : 'bg-transparent border-transparent cursor-default'}
                   `}
@@ -2149,7 +2149,7 @@ const PaymentPageContent: React.FC = () => {
                     ) : (
                       <button disabled={!isCodeValid || isNavigating || isReviewing || isReviewed}>APPLY</button>
                     )}
-                  </div>
+                  </button>
                 </div>
                 <div className={`flex flex-col border-solid border-foreground`}>
                   <div className="flex justify-between pb-4">
@@ -2271,7 +2271,7 @@ const PaymentPageContent: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
         </div>
       </div>

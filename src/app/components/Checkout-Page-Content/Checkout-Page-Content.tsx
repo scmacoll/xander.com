@@ -755,10 +755,10 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                 id="checkoutExpressButtonsWrapper"
                 className="relative flex flex-col justify-center rounded border border-solid pb-4 border-foreground"
               >
-                <div
+                <h3
                   className="absolute top-0 right-0 left-0 z-10 mx-auto flex w-fit -translate-y-1/2 transform justify-center px-3 font-bold bg-background">
                   Express checkout
-                </div>
+                </h3>
 
                 <div
                   id="checkoutExpressButtons"
@@ -990,7 +990,7 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                     <div id="contactHeader"
                          className="pb-4">
                       <div className="flex flex-row items-center justify-between">
-                        <div className="flex text-xl font-bold">Contact</div>
+                        <h2 className="flex text-xl font-bold">Contact</h2>
                         <div className="flex text-sm">
                           <div>Have an account?</div>
                           <div className={`cursor-pointer pl-1 font-bold`}>
@@ -1039,9 +1039,9 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                         <div id="contactShippingHeader"
                              className="flex flex-row">
                           <div className="flex w-1/2 pb-2 text-xl font-bold">
-                            <div>
+                            <h2>
                               Shipping Address
-                            </div>
+                            </h2>
                           </div>
                         </div>
                         <div id="contactDetails" className="flex flex-col gap-3">
@@ -1552,14 +1552,14 @@ const CheckoutPageContent: React.FC<CardProps> = ({card}) => {
                   </div>
                   <div className={`flex justify-between`}>
                     <div className={` flex`}>
-                      <div className="text-lg font-medium">Total</div>
+                      <h4 className="text-lg font-medium">Total</h4>
                     </div>
                     <div className="flex items-center">
-                      <div ref={bottomRef}
+                      <h4 ref={bottomRef}
                            className={`${styles.smoothScroll}
                      inline-flex text-2xl font-bold`}>
                         ${totalPrice.toFixed(2)}
-                      </div>
+                      </h4>
                     </div>
                   </div>
                   <div className="py-1"></div>
