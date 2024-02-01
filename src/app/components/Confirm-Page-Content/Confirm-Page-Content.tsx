@@ -219,6 +219,10 @@ const ConfirmPageContent: React.FC = () => {
   // };
 
   useEffect(() => {
+    completeOrder(true);
+  }, []);
+
+  useEffect(() => {
     if (orderNumber === undefined || orderNumber === null) {
       return;
     }
