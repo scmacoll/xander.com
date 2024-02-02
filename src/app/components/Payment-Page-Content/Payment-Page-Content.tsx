@@ -296,12 +296,12 @@ const PaymentPageContent: React.FC = () => {
     if (shouldValidate) {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardExpiryError: prevDetails.cardExpiry.length !== 5 && !isValidExpiryDate(prevDetails.cardExpiry),
+        cardExpiryError: prevDetails.cardExpiry.length !== 5 || !isValidExpiryDate(prevDetails.cardExpiry),
       }));
     } else {
       setCardDetails(prevDetails => ({
         ...prevDetails,
-        cardExpiryError: prevDetails.cardExpiry.length > 0 && prevDetails.cardExpiry.length < 5
+        cardExpiryError: prevDetails.cardExpiry.length > 0 && prevDetails.cardExpiry.length < 5 || prevDetails.cardExpiry.length === 5 && !isValidExpiryDate(prevDetails.cardExpiry),
       }));
     }
     setIsFocused(prevDetails => ({
