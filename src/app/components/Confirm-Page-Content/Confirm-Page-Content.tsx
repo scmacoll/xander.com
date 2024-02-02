@@ -380,12 +380,12 @@ const ConfirmPageContent: React.FC = () => {
 
           <div id="leftContentWrapper"
                className="flex mx-auto flex-col sm:w-full md:w-51.5% lg:w-51.5%">
-            <div id="checkoutTitle"
+            <header id="checkoutTitle"
                  className="pt-1 pb-3 xs:hidden sm:hidden md:block lg:block">
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl"><a href="/">Xandria</a></h1>
               </div>
-            </div>
+            </header>
             <div className="xs:py-3 sm:py-3"></div>
             <div id="orderTitleNumber"
                  className="flex items-center">
@@ -410,17 +410,17 @@ const ConfirmPageContent: React.FC = () => {
                  className="flex flex-col">
               <div className="xl:pt-3 lg:pt-3 md:pt-3 sm:pt-6 xs:pt-6 pb-3">
                 <div className="border rounded border-solid border-foreground p-4">
-                  <div className="text-lg font-bold pb-1">Your order is confirmed</div>
-                  <div className="text-sm">We've accepted your order and we're getting it ready. A confirmation
+                  <h3 className="text-lg font-bold pb-1">Your order is confirmed</h3>
+                  <p className="text-sm">We've accepted your order and we're getting it ready. A confirmation
                     email
                     has been sent to
                     <span className="font-bold"> {email}</span> Come back to this page for updates on your order
                     status.
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
-            <div id="customerInformationContainer"
+            <article id="customerInformationContainer"
                  className="pt-3">
               <div
                 className="mx-auto flex w-full flex-col border rounded border-solid p-4 border-foreground">
@@ -430,7 +430,7 @@ const ConfirmPageContent: React.FC = () => {
 
                     <div className="pb-4">
                       <div className="flex flex-row items-center justify-between">
-                        <div className="flex text-xl font-bold">Customer Information</div>
+                        <h2 className="flex text-xl font-bold">Customer Information</h2>
                       </div>
                     </div>
                     {/*TODO*/}
@@ -528,8 +528,8 @@ const ConfirmPageContent: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            <div id="lowerContainer" className="xl:pb-14 lg:pb-14 md:pb-14 sm:pb-10 xs:pb-10 ">
+            </article>
+            <nav id="lowerContainer" className="xl:pb-14 lg:pb-14 md:pb-14 sm:pb-10 xs:pb-10 ">
               <div className="xl:pt-10 lg:pt-10 md:pt-10 sm:pt-10 xs:pt-6">
                 <div className="flex justify-between xs:flex-col-reverse">
                   <div id="contactContainer"
@@ -562,7 +562,7 @@ const ConfirmPageContent: React.FC = () => {
                       <div className="cursor-pointer text-link-blue">Contact us</div>
                     </div>
                   </div>
-                  <button id="browsingButtonContainer"
+                  <div id="browsingButtonContainer"
                           className="flex justify-end xs:justify-center">
                     <a href="/"
                        className="border-2 bg-shopify-blue font-bold rounded p-4 border-solid border-transparent hover:border-solid hover:border-foreground hover:bg-transparent"
@@ -570,16 +570,16 @@ const ConfirmPageContent: React.FC = () => {
                       {/*TODO: Continue browsing should fully clear cart*/}
                       CONTINUE BROWSING
                     </a>
-                  </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </nav>
 
           </div>
 
           <div id="rightContentWrapper"
                className="relative flex flex-col pt-1 xs:w-full sm:w-full md:w-39% lg:w-39%">
-            <div id="checkoutTitle"
+            <header id="checkoutTitle"
                  className="pt-1 xs:block sm:block md:hidden lg:hidden">
               <div className="flex pb-1">
                 <h1 className="py-3 text-3xl">
@@ -625,14 +625,14 @@ const ConfirmPageContent: React.FC = () => {
                   <span className="pl-4">${totalPrice.toFixed(2)}</span>
                 </div>
               </div>
-            </div>
-            <div id="borderSummary"
-                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
+            </header>
+            <aside id="borderSummary"
+                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
               <div className="pt-6"></div>
               <div
                 className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
                 {/* right padding is for space between scroll bar && content */}
-                <div id="cartItems">
+                <article id="cartItems">
                   {cartItems.map((item, index) => (
                     <div key={index} className="select-none pointer-events-none">
                       <div className="mx-auto flex w-full justify-between">
@@ -659,7 +659,7 @@ const ConfirmPageContent: React.FC = () => {
                       </div>
                     </div>
                   ))}
-                </div>
+                </article>
 
                 <div className={`flex flex-col border-solid border-foreground`}>
                   <div className="flex justify-between pb-4">
@@ -694,16 +694,16 @@ const ConfirmPageContent: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </aside>
           </div>
 
         </div>
 
-        <div id="bottomContainer"
+        <article id="bottomContainer"
              className="flex flex-col w-full mx-auto xl:px-6 sm:px-0 xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
           <div
             className={`${styles.featureSimilar} flex w-full`}>
-            <div className={`${styles.similarText}`}>RECOMMENDED BOOKS</div>
+            <h2 className={`${styles.similarText} text-xl`}>RECOMMENDED BOOKS</h2>
             <div className={`${styles.similarContainer} border-y border-solid border-foreground`}>
               <div className={`${styles.similarBooks} `}>
 
@@ -820,13 +820,13 @@ const ConfirmPageContent: React.FC = () => {
               </div>
             </div>
           </div>
-          <div id="checkoutFooter"
+          <footer id="checkoutFooter"
                className="bottom-0 flex justify-center w-full py-3 text-xs font-bold text-gray-500 ">
             <div className="pr-4 cursor-pointer">Refund Policy</div>
             <div className="pr-4 cursor-pointer">Privacy Policy</div>
             <div className="pr-4 cursor-pointer">Terms of Service</div>
-          </div>
-        </div>
+          </footer>
+        </article>
       </div>
     );
   }
