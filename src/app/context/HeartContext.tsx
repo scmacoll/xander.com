@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const HeartContext = createContext<{
   quoteHearts: { [key: string]: boolean };
@@ -12,19 +12,35 @@ const HeartContext = createContext<{
 export const HeartsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const isBrowser = typeof window !== 'undefined';
 
+  // Lazy initialization for useState
   const [quoteHearts, setQuoteHearts] = useState<{ [key: string]: boolean }>(() => {
-    if (isBrowser) {
-      const storedHearts = localStorage.getItem('quoteHearts');
-      return storedHearts ? JSON.parse(storedHearts) : {};
-    }
+    return {};
   });
 
+  // Synchronize state with localStorage
+  useEffect(() => {
+    if (isBrowser) {
+      const storedHearts = localStorage.getItem('quoteHearts');
+      if (storedHearts) {
+        setQuoteHearts(JSON.parse(storedHearts));
+      }
+    }
+  }, [isBrowser]); // Run once after the component mounts
+
   const [bookHearts, setBookHearts] = useState<{ [key: string]: boolean }>(() => {
+    return {};
+  });
+
+  // Synchronize state with localStorage
+  useEffect(() => {
     if (isBrowser) {
       const storedHearts = localStorage.getItem('bookHearts');
-      return storedHearts ? JSON.parse(storedHearts) : {};
+      if (storedHearts) {
+        setBookHearts(JSON.parse(storedHearts));
+      }
     }
-  });
+  }, [isBrowser]); // Run once after the component mounts
+
 
   const toggleQuoteHeart = (quote: string) => {
     setQuoteHearts(prevHearts => {
@@ -49,8 +65,10 @@ export const HeartsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const clearAllHearts = () => {
     setQuoteHearts({});
     setBookHearts({});
-    localStorage.removeItem('quoteHearts');
-    localStorage.removeItem('bookHearts');
+    if (isBrowser) {
+      localStorage.removeItem('quoteHearts');
+      localStorage.removeItem('bookHearts');
+    }
   };
 
   return (
