@@ -372,8 +372,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
             const currentPageNumbers = getPageNumbersSubset();
             // Render the page numbers
             return currentPageNumbers.map((num, index) => (
-              <ul>
-                <a
+                <button
                   key={index}
                   className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
                   onClick={() => {
@@ -381,8 +380,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
                   }}
                 >
                   {num}
-                </a>
-              </ul>
+                </button>
             ));
           })()}
         </li>

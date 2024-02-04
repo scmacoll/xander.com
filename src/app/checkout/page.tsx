@@ -4,7 +4,6 @@ import CheckoutPageContent from '../components/Checkout-Page-Content/Checkout-Pa
 
 
 export default function Home() {
-  console.log("checkout page triggered! √");
   return (
     <main>
       <CheckoutPageContent />

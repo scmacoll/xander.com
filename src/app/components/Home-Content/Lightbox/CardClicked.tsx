@@ -127,7 +127,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
                 <div>{card.author}</div>
               </h3>
             </div>
-            <div className={`${styles.cardUserClick}`}>
+            <div className={`${styles.cardUserClick} `}>
               <div className={`${styles.cardInfo} hidden`}>
                 <svg
                   version="1.0"

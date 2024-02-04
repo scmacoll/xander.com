@@ -12,7 +12,7 @@ const Search: React.FC<SearchProps> = ({isCheckoutButtonClicked, isEmptyCartWind
   return (
     <header className={`${styles.search} relative select-none`}>
       {/*<SearchForm className={`${styles.relative}`} isBookPage/>*/}
-      <h2 className={`${styles.h2TagLine} `}>Browse the world's quote reference library</h2>
+      <h2 className={`${styles.h2TagLine} `}>Browse the world&apos;s quote reference library</h2>
 
       <div id="clearCartWindow"
            className={`${isEmptyCartWindowOpen ? '' : 'hidden'}

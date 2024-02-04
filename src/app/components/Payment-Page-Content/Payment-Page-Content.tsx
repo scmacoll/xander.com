@@ -135,9 +135,18 @@ const PaymentPageContent: React.FC = () => {
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
   const [isSessionExpired, setIsSessionExpired] = useState(false);
 
-  const handleCardNumberChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCardNumberChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newCardNumber = '';
+
+    if (typeof input === 'string') {
+      // Direct string input
+      newCardNumber = input;
+    } else if (input) {
+      // Input is an event object
+      newCardNumber = input.target.value;
+    }
+
     const cardNumberDigitRegex = /^\d+$/;
-    let newCardNumber = event ? event.target.value : '';
     // Remove non-digit characters and add space after every 4 digits
     newCardNumber = newCardNumber.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');
     setCardDetails(prevDetails => ({
@@ -193,8 +202,17 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleCardNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newCardName = event ? event.target.value : '';
+  const handleCardNameChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newCardName = '';
+
+    if (typeof input === 'string') {
+      // Direct string input
+      newCardName = input;
+    } else if (input) {
+      // Input is an event object
+      newCardName = input.target.value;
+    }
+
     newCardName = newCardName.replace(/[^a-zA-Z\s'-]/g, '');
     newCardName = newCardName.substring(0, 60);
 
@@ -235,14 +253,25 @@ const PaymentPageContent: React.FC = () => {
     }));
     setReviewButtonClicked(false);
   };
-  const handleCardExpiryChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newCardExpiry = event ? event.target.value : '';
+  const handleCardExpiryChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newCardExpiry = '';
+    let inputValue = '';
+    let defaultValueLength = 0;
+
+    if (typeof input === 'string') {
+      // Direct string input
+      newCardExpiry = input;
+    } else if (input) {
+      // Input is an event object
+      newCardExpiry = input.target.value;
+    }
     // Remove all non-digit characters except the slash
     newCardExpiry = newCardExpiry.replace(/[^0-9\/]/g, '');
     // Replace two consecutive slashes with a singl2e slash
     newCardExpiry = newCardExpiry.replace(/\/{2,}/g, '/');
     // Check if the user is trying to delete the slash
-    if (newCardExpiry.length === 2 && event.target.value.length < event.target.defaultValue.length) {
+    // Handle deletion of the slash
+    if (newCardExpiry.length === 2 && inputValue.length < defaultValueLength) {
       newCardExpiry = newCardExpiry.substring(0, 1);
     } else if (newCardExpiry.length === 2) {
       // Automatically add slash after the month if not deleting
@@ -311,9 +340,17 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleCardCodeChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCardCodeChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newCardCode = '';
+    if (typeof input === 'string') {
+      // Direct string input
+      newCardCode = input;
+    } else if (input) {
+      // Input is an event object
+      newCardCode = input.target.value;
+    }
+
     const cardCodeDigitRegex = /^\d+$/;
-    let newCardCode = event ? event.target.value : '';
     // Remove all non-digit characters
     newCardCode = newCardCode.replace(/\D/g, '');
     // Limit the length to 3 characters
@@ -376,8 +413,16 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
 
-  const handleFirstNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newFirstName = event ? event.target.value : '';
+  const handleFirstNameChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newFirstName = '';
+    if (typeof input === 'string') {
+      // Direct string input
+      newFirstName = input;
+    } else if (input) {
+      // Input is an event object
+      newFirstName = input.target.value;
+    }
+
     newFirstName = newFirstName.substring(0, 30);
 
     setBillingDetails(prevDetails => ({
@@ -422,8 +467,16 @@ const PaymentPageContent: React.FC = () => {
     setReviewButtonClicked(false);
   };
 
-  const handleLastNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newLastName = event ? event.target.value : '';
+  const handleLastNameChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newLastName = '';
+    if (typeof input === 'string') {
+      // Direct string input
+      newLastName = input;
+    } else if (input) {
+      // Input is an event object
+      newLastName = input.target.value;
+    }
+
     newLastName = newLastName.substring(0, 30);
 
     setBillingDetails(prevDetails => ({
@@ -468,8 +521,16 @@ const PaymentPageContent: React.FC = () => {
     }));
   }
 
-  const handleCompanyNameChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newCompanyName = event ? event.target.value : '';
+  const handleCompanyNameChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newCompanyName = '';
+    if (typeof input === 'string') {
+      // Direct string input
+      newCompanyName = input;
+    } else if (input) {
+      // Input is an event object
+      newCompanyName = input.target.value;
+    }
+
     newCompanyName = newCompanyName.substring(0, 60);
 
     setBillingDetails(prevDetails => ({
@@ -495,8 +556,16 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
 
-  const handleAddressLineOneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newAddressLineOne = event ? event.target.value : '';
+  const handleAddressLineOneChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newAddressLineOne = '';
+
+    if (typeof input === 'string') {
+      // Direct string input
+      newAddressLineOne = input;
+    } else if (input) {
+      // Input is an event object
+      newAddressLineOne = input.target.value;
+    }
     newAddressLineOne = newAddressLineOne.substring(0, 60);
     setBillingDetails(prevDetails => ({
       ...prevDetails,
@@ -539,8 +608,16 @@ const PaymentPageContent: React.FC = () => {
       addressLineOne: true
     }));
   };
-  const handleAddressLineTwoChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newAddressLineTwo = event ? event.target.value : '';
+  const handleAddressLineTwoChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newAddressLineTwo = '';
+
+    if (typeof input === 'string') {
+      // Direct string input
+      newAddressLineTwo = input;
+    } else if (input) {
+      // Input is an event object
+      newAddressLineTwo = input.target.value;
+    }
     newAddressLineTwo = newAddressLineTwo.substring(0, 60);
 
     setBillingDetails(prevDetails => ({
@@ -569,8 +646,16 @@ const PaymentPageContent: React.FC = () => {
   };
 
   const phoneRegex = /^[\d\s()]*$/;  // Allow digits, spaces, and brackets
-  const handlePhoneChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newPhone = event ? event.target.value : '';
+  const handlePhoneChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newPhone = '';
+    if (typeof input === 'string') {
+      // Direct string input
+      newPhone = input;
+    } else if (input) {
+      // Input is an event object
+      newPhone = input.target.value;
+    }
+
     newPhone = newPhone.replace(/[^\d\s()]/g, '');
     newPhone = newPhone.substring(0, 15);
 
@@ -616,8 +701,16 @@ const PaymentPageContent: React.FC = () => {
     }));
   };
 
-  const handleCityChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newCityChange = event ? event.target.value : '';
+  const handleCityChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newCityChange = '';
+    if (typeof input === 'string') {
+      // Direct string input
+      newCityChange = input;
+    } else if (input) {
+      // Input is an event object
+      newCityChange = input.target.value;
+    }
+
     newCityChange = newCityChange.substring(0, 30);
 
     setBillingDetails(prevDetails => ({
@@ -668,8 +761,16 @@ const PaymentPageContent: React.FC = () => {
       zipcode: true
     }));
   };
-  const handleZipcodeChange = (event?: React.ChangeEvent<HTMLInputElement>) => {
-    let newZipcode = event ? event.target.value : '';
+  const handleZipcodeChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
+    let newZipcode = '';
+
+    if (typeof input === 'string') {
+      // Direct string input
+      newZipcode = input;
+    } else if (input) {
+      // Input is an event object
+      newZipcode = input.target.value;
+    }
     // Allow digits, letters, spaces, and hyphens
     newZipcode = newZipcode.replace(/[^\d\w\s-]/g, '');
     newZipcode = newZipcode.substring(0, 10);
@@ -858,7 +959,7 @@ const PaymentPageContent: React.FC = () => {
     handleCardNumberChange('');
     handleCardExpiryChange('');
     handleCardCodeChange('');
-    handleCardNameBlur(false);
+    // handleCardNameBlur(false);
     handleCardNumberBlur(false);
     handleCardExpiryBlur(false);
     handleCardCodeBlur(false);
@@ -892,32 +993,6 @@ const PaymentPageContent: React.FC = () => {
     setIsReviewed(false);
   };
 
-  const toggleSameAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newIsSameAddress = event.target.checked;
-    setIsSameAddress(!isSameAddress);
-
-    if (newIsSameAddress) {
-      setIsSameAddress(true);
-      setBillingDetails({
-        ...shippingDetails,
-      });
-    }
-    // else {
-    //   setIsSameAddress(false);
-    //   setBillingDetails({
-    //     firstName: '',
-    //     lastName: '',
-    //     address: '',
-    //     city: '',
-    //     zipcode: '',
-    //     firstNameError: false,
-    //     lastNameError: false,
-    //     addressLineOneError: false,
-    //     cityError: false,
-    //     zipcodeError: false,
-    //   });
-    // }
-  }
 
   const handleGenerateOrderNumber = () => {
     console.log("handle generate random number invoked")
@@ -1229,17 +1304,16 @@ const PaymentPageContent: React.FC = () => {
                 <nav
                   className="flex flex-row-reverse xs:flex-col xl:items-center lg:items-center md:items-center sm:items-center sm:justify-between md:justify-between lg:justify-between xl:justify-between">
                   <div className="">
-                    <div id="reviewOrderButton"
+                    <button id="reviewOrderButton"
                          onClick={handleContinueToPaymentButtonClick}
                          className={`${isNavigating ? 'bg-transparent border-transparent cursor-default hover:border-transparent' : ''} h-12 border-2 rounded w-full font-bold p-3 border-solid border-transparent hover:bg-transparent hover:border-foreground bg-shopify-blue transition duration-200`}
-                         type="button"
                     >
                       {isNavigating ? (
                         <button className={`${styles.loader} flex justify-center h-6`}></button>
                       ) : (
                         <button className="flex mx-auto h-6">CONTINUE TO PAYMENT</button>
                       )}
-                    </div>
+                    </button>
                     <div className="pb-4"></div>
                   </div>
 

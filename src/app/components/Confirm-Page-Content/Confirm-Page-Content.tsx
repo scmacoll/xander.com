@@ -2,10 +2,6 @@
 import styles from './Confirm-Page-Content.module.scss';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import Link from 'next/Link';
-import Image from "next/image";
-import masterandemissarry from '../../../../public/master_and_emissarry.jpg';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
@@ -411,7 +407,7 @@ const ConfirmPageContent: React.FC = () => {
               <div className="xl:pt-3 lg:pt-3 md:pt-3 sm:pt-6 xs:pt-6 pb-3">
                 <div className="border rounded border-solid border-foreground p-4">
                   <h3 className="text-lg font-bold pb-1">Your order is confirmed</h3>
-                  <p className="text-sm">We've accepted your order and we're getting it ready. A confirmation
+                  <p className="text-sm">We&apos;ve accepted your order and we&apos;re getting it ready. A confirmation
                     email
                     has been sent to
                     <span className="font-bold"> {email}</span> Come back to this page for updates on your order

@@ -130,7 +130,7 @@
 
 .cardUserClick {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 
@@ -173,7 +173,7 @@
 
 .cardHeartTwo {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   flex: 1;
   // padding-right: 1em;
   //height: 40%;

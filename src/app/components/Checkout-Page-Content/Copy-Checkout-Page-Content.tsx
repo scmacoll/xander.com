@@ -845,7 +845,7 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
                     <div
                       className="inline-flex h-full flex-col justify-center text-sm xs:w-3/4 sm:w-77% md:w-55% lg:w-64%">
-                      <div className="flex font-medium">Men's Tree Dasher Relay - Arid Orange (Arid Orange
+                      <div className="flex font-medium">Men&apos;s Tree Dasher Relay - Arid Orange (Arid Orange
                         Sole)
                       </div>
                       <div className="flex font-light">13</div>

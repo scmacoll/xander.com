@@ -107,7 +107,7 @@
 
 .cardUserClick {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
 }
 
 .cardInfo:hover svg path {
@@ -151,7 +151,7 @@
 
 .cardHeartTwo {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   flex: 1;
   position: absolute;
   top: 0;

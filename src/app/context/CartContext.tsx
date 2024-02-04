@@ -136,6 +136,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
         console.log("context cart id is:", newCartId); // Use newCartId here.
 
+        // @ts-ignore
         resolve(newCartId);
         return updatedItems;
       });
