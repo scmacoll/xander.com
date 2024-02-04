@@ -26,14 +26,20 @@ interface ConfirmedOrderProviderProps {
 }
 
 export const ConfirmedOrderProvider: React.FC<ConfirmedOrderProviderProps> = ({ children }) => {
+  const isBrowser = typeof window !== 'undefined';
   const [orderCompleted, setOrderCompleted] = useState<boolean>(() => {
-    const storedValue = localStorage.getItem('orderCompleted');
-    return storedValue ? JSON.parse(storedValue) : false;
+    if (typeof window !== 'undefined') {
+      const storedValue = localStorage.getItem('orderCompleted');
+      return storedValue ? JSON.parse(storedValue) : false;
+    }
+    return false;
   });
 
   const completeOrder = (isOrderCompleted: boolean) => {
     setOrderCompleted(isOrderCompleted);
-    localStorage.setItem('orderCompleted', JSON.stringify(isOrderCompleted));
+    if (isBrowser) {
+      localStorage.setItem('orderCompleted', JSON.stringify(isOrderCompleted));
+    }
   };
 
   useEffect(() => {

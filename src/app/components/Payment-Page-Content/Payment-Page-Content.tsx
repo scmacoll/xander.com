@@ -19,15 +19,19 @@ const PaymentPageContent: React.FC = () => {
   const [shippingCountry, setShippingCountry] = useState('');
   const [shippingZipcode, setShippingZipcode] = useState('');
 
-  const cartData = localStorage.getItem('cart');
+  // const cartData = localStorage.getItem('cart');
+  const isBrowser = typeof window !== 'undefined';
+  // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+  const cartData = isBrowser ? localStorage.getItem('cart') : null
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
+
   const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
   const { clearAllHearts } = useHearts();
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const router = useRouter();
-  const storedEmail = localStorage.getItem('email');
+  const storedEmail = isBrowser ? localStorage.getItem('email') : null
   console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
@@ -884,43 +888,45 @@ const PaymentPageContent: React.FC = () => {
   // };
 
   const saveToLocalStorage = () => {
-    if (isSameAddress) {
-      const shippingFirstName: any = localStorage.getItem('shippingFirstName');
-      const shippingLastName: any = localStorage.getItem('shippingLastName');
-      const shippingCompanyName: any = localStorage.getItem('shippingCompanyName');
-      const shippingAddressLineOne: any = localStorage.getItem('shippingAddressLineOne');
-      const shippingAddressLineTwo: any = localStorage.getItem('shippingAddressLineTwo');
-      const shippingCity: any = localStorage.getItem('shippingCity');
-      const shippingState: any = localStorage.getItem('shippingState');
-      const shippingCountry: any = localStorage.getItem('shippingCountry');
-      const shippingZipcode: any = localStorage.getItem('shippingZipcode');
-      const shippingPhone: any = localStorage.getItem('shippingPhone');
-      localStorage.setItem('billingFirstName', shippingFirstName);
-      localStorage.setItem('billingLastName', shippingLastName);
-      localStorage.setItem('billingCompanyName', shippingCompanyName);
-      localStorage.setItem('billingAddressLineOne', shippingAddressLineOne);
-      localStorage.setItem('billingAddressLineTwo', shippingAddressLineTwo);
-      localStorage.setItem('billingCity', shippingCity);
-      localStorage.setItem('billingState', shippingState);
-      localStorage.setItem('billingCountry', shippingCountry);
-      localStorage.setItem('billingZipcode', shippingZipcode);
-      localStorage.setItem('billingPhone', shippingPhone);
-    } else {
-      // Save billingDetails to localStorage
-      localStorage.setItem('billingFirstName', billingDetails.firstName);
-      localStorage.setItem('billingLastName', billingDetails.lastName);
-      localStorage.setItem('billingCompanyName', billingDetails.companyName);
-      localStorage.setItem('billingAddressLineOne', billingDetails.addressLineOne);
-      localStorage.setItem('billingAddressLineTwo', billingDetails.addressLineTwo);
-      localStorage.setItem('billingCity', billingDetails.city);
-      localStorage.setItem('billingState', billingDetails.state);
-      localStorage.setItem('billingCountry', billingDetails.country);
-      localStorage.setItem('billingZipcode', billingDetails.zipcode);
-      localStorage.setItem('billingPhone', billingDetails.phone);
-    }
+    if (isBrowser) {
+      if (isSameAddress) {
+        const shippingFirstName: any = localStorage.getItem('shippingFirstName');
+        const shippingLastName: any = localStorage.getItem('shippingLastName');
+        const shippingCompanyName: any = localStorage.getItem('shippingCompanyName');
+        const shippingAddressLineOne: any = localStorage.getItem('shippingAddressLineOne');
+        const shippingAddressLineTwo: any = localStorage.getItem('shippingAddressLineTwo');
+        const shippingCity: any = localStorage.getItem('shippingCity');
+        const shippingState: any = localStorage.getItem('shippingState');
+        const shippingCountry: any = localStorage.getItem('shippingCountry');
+        const shippingZipcode: any = localStorage.getItem('shippingZipcode');
+        const shippingPhone: any = localStorage.getItem('shippingPhone');
+        localStorage.setItem('billingFirstName', shippingFirstName);
+        localStorage.setItem('billingLastName', shippingLastName);
+        localStorage.setItem('billingCompanyName', shippingCompanyName);
+        localStorage.setItem('billingAddressLineOne', shippingAddressLineOne);
+        localStorage.setItem('billingAddressLineTwo', shippingAddressLineTwo);
+        localStorage.setItem('billingCity', shippingCity);
+        localStorage.setItem('billingState', shippingState);
+        localStorage.setItem('billingCountry', shippingCountry);
+        localStorage.setItem('billingZipcode', shippingZipcode);
+        localStorage.setItem('billingPhone', shippingPhone);
+      } else {
+        // Save billingDetails to localStorage
+        localStorage.setItem('billingFirstName', billingDetails.firstName);
+        localStorage.setItem('billingLastName', billingDetails.lastName);
+        localStorage.setItem('billingCompanyName', billingDetails.companyName);
+        localStorage.setItem('billingAddressLineOne', billingDetails.addressLineOne);
+        localStorage.setItem('billingAddressLineTwo', billingDetails.addressLineTwo);
+        localStorage.setItem('billingCity', billingDetails.city);
+        localStorage.setItem('billingState', billingDetails.state);
+        localStorage.setItem('billingCountry', billingDetails.country);
+        localStorage.setItem('billingZipcode', billingDetails.zipcode);
+        localStorage.setItem('billingPhone', billingDetails.phone);
+      }
 
-    // Save other details
-    localStorage.setItem('cardNumber', cardDetails.cardNumber);
+      // Save other details
+      localStorage.setItem('cardNumber', cardDetails.cardNumber);
+    }
   }
 
   const handleReviewButtonClick = (event: React.MouseEvent) => {
@@ -1016,7 +1022,9 @@ const PaymentPageContent: React.FC = () => {
   const handleNavigateHome = () => {
     window.location.href = '/';
     handleCloseClearCartWindow();
-    localStorage.setItem('cart', JSON.stringify({items: [], totalPrice: 0, totalQty: 0, cartId: null}));
+    if (isBrowser) {
+      localStorage.setItem('cart', JSON.stringify({items: [], totalPrice: 0, totalQty: 0, cartId: null}));
+    }
     // // @ts-ignore
     // clearCart();
   }

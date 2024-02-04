@@ -62,7 +62,9 @@ const ConfirmPageContent: React.FC = () => {
   const [numItems, setNumItems] = useState(5);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
   const router = useRouter();
-  const storedEmail = localStorage.getItem('email');
+  const isBrowser = typeof window !== 'undefined';
+  // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+  const storedEmail = isBrowser ? localStorage.getItem('email') : null
   console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
@@ -176,7 +178,7 @@ const ConfirmPageContent: React.FC = () => {
       // @ts-ignore
       if (updatedCart) {
         setIsCartAdded(true);
-        console.log('Updated local storage:', localStorage.getItem('cart'));
+        // console.log('Updated local storage:', localStorage.getItem('cart'));
         console.log("cart id = ", `${cartId}`)
       } else {
         throw new Error('Cart ID was not created.');

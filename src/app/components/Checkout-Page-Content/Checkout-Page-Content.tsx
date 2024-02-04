@@ -12,7 +12,12 @@ import Link from "next/link";
 
 
 const CheckoutPageContent: React.FC = () => {
-  const cartData = localStorage.getItem('cart');
+  // const cartData = localStorage.getItem('cart');
+
+  const isBrowser = typeof window !== 'undefined';
+  // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+  const cartData = isBrowser ? localStorage.getItem('cart') : null
+
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   console.log("Cart Items:", cartItems);
@@ -495,17 +500,19 @@ const CheckoutPageContent: React.FC = () => {
   const showZipcodeLabel = isFocused.zipcode || hasText.zipcode;
   const showPhoneLabel = isFocused.phone || hasText.phone;
   const saveToLocalStorage = () => {
-    localStorage.setItem('email', email);
-    localStorage.setItem('shippingFirstName', shippingDetails.firstName);
-    localStorage.setItem('shippingLastName', shippingDetails.lastName);
-    localStorage.setItem('shippingCompanyName', shippingDetails.companyName);
-    localStorage.setItem('shippingAddressLineOne', shippingDetails.addressLineOne);
-    localStorage.setItem('shippingAddressLineTwo', shippingDetails.addressLineTwo);
-    localStorage.setItem('shippingCity', shippingDetails.city);
-    localStorage.setItem('shippingState', shippingDetails.state);
-    localStorage.setItem('shippingCountry', shippingDetails.country);
-    localStorage.setItem('shippingZipcode', shippingDetails.zipcode);
-    localStorage.setItem('shippingPhone', shippingDetails.phone);
+    if (isBrowser) {
+      localStorage.setItem('email', email);
+      localStorage.setItem('shippingFirstName', shippingDetails.firstName);
+      localStorage.setItem('shippingLastName', shippingDetails.lastName);
+      localStorage.setItem('shippingCompanyName', shippingDetails.companyName);
+      localStorage.setItem('shippingAddressLineOne', shippingDetails.addressLineOne);
+      localStorage.setItem('shippingAddressLineTwo', shippingDetails.addressLineTwo);
+      localStorage.setItem('shippingCity', shippingDetails.city);
+      localStorage.setItem('shippingState', shippingDetails.state);
+      localStorage.setItem('shippingCountry', shippingDetails.country);
+      localStorage.setItem('shippingZipcode', shippingDetails.zipcode);
+      localStorage.setItem('shippingPhone', shippingDetails.phone);
+    }
   }
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -542,7 +549,9 @@ const CheckoutPageContent: React.FC = () => {
   const handleNavigateHome = () => {
     window.location.href = '/';
     handleCloseClearCartWindow();
-    localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+    if (isBrowser) {
+      localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+    }
     // // @ts-ignore
     // clearCart();
   }
@@ -716,7 +725,8 @@ const CheckoutPageContent: React.FC = () => {
   }, []);
 
   console.log("order number is : ", orderNumber);
-  const storedEmail = localStorage.getItem('email');
+  const storedEmail = isBrowser ? localStorage.getItem('email') : null
+
   console.log('Email stored in local storage:', storedEmail);
 
   if (!hasPageLoaded) {

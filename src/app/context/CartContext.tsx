@@ -46,14 +46,16 @@ export const useCart = () => {
 };
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
+  const isBrowser = typeof window !== 'undefined';
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     // instead of simply parsing the data, we need to also set it to an array for .map
-    const localData = localStorage.getItem('cart');
+    // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+    const localData = isBrowser ? localStorage.getItem('cart') : null
     const parsedData = localData ? JSON.parse(localData) : null;
     return parsedData ? parsedData.items : [];
   });
   const [orderNumber, setOrderNumber] = useState<number | null>(() => {
-    const localData = localStorage.getItem('cart');
+    const localData = isBrowser ? localStorage.getItem('cart') : null
     if (localData) {
       const parsedData = JSON.parse(localData);
       return parsedData.orderNumber ?? null;  // Use null coalescing to default to null if orderNumber is not present
@@ -66,7 +68,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [totalQty, setTotalQty] = useState(initialTotalQty);
 
   const [cartId, setCartId] = useState<string | null>(() => {
-    const localData = localStorage.getItem('cart');
+    const localData = isBrowser ? localStorage.getItem('cart') : null
     return localData ? JSON.parse(localData).cartId : null;
   });
 
@@ -86,7 +88,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       orderNumber: orderNumber,
       cartId: cartId,
     };
-    localStorage.setItem('cart', JSON.stringify(cartData));
+    if (isBrowser) {
+      localStorage.setItem('cart', JSON.stringify(cartData));
+    }
   }, [cartItems, orderNumber, cartId]);
 
 
@@ -132,7 +136,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
           cartId: newCartId,
         };
 
-        localStorage.setItem('cart', JSON.stringify(cartData));
+        if (isBrowser) {
+          localStorage.setItem('cart', JSON.stringify(cartData));
+        }
 
         console.log("context cart id is:", newCartId); // Use newCartId here.
 
@@ -158,7 +164,9 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         setTotalQty(0);
         setTotalPrice(0);
         setCartId(null);
-        localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+        if (isBrowser) {
+          localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+        }
         console.log("Cart cleared");
         resolve(true); // Resolve the promise with true
       } catch (error) {

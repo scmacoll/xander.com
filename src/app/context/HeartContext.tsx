@@ -10,20 +10,28 @@ const HeartContext = createContext<{
 } | undefined>(undefined);
 
 export const HeartsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const isBrowser = typeof window !== 'undefined';
+
   const [quoteHearts, setQuoteHearts] = useState<{ [key: string]: boolean }>(() => {
-    const storedHearts = localStorage.getItem('quoteHearts');
-    return storedHearts ? JSON.parse(storedHearts) : {};
+    if (isBrowser) {
+      const storedHearts = localStorage.getItem('quoteHearts');
+      return storedHearts ? JSON.parse(storedHearts) : {};
+    }
   });
 
   const [bookHearts, setBookHearts] = useState<{ [key: string]: boolean }>(() => {
-    const storedHearts = localStorage.getItem('bookHearts');
-    return storedHearts ? JSON.parse(storedHearts) : {};
+    if (isBrowser) {
+      const storedHearts = localStorage.getItem('bookHearts');
+      return storedHearts ? JSON.parse(storedHearts) : {};
+    }
   });
 
   const toggleQuoteHeart = (quote: string) => {
     setQuoteHearts(prevHearts => {
       const newHearts = { ...prevHearts, [quote]: !prevHearts[quote] };
-      localStorage.setItem('quoteHearts', JSON.stringify(newHearts));
+      if (isBrowser) {
+        localStorage.setItem('quoteHearts', JSON.stringify(newHearts));
+      }
       return newHearts;
     });
   };
@@ -31,7 +39,9 @@ export const HeartsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const toggleBookHeart = (bookTitle: string) => {
     setBookHearts(prevHearts => {
       const newHearts = { ...prevHearts, [bookTitle]: !prevHearts[bookTitle] };
-      localStorage.setItem('bookHearts', JSON.stringify(newHearts));
+      if (isBrowser) {
+        localStorage.setItem('bookHearts', JSON.stringify(newHearts));
+      }
       return newHearts;
     });
   };
