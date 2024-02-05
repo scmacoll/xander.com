@@ -47,30 +47,56 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const isBrowser = typeof window !== 'undefined';
-  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    // instead of simply parsing the data, we need to also set it to an array for .map
-    // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-    const localData = isBrowser ? localStorage.getItem('cart') : null
-    const parsedData = localData ? JSON.parse(localData) : null;
-    return parsedData ? parsedData.items : [];
-  });
-  const [orderNumber, setOrderNumber] = useState<number | null>(() => {
-    const localData = isBrowser ? localStorage.getItem('cart') : null
-    if (localData) {
-      const parsedData = JSON.parse(localData);
-      return parsedData.orderNumber ?? null;  // Use null coalescing to default to null if orderNumber is not present
+
+  // >>>>>>>>>>> ! Old Code
+  //
+  // const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+  //   // instead of simply parsing the data, we need to also set it to an array for .map
+  //   // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+  //   const localData = isBrowser ? localStorage.getItem('cart') : null
+  //   const parsedData = localData ? JSON.parse(localData) : null;
+  //   return parsedData ? parsedData.items : [];
+  // });
+  //
+  // const [orderNumber, setOrderNumber] = useState<number | null>(() => {
+  //   const localData = isBrowser ? localStorage.getItem('cart') : null
+  //   if (localData) {
+  //     const parsedData = JSON.parse(localData);
+  //     return parsedData.orderNumber ?? null;  // Use null coalescing to default to null if orderNumber is not present
+  //   }
+  //   return null;
+  // });
+  //
+  // const [cartId, setCartId] = useState<string | null>(() => {
+  //   const localData = isBrowser ? localStorage.getItem('cart') : null
+  //   return localData ? JSON.parse(localData).cartId : null;
+  // });
+  //
+  // >>>>>>>>>>> ! Old Code
+
+
+  // >>>>>>>>>>> ! New Code
+
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [orderNumber, setOrderNumber] = useState<number | null>(null);
+  const [cartId, setCartId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isBrowser) {
+      const localData = localStorage.getItem('cart');
+      const parsedData = localData ? JSON.parse(localData) : {};
+      setCartItems(parsedData.items || []);
+      setOrderNumber(parsedData.orderNumber || null);
+      setCartId(parsedData.cartId || null);
     }
-    return null;
-  });
+  }, []);
+
+  // >>>>>>>>>>> ! New Code
+
 
   const [totalPrice, setTotalPrice] = useState(0);
   const initialTotalQty = cartItems.reduce((acc, item) => acc + item.qty, 0);
   const [totalQty, setTotalQty] = useState(initialTotalQty);
-
-  const [cartId, setCartId] = useState<string | null>(() => {
-    const localData = isBrowser ? localStorage.getItem('cart') : null
-    return localData ? JSON.parse(localData).cartId : null;
-  });
 
   useEffect(() => {
     // Whenever cartItems changes, update totalPrice and totalQty

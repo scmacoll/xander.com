@@ -6,17 +6,48 @@ import { TileCard } from '../Home-Content/Content';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from "next/link";
 
 
 
 const CheckoutPageContent: React.FC = () => {
-  // const cartData = localStorage.getItem('cart');
 
+  // >>>>>>>>>>> Old Code
+  //
+  // const isBrowser = typeof window !== 'undefined';
+  // // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+  // const cartData = isBrowser ? localStorage.getItem('cart') : null
+  //
+  // >>>>>>>>>>> Old Code
+
+
+  // >>>>>>>>>>> New Code
   const isBrowser = typeof window !== 'undefined';
-  // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-  const cartData = isBrowser ? localStorage.getItem('cart') : null
+  const router = useRouter();
+  const pathname = usePathname();
+  const [cartData, setCartData] = useState(null);
+
+  useEffect(() => {
+    // Accessing localStorage safely inside useEffect
+    if (isBrowser) {
+      const localCartData: any = localStorage.getItem('cart');
+      setCartData(localCartData);
+    }
+  }, []);
+  useEffect(() => {
+    if (isBrowser) {
+      const currentUrl = pathname;
+      if (currentUrl) {
+        // if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null')
+        // {
+        //   setIs404Error(true);
+        // }
+      }
+    }
+  }, [isBrowser, router]);
+  // >>>>>>>>>>> New Code
+
 
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
@@ -28,21 +59,23 @@ const CheckoutPageContent: React.FC = () => {
   const [isSessionExpired, setIsSessionExpired] = useState(false);
   console.log("is session expired?: ", isSessionExpired);
   const [is404Error, setIs404Error] = useState(false);
-  const router = useRouter();
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
-  const currentUrl = window.location.pathname;
+
+  // const currentUrl = router.pathname;
 
   useEffect(() => {
     setTimeout(() => {
       setHasPageLoaded(true);
     },10)
   }, []);
-  useEffect(() => {
-    if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null')
-    {
-      setIs404Error(true);
-    }
-  }, []);
+
+
+  // useEffect(() => {
+  //   if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null')
+  //   {
+  //     setIs404Error(true);
+  //   }
+  // }, []);
 
 
   const [isFocused, setIsFocused] = useState({
@@ -547,9 +580,9 @@ const CheckoutPageContent: React.FC = () => {
     setIsClearCartWindowOpen(false);
   };
   const handleNavigateHome = () => {
-    window.location.href = '/';
-    handleCloseClearCartWindow();
     if (isBrowser) {
+      window.location.href = '/';
+      handleCloseClearCartWindow();
       localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
     }
     // // @ts-ignore
@@ -595,36 +628,20 @@ const CheckoutPageContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if ((totalQty === 0 || cartData === null || cartData === undefined)) {
-      setIs404Error(true);
-      // router.push('/404');
-    }
-  }, []);
-
-  // useEffect(() => {
-  //   if (isSessionExpired || is404Error) {
-  //
-  //   }
-  // }, []);
-
-
-  // if ((totalPrice === 0 || totalQty === 0 || cartItems.length === 0)) {
-  //   return null; // or a small placeholder/loading component until the redirect kicks in
-  // }
-
-  useEffect(() => {
     if (!orderCompleted) {
-      localStorage.removeItem('email');
-      localStorage.removeItem('shippingFirstName');
-      localStorage.removeItem('shippingLastName');
-      localStorage.removeItem('shippingCompanyName');
-      localStorage.removeItem('shippingAddressLineOne');
-      localStorage.removeItem('shippingAddressLineTwo');
-      localStorage.removeItem('shippingCity');
-      localStorage.removeItem('shippingState');
-      localStorage.removeItem('shippingCountry');
-      localStorage.removeItem('shippingZipcode');
-      localStorage.removeItem('shippingPhone');
+      if (isBrowser) {
+        localStorage.removeItem('email');
+        localStorage.removeItem('shippingFirstName');
+        localStorage.removeItem('shippingLastName');
+        localStorage.removeItem('shippingCompanyName');
+        localStorage.removeItem('shippingAddressLineOne');
+        localStorage.removeItem('shippingAddressLineTwo');
+        localStorage.removeItem('shippingCity');
+        localStorage.removeItem('shippingState');
+        localStorage.removeItem('shippingCountry');
+        localStorage.removeItem('shippingZipcode');
+        localStorage.removeItem('shippingPhone');
+      }
     } else {
       return;
     }
@@ -725,9 +742,6 @@ const CheckoutPageContent: React.FC = () => {
   }, []);
 
   console.log("order number is : ", orderNumber);
-  const storedEmail = isBrowser ? localStorage.getItem('email') : null
-
-  console.log('Email stored in local storage:', storedEmail);
 
   if (!hasPageLoaded) {
     return null;
