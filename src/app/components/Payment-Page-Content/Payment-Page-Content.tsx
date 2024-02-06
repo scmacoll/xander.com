@@ -7,7 +7,7 @@ import {useHearts} from "@/app/context/HeartContext";
 import Link from "next/link";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
 import ExpiredPage from "@/app/components/Expired-Page/Expired-Page";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 
 const PaymentPageContent: React.FC = () => {
@@ -19,32 +19,50 @@ const PaymentPageContent: React.FC = () => {
   const [shippingCountry, setShippingCountry] = useState('');
   const [shippingZipcode, setShippingZipcode] = useState('');
 
-  // const cartData = localStorage.getItem('cart');
   const isBrowser = typeof window !== 'undefined';
-  // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-  const cartData = isBrowser ? localStorage.getItem('cart') : null
-  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
+  const [cartData, setCartData] = useState();
+  const [email, setEmail] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
+  const [saveToLocalStorage, setSaveToLocalStorage] = useState(false);
 
+
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
   const { clearAllHearts } = useHearts();
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
-  const router = useRouter();
-  const storedEmail = isBrowser ? localStorage.getItem('email') : null
   console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
-  const currentUrl = window.location.pathname;
 
   useEffect(() => {
     setTimeout(() => {
       setHasPageLoaded(true);
     }, 10)
   }, []);
+
   useEffect(() => {
-    if (totalQty === 0 || cartData === null || cartData === undefined || storedEmail === null || currentUrl === '/payment') {
-      setIs404Error(true);
+    if (isBrowser) {
+      const localCartData: any = localStorage.getItem('cart');
+      const storedEmail: any = localStorage.getItem('email');
+      setCartData(localCartData);
+      setEmail(storedEmail);
+      setIsGetLocalStorage(true);
+      const currentUrl = pathname;
+      if (currentUrl) {
+        if ((isGetLocalStorage) && (totalQty === 0 || cartData === null || cartData === undefined || storedEmail === null || currentUrl === '/payment')) {
+          console.log("##########----------- 404 ERROR ------------#########")
+          console.log("[[[[[[[[[[[ totalQty:   ", totalQty );
+          console.log("[[[[[[[[[[[ cartData:   ", cartData );
+          console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
+          console.log("##########----------- 404 ERROR ------------#########")
+          setIsGetLocalStorage(false);
+          // setIs404Error(true);
+        }
+      }
     }
   }, []);
 
@@ -887,7 +905,7 @@ const PaymentPageContent: React.FC = () => {
   //   });
   // };
 
-  const saveToLocalStorage = () => {
+  useEffect(() => {
     if (isBrowser) {
       if (isSameAddress) {
         const shippingFirstName: any = localStorage.getItem('shippingFirstName');
@@ -926,15 +944,17 @@ const PaymentPageContent: React.FC = () => {
 
       // Save other details
       localStorage.setItem('cardNumber', cardDetails.cardNumber);
+      setSaveToLocalStorage(false);
     }
-  }
+
+  }, [saveToLocalStorage]);
 
   const handleReviewButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
     setReviewButtonClicked(true);
     handleCloseClearCartWindow()
     if (showValidatedContent) {
-      saveToLocalStorage();
+      setSaveToLocalStorage(true);
       handleClearOrderNumber();
       setIsReviewing(true);
       setIsReviewed(false);
@@ -1209,7 +1229,7 @@ const PaymentPageContent: React.FC = () => {
   }, []);
 
   console.log("order number is:  ", orderNumber);
-  console.log('Email stored in local storage:', storedEmail);
+  console.log('Email stored in local storage:', email);
 
   if (!hasPageLoaded) {
     return null;

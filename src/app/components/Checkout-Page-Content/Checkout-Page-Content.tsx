@@ -55,36 +55,17 @@ const CheckoutPageContent: React.FC = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (isBrowser) {
-  //     const currentUrl = pathname;
-  //     if (currentUrl) {
-  //       if ((isGetLocalStorage) && (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null'))
-  //       {
-  //         console.log("##########----------- 404 ERROR ------------#########")
-  //         console.log("[[[[[[[[[[[ totalQty:   ", totalQty );
-  //         console.log("[[[[[[[[[[[ cartData:   ", cartData );
-  //         console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
-  //         console.log("##########----------- 404 ERROR ------------#########")
-  //         setIsGetLocalStorage(false);
-  //         // setIs404Error(true);
-  //       }
-  //     }
-  //   }
-  // }, [isBrowser, router, isGetLocalStorage]);
-  // >>>>>>>>>>> New Code
-
-  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
+  const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
+  const [isSessionExpired, setIsSessionExpired] = useState(false);
+  const [is404Error, setIs404Error] = useState(false);
+  const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   console.log("Cart Items:", cartItems);
   console.log("Cart Id:", cartId);
   console.log("total Qty: ", totalQty);
-  const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
-  const [isSessionExpired, setIsSessionExpired] = useState(false);
   console.log("is session expired?: ", isSessionExpired);
-  const [is404Error, setIs404Error] = useState(false);
-  const [hasPageLoaded, setHasPageLoaded] = useState(false);
 
   // const currentUrl = router.pathname;
 
