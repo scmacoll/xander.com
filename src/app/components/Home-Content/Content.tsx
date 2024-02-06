@@ -61,21 +61,23 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
   // >>>>>> New code
   const isBrowser = typeof window !== 'undefined';
-  const [cartData, setCartData] = useState(null);
-  const [cartId, setCartId] = useState(null);
+  const [cartData, setCartData] = useState();
+  const [cartId, setCartId] = useState();
   // >>>>>> New code
 
   useEffect(() => {
     if (isBrowser) {
-      const localCartData = localStorage.getItem('cart');
+      console.log("<<<<<<<<<<<<< getting item cart data! >>>>>>>>>>>>>>>");
+      const localCartData: any = localStorage.getItem('cart');
       const parsedCartData = localCartData ? JSON.parse(localCartData) : null;
-      setCartData(parsedCartData);
+      setCartData(localCartData);
       setCartId(parsedCartData ? parsedCartData.cartId : null);
     }
   }, []);
 
 
   console.log("Cart ID: ", cartId ? cartId : 'No cart ID');
+  console.log("Cart Data: ", cartData ? cartData : 'No cart data');
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
   const { totalQty, clearCart, clearOrderNumber } = useCart();

@@ -12,6 +12,10 @@ import Link from "next/link";
 
 
 const CheckoutPageContent: React.FC = () => {
+  console.log("[[[[[[[[[[[[[[[[ checkout page rendered ]]]]]]]]]]]]]]]]]]]");
+
+
+  const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
 
   // >>>>>>>>>>> Old Code
   //
@@ -26,28 +30,49 @@ const CheckoutPageContent: React.FC = () => {
   const isBrowser = typeof window !== 'undefined';
   const router = useRouter();
   const pathname = usePathname();
-  const [cartData, setCartData] = useState(null);
+  const [cartData, setCartData] = useState();
 
   useEffect(() => {
     // Accessing localStorage safely inside useEffect
     if (isBrowser) {
+      console.log("local storage is retrieved --------------------------!")
       const localCartData: any = localStorage.getItem('cart');
       setCartData(localCartData);
-    }
-  }, []);
-  useEffect(() => {
-    if (isBrowser) {
+      setIsGetLocalStorage(true);
       const currentUrl = pathname;
       if (currentUrl) {
-        // if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null')
-        // {
-        //   setIs404Error(true);
-        // }
+        if ((isGetLocalStorage) && (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null'))
+        {
+          console.log("##########----------- 404 ERROR ------------#########")
+          console.log("[[[[[[[[[[[ totalQty:   ", totalQty );
+          console.log("[[[[[[[[[[[ cartData:   ", cartData );
+          console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
+          console.log("##########----------- 404 ERROR ------------#########")
+          // setIsGetLocalStorage(false);
+          setIs404Error(true);
+        }
       }
     }
-  }, [isBrowser, router]);
-  // >>>>>>>>>>> New Code
+  }, []);
 
+  // useEffect(() => {
+  //   if (isBrowser) {
+  //     const currentUrl = pathname;
+  //     if (currentUrl) {
+  //       if ((isGetLocalStorage) && (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null'))
+  //       {
+  //         console.log("##########----------- 404 ERROR ------------#########")
+  //         console.log("[[[[[[[[[[[ totalQty:   ", totalQty );
+  //         console.log("[[[[[[[[[[[ cartData:   ", cartData );
+  //         console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
+  //         console.log("##########----------- 404 ERROR ------------#########")
+  //         setIsGetLocalStorage(false);
+  //         // setIs404Error(true);
+  //       }
+  //     }
+  //   }
+  // }, [isBrowser, router, isGetLocalStorage]);
+  // >>>>>>>>>>> New Code
 
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
@@ -68,15 +93,6 @@ const CheckoutPageContent: React.FC = () => {
       setHasPageLoaded(true);
     },10)
   }, []);
-
-
-  // useEffect(() => {
-  //   if (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null')
-  //   {
-  //     setIs404Error(true);
-  //   }
-  // }, []);
-
 
   const [isFocused, setIsFocused] = useState({
     cardNumber: false,

@@ -50,9 +50,31 @@ const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
 
 const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
-  const cartData = localStorage.getItem('cart');
-  // console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  const cartId = cartData ? JSON.parse(cartData).cartId : null;
+
+  // >>>>>>> Old Code
+  // const isBrowser = typeof window !== 'undefined';
+  // // Use conditional (ternary) operator to access localStorage only if isBrowser is true
+  // const cartData = isBrowser ? localStorage.getItem('cart') : null
+  // // console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
+  // const cartId = cartData ? JSON.parse(cartData).cartId : null;
+  // >>>>>> Old code
+
+  // >>>>>> New code
+  const isBrowser = typeof window !== 'undefined';
+  const [cartData, setCartData] = useState(null);
+  const [cartId, setCartId] = useState(null);
+  // >>>>>> New code
+
+  useEffect(() => {
+    if (isBrowser) {
+      const localCartData = localStorage.getItem('cart');
+      const parsedCartData = localCartData ? JSON.parse(localCartData) : null;
+      setCartData(parsedCartData);
+      setCartId(parsedCartData ? parsedCartData.cartId : null);
+    }
+  }, []);
+
+
   console.log("Cart ID: ", cartId ? cartId : 'No cart ID');
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);

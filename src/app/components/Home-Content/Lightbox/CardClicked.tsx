@@ -3,6 +3,7 @@ import Content, { TileCard } from '../Content';
 import styles from './CardClicked.module.scss';
 import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
+import { useRouter } from "next/navigation";
 
 interface CardProps {
   card: TileCard,
@@ -16,7 +17,10 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const portraitImageUrl = `P${card.cell_name}.png`;
   const [qty, setQty] = useState(1);
   const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price).toFixed(2));
-  const { addToCart, clearCart, cartId } = useCart();
+  const router = useRouter();
+  const { addToCart, clearCart, cartId, totalQty, totalPrice } = useCart();
+  const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
+  const [isBuyNowClicked, setIsBuyNowClicked] = useState(false);
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
 
   const { quoteHearts, bookHearts, toggleQuoteHeart, toggleBookHeart } = useHearts();
@@ -60,10 +64,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     };
     console.log("Item to be added: ", newItem);
     addToCart(newItem);
-    setIsConfirmAddToCart(true);
-    setTimeout(() => {
-      setIsConfirmAddToCart(false);
-    }, 2000);
+    setIsAddToCartClicked(true);
   };
 
   const handleBuyNow = async () => {
@@ -80,10 +81,11 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     };
     console.log("Item to be added: ", newItem);
     try {
-      const cartId = await addToCart(newItem);
+      const updatedCart = await addToCart(newItem);
       // @ts-ignore
-      if (cartId) {
-        window.location.href = `/checkout/${cartId}`;
+      if (updatedCart) {
+        setIsBuyNowClicked(true);
+        // window.location.href = `/checkout/${cartId}`;
       } else {
         throw new Error('Cart ID was not created.');
       }
@@ -91,6 +93,26 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
       console.error("Error in handleBuyNow:", error);
     }
   }
+
+  useEffect(() => {
+    if (isAddToCartClicked) {
+      setIsConfirmAddToCart(true);
+      setTimeout(() => {
+        setIsAddToCartClicked(false);
+        setIsConfirmAddToCart(false);
+      }, 2000);
+    }
+  }, [isAddToCartClicked]);
+
+  useEffect(() => {
+    if (isBuyNowClicked && cartId !== null && totalQty > 0 && totalPrice > 0) {
+      console.log("use Effect Invoked!!");
+      setIsBuyNowClicked(false);
+      console.log('Updated local storage:', localStorage.getItem('cart'));
+      router.push(`/checkout/${cartId}`);
+      // window.location.href = `/checkout/${cartId}`;
+    }
+  }, [isBuyNowClicked, totalQty]);
 
   const handleClearCart = () => {
     console.log("clear cart invoked")
