@@ -4,6 +4,7 @@ import styles from './CardClicked.module.scss';
 import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
 import { useRouter } from "next/navigation";
+import { useSessionExpired } from "@/app/context/SessionExpiryContent";
 
 interface CardProps {
   card: TileCard,
@@ -23,6 +24,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const [isBuyNowClicked, setIsBuyNowClicked] = useState(false);
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
 
+  const { isSessionExpired, expireSession } = useSessionExpired();
   const { quoteHearts, bookHearts, toggleQuoteHeart, toggleBookHeart } = useHearts();
   const handleQuoteHeartClick = () => {
     toggleQuoteHeart(card.quote);
@@ -84,6 +86,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
       const updatedCart = await addToCart(newItem);
       // @ts-ignore
       if (updatedCart) {
+        expireSession(false);
         setIsBuyNowClicked(true);
         // window.location.href = `/checkout/${cartId}`;
       } else {
@@ -105,12 +108,11 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   }, [isAddToCartClicked]);
 
   useEffect(() => {
-    if (isBuyNowClicked && cartId !== null && totalQty > 0 && totalPrice > 0) {
+    if (isBuyNowClicked && !isSessionExpired && cartId !== null && totalQty > 0 && totalPrice > 0) {
       console.log("use Effect Invoked!!");
       setIsBuyNowClicked(false);
       console.log('Updated local storage:', localStorage.getItem('cart'));
       router.push(`/checkout/${cartId}`);
-      // window.location.href = `/checkout/${cartId}`;
     }
   }, [isBuyNowClicked, totalQty]);
 
