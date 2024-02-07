@@ -1,5 +1,6 @@
 import './globals.scss';
 import { ConfirmedOrderProvider } from "@/app/context/ConfirmedOrderContext";
+import { SessionExpiredProvider } from "@/app/context/SessionExpiryContent";
 import { CartProvider } from "@/app/context/CartContext";
 import { HeartsProvider } from "@/app/context/HeartContext";
 
@@ -12,13 +13,15 @@ export default function RootLayout({children,}: {children: React.ReactNode;}) {
 
   return (
     <ConfirmedOrderProvider>
-      <CartProvider>
-        <HeartsProvider>
-          <html lang="en">
-          <body>{children}</body>
-          </html>
-        </HeartsProvider>
-      </CartProvider>
+      <SessionExpiredProvider>
+        <CartProvider>
+          <HeartsProvider>
+            <html lang="en">
+            <body>{children}</body>
+            </html>
+          </HeartsProvider>
+        </CartProvider>
+      </SessionExpiredProvider>
     </ConfirmedOrderProvider>
   );
 }

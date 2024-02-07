@@ -6,6 +6,7 @@ import { TileCard } from '../Home-Content/Content';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
+import { useSessionExpired } from "@/app/context/SessionExpiryContent";
 import { usePathname, useRouter } from 'next/navigation';
 import Link from "next/link";
 
@@ -55,17 +56,18 @@ const CheckoutPageContent: React.FC = () => {
     }
   }, []);
 
-  const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
-  const [isSessionExpired, setIsSessionExpired] = useState(false);
+  const { isSessionExpired, expireSession } = useSessionExpired();
+
+  const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  console.log("********* Is session expired??? *********", isSessionExpired);
   console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   console.log("Cart Items:", cartItems);
   console.log("Cart Id:", cartId);
   console.log("total Qty: ", totalQty);
   console.log("is order completed?: ", orderCompleted);
-  console.log("is session expired?: ", isSessionExpired);
 
   // const currentUrl = router.pathname;
 
@@ -618,9 +620,20 @@ const CheckoutPageContent: React.FC = () => {
   console.log("cart items length: ", cartItems.length);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      expireSession(true);
+    // }, 3000); // 3 seconds
+      }, 450000); // 7.5 minutes = 450000 milliseconds
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  useEffect(() => {
     if (orderCompleted) {
       console.log("triggering order complete -> session expiry");
-      setIsSessionExpired(true);
+      expireSession(true);
     }
   }, []);
 
@@ -727,16 +740,6 @@ const CheckoutPageContent: React.FC = () => {
     }
   }, [shippingDetails, email]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsSessionExpired(true);
-      setOrderCompleted(true);
-    }, 450000); // 7.5 minutes = 450000 milliseconds
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
 
   console.log("order number is : ", orderNumber);
 

@@ -15,6 +15,7 @@ import {
   faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
+import { useSessionExpired } from "@/app/context/SessionExpiryContent";
 import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
 

@@ -11,7 +11,7 @@ interface HeaderProps {
   isBookPage: boolean,
   isCheckoutButtonClicked: boolean,
   handleCheckoutButtonClick: () => void,
-  isEmptyCartWindowOpen: boolean
+  isEmptyCartWindowOpen: boolean,
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -172,7 +172,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div id="cartShoppingBag" className={`${styles.shoppingBagIcon} relative`}>
-          <Link href={totalQty > 0 ? `/checkout/${cartId}` : '#'} passHref>
+          <div>
           {/*<Link href={`/checkout/${cartId}`}>*/}
             <button
               onClick={handleCheckoutButtonClick}
@@ -218,7 +218,7 @@ const Header: React.FC<HeaderProps> = ({
                 )}
               </div>
             </button>
-          </Link>
+          </div>
         </div>
 
       </div>

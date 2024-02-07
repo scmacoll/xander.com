@@ -4,10 +4,11 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Country, State, City } from 'country-state-city';
 import { useCart } from "@/app/context/CartContext";
 import {useHearts} from "@/app/context/HeartContext";
-import Link from "next/link";
+import { useSessionExpired } from "@/app/context/SessionExpiryContent";
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
 import ExpiredPage from "@/app/components/Expired-Page/Expired-Page";
 import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 const PaymentPageContent: React.FC = () => {
@@ -33,6 +34,7 @@ const PaymentPageContent: React.FC = () => {
   console.log("Cart Items:", cartItems);
   const { clearAllHearts } = useHearts();
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
+  const { isSessionExpired, setSessionExpired } = useSessionExpired();
   console.log("is order completed?: ", orderCompleted);
   console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
@@ -60,7 +62,7 @@ const PaymentPageContent: React.FC = () => {
           console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
           console.log("##########----------- 404 ERROR ------------#########")
           setIsGetLocalStorage(false);
-          // setIs404Error(true);
+          setIs404Error(true);
         }
       }
     }
@@ -155,7 +157,6 @@ const PaymentPageContent: React.FC = () => {
   const [isSameAddress, setIsSameAddress] = useState(true);
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
-  const [isSessionExpired, setIsSessionExpired] = useState(false);
 
   const handleCardNumberChange = (input?: React.ChangeEvent<HTMLInputElement> | string) => {
     let newCardNumber = '';
@@ -1108,7 +1109,7 @@ const PaymentPageContent: React.FC = () => {
 
   useEffect(() => {
     if (orderCompleted) {
-      setIsSessionExpired(true);
+      setSessionExpired(true);
     }
   }, []);
 
@@ -1219,7 +1220,7 @@ const PaymentPageContent: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsSessionExpired(true);
+      setSessionExpired(true);
       setOrderCompleted(true);
     }, 450000); // 7.5 minutes = 450000 milliseconds
 
