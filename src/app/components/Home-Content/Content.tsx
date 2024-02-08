@@ -52,19 +52,31 @@ const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R']
 
 const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
-  // >>>>>>> Old Code
-  // const isBrowser = typeof window !== 'undefined';
-  // // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-  // const cartData = isBrowser ? localStorage.getItem('cart') : null
-  // // console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  // const cartId = cartData ? JSON.parse(cartData).cartId : null;
-  // >>>>>> Old code
-
+  const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
   // >>>>>> New code
   const isBrowser = typeof window !== 'undefined';
   const [cartData, setCartData] = useState();
   const [cartId, setCartId] = useState();
   // >>>>>> New code
+  const { orderCompleted, completeOrder } = useConfirmedOrder();
+  const { totalQty, clearCart, clearOrderNumber } = useCart();
+  const [hasPageLoaded, setHasPageLoaded] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHasPageLoaded(true);
+    }, 10)
+  }, []);
+
+  useEffect(() => {
+    if (orderCompleted) {
+      completeOrder(false)
+      // @ts-ignore
+      clearCart();
+      // @ts-ignore
+      clearOrderNumber();
+    }
+  }, [orderCompleted]);
 
   useEffect(() => {
     if (isBrowser) {
@@ -73,18 +85,14 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
       const parsedCartData = localCartData ? JSON.parse(localCartData) : null;
       setCartData(localCartData);
       setCartId(parsedCartData ? parsedCartData.cartId : null);
+      setIsGetLocalStorage(true);
     }
   }, []);
 
-
   console.log("Cart ID: ", cartId ? cartId : 'No cart ID');
   console.log("Cart Data: ", cartData ? cartData : 'No cart data');
-  const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
-  const { totalQty, clearCart, clearOrderNumber } = useCart();
   console.log("totalQty: ", totalQty);
-  const { clearAllHearts } = useHearts();
-
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
@@ -96,13 +104,6 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
-  const [hasPageLoaded, setHasPageLoaded] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setHasPageLoaded(true);
-    }, 10)
-  }, []);
 
   const handleCardInteraction = (card: TileCard) => {
     setSelectedCard(card);
@@ -209,16 +210,6 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
   const {leftData, middleData, rightData} = getColumnData(indexNumber);
   const combinedData = mergeData(leftData, middleData, rightData);
-
-  useEffect(() => {
-    if (orderCompleted && totalQty > 0) {
-      completeOrder(false);
-      // @ts-ignore
-      clearCart();
-      // @ts-ignore
-      clearOrderNumber();
-    }
-  },[])
 
   useEffect(() => {
     const elements = document.querySelectorAll(

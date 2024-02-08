@@ -22,6 +22,7 @@ const PaymentPageContent: React.FC = () => {
 
   const isBrowser = typeof window !== 'undefined';
   const [cartData, setCartData] = useState();
+  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const [email, setEmail] = useState('');
   const router = useRouter();
   const pathname = usePathname();
@@ -29,12 +30,11 @@ const PaymentPageContent: React.FC = () => {
   const [saveToLocalStorage, setSaveToLocalStorage] = useState(false);
 
 
-  console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
   const {cartItems, totalPrice, orderNumber, cartId, totalQty, addToCart, removeFromCart, clearCart, generateOrderNumber, clearOrderNumber} = useCart();
   console.log("Cart Items:", cartItems);
   const { clearAllHearts } = useHearts();
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
-  const { isSessionExpired, setSessionExpired } = useSessionExpired();
+  const { isSessionExpired, expireSession } = useSessionExpired();
   console.log("is order completed?: ", orderCompleted);
   console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
@@ -1109,7 +1109,7 @@ const PaymentPageContent: React.FC = () => {
 
   useEffect(() => {
     if (orderCompleted) {
-      setSessionExpired(true);
+      expireSession(true);
     }
   }, []);
 
@@ -1220,8 +1220,7 @@ const PaymentPageContent: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSessionExpired(true);
-      setOrderCompleted(true);
+      expireSession(true);
     }, 450000); // 7.5 minutes = 450000 milliseconds
 
     return () => {

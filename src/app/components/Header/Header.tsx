@@ -36,6 +36,10 @@ const Header: React.FC<HeaderProps> = ({
     }, 10)
   }, []);
 
+  useEffect(() => {
+    console.log("@@@@@@@@@@@@@@ total Qty changed to : ", totalQty);
+  }, [totalQty]);
+
   const handleFocusModeToggle = () => {
     onFocusModeToggle();
   };

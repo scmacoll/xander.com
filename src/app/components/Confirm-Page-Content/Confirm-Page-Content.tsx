@@ -7,7 +7,7 @@ import { useCart } from "@/app/context/CartContext";
 import { useHearts } from "@/app/context/HeartContext";
 import { useConfirmedOrder } from '@/app/context/ConfirmedOrderContext';
 import ExpiredPage from "@/app/components/Expired-Page/Expired-Page";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export type TileCard = {
   cell_name: string;
@@ -24,19 +24,42 @@ const ConfirmPageContent: React.FC = () => {
   const [books, setBooks] = useState<TileCard[]>([]);
   const { bookHearts, toggleBookHeart } = useHearts(); // Ensure you have these from your context
   const apiURI = '/api/getCards';
+  const { cartItems, totalPrice, orderNumber, totalQty, addToCart, clearCart, cartId, clearOrderNumber } = useCart();
+  const { orderCompleted, completeOrder } = useConfirmedOrder();
+  const router = useRouter();
+  const isBrowser = typeof window !== 'undefined';
+  const pathname = usePathname();
+  const [cartData, setCartData] = useState();
+  const [email, setEmail] = useState('');
+  const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
+
+  useEffect(() => {
+    if (isBrowser) {
+      const localCartData: any = localStorage.getItem('cart');
+      const storedEmail: any = localStorage.getItem('email');
+      setCartData(localCartData);
+      setIsGetLocalStorage(true);
+      setEmail(storedEmail);
+      completeOrder(true);
+      const currentUrl = pathname;
+      if (currentUrl) {
+        if ((isGetLocalStorage) && (orderNumber === null || orderNumber === undefined || storedEmail === null || currentUrl === '/confirm')) {
+          setIs404Error(true);
+        }
+      }
+    }
+  }, []);
+
   const handleBookHeartClick = (bookTitle: string) => {
     toggleBookHeart(bookTitle);
   };
-  const { cartItems, totalPrice, orderNumber, totalQty, addToCart, clearCart, cartId, clearOrderNumber } = useCart();
   const [selectedBook, setSelectedBook] = useState<TileCard | null>(null);
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
   const [isCartAdded, setIsCartAdded] = useState(false);
   const [isCartCleared, setIsCartCleared] = useState(false);
 
-  const { orderCompleted, completeOrder } = useConfirmedOrder();
   console.log("is order completed?: ", orderCompleted);
 
-  const [email, setEmail] = useState('');
   const [shippingFirstName, setShippingFirstName] = useState('');
   const [shippingLastName, setShippingLastName] = useState('');
   const [shippingCompanyName, setShippingCompanyName] = useState('');
@@ -61,15 +84,9 @@ const ConfirmPageContent: React.FC = () => {
   const bottomRef = useRef<null | HTMLDivElement>(null);
   const [numItems, setNumItems] = useState(5);
   const [isOrderSummaryHidden, setOrderSummaryHidden] = useState(true);
-  const router = useRouter();
-  const isBrowser = typeof window !== 'undefined';
-  // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-  const storedEmail = isBrowser ? localStorage.getItem('email') : null
-  console.log("total Price: ", totalPrice);
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
-  const currentUrl = window.location.pathname;
-
+  console.log("total Price: ", totalPrice);
 
   const pickRandomBooks = (books: any, n: any) => {
     const shuffled = books.sort(() => 0.5 - Math.random());
@@ -110,36 +127,10 @@ const ConfirmPageContent: React.FC = () => {
       setHasPageLoaded(true);
     }, 10)
   }, []);
-  useEffect(() => {
-    if (orderNumber === null || orderNumber === undefined || storedEmail === null || currentUrl === '/confirm') {
-      setIs404Error(true);
-    }
-  }, []);
 
   const toggleOrderSummary = useCallback(() => {
     setOrderSummaryHidden(prevState => !prevState);
   }, []);
-
-  // const handleAddToCart = (book: TileCard) => {
-  //   console.log("add to cart invoked");
-  //   handleClearCart();
-  //   const newItem: any = {
-  //     qty: 1, // or any other logic to determine quantity
-  //     imageUrl: `/${book.cell_name}.jpg`,
-  //     qtyPrice: parseFloat((1 * parseFloat(book.book_price)).toFixed(2)), // format qtyPrice
-  //     bookPrice: parseFloat(book.book_price).toFixed(2),
-  //     bookTitle: book.book_title,
-  //     bookAuthors: book.book_authors,
-  //     bookType: book.book_type,
-  //     bookDate: book.book_date
-  //   };
-  //   console.log("Item to be added: ", newItem);
-  //   addToCart(newItem);
-  //   setIsConfirmAddToCart(true);
-  //   setTimeout(() => {
-  //     setIsConfirmAddToCart(false);
-  //   }, 2000);
-  // };
 
   const handleBuyNow = async (event: React.MouseEvent, book: TileCard) => {
     event.preventDefault();
@@ -199,26 +190,10 @@ const ConfirmPageContent: React.FC = () => {
   useEffect(() => {
     if (isCartAdded && cartId !== null && totalQty > 0 && totalPrice > 0) {
       setIsCartAdded(false);
-      window.location.href = `/checkout/${cartId}`;
+      // window.location.href = `/checkout/${cartId}`;
+      router.push(`/checkout/${cartId}`);
     }
   }, [isCartAdded, cartId]); // Run this effect when `isCartCleared` changes
-
-  // const handleClearCart = () => {
-  //   return new Promise((resolve) => {
-  //     try {
-  //       localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
-  //       console.log("Cart cleared");
-  //       resolve(true); // Resolve the promise with true
-  //     } catch (error) {
-  //       console.error("Error clearing the cart:", error);
-  //       resolve(false); // Resolve the promise with false in case of error
-  //     }
-  //   });
-  // };
-
-  useEffect(() => {
-    completeOrder(true);
-  }, []);
 
   useEffect(() => {
     if (orderNumber === undefined || orderNumber === null) {
@@ -231,100 +206,99 @@ const ConfirmPageContent: React.FC = () => {
   }, [cartId]);
 
   useEffect(() => {
-    const storedEmail = localStorage.getItem('email');
+    if (isBrowser) {
+      const storedEmail = localStorage.getItem('email');
 
-    const storedShippingFirstName = localStorage.getItem('shippingFirstName');
-    const storedShippingLastName = localStorage.getItem('shippingLastName');
-    const storedShippingCompanyName = localStorage.getItem('shippingCompanyName');
-    const storedShippingAddressLineOne = localStorage.getItem('shippingAddressLineOne');
-    const storedShippingAddressLineTwo = localStorage.getItem('shippingAddressLineTwo');
-    const storedShippingCity = localStorage.getItem('shippingCity');
-    const storedShippingState = localStorage.getItem('shippingState');
-    const storedShippingCountry = localStorage.getItem('shippingCountry');
-    const storedShippingZipcode = localStorage.getItem('shippingZipcode');
-    const storedShippingPhone = localStorage.getItem('shippingPhone');
+      const storedShippingFirstName = localStorage.getItem('shippingFirstName');
+      const storedShippingLastName = localStorage.getItem('shippingLastName');
+      const storedShippingCompanyName = localStorage.getItem('shippingCompanyName');
+      const storedShippingAddressLineOne = localStorage.getItem('shippingAddressLineOne');
+      const storedShippingAddressLineTwo = localStorage.getItem('shippingAddressLineTwo');
+      const storedShippingCity = localStorage.getItem('shippingCity');
+      const storedShippingState = localStorage.getItem('shippingState');
+      const storedShippingCountry = localStorage.getItem('shippingCountry');
+      const storedShippingZipcode = localStorage.getItem('shippingZipcode');
+      const storedShippingPhone = localStorage.getItem('shippingPhone');
+      const storedBillingFirstName = localStorage.getItem('billingFirstName');
+      const storedBillingLastName = localStorage.getItem('billingLastName');
+      const storedBillingCompanyName = localStorage.getItem('billingCompanyName');
+      const storedBillingAddressLineOne = localStorage.getItem('billingAddressLineOne');
+      const storedBillingAddressLineTwo = localStorage.getItem('billingAddressLineTwo');
+      const storedBillingCity = localStorage.getItem('billingCity');
+      const storedBillingState = localStorage.getItem('billingState');
+      const storedBillingCountry = localStorage.getItem('billingCountry');
+      const storedBillingZipcode = localStorage.getItem('billingZipcode');
+      const storedBillingPhone = localStorage.getItem('billingPhone');
+      const storedCardNumber = localStorage.getItem('cardNumber');
 
-    const storedBillingFirstName = localStorage.getItem('billingFirstName');
-    const storedBillingLastName = localStorage.getItem('billingLastName');
-    const storedBillingCompanyName = localStorage.getItem('billingCompanyName');
-    const storedBillingAddressLineOne = localStorage.getItem('billingAddressLineOne');
-    const storedBillingAddressLineTwo = localStorage.getItem('billingAddressLineTwo');
-    const storedBillingCity = localStorage.getItem('billingCity');
-    const storedBillingState = localStorage.getItem('billingState');
-    const storedBillingCountry = localStorage.getItem('billingCountry');
-    const storedBillingZipcode = localStorage.getItem('billingZipcode');
-    const storedBillingPhone = localStorage.getItem('billingPhone');
-
-    const storedCardNumber = localStorage.getItem('cardNumber');
-
-    if (storedEmail) {
-      setEmail(storedEmail);
+      if (storedEmail) {
+        setEmail(storedEmail);
+      }
+      if (storedShippingFirstName) {
+        setShippingFirstName(storedShippingFirstName);
+      }
+      if (storedShippingLastName) {
+        setShippingLastName(storedShippingLastName);
+      }
+      if (storedShippingCompanyName) {
+        setShippingCompanyName(storedShippingCompanyName);
+      }
+      if (storedShippingAddressLineOne) {
+        setShippingAddressLineOne(storedShippingAddressLineOne);
+      }
+      if (storedShippingAddressLineTwo) {
+        setShippingAddressLineTwo(storedShippingAddressLineTwo);
+      }
+      if (storedShippingCity) {
+        setShippingCity(storedShippingCity);
+      }
+      if (storedShippingState) {
+        setShippingState(storedShippingState);
+      }
+      if (storedShippingCountry) {
+        setShippingCountry(storedShippingCountry);
+      }
+      if (storedShippingZipcode) {
+        setShippingZipcode(storedShippingZipcode);
+      }
+      if (storedShippingPhone) {
+        setShippingPhone(storedShippingPhone);
+      }
+      if (storedBillingFirstName) {
+        setBillingFirstName(storedBillingFirstName);
+      }
+      if (storedBillingLastName) {
+        setBillingLastName(storedBillingLastName);
+      }
+      if (storedBillingCompanyName) {
+        setBillingCompanyName(storedBillingCompanyName);
+      }
+      if (storedBillingAddressLineOne) {
+        setBillingAddressLineOne(storedBillingAddressLineOne);
+      }
+      if (storedBillingAddressLineTwo) {
+        setBillingAddressLineTwo(storedBillingAddressLineTwo);
+      }
+      if (storedBillingCity) {
+        setBillingCity(storedBillingCity);
+      }
+      if (storedBillingState) {
+        setBillingState(storedBillingState);
+      }
+      if (storedBillingCountry) {
+        setBillingCountry(storedBillingCountry);
+      }
+      if (storedBillingZipcode) {
+        setBillingZipcode(storedBillingZipcode);
+      }
+      if (storedBillingPhone) {
+        setBillingPhone(storedBillingPhone);
+      }
+      if (storedCardNumber) {
+        const lastFourDigits = storedCardNumber.slice(-4);
+        setCardNumber(lastFourDigits);
+      }
     }
-    if (storedShippingFirstName) {
-      setShippingFirstName(storedShippingFirstName);
-    }
-    if (storedShippingLastName) {
-      setShippingLastName(storedShippingLastName);
-    }
-    if (storedShippingCompanyName) {
-      setShippingCompanyName(storedShippingCompanyName);
-    }
-    if (storedShippingAddressLineOne) {
-      setShippingAddressLineOne(storedShippingAddressLineOne);
-    }
-    if (storedShippingAddressLineTwo) {
-      setShippingAddressLineTwo(storedShippingAddressLineTwo);
-    }
-    if (storedShippingCity) {
-      setShippingCity(storedShippingCity);
-    }
-    if (storedShippingState) {
-      setShippingState(storedShippingState);
-    }
-    if (storedShippingCountry) {
-      setShippingCountry(storedShippingCountry);
-    }
-    if (storedShippingZipcode) {
-      setShippingZipcode(storedShippingZipcode);
-    }
-    if (storedShippingPhone) {
-      setShippingPhone(storedShippingPhone);
-    }
-    if (storedBillingFirstName) {
-      setBillingFirstName(storedBillingFirstName);
-    }
-    if (storedBillingLastName) {
-      setBillingLastName(storedBillingLastName);
-    }
-    if (storedBillingCompanyName) {
-      setBillingCompanyName(storedBillingCompanyName);
-    }
-    if (storedBillingAddressLineOne) {
-      setBillingAddressLineOne(storedBillingAddressLineOne);
-    }
-    if (storedBillingAddressLineTwo) {
-      setBillingAddressLineTwo(storedBillingAddressLineTwo);
-    }
-    if (storedBillingCity) {
-      setBillingCity(storedBillingCity);
-    }
-    if (storedBillingState) {
-      setBillingState(storedBillingState);
-    }
-    if (storedBillingCountry) {
-      setBillingCountry(storedBillingCountry);
-    }
-    if (storedBillingZipcode) {
-      setBillingZipcode(storedBillingZipcode);
-    }
-    if (storedBillingPhone) {
-      setBillingPhone(storedBillingPhone);
-    }
-    if (storedCardNumber) {
-      const lastFourDigits = storedCardNumber.slice(-4);
-      setCardNumber(lastFourDigits);
-    }
-
   }, []);
 
   useEffect(() => {
