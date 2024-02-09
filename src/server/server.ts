@@ -32,3 +32,13 @@ mongoose
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
 });
+
+
+// Backend (Express Server)
+//
+// Initialization and Configuration
+// The file src/server/server.ts initializes an Express server.
+//   It imports and configures dotenv to manage environment variables, allowing you to use process.env to access variables like your MongoDB URI and the port the server runs on.
+// CORS (Cross-Origin Resource Sharing) is enabled without specific configuration, allowing requests from any domain. The commented-out part shows how you could restrict it to a specific domain.
+//   The MongoDB connection is established using Mongoose with the provided URI and options, logging a success or error message accordingly.
+//   The server listens on the specified port, ready to accept requests.
