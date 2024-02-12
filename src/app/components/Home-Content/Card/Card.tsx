@@ -12,6 +12,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false); // Image loading state
   const portraitImageUrl = `P${card.cell_name}.png`;
   useEffect(() => {
     setTimeout(() => {
@@ -58,11 +59,12 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
           <div className={`${styles.authorName} flex items-center`}>
             <img
               loading="lazy"
-              className={`${styles.dp}`}
+              className={`${styles.dp} ${!imageLoaded ? 'hidden' : ''}`} // Hide image until loaded
               src={portraitImageUrl}
               alt="profile image"
               width="100"
               height="100"
+              onLoad={() => setImageLoaded(true)} // Set image as loaded
             />
             <h3 className="font-bold">
               {card.author}
