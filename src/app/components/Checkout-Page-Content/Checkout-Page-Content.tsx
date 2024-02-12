@@ -59,7 +59,7 @@ const CheckoutPageContent: React.FC = () => {
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   const { isSessionExpired, expireSession } = useSessionExpired();
 
-  const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart } = useCart();
+  const { cartItems, totalPrice, totalQty, cartId, orderNumber, addToCart, removeFromCart, clearCart, clearOrderNumber } = useCart();
   const [is404Error, setIs404Error] = useState(false);
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
   console.log("********* Is session expired??? *********", isSessionExpired);
@@ -72,6 +72,8 @@ const CheckoutPageContent: React.FC = () => {
   // const currentUrl = router.pathname;
 
   useEffect(() => {
+    // @ts-ignore
+    clearOrderNumber();
     setTimeout(() => {
       setHasPageLoaded(true);
     },10)

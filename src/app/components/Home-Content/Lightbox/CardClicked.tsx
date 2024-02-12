@@ -116,12 +116,6 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     }
   }, [isBuyNowClicked, totalQty]);
 
-  const handleClearCart = () => {
-    console.log("clear cart invoked")
-    // @ts-ignore
-    clearCart();
-  };
-
   console.log("cycle rendered");
   console.log("image url: ", imageUrl);
   console.log("portrait url: ", portraitImageUrl);

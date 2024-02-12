@@ -57,6 +57,7 @@ const ConfirmPageContent: React.FC = () => {
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
   const [isCartAdded, setIsCartAdded] = useState(false);
   const [isCartCleared, setIsCartCleared] = useState(false);
+  const [cartItemsSnapshot, setCartItemsSnapshot] = useState([]);
 
   console.log("is order completed?: ", orderCompleted);
 
@@ -135,6 +136,7 @@ const ConfirmPageContent: React.FC = () => {
   const handleBuyNow = async (event: React.MouseEvent, book: TileCard) => {
     event.preventDefault();
     console.log("buy now invoked")
+    setCartItemsSnapshot(cartItems);
     completeOrder(false);
     setSelectedBook(book); // Set the book in state
 
@@ -194,12 +196,6 @@ const ConfirmPageContent: React.FC = () => {
       router.push(`/checkout/${cartId}`);
     }
   }, [isCartAdded, cartId]); // Run this effect when `isCartCleared` changes
-
-  useEffect(() => {
-    if (orderNumber === undefined || orderNumber === null) {
-      return;
-    }
-  }, []);
 
   useEffect(() => {
     console.log("cart id first render: ", cartId);
@@ -331,6 +327,17 @@ const ConfirmPageContent: React.FC = () => {
     return () => window.removeEventListener('resize', updateNumItems);
   }, []);
 
+  useEffect(() => {
+    // Check if the conditions for considering the order as 'expired' or invalid are met
+    if ((totalQty === 0 && orderCompleted) || orderNumber === undefined || orderNumber === null) {
+      // Call clearOrderNumber and completeOrder to reset the order state
+      // @ts-ignore
+      clearOrderNumber();
+      completeOrder(false);
+    }
+  }, []);
+
+
   console.log("order number: ", orderNumber);
   console.log("cart items:", cartItems);
 
@@ -338,7 +345,7 @@ const ConfirmPageContent: React.FC = () => {
     return null;
   }
   // Returns
-  if (totalQty === 0 && orderCompleted) {
+  if ((totalQty === 0 && orderCompleted) || orderNumber === undefined || orderNumber === null) {
     return <div><ExpiredPage/></div>
   } else if (is404Error) {
     router.push('/404');
@@ -605,7 +612,7 @@ const ConfirmPageContent: React.FC = () => {
                 className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
                 {/* right padding is for space between scroll bar && content */}
                 <article id="cartItems">
-                  {cartItems.map((item, index) => (
+                  {(cartItemsSnapshot.length > 0 ? cartItemsSnapshot : cartItems).map((item, index) => (
                     <div key={index} className="select-none pointer-events-none">
                       <div className="mx-auto flex w-full justify-between">
                         {/* Map over the cart items and display them */}
