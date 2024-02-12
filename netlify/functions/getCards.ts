@@ -1,4 +1,5 @@
 // netlify/functions/getCards.ts
+
 const { MongoClient } = require('mongodb');
 
 exports.handler = async (event: any, context: any) => {
@@ -14,6 +15,10 @@ exports.handler = async (event: any, context: any) => {
 
     return {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*", // Adjust in production
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(cards),
     };
   } catch (error) {

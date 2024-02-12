@@ -9,7 +9,7 @@ export default async function handler(
   const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Use the environment variable
   try {
     // const response = await axios.get('http://localhost:5001/api/getCards');
-    const response = await axios.get(`${baseUrl}/api/getCards`);
+    const response = await axios.get(`${baseUrl}`);
     res.status(200).json(response.data);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching cards' });
