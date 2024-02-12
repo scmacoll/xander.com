@@ -101,7 +101,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
-  const preloadImage = (imageUrl) => {
+  const preloadImage = (imageUrl: any) => {
     const img = new Image();
     img.src = imageUrl;
   };
