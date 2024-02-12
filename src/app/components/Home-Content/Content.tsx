@@ -284,20 +284,14 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
         });
         // Sort the filtered data
         filteredData.sort((a: TileCard, b: TileCard) => {
-          // if (a.cell_name < b.cell_name) {
-          //   return -1;
-          // }
-          // if (a.cell_name > b.cell_name) {
-          //   return 1;
-          // }
-          // return 0;
           return a.cell_name.localeCompare(b.cell_name);
         });
         setTileCards(filteredData);
 
+        // dynamically create Image objects to preload images
         filteredData.forEach((card: any) => {
           const img = new Image();
-          img.src = `P${card.cell_name}.png`; // Ensure this URL is correct
+          img.src = `P${card.cell_name}.png`;
         });
 
       } catch (error) {

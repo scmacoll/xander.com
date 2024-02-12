@@ -57,6 +57,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
         <div className={`${styles.cardAuthor}`}>
           <div className={`${styles.authorName} flex items-center`}>
             <img
+              loading="lazy"
               className={`${styles.dp}`}
               src={portraitImageUrl}
               alt="profile image"
