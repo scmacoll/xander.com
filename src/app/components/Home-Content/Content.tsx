@@ -294,6 +294,12 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
           return a.cell_name.localeCompare(b.cell_name);
         });
         setTileCards(filteredData);
+
+        filteredData.forEach((card: any) => {
+          const img = new Image();
+          img.src = `P${card.cell_name}.png`; // Ensure this URL is correct
+        });
+
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
