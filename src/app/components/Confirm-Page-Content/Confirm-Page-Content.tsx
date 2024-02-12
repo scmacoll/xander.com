@@ -24,7 +24,7 @@ const ConfirmPageContent: React.FC = () => {
   const [books, setBooks] = useState<TileCard[]>([]);
   const { bookHearts, toggleBookHeart } = useHearts(); // Ensure you have these from your context
   // const apiURI = '/api/getCards';
-  const apiURI = process.env.REACT_APP_API_URI as string;
+  const apiURI = process.env.REACT_APP_API_URI || '/api/getCards';
   const { cartItems, totalPrice, orderNumber, totalQty, addToCart, clearCart, cartId, clearOrderNumber } = useCart();
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   const router = useRouter();

@@ -83,7 +83,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const { clearAllHearts } = useHearts();
 
   // const apiURI = '/api/getCards';
-  const apiURI = process.env.REACT_APP_API_URI as string;
+  const apiURI = process.env.REACT_APP_API_URI || '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
