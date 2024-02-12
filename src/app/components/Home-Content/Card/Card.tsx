@@ -57,6 +57,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
         </div>
         <div className={`${styles.cardAuthor}`}>
           <div className={`${styles.authorName} flex items-center`}>
+            {!imageLoaded && <div className={`${styles.imageSkeleton}`}></div>} {/* Skeleton Loader */}
             <img
               loading="lazy"
               className={`${styles.dp} ${!imageLoaded ? 'hidden' : ''}`} // Hide image until loaded

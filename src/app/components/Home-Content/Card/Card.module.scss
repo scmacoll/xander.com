@@ -103,3 +103,15 @@
 .cardIcon:hover path {
   fill: #b5b19b;
 }
+
+.imageSkeleton {
+  width: 100px; /* Match the image dimensions */
+  height: 100px;
+  background-color: #eee; /* Light gray placeholder color */
+  border-radius: 50%; /* If your images are circular */
+  margin-right: 8px; /* Adjust based on your layout */
+}
+
+.hidden {
+  display: none;
+}
