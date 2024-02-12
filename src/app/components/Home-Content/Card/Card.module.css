@@ -86,9 +86,9 @@
 }
 
 .imageSkeleton {
-  width: 100px; /* Match the image dimensions */
-  height: 100px;
-  background-color: #eee; /* Light gray placeholder color */
+  width: 35px; /* Match the image dimensions */
+  height: 35px;
+  background-color: rgba(71, 81, 108, 0.5);
   border-radius: 50%; /* If your images are circular */
   margin-right: 8px; /* Adjust based on your layout */
 }

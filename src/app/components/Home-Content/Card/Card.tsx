@@ -45,6 +45,7 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
       onInteraction();
     }
   };
+
   if (!hasPageLoaded) {
     return null;
   }
@@ -59,13 +60,15 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
           <div className={`${styles.authorName} flex items-center`}>
             {!imageLoaded && <div className={`${styles.imageSkeleton}`}></div>} {/* Skeleton Loader */}
             <img
-              loading="lazy"
-              className={`${styles.dp} ${!imageLoaded ? 'hidden' : ''}`} // Hide image until loaded
+              // loading="lazy"
+              style={!imageLoaded ? { display: 'none' } : {}}
+              className={`${styles.dp}`}
               src={portraitImageUrl}
               alt="profile image"
               width="100"
               height="100"
               onLoad={() => setImageLoaded(true)} // Set image as loaded
+              onError={() => setImageLoaded(true)} // Set image as loaded
             />
             <h3 className="font-bold">
               {card.author}
