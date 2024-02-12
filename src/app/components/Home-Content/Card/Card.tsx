@@ -8,13 +8,11 @@ import Image from 'next/image';
 interface CardProps {
   card: TileCard;
   onInteraction : () => void;
-  shouldLoadImage?: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ card, onInteraction, shouldLoadImage }) => {
+const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
-  // const portraitImageUrl = `P${card.cell_name}.png`;
-  const portraitImageUrl = shouldLoadImage ? `P${card.cell_name}.png` : ''; // Only set the URL if shouldLoadImage is true
+  const portraitImageUrl = `P${card.cell_name}.png`;
   useEffect(() => {
     setTimeout(() => {
       setHasPageLoaded(true);

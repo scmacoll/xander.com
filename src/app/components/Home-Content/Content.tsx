@@ -372,7 +372,6 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
               <Card
                 card={card}
                 onInteraction={() => handleCardInteraction(card)}
-                shouldLoadImage={isFirstColumn || isSecondColumn || isThirdColumn}
               />
             </div>
           );
