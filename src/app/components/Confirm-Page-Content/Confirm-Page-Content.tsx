@@ -136,6 +136,7 @@ const ConfirmPageContent: React.FC = () => {
   const handleBuyNow = async (event: React.MouseEvent, book: TileCard) => {
     event.preventDefault();
     console.log("buy now invoked")
+    // @ts-ignore
     setCartItemsSnapshot(cartItems);
     completeOrder(false);
     setSelectedBook(book); // Set the book in state
