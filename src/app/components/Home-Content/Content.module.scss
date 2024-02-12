@@ -377,3 +377,8 @@
 .currentPage {
   border: 0.1px solid rgb(var(--foreground-rgb), 0.6);
 }
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
+}

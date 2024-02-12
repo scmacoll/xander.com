@@ -12,7 +12,7 @@ interface LightboxProps {
 
 const Lightbox: React.FC<LightboxProps> = ({ card, onClose, numColumns }) => {
   return (
-    <div className={styles.lightbox}>
+    <div className={`${styles.lightbox} `}>
         <div className={styles.lightboxWrapper}>
           <div className={styles.lightboxContent}>
             <Card

@@ -5,19 +5,15 @@ import styles from './Content.module.scss';
 import Lightbox from './Lightbox/Lightbox'
 import Card from './Card/Card';
 import classNames from 'classnames';
-import CardClicked from './Lightbox/CardClicked';
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
   faChevronRight,
-  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
-import { useSessionExpired } from "@/app/context/SessionExpiryContent";
 import { useCart } from "@/app/context/CartContext";
-import { useHearts } from "@/app/context/HeartContext";
 
 
 interface ContentProps {
@@ -105,6 +101,20 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
+  useEffect(() => {
+    if (selectedCard) {
+      // When the lightbox is active, prevent scrolling on the body
+      document.body.style.overflow = 'hidden';
+    } else {
+      // When the lightbox is closed, restore scrolling
+      document.body.style.overflow = '';
+    }
+
+    // Clean up function to ensure scrolling is enabled when component unmounts or updates
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedCard]);
   const handleCardInteraction = (card: TileCard) => {
     setSelectedCard(card);
   };
