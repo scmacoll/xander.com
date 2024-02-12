@@ -101,6 +101,11 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
+  const preloadImage = (imageUrl) => {
+    const img = new Image();
+    img.src = imageUrl;
+  };
+
   useEffect(() => {
     if (selectedCard) {
       // When the lightbox is active, prevent scrolling on the body
@@ -332,6 +337,8 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
         </div>
 
         {combinedData.map((card, index) => {
+          const bookImageUrl = `/${card.cell_name}.jpg`;
+
           const cellLetter = card.cell_name.slice(-1);
           const currentIndex = columns.indexOf(displayedColumn);
           const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
@@ -362,13 +369,15 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
           return (
             <div key={index}
-              // onClick={() => setSelectedCard(card)}
+                 onMouseEnter={() => preloadImage(bookImageUrl)}
                  className={classNames(styles.card, {
                    [styles.leftCard]: isFirstColumn,
                    [styles.middleCard]: isSecondColumn,
                    [styles.rightCard]: isThirdColumn,
                    [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
-                 })}>
+                 })}
+                 onClick={() => handleCardInteraction(card)}
+            >
               <Card
                 card={card}
                 onInteraction={() => handleCardInteraction(card)}
