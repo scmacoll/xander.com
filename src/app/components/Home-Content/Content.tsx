@@ -93,7 +93,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   console.log("Cart Data: ", cartData ? cartData : 'No cart data');
   console.log("is order completed?: ", orderCompleted);
   console.log("totalQty: ", totalQty);
-  const apiURI = '/api/getCards';
+  const apiURI = process.env.REACT_APP_API_URI;
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
   const [numColumns, setNumColumns] = useState(getNumColumns());
