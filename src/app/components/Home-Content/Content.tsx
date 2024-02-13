@@ -328,15 +328,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
   if (!hasPageLoaded) {
     return null;
   }
-  if (isLoading) {
-    return (
-      <div className="grid-skeleton">
-        {Array.from({ length: 6 }, (_, index) => (
-          <CardSkeleton key={index} />
-        ))}
-      </div>
-    );
-  } else
+
   return (
     <div id="sectionWrapper" className="">
       <div className={`${styles.contentLayout} `}>
@@ -394,6 +386,15 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
             return null;
           }
 
+          if (isLoading) {
+            return (
+              <div className="grid-skeleton">
+                {Array.from({ length: 6 }, (_, index) => (
+                  <CardSkeleton key={index} />
+                ))}
+              </div>
+            );
+          } else
           return (
             <div key={index}
                  onMouseEnter={() => preloadImage(bookImageUrl)}
