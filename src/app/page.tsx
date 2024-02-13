@@ -18,6 +18,7 @@ export default function Home() {
   const [isEmptyCartWindowOpen, setEmptyCartWindowOpen] = useState(false);
   const { totalQty, cartId } = useCart();
   const { isSessionExpired, expireSession } = useSessionExpired();
+  const [showFooter, setShowFooter] = useState(false);
 
   const handleCardButtonClick = () => {
     setCardButtonClicked((prevState) => !prevState);
@@ -75,8 +76,9 @@ export default function Home() {
       <Content
         isCardButtonClicked={isCardButtonClicked}
         numColumns={numColumns}
+        setShowFooter={setShowFooter} // Passing the callback to Content
       />
-      <Footer/>
+      {showFooter && <Footer/>}
     </main>
   );
 }

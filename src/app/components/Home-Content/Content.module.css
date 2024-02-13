@@ -409,4 +409,31 @@
   height: 100%;
 }
 
+.card-skeleton {
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+}
+
+.image-skeleton, .text-skeleton {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+.image-skeleton {
+  width: 100%;
+  height: 150px; /* Adjust based on your image size */
+  margin-bottom: 10px;
+}
+
+.text-skeleton {
+  height: 20px;
+  width: 70%; /* Mimic text line */
+  margin-bottom: 5px;
+}
+.text-skeleton:last-child {
+  width: 50%; /* Last line shorter to mimic text flow */
+}
+
 /*# sourceMappingURL=Content.module.css.map */

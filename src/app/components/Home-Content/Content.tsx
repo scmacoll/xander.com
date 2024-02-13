@@ -17,8 +17,9 @@ import { useCart } from "@/app/context/CartContext";
 
 
 interface ContentProps {
-  isCardButtonClicked: boolean;
-  numColumns: number;
+  isCardButtonClicked: boolean,
+  numColumns: number,
+  setShowFooter: (value: (((prevState: boolean) => boolean) | boolean)) => void
 }
 
 const getNumColumns = (): number => {
@@ -46,7 +47,7 @@ export type TileCard = {
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
 
-const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
+const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) => {
 
   const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
   // >>>>>> New code
@@ -57,6 +58,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const { orderCompleted, completeOrder } = useConfirmedOrder();
   const { totalQty, clearCart, clearOrderNumber } = useCart();
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -105,6 +107,13 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
     const img = new Image();
     img.src = imageUrl;
   };
+
+  // Inside Content component
+  useEffect(() => {
+    // This assumes tileCards is already defined and updated in Content component
+    const shouldShowFooter = tileCards.length > 0;
+    setShowFooter(shouldShowFooter);
+  }, [tileCards, setShowFooter]);
 
   useEffect(() => {
     if (selectedCard) {
@@ -281,6 +290,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   // fetch data from mongodb via axios API
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(apiURI);
         const filteredData = response.data.filter((card: TileCard) => {
@@ -302,14 +312,31 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, []);
 
+  const CardSkeleton = () => (
+    <div className="card-skeleton">
+      <div className="image-skeleton"></div>
+      <div className="text-skeleton"></div>
+      <div className="text-skeleton"></div>
+    </div>
+  );
+
   if (!hasPageLoaded) {
     return null;
   }
-
+  if (isLoading) {
+    return (
+      <div className="grid-skeleton">
+        {Array.from({ length: 6 }, (_, index) => (
+          <CardSkeleton key={index} />
+        ))}
+      </div>
+    );
+  } else
   return (
     <div id="sectionWrapper" className="">
       <div className={`${styles.contentLayout} `}>
@@ -396,7 +423,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
       </div>
 
       <nav aria-label="pageNavigation" id="paginationMenu"
-           className="flex mx-auto justify-center items-center gap-1">
+           className={`${tileCards.length === 0 ? 'hidden' : ''} flex mx-auto justify-center items-center gap-1`}>
         <button id="leftArrow"
              className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
              onClick={() => shiftColumn('right')}>
