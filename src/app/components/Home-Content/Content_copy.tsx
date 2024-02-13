@@ -5,23 +5,21 @@ import styles from './Content.module.scss';
 import Lightbox from './Lightbox/Lightbox'
 import Card from './Card/Card';
 import classNames from 'classnames';
-import CardClicked from './Lightbox/CardClicked';
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faChevronLeft,
   faChevronRight,
-  faChevronDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { useConfirmedOrder } from "@/app/context/ConfirmedOrderContext";
 import { useCart } from "@/app/context/CartContext";
-import { useHearts } from "@/app/context/HeartContext";
 
 
 interface ContentProps {
-  isCardButtonClicked: boolean;
-  numColumns: number;
+  isCardButtonClicked: boolean,
+  numColumns: number,
+  setShowFooter: (value: (((prevState: boolean) => boolean) | boolean)) => void
 }
 
 const getNumColumns = (): number => {
@@ -49,39 +47,50 @@ export type TileCard = {
 const columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'];
 const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R'];
 
-const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
+const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) => {
 
-  // >>>>>>> Old Code
-  // const isBrowser = typeof window !== 'undefined';
-  // // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-  // const cartData = isBrowser ? localStorage.getItem('cart') : null
-  // // console.log("Cart stored in local storage: ", cartData ? JSON.parse(cartData) : 'No cart data');
-  // const cartId = cartData ? JSON.parse(cartData).cartId : null;
-  // >>>>>> Old code
-
+  const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
   // >>>>>> New code
   const isBrowser = typeof window !== 'undefined';
-  const [cartData, setCartData] = useState(null);
-  const [cartId, setCartId] = useState(null);
+  const [cartData, setCartData] = useState();
+  const [cartId, setCartId] = useState();
   // >>>>>> New code
+  const { orderCompleted, completeOrder } = useConfirmedOrder();
+  const { totalQty, clearCart, clearOrderNumber } = useCart();
+  const [hasPageLoaded, setHasPageLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setHasPageLoaded(true);
+    }, 10)
+  }, []);
+
+  useEffect(() => {
+    if (orderCompleted) {
+      completeOrder(false)
+      // @ts-ignore
+      clearCart();
+      // @ts-ignore
+      clearOrderNumber();
+    }
+  }, [orderCompleted]);
 
   useEffect(() => {
     if (isBrowser) {
-      const localCartData = localStorage.getItem('cart');
+      console.log("<<<<<<<<<<<<< getting item cart data! >>>>>>>>>>>>>>>");
+      const localCartData: any = localStorage.getItem('cart');
       const parsedCartData = localCartData ? JSON.parse(localCartData) : null;
-      setCartData(parsedCartData);
+      setCartData(localCartData);
       setCartId(parsedCartData ? parsedCartData.cartId : null);
+      setIsGetLocalStorage(true);
     }
   }, []);
 
-
   console.log("Cart ID: ", cartId ? cartId : 'No cart ID');
-  const { orderCompleted, completeOrder } = useConfirmedOrder();
+  console.log("Cart Data: ", cartData ? cartData : 'No cart data');
   console.log("is order completed?: ", orderCompleted);
-  const { totalQty, clearCart, clearOrderNumber } = useCart();
   console.log("totalQty: ", totalQty);
-  const { clearAllHearts } = useHearts();
-
   const apiURI = '/api/getCards';
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
   const [tileCards, setTileCards] = useState<TileCard[]>([]);
@@ -93,14 +102,33 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [displayedPageNumber, setDisplayedPageNumber] = useState('1');
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
-  const [hasPageLoaded, setHasPageLoaded] = useState(false);
+
+  const preloadImage = (imageUrl: any) => {
+    const img = new Image();
+    img.src = imageUrl;
+  };
+
+  // Inside Content component
+  useEffect(() => {
+    // This assumes tileCards is already defined and updated in Content component
+    const shouldShowFooter = tileCards.length > 0;
+    setShowFooter(shouldShowFooter);
+  }, [tileCards, setShowFooter]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setHasPageLoaded(true);
-    }, 10)
-  }, []);
+    if (selectedCard) {
+      // When the lightbox is active, prevent scrolling on the body
+      document.body.style.overflow = 'hidden';
+    } else {
+      // When the lightbox is closed, restore scrolling
+      document.body.style.overflow = '';
+    }
 
+    // Clean up function to ensure scrolling is enabled when component unmounts or updates
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [selectedCard]);
   const handleCardInteraction = (card: TileCard) => {
     setSelectedCard(card);
   };
@@ -208,16 +236,6 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const combinedData = mergeData(leftData, middleData, rightData);
 
   useEffect(() => {
-    if (orderCompleted && totalQty > 0) {
-      completeOrder(false);
-      // @ts-ignore
-      clearCart();
-      // @ts-ignore
-      clearOrderNumber();
-    }
-  },[])
-
-  useEffect(() => {
     const elements = document.querySelectorAll(
       `.${styles.leftCard}, .${styles.rightCard}, .${styles.middleCard}`
     );
@@ -272,6 +290,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   // fetch data from mongodb via axios API
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(apiURI);
         const filteredData = response.data.filter((card: TileCard) => {
@@ -280,22 +299,31 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
         });
         // Sort the filtered data
         filteredData.sort((a: TileCard, b: TileCard) => {
-          // if (a.cell_name < b.cell_name) {
-          //   return -1;
-          // }
-          // if (a.cell_name > b.cell_name) {
-          //   return 1;
-          // }
-          // return 0;
           return a.cell_name.localeCompare(b.cell_name);
         });
         setTileCards(filteredData);
+
+        // dynamically create Image objects to preload images
+        filteredData.forEach((card: any) => {
+          const img = new Image();
+          img.src = `P${card.cell_name}.png`;
+        });
+
       } catch (error) {
         console.error('Error fetching tile cards:', error);
       }
+      setIsLoading(false);
     };
     fetchData();
   }, []);
+
+  const CardSkeleton = () => (
+    <div className="card-skeleton">
+      <div className="image-skeleton"></div>
+      <div className="text-skeleton"></div>
+      <div className="text-skeleton"></div>
+    </div>
+  );
 
   if (!hasPageLoaded) {
     return null;
@@ -328,6 +356,8 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
         </div>
 
         {combinedData.map((card, index) => {
+          const bookImageUrl = `/${card.cell_name}.jpg`;
+
           const cellLetter = card.cell_name.slice(-1);
           const currentIndex = columns.indexOf(displayedColumn);
           const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
@@ -356,21 +386,32 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
             return null;
           }
 
-          return (
-            <div key={index}
-              // onClick={() => setSelectedCard(card)}
-                 className={classNames(styles.card, {
-                   [styles.leftCard]: isFirstColumn,
-                   [styles.middleCard]: isSecondColumn,
-                   [styles.rightCard]: isThirdColumn,
-                   [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
-                 })}>
-              <Card
-                card={card}
-                onInteraction={() => handleCardInteraction(card)}
-              />
-            </div>
-          );
+          if (isLoading) {
+            return (
+              <div className="grid-skeleton">
+                {Array.from({ length: 6 }, (_, index) => (
+                  <CardSkeleton key={index} />
+                ))}
+              </div>
+            );
+          } else
+            return (
+              <div key={index}
+                   onMouseEnter={() => preloadImage(bookImageUrl)}
+                   className={classNames(styles.card, {
+                     [styles.leftCard]: isFirstColumn,
+                     [styles.middleCard]: isSecondColumn,
+                     [styles.rightCard]: isThirdColumn,
+                     [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
+                   })}
+                   onClick={() => handleCardInteraction(card)}
+              >
+                <Card
+                  card={card}
+                  onInteraction={() => handleCardInteraction(card)}
+                />
+              </div>
+            );
         })}
 
         {selectedCard && (
@@ -383,7 +424,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
       </div>
 
       <nav aria-label="pageNavigation" id="paginationMenu"
-           className="flex mx-auto justify-center items-center gap-1">
+           className={`${tileCards.length === 0 ? 'hidden' : ''} flex mx-auto justify-center items-center gap-1`}>
         <button id="leftArrow"
                 className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
                 onClick={() => shiftColumn('right')}>
