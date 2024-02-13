@@ -361,9 +361,9 @@
 }
 @media (max-width: 724px) {
   .circleButton {
-    width: 25px; /* Adjust size as needed */
-    height: 25px;
-    transform: translateY(-55%) translateX(-8px);
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    transform: translateY(-55%) translateX(-7px);
   }
 }
 
