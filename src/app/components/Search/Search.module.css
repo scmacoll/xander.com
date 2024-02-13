@@ -60,6 +60,11 @@
     letter-spacing: 0.07em;
   }
 }
+@media (max-width: 724px) {
+  .h2TagLine {
+    font-size: 0.9em;
+  }
+}
 
 .relative {
   position: relative;
