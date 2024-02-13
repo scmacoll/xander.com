@@ -328,73 +328,72 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
   if (!hasPageLoaded) {
     return null;
   }
+  if (isLoading) {
+    return (
+      <div className="grid-skeleton">
+        {Array.from({ length: 6 }, (_, index) => (
+          <CardSkeleton key={index} />
+        ))}
+      </div>
+    );
+  } else
+    return (
+      <div id="sectionWrapper" className="">
+        <div className={`${styles.contentLayout} `}>
 
-  return (
-    <div id="sectionWrapper" className="">
-      <div className={`${styles.contentLayout} `}>
-
-        <div id="arrowButtons" className="absolute">
-          <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
-          >
-            <button
-              className={styles.circleButton}
-              onClick={() => shiftColumn('left')}
+          <div id="arrowButtons" className="absolute">
+            <div className={`${styles.similarRarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
             >
-            </button>
-            <FontAwesomeIcon icon={faChevronRight} size="xl"/>
-          </div>
-          <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
-          >
-            <button
-              className={styles.circleButton}
-              onClick={() => shiftColumn('right')}
+              <button
+                className={styles.circleButton}
+                onClick={() => shiftColumn('left')}
+              >
+              </button>
+              <FontAwesomeIcon icon={faChevronRight} size="xl"/>
+            </div>
+            <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
             >
-            </button>
-            <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
+              <button
+                className={styles.circleButton}
+                onClick={() => shiftColumn('right')}
+              >
+              </button>
+              <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
+            </div>
+
           </div>
 
-        </div>
+          {combinedData.map((card, index) => {
+            const bookImageUrl = `/${card.cell_name}.jpg`;
 
-        {combinedData.map((card, index) => {
-          const bookImageUrl = `/${card.cell_name}.jpg`;
+            const cellLetter = card.cell_name.slice(-1);
+            const currentIndex = columns.indexOf(displayedColumn);
+            const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
+            const nextIndex = (currentIndex + 1) % columns.length;
+            let firstColumn, secondColumn, thirdColumn;
 
-          const cellLetter = card.cell_name.slice(-1);
-          const currentIndex = columns.indexOf(displayedColumn);
-          const prevIndex = (currentIndex - 1 + columns.length) % columns.length;
-          const nextIndex = (currentIndex + 1) % columns.length;
-          let firstColumn, secondColumn, thirdColumn;
+            if (numColumns === 3) {
+              firstColumn = columns[prevIndex];
+              secondColumn = columns[currentIndex];
+              thirdColumn = columns[nextIndex];
+            } else if (numColumns === 2) {
+              firstColumn = '';
+              secondColumn = columns[currentIndex];
+              thirdColumn = columns[nextIndex];
+            } else {
+              firstColumn = '';
+              secondColumn = columns[currentIndex];
+              thirdColumn = '';
+            }
 
-          if (numColumns === 3) {
-            firstColumn = columns[prevIndex];
-            secondColumn = columns[currentIndex];
-            thirdColumn = columns[nextIndex];
-          } else if (numColumns === 2) {
-            firstColumn = '';
-            secondColumn = columns[currentIndex];
-            thirdColumn = columns[nextIndex];
-          } else {
-            firstColumn = '';
-            secondColumn = columns[currentIndex];
-            thirdColumn = '';
-          }
+            const isFirstColumn = cellLetter === firstColumn;
+            const isSecondColumn = cellLetter === secondColumn;
+            const isThirdColumn = cellLetter === thirdColumn;
 
-          const isFirstColumn = cellLetter === firstColumn;
-          const isSecondColumn = cellLetter === secondColumn;
-          const isThirdColumn = cellLetter === thirdColumn;
+            if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
+              return null;
+            }
 
-          if (!isFirstColumn && !isSecondColumn && !isThirdColumn) {
-            return null;
-          }
-
-          if (isLoading) {
-            return (
-              <div className="grid-skeleton">
-                {Array.from({ length: 6 }, (_, index) => (
-                  <CardSkeleton key={index} />
-                ))}
-              </div>
-            );
-          } else
             return (
               <div key={index}
                    onMouseEnter={() => preloadImage(bookImageUrl)}
@@ -412,50 +411,50 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
                 />
               </div>
             );
-        })}
+          })}
 
-        {selectedCard && (
-          <Lightbox
-            card={selectedCard}
-            onClose={() => setSelectedCard(null)}
-            numColumns={numColumns}/>
-        )}
+          {selectedCard && (
+            <Lightbox
+              card={selectedCard}
+              onClose={() => setSelectedCard(null)}
+              numColumns={numColumns}/>
+          )}
+
+        </div>
+
+        <nav aria-label="pageNavigation" id="paginationMenu"
+             className={`${tileCards.length === 0 ? 'hidden' : ''} flex mx-auto justify-center items-center gap-1`}>
+          <button id="leftArrow"
+                  className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
+                  onClick={() => shiftColumn('right')}>
+            <FontAwesomeIcon icon={faChevronLeft} size="xl" className="text-fg-06 hover:text-foreground"/>
+          </button>
+          <li className={`${styles.pagination} select-none`}>
+            {(() => {
+              const currentPageNumbers = getPageNumbersSubset();
+              // Render the page numbers
+              return currentPageNumbers.map((num, index) => (
+                <button
+                  key={index}
+                  className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
+                  onClick={() => {
+                    togglePageNumber(num);
+                  }}
+                >
+                  {num}
+                </button>
+              ));
+            })()}
+          </li>
+          <button id="rightArrow"
+                  className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
+                  onClick={() => shiftColumn('left')}>
+            <FontAwesomeIcon icon={faChevronRight} size="xl" className="text-fg-06 hover:text-foreground"/>
+          </button>
+        </nav>
 
       </div>
-
-      <nav aria-label="pageNavigation" id="paginationMenu"
-           className={`${tileCards.length === 0 ? 'hidden' : ''} flex mx-auto justify-center items-center gap-1`}>
-        <button id="leftArrow"
-                className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
-                onClick={() => shiftColumn('right')}>
-          <FontAwesomeIcon icon={faChevronLeft} size="xl" className="text-fg-06 hover:text-foreground"/>
-        </button>
-        <li className={`${styles.pagination} select-none`}>
-          {(() => {
-            const currentPageNumbers = getPageNumbersSubset();
-            // Render the page numbers
-            return currentPageNumbers.map((num, index) => (
-              <button
-                key={index}
-                className={`${styles.pageNumber} ${num === displayedPageNumber ? styles.currentPage : ''}`}
-                onClick={() => {
-                  togglePageNumber(num);
-                }}
-              >
-                {num}
-              </button>
-            ));
-          })()}
-        </li>
-        <button id="rightArrow"
-                className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
-                onClick={() => shiftColumn('left')}>
-          <FontAwesomeIcon icon={faChevronRight} size="xl" className="text-fg-06 hover:text-foreground"/>
-        </button>
-      </nav>
-
-    </div>
-  );
+    );
 };
 
 
