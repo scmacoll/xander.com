@@ -101,10 +101,10 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
   const [showArrows, setShowArrows] = useState(true);
   const [indexNumber, setIndexNumber] = useState(4);
 
-  const preloadImage = (imageUrl: any) => {
-    const img = new Image();
-    img.src = imageUrl;
-  };
+  // const preloadImage = (imageUrl: any) => {
+  //   const img = new Image();
+  //   img.src = imageUrl;
+  // };
 
   useEffect(() => {
     if (selectedCard) {
@@ -369,14 +369,14 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked}) => {
 
           return (
             <div key={index}
-                 onMouseEnter={() => preloadImage(bookImageUrl)}
+                 // onMouseEnter={() => preloadImage(bookImageUrl)}
                  className={classNames(styles.card, {
                    [styles.leftCard]: isFirstColumn,
                    [styles.middleCard]: isSecondColumn,
                    [styles.rightCard]: isThirdColumn,
                    [styles.changedState]: (isFirstColumn || isThirdColumn) && middleColumnChangedState,
                  })}
-                 onClick={() => handleCardInteraction(card)}
+                 // onClick={() => handleCardInteraction(card)}
             >
               <Card
                 card={card}
