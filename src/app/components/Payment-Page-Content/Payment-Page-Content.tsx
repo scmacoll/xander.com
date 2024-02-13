@@ -1929,7 +1929,7 @@ const PaymentPageContent: React.FC = () => {
                     <div>
                       <div className="sm:px-4 xs:px-4 py-2 h-12">
                         <div
-                          className={`flex xs:pt-2 justify-center items-center text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'} `}>
+                          className={`flex xs:pt-2 justify-center items-baseline text-sm font-bold ${isNavigating ? 'cursor-default' : 'cursor-pointer'}`}>
                           <div className="fill-white pr-2">
                             <svg className={`${isNavigating ? 'hidden' : ''} `} width="11" height="7"
                                  xmlns="http://www.w3.org/2000/svg">
