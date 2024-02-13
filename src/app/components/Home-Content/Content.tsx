@@ -59,6 +59,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
   const { totalQty, clearCart, clearOrderNumber } = useCart();
   const [hasPageLoaded, setHasPageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const loadingBarRef = useRef(null); // Use useRef to get a reference to the loading bar
 
   useEffect(() => {
     setTimeout(() => {
@@ -317,26 +318,14 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
     fetchData();
   }, []);
 
-  const CardSkeleton = () => (
-    <div className="card-skeleton">
-      <div className="image-skeleton"></div>
-      <div className="text-skeleton"></div>
-      <div className="text-skeleton"></div>
-    </div>
-  );
-
   if (!hasPageLoaded) {
     return null;
   }
+
   if (isLoading) {
-    return (
-      <div className="grid-skeleton">
-        {Array.from({ length: 6 }, (_, index) => (
-          <CardSkeleton key={index} />
-        ))}
-      </div>
-    );
-  } else
+    return <div className={styles.loadingBar}></div>;
+  }
+
   return (
     <div id="sectionWrapper" className="">
       <div className={`${styles.contentLayout} `}>

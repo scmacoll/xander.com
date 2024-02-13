@@ -409,31 +409,36 @@
   height: 100%;
 }
 
-.card-skeleton {
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 10px;
+@keyframes loadingAnimation {
+  0%, 100% {
+    background-position: left center;
+  }
+  50% {
+    background-position: right center;
+  }
 }
-
-.image-skeleton, .text-skeleton {
-  background-color: #e0e0e0;
-  border-radius: 4px;
-}
-
-.image-skeleton {
-  width: 100%;
-  height: 150px; /* Adjust based on your image size */
-  margin-bottom: 10px;
-}
-
-.text-skeleton {
+.loadingBar {
+  margin: 0 auto;
+  width: 50%; /* Adjust width as needed */
   height: 20px;
-  width: 70%; /* Mimic text line */
-  margin-bottom: 5px;
+  border-radius: 5px; /* Adjust for rounded corners */
+  overflow: hidden; /* Ensures the blur doesn't extend outside the bar */
+  position: relative; /* Setup for pseudo-element */
+  background: transparent; /* Makes the main bar background transparent */
 }
-.text-skeleton:last-child {
-  width: 50%; /* Last line shorter to mimic text flow */
+
+.loadingBar::before {
+  content: "";
+  position: absolute;
+  top: -5px; /* Extend upwards */
+  left: -5px; /* Extend to the left */
+  right: -5px; /* Extend to the right */
+  bottom: -5px; /* Extend downwards */
+  background: linear-gradient(to left, rgba(71, 81, 108, 0.3) 25%, rgba(71, 81, 108, 0.5) 50%, rgba(71, 81, 108, 0.3) 75%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 2s ease-in-out infinite;
+  filter: blur(8px); /* Apply the blur effect */
+  border-radius: 5px; /* Match the parent's border-radius */
 }
 
 /*# sourceMappingURL=Content.module.css.map */
