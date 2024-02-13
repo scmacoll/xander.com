@@ -1023,7 +1023,7 @@ const CheckoutPageContent: React.FC = () => {
                     </div>
                     <div id="contactEmail"
                          className="pb-3">
-                      <div className="relative flex flex-col border border-solid border-foreground">
+                      <div className="relative flex flex-col border border-solid border-foreground h-14">
                         <input type="text"
                                placeholder="Email"
                                value={email}
@@ -1097,7 +1097,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
 
                           <div id="contactNames"
-                               className="flex w-full justify-between gap-3">
+                               className="flex w-full justify-between gap-3 h-14">
                             <div id="firstNameInputContainer"
                                  className={`${shippingDetails.firstNameError ? 'border-custom-red' : 'border-foreground'} 
                            relative flex flex-col border border-solid w-full`}>
@@ -1137,7 +1137,7 @@ const CheckoutPageContent: React.FC = () => {
 
                           <div id="companyNameInputContainer"
                                className={`w-full`}>
-                            <div className="border border-solid border-foreground">
+                            <div className="border border-solid border-foreground h-14">
                               <label
                                 className={`transition-opacity duration-500 ${showCompanyNameLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'}
                           flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1158,7 +1158,7 @@ const CheckoutPageContent: React.FC = () => {
                           <div id="addressLineOneInputContainer"
                                className={`relative w-full`}>
                             <div
-                              className={`${shippingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid `}>
+                              className={`${shippingDetails.addressLineOneError ? 'border-custom-red' : 'border-foreground'} border border-solid h-14`}>
                               <label
                                 className={`transition-opacity duration-500 ${showAddressLineOneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                                 Address
@@ -1176,7 +1176,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <div id="addressLineTwoInputContainer"
                                className={`relative w-full`}>
-                            <div className="border border-solid border-foreground">
+                            <div className="border border-solid border-foreground h-14">
                               <label
                                 className={`transition-opacity duration-500 ${showAddressLineTwoLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                                 Apartment, suite, etc. (optional)
@@ -1194,9 +1194,9 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
 
                           <div id="contactCityStateCode"
-                               className="flex w-full justify-between gap-3">
+                               className="h-14 flex w-full justify-between gap-3">
                             <div id="cityInputContainer"
-                                 className={`${shippingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                                 className={`${shippingDetails.cityError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full h-14`}>
                               <label
                                 className={`transition-opacity duration-500 ${showCityLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
                            flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1215,7 +1215,7 @@ const CheckoutPageContent: React.FC = () => {
                               />
                             </div>
 
-                            <div id="stateInput" className="relative border border-solid w-full border-foreground">
+                            <div id="stateInput" className="relative border border-solid w-full border-foreground h-14">
                               <label className="xs:hidden flex items-end pt-1 px-3 text-xs font-bold text-greyed-out">
                                 State/territory
                               </label>
@@ -1247,7 +1247,7 @@ const CheckoutPageContent: React.FC = () => {
                               </select>
                             </div>
                             <div id="zipcodeInputContainer"
-                                 className={`${shippingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full`}>
+                                 className={`${shippingDetails.zipcodeError ? 'border-custom-red' : 'border-foreground'} relative flex flex-col border border-solid w-full h-14`}>
                               <label
                                 className={`transition-opacity duration-500 ${showZipcodeLabel ? 'pt-1 h-fit opacity-100' : 'opacity-0 h-0 overflow-hidden pt-0'}
                                 flex items-end text-xs px-3 font-bold text-greyed-out`}>
@@ -1268,7 +1268,7 @@ const CheckoutPageContent: React.FC = () => {
                           </div>
                           <div id="phoneInputContainer"
                                className={`relative w-full`}>
-                            <div className="border border-solid border-foreground">
+                            <div className="border border-solid border-foreground h-14">
                               <label
                                 className={`transition-opacity duration-500 ${showPhoneLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                                 Phone (optional)
