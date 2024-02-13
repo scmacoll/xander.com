@@ -338,7 +338,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
               onClick={() => shiftColumn('left')}
             >
             </button>
-            <FontAwesomeIcon icon={faChevronRight} size="xl"/>
+            <FontAwesomeIcon icon={faChevronRight}/>
           </div>
           <div className={`${styles.similarLarrow} ${showArrows ? styles.visibleArrow : styles.hiddenArrow}`}
           >
@@ -347,9 +347,8 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
               onClick={() => shiftColumn('right')}
             >
             </button>
-            <FontAwesomeIcon icon={faChevronLeft} size="xl"/>
+            <FontAwesomeIcon icon={faChevronLeft}/>
           </div>
-
         </div>
 
         {combinedData.map((card, index) => {
@@ -414,7 +413,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
       <nav aria-label="pageNavigation" id="paginationMenu"
            className={`${tileCards.length === 0 ? 'hidden' : ''} flex mx-auto justify-center items-center gap-1`}>
         <button id="leftArrow"
-             className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
+             className={`xs:hidden xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
              onClick={() => shiftColumn('right')}>
           <FontAwesomeIcon icon={faChevronLeft} size="xl" className="text-fg-06 hover:text-foreground"/>
         </button>
@@ -436,7 +435,7 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
           })()}
         </li>
         <button id="rightArrow"
-             className={`xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
+             className={`xs:hidden xl:px-7 lg:px-6 md:px-5 sm:px-4 xs:px-3 translate-y-2`}
              onClick={() => shiftColumn('left')}>
           <FontAwesomeIcon icon={faChevronRight} size="xl" className="text-fg-06 hover:text-foreground"/>
         </button>

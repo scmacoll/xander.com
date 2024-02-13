@@ -46,6 +46,11 @@
   z-index: 2; /* Ensure it stays above the other cards */
   transition: box-shadow 0.1s ease-in-out, transform 0.1s ease-in-out;
 }
+@media (max-width: 749px) {
+  .middleCard {
+    transform: scale(1) translateY(0) translateZ(0);
+  }
+}
 
 .leftCard:hover {
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.6);
@@ -131,6 +136,7 @@
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
   pointer-events: none;
+  font-size: 1.5em;
 }
 @media (min-width: 1190px) {
   .similarRarrow {
@@ -219,6 +225,7 @@
 }
 @media (max-width: 724px) {
   .similarRarrow {
+    font-size: 1em;
     padding-right: 0.8em;
   }
 }
@@ -231,6 +238,7 @@
   z-index: 3;
   color: rgb(var(--foreground-rgb), 0.6);
   pointer-events: none;
+  font-size: 1.5em;
 }
 @media (min-width: 1190px) {
   .similarLarrow {
@@ -319,6 +327,7 @@
 }
 @media (max-width: 724px) {
   .similarLarrow {
+    font-size: 1em;
     padding-left: 0.8em;
   }
 }
@@ -349,6 +358,13 @@
   z-index: 4; /* higher than the arrow icons */
   top: 50%;
   transform: translateY(-50%) translateX(-9px);
+}
+@media (max-width: 724px) {
+  .circleButton {
+    width: 25px; /* Adjust size as needed */
+    height: 25px;
+    transform: translateY(-55%) translateX(-8px);
+  }
 }
 
 .circleButton:hover {
