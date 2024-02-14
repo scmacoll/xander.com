@@ -117,7 +117,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
       setShowDelayedLoading(false); // Reset on every loading start
       timer = setTimeout(() => {
         setShowDelayedLoading(true); // Show loading bar after 2 seconds
-      }, 2000);
+      }, 1000);
     } else {
       setShowDelayedLoading(false); // Immediately hide if loading is done
     }
