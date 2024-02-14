@@ -23,6 +23,7 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const [isBuyNowClicked, setIsBuyNowClicked] = useState(false);
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showDelayedLoading, setShowDelayedLoading] = useState(false);
 
   const router = useRouter();
   const { isSessionExpired, expireSession } = useSessionExpired();
@@ -99,7 +100,6 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   }
 
   useEffect(() => {
-    // Assuming `card` has the image URLs you need to preload
     const imageUrls = [`/${card.cell_name}.jpg`, `P${card.cell_name}.png`]; // Adjust based on actual data
     Promise.all(imageUrls.map(url => new Promise((resolve, reject) => {
       const img = new Image();
@@ -110,6 +110,20 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
       .then(() => setIsLoading(false)) // Comment this out to keep isLoading true
       .catch(error => console.error("Error preloading images", error));
   }, [card]);
+
+  useEffect(() => {
+    let timer: any;
+    if (isLoading) {
+      setShowDelayedLoading(false); // Reset on every loading start
+      timer = setTimeout(() => {
+        setShowDelayedLoading(true); // Show loading bar after 2 seconds
+      }, 2000);
+    } else {
+      setShowDelayedLoading(false); // Immediately hide if loading is done
+    }
+
+    return () => clearTimeout(timer); // Cleanup to prevent memory leak
+  }, [isLoading]);
 
   useEffect(() => {
     if (isAddToCartClicked) {
@@ -137,9 +151,11 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   if (isLoading) {
     return (
       <div className={`${styles.cardSkeleton}`}>
-        <div className={`${styles.skeletonContainer} flex w-full justify-center items-center`}>
+        {showDelayedLoading && (
+          <div className={`${styles.skeletonContainer} flex w-full justify-center items-center`}>
           <div className={`${styles.loadingBar}`}></div>
         </div>
+        )}
       </div>
     );
   }
