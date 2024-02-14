@@ -463,3 +463,19 @@
   filter: blur(15px); /* Apply the blur effect */
   border-radius: 5px; /* Match the parent's border-radius */
 }
+
+.loader {
+  cursor: default;
+  border: 3px solid rgb(var(--foreground-rgb)); /* Light gray border */
+  border-top: 3px solid transparent; /* Blue border */
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  margin: 0 auto;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

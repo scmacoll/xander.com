@@ -21,7 +21,7 @@ const Footer = () => {
             </div>
           </nav>
           <aside className="font-bold text-fg-06">
-            <p>Copyright © 2023 - All right reserved by Xandria Ltd</p>
+            <p>Copyright © 2024 - All right reserved by Xandria Ltd</p>
           </aside>
         </div>
       </div>
