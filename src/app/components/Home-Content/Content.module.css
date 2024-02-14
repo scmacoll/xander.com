@@ -442,6 +442,16 @@
   position: relative; /* Setup for pseudo-element */
   background: transparent; /* Makes the main bar background transparent */
 }
+@media (max-width: 1099px) and (min-width: 750px) {
+  .loadingBar {
+    width: 70%;
+  }
+}
+@media (max-width: 749px) {
+  .loadingBar {
+    width: 75%;
+  }
+}
 
 .loadingBar::before {
   content: "";

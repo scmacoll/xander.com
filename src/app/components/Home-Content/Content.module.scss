@@ -416,6 +416,12 @@
   overflow: hidden; /* Ensures the blur doesn't extend outside the bar */
   position: relative; /* Setup for pseudo-element */
   background: transparent; /* Makes the main bar background transparent */
+  @media (max-width: 1099px) and (min-width: 750px) {
+    width: 70%;
+  }
+  @media (max-width: 749px) {
+    width: 75%;
+  }
 }
 
 .loadingBar::before {
