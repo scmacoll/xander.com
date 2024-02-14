@@ -303,29 +303,19 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
           return a.cell_name.localeCompare(b.cell_name);
         });
 
-        // Define the custom sequence for preloading images
-        const firstSet = ['E', 'F', 'D']; // First priority columns
-        const secondSet = ['G', 'C']; // Second priority columns
-        const thirdSet = ['H', 'B']; // Third priority columns
-        const fourthSet = ['I', 'A']; // Fourth priority columns
-
-        // Function to preload images for a given set of columns
-        const preloadImagesForSet = async (set: string[]) => {
+        // Sequentially preload images with adjusted logic
+        const columnGroups = [['E', 'F', 'D'], ['G', 'C'], ['H', 'B'], ['I', 'A']];
+        for (const group of columnGroups) {
           for (let row = 1; row <= 8; row++) {
-            for (const column of set) {
+            for (const column of group) {
               const card = filteredData.find((card: { cell_name: string; }) => card.cell_name === `${row}${column}`);
               if (card) {
                 await preloadImage(`P${card.cell_name}.png`); // Ensure preloadImage returns a Promise
               }
             }
           }
-        };
+        }
 
-        // Sequentially preload images according to the specified sets
-        await preloadImagesForSet(firstSet);
-        await preloadImagesForSet(secondSet);
-        await preloadImagesForSet(thirdSet);
-        await preloadImagesForSet(fourthSet);
 
         setTileCards(filteredData);
 
