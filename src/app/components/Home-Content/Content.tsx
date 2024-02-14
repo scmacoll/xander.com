@@ -302,6 +302,13 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
         filteredData.sort((a: TileCard, b: TileCard) => {
           return a.cell_name.localeCompare(b.cell_name);
         });
+
+        const columnOrder = ['E', 'F', 'D', 'G', 'C', 'H', 'B', 'I', 'A']; // Custom order
+        for (const column of columnOrder) {
+          const columnCards = filteredData.filter((card: { cell_name: string; }) => card.cell_name.endsWith(column));
+          await Promise.all(columnCards.map((card: { cell_name: any; }) => preloadImage(`P${card.cell_name}.png`)));
+        }
+
         setTileCards(filteredData);
 
         // dynamically create Image objects to preload images
