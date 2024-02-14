@@ -18,14 +18,16 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   const portraitImageUrl = `P${card.cell_name}.png`;
   const [qty, setQty] = useState(1);
   const [qtyPrice, setQtyPrice] = useState(parseFloat(card.book_price).toFixed(2));
-  const router = useRouter();
   const { addToCart, clearCart, cartId, totalQty, totalPrice } = useCart();
   const [isAddToCartClicked, setIsAddToCartClicked] = useState(false);
   const [isBuyNowClicked, setIsBuyNowClicked] = useState(false);
   const [isConfirmAddToCart, setIsConfirmAddToCart] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  const router = useRouter();
   const { isSessionExpired, expireSession } = useSessionExpired();
   const { quoteHearts, bookHearts, toggleQuoteHeart, toggleBookHeart } = useHearts();
+
   const handleQuoteHeartClick = () => {
     toggleQuoteHeart(card.quote);
   };
@@ -33,7 +35,6 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
     toggleBookHeart(card.book_title);
   };
 
-  // Event handlers
   const incrementQty = () => {
     if (qty >= 10 ) {
       return;
@@ -98,6 +99,19 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   }
 
   useEffect(() => {
+    // Assuming `card` has the image URLs you need to preload
+    const imageUrls = [`/${card.cell_name}.jpg`, `P${card.cell_name}.png`]; // Adjust based on actual data
+    Promise.all(imageUrls.map(url => new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = resolve;
+      img.onerror = reject;
+    })))
+      .then(() => setIsLoading(false)) // Comment this out to keep isLoading true
+      .catch(error => console.error("Error preloading images", error));
+  }, [card]);
+
+  useEffect(() => {
     if (isAddToCartClicked) {
       setIsConfirmAddToCart(true);
       setTimeout(() => {
@@ -119,6 +133,16 @@ const Card: React.FC<CardProps> = ({card, numColumns}) => {
   console.log("cycle rendered");
   console.log("image url: ", imageUrl);
   console.log("portrait url: ", portraitImageUrl);
+
+  if (isLoading) {
+    return (
+      <div className={`${styles.cardSkeleton}`}>
+        <div className={`${styles.skeletonContainer} flex w-full justify-center items-center`}>
+          <div className={`${styles.loadingBar}`}></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <article className={`${styles.cardContent} select-none`}>

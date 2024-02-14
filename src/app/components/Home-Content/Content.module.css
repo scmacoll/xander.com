@@ -453,7 +453,7 @@
   background: linear-gradient(to left, rgba(71, 81, 108, 0.3) 25%, rgba(71, 81, 108, 0.5) 50%, rgba(71, 81, 108, 0.3) 75%);
   background-size: 200% 100%;
   animation: loadingAnimation 2s ease-in-out infinite;
-  filter: blur(8px); /* Apply the blur effect */
+  filter: blur(15px); /* Apply the blur effect */
   border-radius: 5px; /* Match the parent's border-radius */
 }
 

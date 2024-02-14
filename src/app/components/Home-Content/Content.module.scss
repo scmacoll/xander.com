@@ -433,6 +433,6 @@
   );
   background-size: 200% 100%;
   animation: loadingAnimation 2s ease-in-out infinite;
-  filter: blur(8px); /* Apply the blur effect */
+  filter: blur(15px); /* Apply the blur effect */
   border-radius: 5px; /* Match the parent's border-radius */
 }

@@ -371,4 +371,62 @@
   line-height: 0; /* This keeps the parent's line height unaffected */
 }
 
+.cardSkeleton {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 422.13px;
+  height: fit-content;
+  max-height: 90vh;
+  padding: 10px 18px 10px 18px;
+  line-height: 1.5;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "sf", sans-serif;
+}
+
+.cardSkeleton:hover {
+  scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
+}
+
+.skeletonContainer {
+  min-height: 211.65px;
+  height: 20vh;
+  max-height: 45vh;
+}
+
+@keyframes loadingAnimation {
+  0%, 100% {
+    background-position: left center;
+  }
+  50% {
+    background-position: right center;
+  }
+}
+.loadingBar {
+  margin: 0 auto;
+  width: 75%; /* Adjust width as needed */
+  height: 20px;
+  border-radius: 5px; /* Adjust for rounded corners */
+  overflow: hidden; /* Ensures the blur doesn't extend outside the bar */
+  position: relative; /* Setup for pseudo-element */
+  background: transparent; /* Makes the main bar background transparent */
+}
+
+.loadingBar::before {
+  content: "";
+  position: absolute;
+  top: -5px; /* Extend upwards */
+  left: -5px; /* Extend to the left */
+  right: -5px; /* Extend to the right */
+  bottom: -5px; /* Extend downwards */
+  background: linear-gradient(to left, rgba(71, 81, 108, 0.3) 25%, rgba(71, 81, 108, 0.5) 50%, rgba(71, 81, 108, 0.3) 75%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 2s ease-in-out infinite;
+  filter: blur(15px); /* Apply the blur effect */
+  border-radius: 5px; /* Match the parent's border-radius */
+}
+
 /*# sourceMappingURL=CardClicked.module.css.map */

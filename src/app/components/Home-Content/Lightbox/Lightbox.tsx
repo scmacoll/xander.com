@@ -1,7 +1,7 @@
 import styles from './Lightbox.module.scss'
 import Card from './CardClicked';
 import { TileCard } from '../Content'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 interface LightboxProps {
@@ -11,6 +11,7 @@ interface LightboxProps {
 }
 
 const Lightbox: React.FC<LightboxProps> = ({ card, onClose, numColumns }) => {
+
   return (
     <div className={`${styles.lightbox} `}>
         <div className={styles.lightboxWrapper}>
