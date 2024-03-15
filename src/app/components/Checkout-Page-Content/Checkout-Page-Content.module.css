@@ -52,6 +52,7 @@
 @media (max-width: 749px) {
   .scrollBarContent {
     width: 100%; /* Increase 15px if you increased padding-right */
+    box-sizing: content-box;
   }
 }
 

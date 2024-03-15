@@ -46,6 +46,7 @@
   box-sizing: content-box;
   @media (max-width: 749px) {
     width: calc(100%); /* Increase 15px if you increased padding-right */
+    box-sizing: content-box;
   }
 }
 
