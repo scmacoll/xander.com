@@ -49,6 +49,11 @@
   width: calc(100% + 15px); /* Increase 15px if you increased padding-right */
   box-sizing: content-box;
 }
+@media (max-width: 749px) {
+  .scrollBarContent {
+    width: 100%; /* Increase 15px if you increased padding-right */
+  }
+}
 
 .loader {
   border: 3px solid rgb(var(--foreground-rgb)); /* Light gray border */
