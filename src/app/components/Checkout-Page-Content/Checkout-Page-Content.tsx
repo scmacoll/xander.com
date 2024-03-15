@@ -1429,7 +1429,7 @@ const CheckoutPageContent: React.FC = () => {
                  className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
               <div className="pt-6"></div>
               <div
-                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
+                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto flex flex-col justify-center pr-4`}>
                 {/* right padding is for space between scroll bar && content */}
                 <div id="cartItems">
                   {cartItems.map((item, index) => (
