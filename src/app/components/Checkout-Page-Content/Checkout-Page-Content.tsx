@@ -794,7 +794,6 @@ const CheckoutPageContent: React.FC = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       width="255px"
                       height="48px"
-                      transform="scale(3.5)"
                       viewBox="0 0 2030.000000 738.000000"
                       preserveAspectRatio="xMidYMid meet"
                     >
@@ -872,7 +871,7 @@ const CheckoutPageContent: React.FC = () => {
                   <div id="amazonPayButton"
                        className={`inline-flex h-10 w-1/3 items-center justify-center rounded border-2 border-solid bg-amazon-yellow border-amazon-yellow xs:h-12 xs:w-full`}
                   >
-                    <div className="translate-y-0.5">
+                    <div className="">
                       <svg
                         className={``}
                         xmlns="http://www.w3.org/2000/svg"
@@ -954,7 +953,6 @@ const CheckoutPageContent: React.FC = () => {
                       width="106.25px"
                       height="20px"
                       viewBox="0 0 338.667 89.785"
-                      transform="scale(1.4)"
                     >
                       <g transform="translate(936.898 -21.779)">
                         <path
@@ -1431,7 +1429,7 @@ const CheckoutPageContent: React.FC = () => {
                  className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
               <div className="pt-6"></div>
               <div
-                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto flex flex-col justify-center pr-4`}>
+                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto flex flex-col justify-center xs:pr-0 pr-4`}>
                 {/* right padding is for space between scroll bar && content */}
                 <div id="cartItems">
                   {cartItems.map((item, index) => (
