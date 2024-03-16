@@ -480,10 +480,11 @@ const ConfirmPageContent: React.FC = () => {
                           <h4 className="font-bold">Payment method</h4>
                           <ul className="flex flex-col gap-1 text-gray-400 text-sm pt-2">
                             <li className="flex items-center">
-                              <div id="visa">
-                                <div className="bg-white rounded border-2 border-solid border-black">
+
+                              <div id="visa" className="xxs:flex xxs:align-center">
+                                <div className="xxs:flex bg-white rounded border-2 border-solid border-black">
                                   <svg
-                                    className={`cursor-default w-full h-full block`}
+                                    className={`cursor-default w-full h-full block -translate-x-0.5`}
                                     width="2.5em" height="1.5em"
                                     transform="scale(.75)"
                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 83">
@@ -499,7 +500,8 @@ const ConfirmPageContent: React.FC = () => {
                                   </svg>
                                 </div>
                                 </div>&nbsp;
-                                ending with {cardNumber} --</li>
+                              <span>ending with {cardNumber} --</span>
+                            </li>
                             <li>$129.46</li>
                           </ul>
                         </div>

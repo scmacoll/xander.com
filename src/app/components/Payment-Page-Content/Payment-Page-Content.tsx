@@ -1276,7 +1276,7 @@ const PaymentPageContent: React.FC = () => {
                     <div className="border-solid border-b border-foreground"></div>
                     <div className="pb-3"></div>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="border-red h-32 flex justify-between text-sm">
                     <div className="flex xs:flex-col">
                       <h4 className="text-gray-400 flex-start w-20">Ship to</h4>
                       <div className="w-full flex flex-1 pr-8">{shippingAddressLineOne}, {shippingCity} {shippingState} {shippingZipcode}, {shippingCountry}
