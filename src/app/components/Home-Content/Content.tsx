@@ -69,26 +69,28 @@ const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) =
     }, 10)
   }, []);
 
-  useEffect(() => {
-    // This will run on every mount, after hard refreshes or when cache is cleared and site is reloaded.
-    if (isBrowser && window.performance) {
-      const navigation = window.performance.getEntriesByType('navigation');
-      if (navigation.length > 0) {
-        // Use type assertion here to treat the entry as PerformanceNavigationTiming
-        const navType = (navigation[0] as PerformanceNavigationTiming).type;
-        if (navType === 'reload' || !localStorage.getItem('isReloaded')) {
-          // Conditions suggesting a reload or first visit after clearing cache/cookies
-          completeOrder(false)
-          // @ts-ignore
-          clearCart();
-          // @ts-ignore
-          clearOrderNumber();
-          clearAllHearts();
-          localStorage.setItem('isReloaded', 'true'); // Survives beyond session
-        }
-      }
-    }
-  }, []);
+  // Scan for page refresh to clear data
+  // >>>>>>>>>>>>>
+  // useEffect(() => {
+  //   // This will run on every mount, after hard refreshes or when cache is cleared and site is reloaded.
+  //   if (isBrowser && window.performance) {
+  //     const navigation = window.performance.getEntriesByType('navigation');
+  //     if (navigation.length > 0) {
+  //       // Use type assertion here to treat the entry as PerformanceNavigationTiming
+  //       const navType = (navigation[0] as PerformanceNavigationTiming).type;
+  //       if (navType === 'reload' || !localStorage.getItem('isReloaded')) {
+  //         // Conditions suggesting a reload or first visit after clearing cache/cookies
+  //         completeOrder(false)
+  //         // @ts-ignore
+  //         clearCart();
+  //         // @ts-ignore
+  //         clearOrderNumber();
+  //         clearAllHearts();
+  //         localStorage.setItem('isReloaded', 'true'); // Survives beyond session
+  //       }
+  //     }
+  //   }
+  // }, []);
 
 
   useEffect(() => {

@@ -624,8 +624,8 @@ const CheckoutPageContent: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       expireSession(true);
-    }, 3000); // 3 seconds
-      // }, 450000); // 7.5 minutes = 450000 milliseconds
+    // }, 3000); // 3 seconds
+      }, 450000); // 7.5 minutes = 450000 milliseconds
 
     return () => {
       clearTimeout(timer);
