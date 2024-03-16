@@ -10,7 +10,8 @@
 }
 
 .borderSummary {
-  width: calc(100% + 15px);
+  width: 100%;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 @media (max-width: 999px) {
   .borderSummary {
@@ -31,12 +32,27 @@
 .scrollBar {
   scrollbar-width: auto;
   scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable both-edges;
 }
 
 /* Always show scrollbar */
 .scrollbar::-webkit-scrollbar {
   width: 8px;
+}
+
+/* For the scrollbar track */
+.scrollbar::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* For the scrollbar handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #fff;
+}
+
+/* For the scrollbar handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #fff;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
@@ -48,6 +64,7 @@
 .scrollBarContent {
   width: 100%; /* Increase 15px if you increased padding-right */
   box-sizing: content-box;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .loader {

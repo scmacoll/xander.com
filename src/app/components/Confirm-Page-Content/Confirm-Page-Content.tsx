@@ -611,65 +611,66 @@ const ConfirmPageContent: React.FC = () => {
               <div className="pt-6"></div>
               <div
                 className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
-                {/* right padding is for space between scroll bar && content */}
-                <article id="cartItems">
-                  {(cartItemsSnapshot.length > 0 ? cartItemsSnapshot : cartItems).map((item, index) => (
-                    <div key={index} className="select-none pointer-events-none">
-                      <div className="mx-auto flex w-full justify-between">
-                        {/* Map over the cart items and display them */}
-                        <div className="cart-item w-full flex h-full items-center flex-start">
-                          <div className="inline-flex pr-3 w-20 h-24">
-                            <img className={styles.unselectable} src={item.imageUrl} alt={item.bookTitle}
-                                 draggable="false"/>
-                          </div>
-                          <div id="itemDetailsLeftSide"
-                               className="flex h-full flex-col justify-center text-sm w-full">
-                            <div className="pr-8 font-bold">{item.bookTitle}</div>
-                            <div className="pr-8 text-gray-400">{item.bookAuthors}</div>
-                            <div className="flex justify-between w-full">
-                              <div className="flex text-gray-400">{item.bookType}</div>
-                              <div className="flex">${item.qtyPrice.toFixed(2)}</div>
+
+                <div className={`${styles.borderSummaryContainer} w-full pr-2`}>
+                  <article id="cartItems">
+                    {(cartItemsSnapshot.length > 0 ? cartItemsSnapshot : cartItems).map((item, index) => (
+                      <div key={index} className="select-none pointer-events-none">
+                        <div className="mx-auto flex w-full justify-between">
+                          {/* Map over the cart items and display them */}
+                          <div className="cart-item w-full flex h-full items-center flex-start">
+                            <div className="inline-flex pr-3 w-20 h-24">
+                              <img className={styles.unselectable} src={item.imageUrl} alt={item.bookTitle}
+                                   draggable="false"/>
                             </div>
-                            <div className="flex text-gray-400 pr-8">Qty: {item.qty}</div>
+                            <div id="itemDetailsLeftSide"
+                                 className="flex h-full flex-col justify-center text-sm w-full">
+                              <div className="pr-8 font-bold">{item.bookTitle}</div>
+                              <div className="pr-8 text-gray-400">{item.bookAuthors}</div>
+                              <div className="flex justify-between w-full">
+                                <div className="flex text-gray-400">{item.bookType}</div>
+                                <div className="flex">${item.qtyPrice.toFixed(2)}</div>
+                              </div>
+                              <div className="flex text-gray-400 pr-8">Qty: {item.qty}</div>
+                            </div>
                           </div>
                         </div>
+                        <div id="cartItemBorderGap" className="py-6 pb-6">
+                          <div className="border-b border-solid border-foreground"></div>
+                        </div>
                       </div>
-                      <div id="cartItemBorderGap" className="py-6 pb-6">
-                        <div className="border-b border-solid border-foreground"></div>
-                      </div>
-                    </div>
-                  ))}
-                </article>
-
-                <div className={`flex flex-col border-solid border-foreground`}>
-                  <div className="flex justify-between pb-4">
-                    <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
-                    <div className="inline-flex text-sm flex-end font-bold">
-                      ${totalPrice.toFixed(2)}
-                    </div>
-                  </div>
-                  <div className="flex justify-between">
-                    <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
-                    <div className="inline-flex text-xs font-medium flex-end">Free</div>
-                  </div>
-                  <div className="py-6">
-                    <div className={`border-foreground border-t border-solid`}></div>
-                  </div>
-                  <div className={`flex justify-between`}>
-                    <div className={` flex`}>
-                      <div className="text-lg font-medium">Total</div>
-                    </div>
-                    <div className="flex items-center">
-                      <div ref={bottomRef}
-                           className={`${styles.smoothScroll}
-                     inline-flex text-2xl font-bold`}>
+                    ))}
+                  </article>
+                  <div className={`flex flex-col border-solid border-foreground`}>
+                    <div className="flex justify-between pb-4">
+                      <div className="inline-flex text-sm font-bold flex-start">Subtotal</div>
+                      <div className="inline-flex text-sm flex-end font-bold">
                         ${totalPrice.toFixed(2)}
                       </div>
                     </div>
-                  </div>
-                  <div className="py-1"></div>
-                  <div className="relative flex justify-end items-center">
-                    <div className="xs:hidden sm:hidden">
+                    <div className="flex justify-between">
+                      <div className="inline-flex text-sm font-bold flex-start">Shipping</div>
+                      <div className="inline-flex text-xs font-medium flex-end">Free</div>
+                    </div>
+                    <div className="py-6">
+                      <div className={`border-foreground border-t border-solid`}></div>
+                    </div>
+                    <div className={`flex justify-between`}>
+                      <div className={` flex`}>
+                        <div className="text-lg font-medium">Total</div>
+                      </div>
+                      <div className="flex items-center">
+                        <div ref={bottomRef}
+                             className={`${styles.smoothScroll}
+                     inline-flex text-2xl font-bold`}>
+                          ${totalPrice.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="py-1"></div>
+                    <div className="relative flex justify-end items-center">
+                      <div className="xs:hidden sm:hidden">
+                      </div>
                     </div>
                   </div>
                 </div>

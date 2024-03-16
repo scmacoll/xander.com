@@ -195,6 +195,7 @@ module.exports = {
       'md': {'min': '1000px', 'max': '1199px'}, // For 1000px ≤ width ≤ 1199px
       'sm': {'min': '750px', 'max': '999px'},   // For 750px ≤ width ≤ 999px
       'xs': {'max': '749px'},
+      'xxs': {'max': '430px'},
     },
     display: ['group-hover'],
   },

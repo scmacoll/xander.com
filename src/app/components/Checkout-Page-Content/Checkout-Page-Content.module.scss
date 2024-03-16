@@ -9,13 +9,19 @@
 }
 
 .borderSummary {
-  width: calc(100% + 15px);
+  width: calc(100%);
+  //width: calc(100% + 2vw);
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+
   @media (max-width: 999px) {
     transition: opacity 0.3s ease, max-height 0.3s ease;
     overflow: hidden;
     max-height: 0;
     opacity: 0;
   }
+}
+
+.borderSummaryContainer {
 }
 
 .expanded {
@@ -28,11 +34,26 @@
 .scrollBar {
   scrollbar-width: auto;
   scrollbar-color: rgba(71, 81, 108, 0.5) rgba(0, 0, 0, 0);
-  scrollbar-gutter: stable;
+  scrollbar-gutter: stable both-edges;
 }
 /* Always show scrollbar */
 .scrollbar::-webkit-scrollbar {
   width: 8px;
+}
+
+/* For the scrollbar track */
+.scrollbar::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* For the scrollbar handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #fff;
+}
+
+/* For the scrollbar handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #fff;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
@@ -44,6 +65,7 @@
 .scrollBarContent {
   width: calc(100%); /* Increase 15px if you increased padding-right */
   box-sizing: content-box;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
 
 .loader {
