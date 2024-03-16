@@ -624,8 +624,8 @@ const CheckoutPageContent: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       expireSession(true);
-    // }, 3000); // 3 seconds
-      }, 450000); // 7.5 minutes = 450000 milliseconds
+    }, 3000); // 3 seconds
+      // }, 450000); // 7.5 minutes = 450000 milliseconds
 
     return () => {
       clearTimeout(timer);
@@ -1426,10 +1426,10 @@ const CheckoutPageContent: React.FC = () => {
               </div>
             </div>
             <aside id="borderSummary"
-                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4`}>
+                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} `}>
               <div className="pt-6"></div>
               <div
-                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
+                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
                 {/* right padding is for space between scroll bar && content */}
                 <div id="cartItems">
                   {cartItems.map((item, index) => (

@@ -42,7 +42,7 @@
 }
 
 .scrollBarContent {
-  width: calc(100% + 15px); /* Increase 15px if you increased padding-right */
+  width: calc(100%); /* Increase 15px if you increased padding-right */
   box-sizing: content-box;
 }
 

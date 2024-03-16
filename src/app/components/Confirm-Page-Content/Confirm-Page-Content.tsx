@@ -607,10 +607,10 @@ const ConfirmPageContent: React.FC = () => {
               </div>
             </header>
             <aside id="borderSummary"
-                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} pr-4 `}>
+                 className={`${styles.borderSummary} ${isOrderSummaryHidden ? '' : styles.expanded} `}>
               <div className="pt-6"></div>
               <div
-                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto pr-4`}>
+                className={`${styles.scrollBar} ${styles.scrollBarContent} max-h-610px overflow-x-hidden overflow-y-auto`}>
                 {/* right padding is for space between scroll bar && content */}
                 <article id="cartItems">
                   {(cartItemsSnapshot.length > 0 ? cartItemsSnapshot : cartItems).map((item, index) => (
