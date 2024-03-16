@@ -744,6 +744,7 @@ const CheckoutPageContent: React.FC = () => {
 
 
   console.log("order number is : ", orderNumber);
+  console.log("set email is ========:", email)
 
   if (!hasPageLoaded) {
     return null;
