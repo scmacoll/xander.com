@@ -38,17 +38,20 @@ const ConfirmPageContent: React.FC = () => {
       const localCartData: any = localStorage.getItem('cart');
       const storedEmail: any = localStorage.getItem('email');
       setCartData(localCartData);
-      setIsGetLocalStorage(true);
       setEmail(storedEmail);
       completeOrder(true);
+      setIsGetLocalStorage(true);
+      }
+  }, []);
+
+  useEffect(() => {
+    if (isGetLocalStorage) {
       const currentUrl = pathname;
-      if (currentUrl) {
-        if ((isGetLocalStorage) && (orderNumber === null || orderNumber === undefined || storedEmail === null || currentUrl === '/confirm')) {
-          setIs404Error(true);
-        }
+      if ((cartData !== null || true || cartId !== null) && (orderNumber === null || orderNumber === undefined || email === null || currentUrl === '/confirm')) {
+        setIs404Error(true);
       }
     }
-  }, []);
+  }, [isGetLocalStorage]);
 
   const handleBookHeartClick = (bookTitle: string) => {
     toggleBookHeart(bookTitle);
@@ -180,7 +183,6 @@ const ConfirmPageContent: React.FC = () => {
     } catch (error) {
       console.error("Error in handleBuyNow:", error);
     }
-
   }
 
   useEffect(() => {
@@ -341,12 +343,14 @@ const ConfirmPageContent: React.FC = () => {
 
   console.log("order number: ", orderNumber);
   console.log("cart items:", cartItems);
+  console.log("cart id:    ", cartId);
 
   if (!hasPageLoaded) {
     return null;
   }
   // Returns
-  if ((totalQty === 0 && orderCompleted) || orderNumber === undefined || orderNumber === null) {
+  if ((totalQty === 0 && orderCompleted) ||
+    ((cartId === null) && (orderNumber === undefined || orderNumber === null))) {
     return <div><ExpiredPage/></div>
   } else if (is404Error) {
     router.push('/404');

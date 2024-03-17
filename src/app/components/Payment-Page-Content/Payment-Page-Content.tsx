@@ -51,22 +51,27 @@ const PaymentPageContent: React.FC = () => {
       const localCartData: any = localStorage.getItem('cart');
       const storedEmail: any = localStorage.getItem('email');
       setCartData(localCartData);
-      setEmail(storedEmail);
+      setEmail(storedEmail); // This updates the email state
       setIsGetLocalStorage(true);
-      const currentUrl = pathname;
-      if (currentUrl) {
-        if ((isGetLocalStorage) && (totalQty === 0 || cartData === null || cartData === undefined || storedEmail === null || currentUrl === '/payment')) {
-          console.log("##########----------- 404 ERROR ------------#########")
-          console.log("[[[[[[[[[[[ totalQty:   ", totalQty );
-          console.log("[[[[[[[[[[[ cartData:   ", cartData );
-          console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
-          console.log("##########----------- 404 ERROR ------------#########")
-          setIsGetLocalStorage(false);
-          setIs404Error(true);
-        }
+    }
+  }, []); // This effect runs once on component mount
+
+// Adjusted to use the email state directly.
+  useEffect(() => {
+    if (isGetLocalStorage) { // This runs after isGetLocalStorage is set to true
+      console.log("get local storage:    ", isGetLocalStorage);
+      console.log("cart Data is:   ", cartData);
+      if (cartId === null || cartData === null || cartData === undefined || email === null || pathname === '/payment' || pathname === '/payment/null') {
+        console.log("##########----------- 404 ERROR ------------#########")
+        console.log("[[[[[[[[[[[ cartData:   ", cartData );
+        console.log("[[[[[[[[[[[ email:      ", email );
+        console.log("[[[[[[[[[[[ currentUrl: ", pathname );
+        console.log("##########----------- 404 ERROR ------------#########")
+        // setIsGetLocalStorage(false);
+        setIs404Error(true);
       }
     }
-  }, []);
+  }, [isGetLocalStorage, cartData]); // Added email to the dependency list
 
   const [isContinuedToPayment, setIsContinuedToPayment] = useState(false);
 
@@ -1230,6 +1235,9 @@ const PaymentPageContent: React.FC = () => {
 
   console.log("order number is:  ", orderNumber);
   console.log('Email stored in local storage:', email);
+  console.log("404 error?:    ", is404Error);
+  console.log("isBrowser?:    ", isBrowser);
+  console.log("cartID is:    ", cartId);
 
   if (!hasPageLoaded) {
     return null;
@@ -1276,7 +1284,7 @@ const PaymentPageContent: React.FC = () => {
                     <div className="border-solid border-b border-foreground"></div>
                     <div className="pb-3"></div>
                   </div>
-                  <div className="border-red h-32 flex justify-between text-sm">
+                  <div className="flex justify-between text-sm">
                     <div className="flex xs:flex-col">
                       <h4 className="text-gray-400 flex-start w-20">Ship to</h4>
                       <div className="w-full flex flex-1 pr-8">{shippingAddressLineOne}, {shippingCity} {shippingState} {shippingZipcode}, {shippingCountry}

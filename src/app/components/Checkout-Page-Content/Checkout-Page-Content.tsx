@@ -34,27 +34,31 @@ const CheckoutPageContent: React.FC = () => {
   const [cartData, setCartData] = useState();
 
   useEffect(() => {
-    // Accessing localStorage safely inside useEffect
     if (isBrowser) {
       console.log("local storage is retrieved --------------------------!")
       const localCartData: any = localStorage.getItem('cart');
       setCartData(localCartData);
       setIsGetLocalStorage(true);
-      const currentUrl = pathname;
-      if (currentUrl) {
-        if ((isGetLocalStorage) && (totalQty === 0 || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null'))
-        {
-          console.log("##########----------- 404 ERROR ------------#########")
-          console.log("[[[[[[[[[[[ totalQty:   ", totalQty );
-          console.log("[[[[[[[[[[[ cartData:   ", cartData );
-          console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl );
-          console.log("##########----------- 404 ERROR ------------#########")
-          // setIsGetLocalStorage(false);
-          setIs404Error(true);
-        }
+    }
+  }, []); // This effect runs once on component mount to set local storage data
+
+  useEffect(() => {
+    // Error checks run after state updates for isGetLocalStorage
+    if (isGetLocalStorage) {
+      console.log("get local storage:    ", isGetLocalStorage);
+      console.log("cart Data is:   ", cartData);
+      const currentUrl = pathname; // Assuming pathname is a state or prop that is updated elsewhere
+      if (cartId === null || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null') {
+        console.log("##########----------- 404 ERROR ------------#########");
+        console.log("[[[[[[[[[[[ cartData:   ", cartData);
+        console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl);
+        console.log("##########----------- 404 ERROR ------------#########");
+        // setIsGetLocalStorage(false); // Usually, you wouldn't need to reset this for error checking logic
+        setIs404Error(true);
       }
     }
-  }, []);
+  }, [isGetLocalStorage]); // Depend on state vars that influence the error condition
+
 
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   const { isSessionExpired, expireSession } = useSessionExpired();
