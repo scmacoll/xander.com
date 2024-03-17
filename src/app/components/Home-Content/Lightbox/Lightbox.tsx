@@ -11,18 +11,23 @@ interface LightboxProps {
 }
 
 const Lightbox: React.FC<LightboxProps> = ({ card, onClose, numColumns }) => {
-
+  const handleContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent click from reaching the .lightbox
+  };
   return (
-    <div className={`${styles.lightbox} `}>
-        <div className={styles.lightboxWrapper}>
-          <div className={styles.lightboxContent}>
+    <div className={`${styles.lightbox} `}
+         onClick={onClose}>
+        <div className={`${styles.lightboxWrapper} `}>
+          <div className={`${styles.lightboxContent} z-50`}
+               onClick={handleContentClick}>
             <Card
               card={card}
               numColumns={numColumns}
               isOneColumn/>
-            <button className={`${styles.closeButton}`}
-                    onClick={onClose}
-            >
+            <button className={`${styles.closeButton}`} onClick={(e) => {
+              e.stopPropagation();
+              onClose();
+            }}>
               <svg
                 version="1.0"
                 xmlns="http://www.w3.org/2000/svg"
