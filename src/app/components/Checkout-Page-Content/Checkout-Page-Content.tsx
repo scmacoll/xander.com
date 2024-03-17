@@ -1390,8 +1390,8 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
                 <div id="clearCartWindow"
                      ref={clearCartWindowRef}
-                     className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:right-0 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0
-                    xs:translate-y-20 sm:translate-y-20 xs:translate-x-11 px-4 py-3 h-20 border-solid
+                     className={`${isClearCartWindowOpen ? '' : 'hidden'} absolute z-20 flex xs:left-1/4 sm:right-0 md:left-0 lg:left-0 xl:left-0 bottom-0 xxs:scale-105
+                    xs:translate-y-20 sm:translate-y-20 xxs:translate-x-0 xs:translate-x-11 px-4 py-3 h-20 border-solid
                     border-foreground border rounded-md bg-background
                     `}
                 >
@@ -1410,7 +1410,7 @@ const CheckoutPageContent: React.FC = () => {
                 {/*    sm:before:border-solid sm:before:content-[''] sm:before:absolute`}*/}
                 {/*>*/}
                   <div className={`flex flex-col`}>
-                    <p className="font-bold h-full flex">Clear cart and return to homepage?</p>
+                    <p className="font-bold h-full flex xxs:text-xs">Clear cart and return to homepage?</p>
                     <div className="text-sm font-bold h-full flex gap-1 items-end justify-around">
                       <button
                         className="text-foreground py-0.5 border-amazon-yellow border border-solid bg-amazon-yellow rounded-md w-full hover:border-transparent hover:text-white"
@@ -1662,6 +1662,7 @@ const CheckoutPageContent: React.FC = () => {
               </div>
             </aside>
           </div>
+
         </div>
         <footer id="checkoutFooter"
              className="bottom-0 flex justify-start w-full py-3 text-xs font-bold text-gray-500 mx-auto xs:max-w-532px sm:max-w-532px md:w-full lg:w-1120px">
