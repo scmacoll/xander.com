@@ -1370,7 +1370,8 @@ const CheckoutPageContent: React.FC = () => {
                 </div>
 
                 <div id="summaryBannerLeftSection"
-                     className="flex font-bold text-lg">
+                     className="flex font-bold text-lg items-center">
+                  <div className={`${isOrderSummaryHidden ? '' : 'pr-4'} text-greyed-out text-sm`}>({totalQty})</div>
                   <button id="summaryBannerBinButton"
                        className={`${isOrderSummaryHidden ? 'hidden' : ''}
                       relative group flex items-center`}
