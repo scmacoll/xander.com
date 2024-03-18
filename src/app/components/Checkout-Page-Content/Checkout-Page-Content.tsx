@@ -1052,7 +1052,8 @@ const CheckoutPageContent: React.FC = () => {
                         <div className="inline-flex">
                           <input type="checkbox"
                                  value="1"
-                                 className="accent-foreground"/>
+                                 className="accent-background"
+                          />
                         </div>
                         <div className="inline-flex pl-2 text-sm">
                           Email me with news and offers

@@ -77,8 +77,10 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
           <div className={`flex`}>
             <button
               id="quoteHeart"
-              onClick={handleQuoteHeartClick}
-              className={`z-20`}>
+              onClick={(e) => {
+                e.stopPropagation();
+                handleQuoteHeartClick();}}
+              className={`z-50`}>
               <svg
                 version="1.0"
                 xmlns="http://www.w3.org/2000/svg"

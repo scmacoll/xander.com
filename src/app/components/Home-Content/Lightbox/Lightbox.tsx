@@ -19,7 +19,8 @@ const Lightbox: React.FC<LightboxProps> = ({ card, onClose, numColumns }) => {
          onClick={onClose}>
         <div className={`${styles.lightboxWrapper} `}>
           <div className={`${styles.lightboxContent} z-50`}
-               onClick={handleContentClick}>
+               onClick={handleContentClick}
+          >
             <Card
               card={card}
               numColumns={numColumns}

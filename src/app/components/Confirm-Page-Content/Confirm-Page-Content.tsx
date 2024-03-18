@@ -694,16 +694,17 @@ const ConfirmPageContent: React.FC = () => {
             className={`${styles.featureSimilar} flex w-full`}>
             <h2 className={`${styles.similarText} text-xl`}>RECOMMENDED BOOKS</h2>
             <div className={`${styles.similarContainer} border-y border-solid border-foreground`}>
-              <div className={`${styles.similarBooks} `}>
+
+              <div className={`${styles.similarBooks}`}>
 
                 {books.map((book, index) => (
-                  <div key={index} className={`${styles.bookBlock} min-w-20 w-full h-full`}>
+                  <div key={index} className={`${styles.bookBlock} w-full h-full`}>
                     <div id="bookImg"
                       className="flex justify-center xs:w-16 sm:w-24 md:w-44 lg:w-44 xl:w-44 mx-auto object-fit">
                       <div className="flex-grow bg-white"></div>
                       {/* Left white fill */}
                       <img
-                        className={`${styles.responsiveImage}`}
+                        className={`${styles.responsiveImage} xxs:px-1`}
                         src={`/${book.cell_name}.jpg`}
                         alt={`${book.book_title} ${book.cell_name}`}
                         // width="115"
@@ -730,7 +731,7 @@ const ConfirmPageContent: React.FC = () => {
                             <div>
                               <button
                                 id="bookHeart"
-                                className={`${styles.similarHeart} `}
+                                className={`${styles.similarHeart}`}
                                 onClick={() => handleBookHeartClick(book.book_title)} // Call the click handler here
                               >
                                 <svg
@@ -807,6 +808,7 @@ const ConfirmPageContent: React.FC = () => {
                 ))}
 
               </div>
+
             </div>
           </div>
           <footer id="checkoutFooter"

@@ -1531,9 +1531,9 @@ const PaymentPageContent: React.FC = () => {
                           </div>
                         </div>
 
-                        <div className="flex gap-3 h-14">
+                        <div className="flex gap-3 min-h-14 h-fit">
                           <div id="cardExpiryInputContainer"
-                               className={`${cardDetails.cardExpiryError ? 'border-custom-red' : 'border-foreground'} border border-solid w-full`}>
+                               className={`${cardDetails.cardExpiryError ? 'border-custom-red' : 'border-foreground'} border border-solid w-full h-fit`}>
                             <label
                               className={`transition-opacity duration-500 ${showCardExpiryLabel ? 'h-fit pt-1 opacity-100' : 'opacity-0 h-0 pt-0 overflow-hidden'} flex items-end text-xs px-3 font-bold text-greyed-out`}>
                               Expiration date (MM/YY)

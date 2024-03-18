@@ -113,12 +113,8 @@
 
 .similarHeart {
   display: inline-flex;
-  z-index: 2;
+  z-index: 50;
   justify-content: center;
-}
-
-.similarHeart:hover svg path {
-  fill: rgb(112, 45, 45);
 }
 
 .similarBag {

@@ -49,6 +49,7 @@ const pageNumber = ['5 L', '4 L', '3 L', '2 L', '1', '2 R', '3 R', '4 R', '5 R']
 
 const Content: React.FC<ContentProps> = ({isCardButtonClicked, setShowFooter}) => {
 
+
   const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
   // >>>>>> New code
   const isBrowser = typeof window !== 'undefined';
