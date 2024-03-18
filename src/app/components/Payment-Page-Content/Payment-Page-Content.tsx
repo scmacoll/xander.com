@@ -1868,8 +1868,9 @@ const PaymentPageContent: React.FC = () => {
               <div className="py-3"></div>
 
               <div className={`${isReviewed ? '' : 'hidden'} flex justify-between`}>
-                <div className="flex">
-                  <div className="text-lg font-medium">Total</div>
+                <div className={`flex items-center`}>
+                  <h4 className="text-lg font-medium">Total</h4>
+                  <div className={`pl-2 text-greyed-out text-md font-bold`}>({totalQty})</div>
                 </div>
                 <div className="flex items-center">
                   <div ref={bottomRef}
@@ -2039,7 +2040,7 @@ const PaymentPageContent: React.FC = () => {
 
                 <div id="summaryBannerLeftSection"
                      className="flex items-center font-bold text-lg">
-                  <div className={`${isOrderSummaryHidden ? '' : 'pr-4'} text-greyed-out text-sm`}>({totalQty})</div>
+                  <div className={`${isOrderSummaryHidden ? '' : 'hidden'} text-greyed-out text-sm`}>({totalQty})</div>
                   <button id="summaryBannerBinButton"
                        disabled={isLoading || isNavigating || isReviewing || isReviewed}
                        className={`${isOrderSummaryHidden ? 'hidden' : ''}
@@ -2261,8 +2262,9 @@ const PaymentPageContent: React.FC = () => {
                       <div className={`border-foreground border-t border-solid`}></div>
                     </div>
                     <div className={`flex justify-between`}>
-                      <div className={` flex`}>
-                        <div className="text-lg font-medium">Total</div>
+                      <div className={`flex items-center`}>
+                        <h4 className="text-lg font-medium">Total</h4>
+                        <div className={`pl-2 text-greyed-out text-md font-bold`}>({totalQty})</div>
                       </div>
                       <div className="flex items-center">
                         <div ref={bottomRef}
@@ -2293,31 +2295,13 @@ const PaymentPageContent: React.FC = () => {
                                     className={`group xs:hidden sm:hidden`}
                                     onClick={handleOpenClearCartWindow}
                             >
-                              <div id="binButtonDefaultRightSide"
-                                   className="w-fit h-fit group-hover:hidden">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     className="icon icon-tabler icon-tabler-trash w-6 h-6" viewBox="00 24 24"
-                                     style={{stroke: '#d2cfca2b'}}
-                                     fill="none">
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                  <path d="M4 7l16 0"/>
-                                  <path d="M10 11l0 6"/>
-                                  <path d="M14 11l0 6"/>
-                                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
-                                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
-                                </svg>
-                              </div>
-                              <div id="binButtonHoverRightSide"
-                                   className="w-fit h-fit">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     className="hidden group-hover:block icon icon-tabler icon-tabler-trash w-6 h-6 stroke-custom-red"
-                                     viewBox="00 24 24"
-                                     fill="none">
-                                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                  <path d="M4 7h16"/>
-                                  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/>
-                                  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>
-                                  <path d="M10 12l4 4m0 -4l-4 4"/>
+                              <div id="binButtonDefault"
+                                   className={`${isClearCartWindowOpen ? 'pointer-events-none' : ''} w-fit h-fit`}>
+                                <svg className="flex h-3 px-0.5 fill-foreground hover:fill-custom-red" focusable="false"
+                                     data-icon="trash" role="img"
+                                     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                  <path fill=""
+                                        d="M0 84V56c0-13.3 10.7-24 24-24h112l9.4-18.7c4-8.2 12.3-13.3 21.4-13.3h114.3c9.1 0 17.4 5.1 21.5 13.3L312 32h112c13.3 0 24 10.7 24 24v28c0 6.6-5.4 12-12 12H12C5.4 96 0 90.6 0 84zm415.2 56.7L394.8 467c-1.6 25.3-22.6 45-47.9 45H101.1c-25.3 0-46.3-19.7-47.9-45L32.8 140.7c-.4-6.9 5.1-12.7 12-12.7h358.5c6.8 0 12.3 5.8 11.9 12.7z"></path>
                                 </svg>
                               </div>
                             </button>

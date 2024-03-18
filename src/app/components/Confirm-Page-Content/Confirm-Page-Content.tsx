@@ -607,7 +607,8 @@ const ConfirmPageContent: React.FC = () => {
                   </button>
                 </div>
                 <div id="summaryBannerLeftSection"
-                     className="font-bold text-lg">
+                     className="flex items-center font-bold text-lg">
+                  <div className={`${isOrderSummaryHidden ? '' : 'hidden'} text-greyed-out text-sm`}>({totalQty})</div>
                   <span className="pl-4">${totalPrice.toFixed(2)}</span>
                 </div>
               </div>
@@ -662,8 +663,9 @@ const ConfirmPageContent: React.FC = () => {
                       <div className={`border-foreground border-t border-solid`}></div>
                     </div>
                     <div className={`flex justify-between`}>
-                      <div className={` flex`}>
-                        <div className="text-lg font-medium">Total</div>
+                      <div className={`flex items-center`}>
+                        <h4 className="text-lg font-medium">Total</h4>
+                        <div className={`pl-2 text-greyed-out text-md font-bold`}>({totalQty})</div>
                       </div>
                       <div className="flex items-center">
                         <div ref={bottomRef}
