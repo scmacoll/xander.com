@@ -80,17 +80,20 @@ const Card: React.FC<CardProps> = ({ card, onInteraction }) => {
               onClick={(e) => {
                 e.stopPropagation();
                 handleQuoteHeartClick();}}
-              className={`z-50`}>
+              className={`z-50 bg-transparent border-transparent`}
+            >
               <svg
                 version="1.0"
                 xmlns="http://www.w3.org/2000/svg"
                 width="3em"
                 height="3em"
                 viewBox="0 0 752.000000 752.000000"
-                preserveAspectRatio="xMidYMid meet">
+                preserveAspectRatio="xMidYMid meet"
+                className={`bg-transparent border-transparent`}
+                >
                 <g
                   transform="translate(100.000000,752.000000) scale(0.100000,-0.100000)"
-                  className={`${quoteHearts[card.quote] ? 'fill-custom-red' : 'fill-greyed-out'}`}
+                  className={`${quoteHearts[card.quote] ? 'fill-custom-red' : 'fill-greyed-out'} bg-transparent border-transparent`}
                   stroke="none">
                   <path
                     d="M2496 5665 c-595 -113 -1011 -636 -982 -1235 13 -273 103 -511 274
