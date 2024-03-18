@@ -589,6 +589,15 @@ const CheckoutPageContent: React.FC = () => {
       window.location.href = '/';
       handleCloseClearCartWindow();
       localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+
+      // setTimeout(() => {
+      //   if (window.location.pathname !== '/') {
+      //     window.location.href = '/';
+      //     handleCloseClearCartWindow();
+      //     localStorage.setItem('cart', JSON.stringify({ items: [], totalPrice: 0, totalQty: 0, cartId: null }));
+      //   }
+      // }, 1000);
+
     }
     // // @ts-ignore
     // clearCart();
