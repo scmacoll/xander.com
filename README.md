@@ -1,34 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Firefox_Screenshot_2024-03-19T00-41-59 926Z](https://github.com/scmacoll/xander.com/assets/85879687/85484770-a848-4920-b6c1-b5942f7cc5a4)# [xandria.dev](https://xandria.dev/)
+Quote Reference & eCommerce Site
 
-## Getting Started
+#### Introduction
+xandria.dev is a full-stack web application designed to offer users an engaging experience navigating through famous quotes presented in a grid layout, coupled with integrated eCommerce features for purchasing related merchandise. This project leverages the MERN stack along with TypeScript and Tailwind CSS, focusing on asynchronous state management, security, and a seamless user interface.
 
-First, run the development server:
+#### Features
+- **eCommerce Checkout System**: Built from scratch using Next.js, featuring session management, error handling, and secure cart functionality.
+  -  [CartContext.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/context/CartContext.tsx)
+  -  [ConfirmedOrderContext.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/context/ConfirmedOrderContext.tsx)
+- **RESTful API for Data Management**: Utilizes Express.js & Node.js for CRUD operations on cart items, ensuring dynamic content interaction.
+  - [Server.ts](https://github.com/scmacoll/xander.com/blob/main/src/server/server.ts)
+  - [cards.ts](https://github.com/scmacoll/xander.com/blob/main/src/server/routes/cards.ts)
+  - [getCards.ts](https://github.com/scmacoll/xander.com/blob/main/src/pages/api/getCards.ts)
+  - [CartContext.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/context/CartContext.tsx)
+- **Advanced Sorting Algorithm**: Employs OOP principles and React hooks to sort MongoDB data effectively within the grid UI.
+  - [Content.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Home-Content/Content.tsx)
+- **Enhanced UI Components**:
+  - **Focus Button**: Improves visual emphasis on content using Tailwind CSS.
+    - [Header.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Header/Header.tsx)
+  - **Carousel with Full Circular Loop**: Facilitates continuous lateral navigation through content.
+    - [Content.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Home-Content/Content.tsx)
+  - **Lightbox Feature**: Expands card content on click for detailed viewing.
+    - [Lightbox.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Home-Content/Lightbox/Lightbox.tsx) , [Lightbox.module.scss](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Home-Content/Lightbox/Lightbox.module.scss)
+    - [CardClicked.tsx](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Home-Content/Lightbox/CardClicked.tsx) , [CardClicked.module.scss](https://github.com/scmacoll/xander.com/blob/main/src/app/components/Home-Content/Lightbox/CardClicked.module.scss)
+- **Continuous Integration**: Adopted CI methodologies for efficient version control with Git.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Technology Stack
+- **Frontend**: Next.js, React, Tailwind CSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Other Technologies**: TypeScript, Context API, Netlify
