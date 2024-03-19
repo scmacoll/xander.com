@@ -15,9 +15,3 @@ export default async function handler(
     res.status(500).json({ error: 'Error fetching cards' });
   }
 }
-
-
-// Frontend Usage
-//
-// You use the URI /api/getCards on your homepage with Axios to fetch the data. This hits the Next.js API route you defined here, which then requests data from your Express backend and returns it to the frontend.
-//   This approach encapsulates your actual data source and provides flexibility for future adjustments in how you fetch or manage data without changing the frontend code.
