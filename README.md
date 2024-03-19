@@ -1,8 +1,7 @@
 # [xandria.dev](https://xandria.dev/)
 Quote Reference & eCommerce Site
 
-<img width="744" alt="Quote-Reference-Library" src="https://github.com/scmacoll/xander.com/assets/85879687/e5a26b52-9c25-4a97-a983-2fd6aca2ac45">
-
+![Quote-Reference-Library](https://github.com/scmacoll/xander.com/assets/85879687/fface31b-cade-4cd9-a2ef-ecc48623f1b1)
 #### Introduction
 xandria.dev is a full-stack web application designed to offer users an engaging experience navigating through famous quotes presented in a grid layout, coupled with integrated eCommerce features for purchasing related merchandise. This project leverages the MERN stack along with TypeScript and Tailwind CSS, focusing on asynchronous state management, security, and a seamless user interface.
 
