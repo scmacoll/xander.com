@@ -11,23 +11,10 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from "next/link";
 
 
-
 const CheckoutPageContent: React.FC = () => {
   console.log("[[[[[[[[[[[[[[[[ checkout page rendered ]]]]]]]]]]]]]]]]]]]");
 
-
   const [isGetLocalStorage, setIsGetLocalStorage] = useState(false);
-
-  // >>>>>>>>>>> Old Code
-  //
-  // const isBrowser = typeof window !== 'undefined';
-  // // Use conditional (ternary) operator to access localStorage only if isBrowser is true
-  // const cartData = isBrowser ? localStorage.getItem('cart') : null
-  //
-  // >>>>>>>>>>> Old Code
-
-
-  // >>>>>>>>>>> New Code
   const isBrowser = typeof window !== 'undefined';
   const router = useRouter();
   const pathname = usePathname();
@@ -40,25 +27,22 @@ const CheckoutPageContent: React.FC = () => {
       setCartData(localCartData);
       setIsGetLocalStorage(true);
     }
-  }, []); // This effect runs once on component mount to set local storage data
+  }, []);
 
   useEffect(() => {
-    // Error checks run after state updates for isGetLocalStorage
     if (isGetLocalStorage) {
       console.log("get local storage:    ", isGetLocalStorage);
       console.log("cart Data is:   ", cartData);
-      const currentUrl = pathname; // Assuming pathname is a state or prop that is updated elsewhere
+      const currentUrl = pathname;
       if (cartId === null || cartData === null || cartData === undefined || currentUrl === '/checkout' || currentUrl === '/checkout/null') {
         console.log("##########----------- 404 ERROR ------------#########");
         console.log("[[[[[[[[[[[ cartData:   ", cartData);
         console.log("[[[[[[[[[[[ currentUrl:   ", currentUrl);
         console.log("##########----------- 404 ERROR ------------#########");
-        // setIsGetLocalStorage(false); // Usually, you wouldn't need to reset this for error checking logic
         setIs404Error(true);
       }
     }
-  }, [isGetLocalStorage]); // Depend on state vars that influence the error condition
-
+  }, [isGetLocalStorage]);
 
   const { orderCompleted, setOrderCompleted } = useConfirmedOrder();
   const { isSessionExpired, expireSession } = useSessionExpired();
